@@ -1,0 +1,37 @@
+<network>
+  <name>resnet50head</name>
+  <description>ResNet50 trained on ImageNet</description>
+  <type>feature_vector</type>
+  <date>2019-08-07_161638</date>
+  <protobuf>frozen_model.pb</protobuf>
+  <params/>
+  <inputs>
+    <input>
+      <name>image</name>
+      <operation>input_1</operation>
+      <height>224</height>
+      <width>224</width>
+      <channels>3</channels>
+    </input>
+  </inputs>
+  <outputs>
+    <output>
+      <name>vector</name>
+      <operation>global_average_pooling2d/Mean</operation>
+      <height>2048</height>
+      <width>0</width>
+      <channels>0</channels>
+    </output>
+  </outputs>
+  <labels/>
+  <prepro>
+    <param>255</param>
+    <param>0</param>
+    <param>1</param>
+  </prepro>
+  <source_data>none</source_data>
+  <accuracy>0</accuracy>
+  <precision>0</precision>
+  <recall>0</recall>
+  <f1score>0</f1score>
+</network>

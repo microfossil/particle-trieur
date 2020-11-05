@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import ordervschaos.particletrieur.app.controls.SymbolLabel?>
+
+<HBox alignment="CENTER_LEFT" spacing="7.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.ParticleInformationProgressViewController">
+    <children>
+        <VBox alignment="CENTER_RIGHT" spacing="3.0">
+            <children>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Label fx:id="labelProgress" text="No images" />
+                        <Pane minWidth="7.0" HBox.hgrow="ALWAYS" />
+                        <StackPane>
+                            <children>
+                                <Button fx:id="buttonPlayPause" mnemonicParsing="false">
+                                    <graphic>
+                                        <SymbolLabel fx:id="symbolLabelPlayPause" symbol="featherpause" symbolSize="12.0" />
+                                    </graphic>
+                                    <styleClass>
+                                        <String fx:value="flat-button" />
+                                        <String fx:value="small-button" />
+                                    </styleClass>
+                                </Button>
+                                <SymbolLabel fx:id="symbolLabelTick" symbol="feathercheckcircle" symbolSize="14.0" visible="false" />
+                            </children>
+                        </StackPane>
+                    </children>
+                </HBox>
+                <ProgressBar fx:id="progressIndicator" maxWidth="1.7976931348623157E308" prefWidth="180.0" progress="0.0" />
+            </children>
+        </VBox>
+    </children>
+</HBox>

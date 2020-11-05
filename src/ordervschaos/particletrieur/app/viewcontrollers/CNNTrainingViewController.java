@@ -1,0 +1,416 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ordervschaos.particletrieur.app.viewcontrollers;
+
+import com.google.inject.Inject;
+import javafx.scene.control.Label;
+import javafx.stage.FileChooser;
+import ordervschaos.particletrieur.app.App;
+import ordervschaos.particletrieur.app.AppPreferences;
+import ordervschaos.particletrieur.app.FxmlLocation;
+import ordervschaos.particletrieur.app.controls.AlertEx;
+import ordervschaos.particletrieur.app.controls.BasicDialogs;
+import ordervschaos.particletrieur.app.models.Supervisor;
+import ordervschaos.particletrieur.app.models.network.classification.NetworkInfo;
+import ordervschaos.particletrieur.app.models.network.training.TrainingLaunchInfo;
+import ordervschaos.particletrieur.app.services.network.CNNTrainingService;
+import ordervschaos.particletrieur.app.services.network.TrainingNetworkDescriptionService;
+import ordervschaos.particletrieur.app.AbstractDialogController;
+import ordervschaos.particletrieur.app.viewcontrollers.network.NetworkTrainingProgressViewController;
+import javafx.beans.binding.Bindings;
+import javafx.concurrent.Service;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.layout.*;
+import javafx.stage.DirectoryChooser;
+import javafx.util.StringConverter;
+import org.controlsfx.control.textfield.CustomTextField;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.net.URL;
+import java.util.*;
+
+/**
+ * FXML Controller class
+ *
+ * @author Ross Marchant <ross.g.marchant@gmail.com>
+ */
+@FxmlLocation("views/CNNTrainingView.fxml")
+public class CNNTrainingViewController extends AbstractDialogController implements Initializable {
+
+    @FXML Label labelPythonLocation;
+    @FXML CheckBox checkBoxUseOther;
+    @FXML CheckBox checkBoxUseSplit;
+    @FXML GridPane gridPaneSplit;
+    @FXML
+    CustomTextField textFieldName;
+    @FXML
+    HBox hboxInputFolder;
+    @FXML
+    CheckBox checkBoxApplyAugmentation;
+    @FXML
+    CheckBox checkBoxBalanceClassWeights;
+    @FXML
+    Spinner<Integer> spinnerBatchSize;
+    @FXML
+    RadioButton radioButtonInputThisProject;
+    @FXML
+    RadioButton radioButtonInputCloudZipFile;
+    @FXML
+    RadioButton radioButtonInputFolder;
+    @FXML
+    CustomTextField textFieldInputFolder;
+    @FXML
+    Spinner<Integer> spinnerMinImagesPerClass;
+    @FXML
+    Spinner<Double> spinnerTestSplitFraction;
+    @FXML
+    CustomTextField textFieldCloudZipFile;
+    @FXML
+    CustomTextField textFieldOutputFolder;
+    @FXML
+    CheckBox checkBoxOutputSaveModel;
+    @FXML
+    CheckBox checkBoxOutputSaveMislabeled;
+    @FXML
+    ComboBox<TrainingLaunchInfo> comboBoxCNNType;
+    @FXML
+    ComboBox<Integer> comboBoxInputSize;
+    @FXML
+    ComboBox<String> comboBoxColourMode;
+    @FXML
+    Spinner<Integer> spinnerAlrEpochs;
+    @FXML
+    Label labelNetworkDescription;
+    @FXML
+    CheckBox checkBoxUseMemoryMapping;
+
+    @Inject
+    Supervisor supervisor;
+
+    private static AppPreferences appPrefs = new AppPreferences();
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+        comboBoxCNNType.getItems().addAll(TrainingNetworkDescriptionService.getDescriptions());
+        comboBoxCNNType.setCellFactory(param -> {
+            HBox hBox = new HBox();
+            Pane pane = new Pane();
+            pane.setPrefWidth(5);
+            VBox vBox = new VBox();
+            Label name = new Label();
+            name.setStyle("-fx-font-weight: bold;");
+            Label description = new Label();
+            vBox.getChildren().addAll(name, description);
+            hBox.getChildren().addAll(pane, vBox);
+            HBox.setMargin(pane, new Insets(0,7,0,0));
+            ListCell<TrainingLaunchInfo> cell = new ListCell<TrainingLaunchInfo>() {
+                @Override
+                protected void updateItem(TrainingLaunchInfo item, boolean empty) {
+                    int pos = comboBoxCNNType.getItems().indexOf(item) % 2;
+                    super.updateItem(item, empty);
+                    if (item == null || empty) {
+                        setGraphic(null);
+                    } else {
+                        if (item.networkType.startsWith("base_cyclic") || item.networkType.startsWith("resnet_cyclic")) {
+                            pane.setStyle("-fx-background-color: darkorange;");
+                        }
+                        else if (item.networkType.endsWith("tl")) {
+                            pane.setStyle("-fx-background-color: darkgreen;");
+                        }
+                        else {
+                            pane.setStyle("-fx-background-color: darkred;");
+                        }
+                        name.setText(item.name);
+                        description.setText(item.description);
+                        setGraphic(hBox);
+                    }
+                }
+            };
+            return cell;
+        });
+        comboBoxCNNType.setConverter(new StringConverter<TrainingLaunchInfo>() {
+            @Override
+            public String toString(TrainingLaunchInfo object) {
+                return object.name;
+            }
+
+            @Override
+            public TrainingLaunchInfo fromString(String string) {
+                return null;
+            }
+        });
+
+        comboBoxInputSize.setConverter(new StringConverter<Integer>() {
+            @Override
+            public String toString(Integer object) {
+                return Integer.toString(object);
+            }
+
+            @Override
+            public Integer fromString(String string) {
+                Integer result;
+                try {
+                    result = Integer.parseInt(string);
+                } catch (NumberFormatException e) {
+                    result = 0;
+                }
+                return result;
+            }
+        });
+        comboBoxInputSize.getItems().addAll(64, 96, 128, 160, 192, 224, 256);
+        comboBoxInputSize.getSelectionModel().select(2);
+
+        comboBoxColourMode.getItems().addAll("Greyscale", "Colour (RGB)");
+        comboBoxColourMode.getSelectionModel().select(0);
+
+        spinnerAlrEpochs.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, 10, 5));
+        spinnerBatchSize.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(16, 256, 64, 16));
+        spinnerMinImagesPerClass.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(10, 100000, 40, 5));
+        spinnerTestSplitFraction.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 0.9, 0.2, 0.05));
+
+        hboxInputFolder.disableProperty().bind(Bindings.not(radioButtonInputFolder.selectedProperty()));
+        textFieldCloudZipFile.disableProperty().bind(Bindings.not(radioButtonInputCloudZipFile.selectedProperty()));
+
+        comboBoxCNNType.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            labelNetworkDescription.setText(newValue.description);
+            comboBoxInputSize.setValue(newValue.imageWidth);
+            if (newValue.imageChannels == 1) comboBoxColourMode.getSelectionModel().selectFirst();
+            else comboBoxColourMode.getSelectionModel().selectLast();
+            if (newValue.networkType.endsWith("_tl")) {
+                //comboBoxColourMode.setDisable(true);
+                checkBoxApplyAugmentation.setDisable(true);
+            }
+            else {
+                //comboBoxColourMode.setDisable(false);
+                checkBoxApplyAugmentation.setDisable(false);
+            }
+            if (textFieldName.getText().equals("") || textFieldName.getText().equals(oldValue.name)) {
+                textFieldName.setText(newValue.name);
+            }
+        });
+        comboBoxCNNType.getSelectionModel().select(0);
+
+        gridPaneSplit.disableProperty().bind(Bindings.not(checkBoxUseSplit.selectedProperty()));
+
+        radioButtonInputThisProject.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue && textFieldOutputFolder.getText().equals("") && supervisor.project.getFile().exists()) {
+                textFieldOutputFolder.setText(supervisor.project.getFile().getParent());
+            }
+        });
+
+        //Spinner hack
+        for (Field field : getClass().getDeclaredFields()) {
+            try {
+                Object obj = field.get(this);
+                if (obj != null && obj instanceof Spinner)
+                    ((Spinner) obj).focusedProperty().addListener((observable, oldValue, newValue) -> {
+                        if (!newValue) {
+                            ((Spinner) obj).increment(0);
+                        }
+                    });
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        labelPythonLocation.setText("Python location: " + CNNTrainingService.getAnacondaInstallationLocation());
+    }
+
+    public TrainingLaunchInfo getLaunchInfo() {
+
+        TrainingLaunchInfo info = new TrainingLaunchInfo();
+        TrainingLaunchInfo networkInfo = comboBoxCNNType.getSelectionModel().getSelectedItem();
+
+        //Input
+        if (radioButtonInputFolder.isSelected()) {
+            info.inputSource = textFieldInputFolder.getText();
+        }
+        else if (radioButtonInputCloudZipFile.isSelected()) {
+            info.inputSource = textFieldCloudZipFile.getText();
+        }
+        else {
+            info.inputSource = supervisor.project.getFile().getAbsolutePath();
+        }
+
+        info.minCountPerClass = spinnerMinImagesPerClass.getValue();
+        info.trainTestSplit = checkBoxUseSplit.isSelected() ? spinnerTestSplitFraction.getValue() : 0.0;
+        info.mapOthers = checkBoxUseOther.isSelected();
+        info.useMemoryMapping = checkBoxUseMemoryMapping.isSelected();
+
+        //Output
+        info.outputDirectory = textFieldOutputFolder.getText();
+        info.saveModel = checkBoxOutputSaveModel.isSelected();
+        info.saveMislabeled = checkBoxOutputSaveMislabeled.isSelected();
+
+        //Network
+        info.networkType = networkInfo.networkType;
+        info.name = textFieldName.getText();
+        info.description = "";
+        info.numFilters = networkInfo.numFilters;
+
+        //Image Input
+        info.imageHeight = (comboBoxInputSize.getValue());
+        info.imageWidth = (comboBoxInputSize.getValue());
+        if (comboBoxColourMode.getSelectionModel().getSelectedIndex() == 0) {
+            info.imageChannels = 1;
+        } else {
+            info.imageChannels = 3;
+        }
+
+        //Augmentation
+        info.useAugmentation = checkBoxApplyAugmentation.isSelected();
+
+        //Training
+        info.useClassWeights = checkBoxBalanceClassWeights.isSelected();
+        info.batchSize = spinnerBatchSize.getValue();
+        info.alrEpochs = spinnerAlrEpochs.getValue();
+
+        return info;
+    }
+
+    @FXML
+    private void handleSelectInputFolder(ActionEvent event) {
+        File folder = new File(textFieldInputFolder.getText());
+        if (!folder.exists()) folder = new File(App.getPrefs().getExportPath());
+        if (!folder.exists()) folder = new File(System.getProperty("user.home"));
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setInitialDirectory(folder);
+        chooser.setTitle("Choose the folder containing the images for training");
+        folder = chooser.showDialog(this.stage);
+        if (folder != null) {
+            textFieldInputFolder.setText(folder.getAbsolutePath());
+        }
+    }
+
+    @FXML
+    private void handleSelectOutputFolder(ActionEvent event) {
+        File folder = new File(textFieldOutputFolder.getText());
+        if (!folder.exists()) {
+            if (radioButtonInputThisProject.isSelected()) {
+                try {
+                    folder = supervisor.project.getFile().getParentFile();
+                }
+                catch (Exception ex) {
+
+                }
+            }
+            else {
+                folder = new File(App.getPrefs().getExportPath());
+                if (!folder.exists()) {
+                    folder = new File(System.getProperty("user.home"));
+                }
+            }
+        }
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setInitialDirectory(folder);
+        chooser.setTitle("Choose the folder to save the trained network to");
+        folder = chooser.showDialog(this.stage);
+        if (folder != null) {
+            textFieldOutputFolder.setText(folder.getAbsolutePath());
+        }
+    }
+
+    @FXML
+    private void handleShowFolder(ActionEvent event) {
+        File file = new File(textFieldOutputFolder.getText());
+        if (file.exists()) {
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                desktop.open(file);
+            } catch (IOException e) {
+                BasicDialogs.ShowException("Error opening folder", e);
+            }
+        }
+    }
+
+    @FXML
+    private void handleUpdateMISO(ActionEvent event) {
+        CNNTrainingService trainingService = new CNNTrainingService();
+        trainingService.updateMISO();
+    }
+
+    @FXML
+    private void handleUpdatePythonLocation(ActionEvent event) {
+        String python = appPrefs.getPythonPath();
+        if (python.equals("") || !(new File(python).exists())) python = System.getProperty("user.home");
+        FileChooser fc = new FileChooser();
+        fc.setInitialDirectory(new File(python).getParentFile());
+        File file = fc.showOpenDialog(App.getWindow());
+        //Open
+        if (file != null) {
+            appPrefs.setPythonPath(file.getAbsolutePath());
+            labelPythonLocation.setText("Python location: " + file.getAbsolutePath());
+        }
+    }
+
+    @FXML
+    private void handleLaunch(ActionEvent event) {
+        CNNTrainingService trainingService = new CNNTrainingService();
+        if (trainingService.getAnacondaInstallationLocation() == null) {
+            BasicDialogs.ShowError("Python Missing", "Python could not be found at any of the default locations.\nPlease update its location");
+        }
+        else {
+            trainingService.launch(getLaunchInfo());
+        }
+    }
+
+    @FXML
+    private void handleCreateScript(ActionEvent event) {
+
+        TrainingLaunchInfo info = getLaunchInfo();
+        CNNTrainingService trainingService = new CNNTrainingService();
+//        f (trainingService.getAnacondaInstallationLocation() == null) {
+//            BasicDialogs.ShowError("Python Missing", "Python could not be found at any of the default locations.\nPlease update its location");
+//        }
+//        else {i
+            String script = trainingService.getLaunchInfoScript(info);
+
+            final Clipboard clipboard = Clipboard.getSystemClipboard();
+            final ClipboardContent content = new ClipboardContent();
+            content.putString(script);
+            clipboard.setContent(content);
+
+            AlertEx alert = new AlertEx(Alert.AlertType.INFORMATION, "Script has been copied to clipboard", ButtonType.OK);
+            alert.setHeaderText("Script Generated");
+            alert.showAndWait();
+//        }
+    }
+
+    @Override
+    public void postDialogSetup() {
+        ((BorderPane)this.root).setPadding(new Insets(0));
+    }
+
+    @Override
+    public void processDialogResult(ButtonType buttonType) {
+
+    }
+
+    @Override
+    public String getHeader() {
+        return "CNN Training";
+    }
+
+    @Override
+    public String getSymbol() {
+        return "featheractivity";
+    }
+
+    @Override
+    public ButtonType[] getButtonTypes() {
+        return new ButtonType[] { ButtonType.CLOSE };
+    }
+}

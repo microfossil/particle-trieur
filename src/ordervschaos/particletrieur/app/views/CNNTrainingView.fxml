@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import ordervschaos.particletrieur.app.controls.SymbolLabel?>
+<?import org.controlsfx.control.textfield.CustomTextField?>
+
+<BorderPane prefHeight="640.0" prefWidth="800.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.CNNTrainingViewController">
+    <center>
+        <GridPane hgap="21.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0" />
+                <ColumnConstraints hgrow="SOMETIMES" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <VBox prefHeight="200.0" prefWidth="100.0" spacing="7.0" GridPane.columnIndex="1">
+                    <children>
+                        <HBox alignment="CENTER_LEFT">
+                            <children>
+                                <Label styleClass="header" text="Network" />
+                                <Pane HBox.hgrow="ALWAYS" />
+                                <Button mnemonicParsing="false" styleClass="flat-button" text="Defaults" visible="false">
+                                    <graphic>
+                                        <SymbolLabel symbol="featherrefreshccw" />
+                                    </graphic>
+                                </Button>
+                            </children>
+                        </HBox>
+                  <Label styleClass="subheader" text="Name" />
+                  <CustomTextField fx:id="textFieldName" promptText="Name to identify the network" />
+                        <Label styleClass="subheader" text="Type" />
+                        <ComboBox fx:id="comboBoxCNNType" maxWidth="1.7976931348623157E308" />
+                        <Label fx:id="labelNetworkDescription" wrapText="true" />
+                        <Label styleClass="subheader" text="Input">
+                            <VBox.margin>
+                                <Insets top="7.0" />
+                            </VBox.margin>
+                        </Label>
+                        <GridPane hgap="14.0" vgap="7">
+                            <Label text="Image size:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <ComboBox fx:id="comboBoxInputSize" editable="true" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
+                            <Label text="Colour mode:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <ComboBox fx:id="comboBoxColourMode" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="-Infinity" />
+                                <ColumnConstraints maxWidth="160.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints />
+                                <RowConstraints />
+                            </rowConstraints>
+                        </GridPane>
+                        <Label styleClass="subheader" text="Augmentation">
+                            <VBox.margin>
+                                <Insets top="7.0" />
+                            </VBox.margin>
+                        </Label>
+                        <CheckBox fx:id="checkBoxApplyAugmentation" selected="true" text="Apply augmentation" />
+                        <Label styleClass="subheader" text="Training">
+                            <VBox.margin>
+                                <Insets top="7.0" />
+                            </VBox.margin>
+                        </Label>
+                        <CheckBox fx:id="checkBoxBalanceClassWeights" mnemonicParsing="false" selected="true" text="Balance class weights" />
+                        <GridPane hgap="7" vgap="7">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="-Infinity" />
+                                <ColumnConstraints />
+                                <ColumnConstraints />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints />
+                                <RowConstraints />
+                            </rowConstraints>
+                            <children>
+                                <Label text="Plateau epochs:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                <Label text="Batch size:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <Spinner fx:id="spinnerAlrEpochs" editable="true" GridPane.columnIndex="2" />
+                                <Spinner fx:id="spinnerBatchSize" editable="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            </children>
+                        </GridPane>
+                        <!--<Label styleClass="subheader" text="Augmentation" />-->
+                        <!--<CheckBox mnemonicParsing="false" text="Rotation" />-->
+                        <!--<CheckedRangeControl label="Brightness (gain)" lowerBound="0.5" maxLowerBound="0.1" maxUpperBound="5.0" step="0.1" upperBound="2.0" />-->
+                        <!--<CheckedRangeControl label="Contrast (gamma)" lowerBound="0.5" maxLowerBound="0.1" maxUpperBound="5.0" step="0.1" upperBound="2.0" />-->
+                        <!--<CheckedRangeControl label="Offset (bias)" lowerBound="-0.5" maxLowerBound="-2.0" step="0.1" upperBound="0.5" />-->
+                        <!--<CheckedRangeControl label="Zoom" lowerBound="0.5" maxLowerBound="0.1" maxUpperBound="5.0" step="0.1" upperBound="1.1" />-->
+                        <!--<CheckedRangeControl label="Noise" maxUpperBound="1.0" step="0.05" upperBound="0.2" />-->
+                    </children>
+                </VBox>
+                <VBox prefHeight="200.0" prefWidth="100.0" spacing="7.0">
+                    <children>
+                        <Label styleClass="header" text="Data" />
+                        <Label styleClass="subheader" text="Input" />
+                        <RadioButton fx:id="radioButtonInputThisProject" mnemonicParsing="false" selected="true" text="This project (save first!)">
+                            <toggleGroup>
+                                <ToggleGroup fx:id="mode" />
+                            </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="radioButtonInputFolder" mnemonicParsing="false" text="Folder on this computer" toggleGroup="$mode">
+                        </RadioButton>
+                        <HBox fx:id="hboxInputFolder" spacing="7.0">
+                            <children>
+                                <CustomTextField fx:id="textFieldInputFolder" promptText="Input folder" HBox.hgrow="ALWAYS" />
+                                <Button mnemonicParsing="false" onAction="#handleSelectInputFolder" text="Select...">
+                                    <graphic>
+                                        <SymbolLabel symbol="featherexternallink" />
+                                    </graphic>
+                                </Button>
+                            </children>
+                        </HBox>
+                        <RadioButton fx:id="radioButtonInputCloudZipFile" mnemonicParsing="false" text="Zip file in the cloud" toggleGroup="$mode" />
+                        <CustomTextField fx:id="textFieldCloudZipFile" promptText="Paste direct download link here" />
+                  <CheckBox fx:id="checkBoxUseMemoryMapping" mnemonicParsing="false" text="Create training set on disk instead of memory" />
+                  <Separator prefWidth="200.0" />
+                        <GridPane hgap="7" vgap="7">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="-Infinity" />
+                                <ColumnConstraints />
+                                <ColumnConstraints />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints />
+                            </rowConstraints>
+                            <children>
+                                <Label text="Min. images per class:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                <Spinner fx:id="spinnerMinImagesPerClass" editable="true" GridPane.columnIndex="2" />
+                            </children>
+                        </GridPane>
+                  <CheckBox fx:id="checkBoxUseOther" mnemonicParsing="false" text="Place images with less than this into 'other' class" />
+                  <Separator prefWidth="200.0" />
+                  <CheckBox fx:id="checkBoxUseSplit" mnemonicParsing="false" selected="true" text="Split into training and test sets to calculate accuracy" />
+                  <GridPane fx:id="gridPaneSplit" hgap="7" layoutX="10.0" layoutY="220.0" vgap="7">
+                     <columnConstraints>
+                        <ColumnConstraints minWidth="-Infinity" />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                     </rowConstraints>
+                     <children>
+                        <Label text="Test split fraction:" GridPane.columnIndex="0" />
+                        <Spinner fx:id="spinnerTestSplitFraction" editable="true" GridPane.columnIndex="2" />
+                     </children>
+                  </GridPane>
+                        <Separator prefWidth="200.0" />
+                        <Label styleClass="subheader" text="Output" />
+                        <HBox spacing="7.0">
+                            <children>
+                                <CustomTextField fx:id="textFieldOutputFolder" promptText="Output folder name" HBox.hgrow="ALWAYS" />
+                                <Button mnemonicParsing="false" onAction="#handleSelectOutputFolder" text="Select...">
+                                    <graphic>
+                                        <SymbolLabel symbol="featherexternallink" />
+                                    </graphic>
+                                </Button>
+                            </children>
+                        </HBox>
+                        <CheckBox fx:id="checkBoxOutputSaveModel" mnemonicParsing="false" selected="true" text="Save frozen model" />
+                        <CheckBox fx:id="checkBoxOutputSaveMislabeled" mnemonicParsing="false" selected="true" text="Estimate mislabeled images" />
+                    </children>
+                </VBox>
+            </children>
+            <padding>
+                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+            </padding>
+        </GridPane>
+    </center>
+    <top>
+        <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <items>
+                <Button maxWidth="1.7976931348623157E308" onAction="#handleLaunch" text="Launch">
+                    <graphic>
+                        <SymbolLabel symbol="featheractivity" />
+                    </graphic>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#handleCreateScript" text="Copy script">
+                    <graphic>
+                        <SymbolLabel symbol="featherfiletext" />
+                    </graphic>
+                </Button>
+            <Button mnemonicParsing="false" onAction="#handleShowFolder" text="Show output">
+               <graphic>
+                  <SymbolLabel symbol="featherexternallink" />
+               </graphic>
+            </Button>
+            <Pane HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#handleUpdateMISO" text="Update library">
+               <graphic>
+                  <SymbolLabel symbol="featherdownloadcloud" />
+               </graphic>
+            </Button>
+                <Button mnemonicParsing="false" onAction="#handleUpdatePythonLocation" text="Python location">
+                    <graphic>
+                        <SymbolLabel symbol="feathertarget" />
+                    </graphic>
+                </Button>
+            </items>
+        </ToolBar>
+    </top>
+    <bottom>
+        <Label fx:id="labelPythonLocation" text="Python location:">
+            <padding>
+                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+            </padding>
+        </Label>
+    </bottom>
+</BorderPane>

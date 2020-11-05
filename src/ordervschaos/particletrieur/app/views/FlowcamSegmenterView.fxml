@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.FlowcamSegmenterViewController">
+    <children>
+        <VBox layoutX="152.0" layoutY="59.0" minWidth="600.0" spacing="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+            <Label text="Flowcam data CSV file" wrapText="true" />
+                <HBox spacing="7.0">
+                    <children>
+                        <TextField fx:id="textFieldDataCSV" HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" onAction="#handleSelectDataCSV" text="Select..." />
+                    </children>
+                </HBox>
+            <Label layoutX="10.0" layoutY="10.0" text="Species map XLSX file" wrapText="true" />
+            <HBox layoutX="10.0" layoutY="34.0" spacing="7.0">
+               <children>
+                  <TextField fx:id="textFieldSpeciesXLSX" HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#handleSelectSpeciesXLSX" text="Select..." />
+               </children>
+            </HBox>
+            <Label layoutX="10.0" layoutY="66.0" text="Output directory" wrapText="true" />
+            <HBox layoutX="10.0" layoutY="90.0" spacing="7.0">
+               <children>
+                  <TextField fx:id="textFieldOutputDirectory" HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#handleSelectOutputDirectory" text="Select..." />
+               </children>
+            </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

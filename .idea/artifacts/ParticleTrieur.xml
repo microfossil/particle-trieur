@@ -1,0 +1,24 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="ParticleTrieur">
+    <output-path>$PROJECT_DIR$/out/artifacts/ParticleTrieur</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="ordervschaos.particletrieur.app.App" />
+        <option name="description" value="" />
+        <option name="height" value="768" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="nativeBundle" value="all" />
+        <option name="title" value="ParticleTrieur" />
+        <option name="vendor" value="Ross Marchant" />
+        <option name="version" value="2.2.0" />
+        <option name="width" value="1024" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="ParticleTrieur.jar">
+        <element id="module-output" name="ParticleTrieur" />
+      </element>
+      <element id="module-output" name="ParticleTrieur" />
+    </root>
+  </artifact>
+</component>

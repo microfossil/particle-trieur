@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import ordervschaos.particletrieur.app.controls.SymbolLabel?>
+
+<fx:root text="status" type="javafx.scene.control.Label" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <graphic>
+        <SymbolLabel fx:id="icon" />
+    </graphic>
+</fx:root>

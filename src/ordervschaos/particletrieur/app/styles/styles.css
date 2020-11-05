@@ -1,0 +1,145 @@
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: normal;
+    src: url('Montserrat/Montserrat-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: bold;
+    src: url('Montserrat/Montserrat-Bold.ttf');
+}
+
+@font-face {
+    src: url('Feather.ttf');
+}
+
+/*@import url("http://fonts.googleapis.com/css?family=Montserrat");*/
+
+.root {
+    -fx-font-family: 'Montserrat';
+    -fx-font-weight: normal;
+}
+
+.text {
+    -fx-font-smoothing-type: gray;
+    /*-fx-tfill: -fx-text-background-color;*/
+}
+
+.symbol-label-normal {
+    symbol-size: 16px;
+}
+
+.status-label-medium {
+    -fx-font-size: 14;
+    -icon-size: 20px;
+}
+
+.status-label-large {
+    -fx-font-size: 18;
+    -icon-size: 24px;
+}
+
+/*TextFlow.root {*/
+    /*!*-fx-text-fill: -fx-text-background-color;*!*/
+    /*-fx-fill: -fx-text-background-color;*/
+/*}*/
+
+.column-header-label {
+    -fx-label-padding: 0;
+    -fx-text-overrun: clip;
+    -fx-font-family: 'Roboto Mono';
+}
+
+.feather {
+    -fx-font-family: 'Feather';
+}
+
+.header {
+    -fx-font-size: 24;
+    -fx-font-weight: normal;
+}
+.subheader {
+    -fx-font-size: 14;
+    -fx-text-fill: black;
+}
+
+.description {
+    -fx-font-size: 10;
+}
+
+.small-button {
+    -fx-font-size: 10;
+    -fx-padding: 3 7 3 7;
+}
+
+GridPane.padding {
+    -fx-hgap: 21;
+    -fx-vgap: 7;
+    
+}
+
+/*TODO should be fx bacground*/
+.left-panel {
+    -fx-background-color: derive(-fx-base, -5%);
+    -fx-border-color: derive(-fx-base, -30%);
+    -fx-border-width: 0 1 0 0;
+}
+
+.red-button {
+    -fx-base: derive(red, 100%);
+    -fx-focus-color: derive(red, 70%);
+    -fx-faint-focus-color: #FF000010;
+}
+
+.green-button {
+    -fx-base: derive(darkgreen, 120%);
+    -fx-focus-color: derive(#006400, 70%);
+    -fx-faint-focus-color: #00640010;
+}
+
+.orange-button {
+    -fx-base: derive(orange, 50%);
+}
+
+.error {
+    -fx-base: derive(red, 50%);
+}
+
+.warning {
+    -fx-base: derive(yellow, 50%);
+}
+
+.activity-icon {
+    -fx-font-size: 24;
+}
+
+.flat-button {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 3px;
+    /*-fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em; !* 4 8 4 8 *!*/
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: LEFT;
+}
+/*-fx-text-base-color*/
+
+.flat-button:hover {
+    -fx-background-color: derive(-fx-accent, 70%)
+}
+
+.flat-button:armed {
+    -fx-background-color: derive(-fx-accent, 40%)
+}
+
+
+
+
+
+
+
+
+

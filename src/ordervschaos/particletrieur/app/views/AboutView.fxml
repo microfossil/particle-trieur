@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<AnchorPane prefHeight="294.0" prefWidth="461.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.AboutViewController">
+    <children>
+        <VBox layoutX="137.0" layoutY="88.0" prefHeight="200.0" prefWidth="100.0" spacing="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label fx:id="labelTitle" styleClass="header" text="ParticleTrieur" />
+                <Label text="Particle image organisation, labelling, processing and training software. &#10;Copyright Ross Marchant, 2019" />
+                <Label styleClass="subheader" text="Created by" />
+                <GridPane hgap="7.0" vgap="7.0">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
+                        <ColumnConstraints hgrow="SOMETIMES" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="-Infinity" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                  <StackPane>
+                     <children>
+                        <Circle fill="#ff0000b2" radius="34.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" StackPane.alignment="CENTER" />
+                              <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                  <image>
+                                      <Image url="@../resources/about/ross.png" />
+                                  </image>
+                              </ImageView>
+                     </children>
+                  </StackPane>
+                  <StackPane GridPane.rowIndex="1">
+                     <children>
+                        <Circle fill="#00ff00b2" radius="34.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                              <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                      <Image url="@../resources/about/thibault.png" />
+                                  </image>
+                              </ImageView>
+                     </children>
+                  </StackPane>
+                  <StackPane GridPane.rowIndex="2">
+                     <children>
+                        <Circle fill="#0000ffb2" radius="34.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                              <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                      <Image url="@../resources/about/martin.png" />
+                                  </image>
+                              </ImageView>
+                     </children>
+                  </StackPane>
+                        <VBox GridPane.columnIndex="1">
+                            <children>
+                                <Label styleClass="subheader" text="Ross Marchant" />
+                                <Label text="Concept, programming and design." />
+                            </children>
+                        </VBox>
+                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <children>
+                                <Label styleClass="subheader" text="Thibault de Garidel-Thoron" />
+                                <Label text="Organisation, design, testing and direction." />
+                            </children>
+                        </VBox>
+                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <children>
+                                <Label styleClass="subheader" text="Martin Tetard" />
+                                <Label text="Design, testing, more testing, and direction." />
+                            </children>
+                        </VBox>
+                    </children>
+                </GridPane>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

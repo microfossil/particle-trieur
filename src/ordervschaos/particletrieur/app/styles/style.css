@@ -1,0 +1,320 @@
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: normal;
+    src: url('Montserrat/Montserrat-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: bold;
+    src: url('Montserrat/Montserrat-Bold.ttf');
+}
+
+@font-face {
+    src: url('Feather.ttf');
+}
+
+@font-face {
+    font-family: 'SourceSansPro';
+    font-style: normal;
+    font-weight: normal;
+    src: url('Source_Sans_Pro/SourceSansPro-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'SourceSansPro';
+    font-style: normal;
+    font-weight: bold;
+    src: url('Source_Sans_Pro/SourceSansPro-Bold.ttf');
+}
+
+.root {
+    -fx-font-family: 'SourceSansPro';
+}
+
+.text {
+    -fx-font-smoothing-type: gray;
+}
+
+.header {
+    -fx-font-family: 'Montserrat';
+    -fx-font-size: 24;
+    -fx-font-weight: normal;
+}
+.subheader {
+    -fx-font-family: 'Montserrat';
+    -fx-font-size: 16;
+    -fx-text-fill: black;
+}
+
+.control-shadow-0p5 {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);
+}
+
+.control-shadow-0p2 {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+.dialog-pane:header .header-panel .label {
+    -fx-font-family: 'Montserrat';
+    -fx-font-size: 20;
+    -fx-font-weight: normal;
+    -fx-wrap-text: true;
+}
+
+.vertical-button {
+    -fx-background-color: transparent, transparent;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 5, 4;
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: TOP;
+}
+
+.vertical-button SymbolLabel {
+    symbol-size: 16;
+}
+
+.vertical-button:hover {
+    -fx-background-color: derive(-fx-accent, 70%);
+    -fx-opacity: 1.0;
+}
+
+.vertical-button:armed {
+    -fx-background-color: derive(-fx-accent, 40%);
+    -fx-opacity: 1.0;
+}
+
+
+.flat-button {
+    -fx-background-color: -fx-outer-border, -fx-background;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 4, 3;
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-opacity: 0.5;
+}
+
+.flat-button:hover {
+    -fx-background-color: derive(-fx-accent, 70%);
+    -fx-opacity: 1.0;
+}
+
+.flat-button:armed {
+    -fx-background-color: derive(-fx-accent, 40%);
+    -fx-opacity: 1.0;
+}
+
+.small-button {
+    -fx-font-size: 10;
+    -fx-padding: 3 7 3 7;
+}
+
+.flat-split-menu-button {
+    -fx-background-color: transparent, transparent;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 5, 4;
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: TOP;
+}
+
+.flat-split-menu-button:hover {
+    -fx-background-color: derive(-fx-accent, 70%);
+    -fx-opacity: 1.0;
+}
+
+.flat-split-menu-button:armed {
+    -fx-background-color: derive(-fx-accent, 40%);
+    -fx-opacity: 1.0;
+}
+
+.flat-split-menu-button SymbolLabel {
+    symbol-size: 18;
+}
+
+.flat-split-menu-button > .label {
+    /*-fx-text-fill: -fx-text-base-color;*/
+    -fx-background-color: transparent;
+    /*-fx-background-insets: 1 0 1 1, 2 1 2 2;*/
+    /*-fx-background-radius: 2 0 0 2, 1 0 0 1;*/
+    /*-fx-padding: 0.333333em 0.667em 0.333333em 0.667em; !* 4 8 4 8 *!*/
+}
+
+.flat-split-menu-button > .arrow-button {
+    -fx-background-color: transparent;
+    /*-fx-background-color: -fx-inner-border, -fx-body-color;*/
+    /*-fx-background-insets: 1, 2;*/
+    /*-fx-background-radius: 0 2 2 0, 0 1 1 0;*/
+    /*-fx-padding: 0.5em 0.667em 0.5em 0.667em; !* 6 8 6 8 *!*/
+}
+
+.flat-split-menu-button:focused {
+    /*-fx-background-color: -fx-focus-color;*/
+    /*-fx-background-insets: -0.2;*/
+    /*-fx-background-radius: 3;*/
+}
+
+.flat-split-menu-button:focused > .label {
+    /*-fx-background-color: -fx-inner-border, -fx-body-color, -fx-faint-focus-color, -fx-body-color;*/
+    /*-fx-background-insets: 1 0 1 1, 2 1 2 2, -1.4 0 -1.4 -1.4, 2.6 1.6 2.6 2.6;*/
+    /*-fx-background-radius: 2 0 0 2, 1 0 0 1, 4 0 0 4, 0;*/
+}
+
+.flat-split-menu-button:focused > .arrow-button {
+    /*-fx-background-color: -fx-inner-border, -fx-body-color, -fx-faint-focus-color, -fx-body-color;*/
+    /*-fx-background-insets: 1, 2, -1.4, 2.6;*/
+    /*-fx-background-radius: 0 2 2 0, 0 1 1 0, 0 4 4 0, 0;*/
+}
+
+.red-button {
+
+    /*-fx-border-insets: -1;*/
+    -fx-base: derive(red, 100%);
+    -fx-text-fill: derive(red, -20%);
+    -fx-opacity: 1.0;
+    /*-fx-border-color: red;*/
+    /*-fx-border-radius: 5;*/
+    -fx-background-color: -fx-background, -fx-background;
+    /*-fx-focus-color: derive(red, 70%);*/
+    /*-fx-faint-focus-color: #FF000010;*/
+}
+
+.red-button SymbolLabel {
+    -fx-text-fill: derive(red, -20%);
+}
+
+.red-button:hover {
+    -fx-background-color: derive(red, 100%);
+    -fx-opacity: 1.0;
+}
+
+.red-button:armed {
+    -fx-background-color: derive(red, 70%);
+    -fx-opacity: 1.0;
+}
+
+.red-vertical-button {
+    -fx-border-color: red;
+    -fx-border-radius: 5;
+    -fx-border-insets: -1;
+    -fx-background-color: transparent, transparent;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 5, 4;
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: TOP;
+}
+
+.red-vertical-button SymbolLabel {
+    symbol-size: 16;
+}
+
+.red-vertical-button:hover {
+    -fx-background-color: derive(red, 70%);
+    -fx-opacity: 1.0;
+}
+
+.red-vertical-button:armed {
+    -fx-background-color: derive(red, 40%);
+    -fx-opacity: 1.0;
+}
+
+.green-button {
+    -fx-base: derive(darkgreen, 120%);
+    -fx-focus-color: derive(#006400, 70%);
+    -fx-faint-focus-color: #00640010;
+}
+
+.green-text {
+    -fx-text-fill: derive(darkgreen, 0%);
+}
+
+.orange-button {
+    -fx-base: derive(orange, 50%);
+}
+
+.button-decoration {
+    -fx-border-color: grey;
+    -fx-border-width: 1;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+    -fx-padding: 0 1 0 1;
+    -fx-background-color: -fx-background;
+}
+
+
+/*.header-label {*/
+    /*-fx-font-size: 1.166667em;*/
+    /*-fx-text-fill: #006699;*/
+/*}*/
+
+/*.narrow-progress-bar > .bar {*/
+    /*-fx-background-color: linear-gradient(to bottom, derive(-fx-accent, -7%), derive(-fx-accent, 0%), derive(-fx-accent, -3%), derive(-fx-accent, -9%) );*/
+    /*-fx-background-insets: 1 1 1 1;*/
+    /*-fx-background-radius: 0;*/
+    /*-fx-padding: 5px;*/
+/*}*/
+/*.narrow-progress-bar > .track {*/
+      /*-fx-background-color:*/
+          /*-fx-shadow-highlight-color,*/
+          /*linear-gradient(to bottom, derive(-fx-text-box-border, -10%), -fx-text-box-border),*/
+          /*linear-gradient(to bottom, */
+            /*derive(-fx-control-inner-background, -7%),*/
+            /*derive(-fx-control-inner-background, 0%),*/
+            /*derive(-fx-control-inner-background, -3%),*/
+            /*derive(-fx-control-inner-background, -9%)*/
+          /*);*/
+    /*-fx-background-insets: 0, 0 0 0 0, 1 1 1 1;*/
+    /*-fx-background-radius: 1, 1, 1; !* 10, 9, 8 *!*/
+/*}*/
+
+/*.class-selected {*/
+    /*-fx-effect: dropshadow( one-pass-box , rgb(255,0,0) , 10.0, 0.5 , 0 , 0);*/
+    /*-fx-border-color: red;*/
+    /*-fx-border-radius: 1;*/
+    /*-fx-border-insets: -1;*/
+/*}*/
+
+/*.no-focus {*/
+    /*-fx-focus-color: transparent;*/
+/*}*/
+
+/*.red-button {*/
+    /*-fx-base: salmon;*/
+/*}*/
+
+/*.green-button {*/
+    /*-fx-base: derive(green,+100%);*/
+/*}*/
+
+/*.status-active {*/
+    /*-fx-base: derive(green,+50%);*/
+    /*-fx-text-fill: white;*/
+    /*-fx-background-color: -fx-base;*/
+    /*-fx-background-radius: 3;*/
+    /*-fx-background-insets: 2 3 2 3;*/
+/*}*/
+
+/*.status-inactive {*/
+    /*-fx-base: derive(grey,+30%);*/
+    /*-fx-background-color: -fx-base;*/
+    /*-fx-background-radius: 3;*/
+    /*-fx-background-insets: 2 3 2 3;*/
+/*}*/
+
+/*.open-button {*/
+    /*-fx-icon-code: fth-open;*/
+    /*-fx-icon-size: 20px;*/
+    /*-fx-icon-color: black;	*/
+/*}*/
+
+
+
+
+
+
+
+

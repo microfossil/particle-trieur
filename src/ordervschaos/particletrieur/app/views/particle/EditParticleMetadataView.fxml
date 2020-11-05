@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import ordervschaos.particletrieur.app.controls.ExpressionBuilderControl?>
+<?import ordervschaos.particletrieur.app.controls.SymbolLabel?>
+
+<GridPane hgap="21.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.particle.EditParticleMetadataViewController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" prefWidth="240.0" />
+        <ColumnConstraints hgrow="SOMETIMES" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <VBox spacing="7" stylesheets="@../../styles/style.css" GridPane.columnIndex="1">
+            <children>
+                <Label styleClass="subheader" text="Extract From Filename" />
+                <CheckBox fx:id="checkBoxExtractFromFilename" text="Extract image metadata from its path and filename" />
+                <VBox fx:id="vboxExtract" spacing="7.0">
+                    <children>
+                      <!--      <VBox>-->
+                      <CheckBox fx:id="checkboxIncludeParentDirectory" text="Also include the name of the parent directories (2)" />
+                      <HBox alignment="CENTER_LEFT" spacing="21.0">
+                          <children>
+                              <Label text="Example Filename:" />
+                              <Button mnemonicParsing="false" onAction="#handlePickRandom" style="-fx-font-size: 10;" styleClass="flat-button" text="New Random File">
+                                  <graphic>
+                                      <SymbolLabel symbol="featherrefreshccw" />
+                                  </graphic>
+                              </Button>
+                          </children>
+                      </HBox>
+                      <Label fx:id="labelExampleFilename" style="-fx-font-weight: bold;" text="None" />
+                      <Separator prefWidth="200.0" />
+                        <ExpressionBuilderControl fx:id="expressionBuilderControl" />
+                        <HBox spacing="7">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#handleTestExtraction" text="Test If Matching">
+                                    <graphic>
+                                        <SymbolLabel symbol="featherhelpcircle" />
+                                    </graphic>
+                                </Button>
+                                <Button mnemonicParsing="false" onAction="#handleSetFolderAsLabelRegex" text="Use folder name as label" />
+                                <Button mnemonicParsing="false" onAction="#handleSetMachineRegex" text="Use MISO pattern" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+                <!--      </VBox>-->
+
+
+            </children>
+        </VBox>
+        <VBox prefHeight="200.0" prefWidth="100.0" spacing="7.0">
+            <children>
+                <Label styleClass="subheader" text="Metadata" />
+                <Label text="Sample:" />
+                <ComboBox fx:id="comboBoxSample" editable="true" maxWidth="1.7976931348623157E308" promptText="Leave blank for unchanged" />
+                <Label text="Index #1 (e.g. minimum depth):" />
+                <ComboBox fx:id="comboBoxNumeric1" editable="true" maxWidth="1.7976931348623157E308" promptText="Leave blank for unchanged" />
+                <Label text="Index #2 (e.g. maximum depth):" />
+                <ComboBox fx:id="comboBoxNumeric2" editable="true" maxWidth="1.7976931348623157E308" promptText="Leave blank for unchanged" />
+                <Label text="Resolution (pixels/mm):" />
+                <ComboBox fx:id="comboBoxResolution" editable="true" maxWidth="1.7976931348623157E308" promptText="Leave blank for unchanged" />
+            </children>
+        </VBox>
+    </children>
+</GridPane>

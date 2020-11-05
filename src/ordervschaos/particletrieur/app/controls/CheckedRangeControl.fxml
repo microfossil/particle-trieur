@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+<fx:root type="HBox" alignment="CENTER_LEFT" spacing="14.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <CheckBox fx:id="checkBox" mnemonicParsing="false" text="CheckBox" />
+      <Pane HBox.hgrow="ALWAYS" />
+      <Spinner fx:id="spinnerLowerBound" prefWidth="70.0" />
+      <Spinner fx:id="spinnerUpperBound" prefWidth="70.0" />
+   </children>
+</fx:root>
