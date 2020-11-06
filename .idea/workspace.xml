@@ -5,6 +5,9 @@
       <artifact name="ParticleTrieur:jar" />
     </artifacts-to-build>
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -24,7 +27,22 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2a2d7e8-5c07-421e-a18f-7e6936f4ce78" name="Default Changelist" comment="Move image type below" />
+    <list default="true" id="d2a2d7e8-5c07-421e-a18f-7e6936f4ce78" name="Default Changelist" comment="Move image type below">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/ParticleTrieur.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/ParticleTrieur.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_common_common_image_3_4_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_common_common_image_3_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_common_common_io_3_4_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_common_common_lang_3_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_common_common_lang_3_4_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_common_common_io_3_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_imageio_imageio_core_3_4_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_imageio_imageio_core_3_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_imageio_imageio_jpeg_3_4_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_imageio_imageio_jpeg_3_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_imageio_imageio_metadata_3_4_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_imageio_imageio_metadata_3_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_imageio_imageio_tiff_3_4_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_imageio_imageio_tiff_3_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ParticleTrieur.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ParticleTrieur.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clean_jar.sh" beforeDir="false" afterPath="$PROJECT_DIR$/clean_jar.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manifest.mf" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.mf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/AddParticleViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/AddParticleViewController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,6 +54,7 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
+        <option name="mavenHome" value="$APPLICATION_HOME_DIR$/plugins/maven/lib/maven3" />
         <option name="usePluginRegistry" value="true" />
       </MavenGeneralSettings>
     </option>
@@ -51,7 +70,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../foramtrieur" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
@@ -67,16 +86,17 @@
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn package" />
-      <command value="mvn clean package shade:shade" />
       <command value="mvn clean" />
       <command value="mvn assembly:assembly" />
       <command value="mvn clean assembly:single" />
       <command value="mvn compile" />
       <command value="mvn clean assembly:assembly" />
       <command value="mvn clean package" />
+      <command value="mvn clean package shade:shade" />
+      <command value="mvn package shade:shade" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.App">
+  <component name="RunManager" selected="Shell Script.clean_jar.sh">
     <configuration name="App" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -90,6 +110,17 @@
       <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="ordervschaos.particletrieur.app.App" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -111,6 +142,7 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -131,6 +163,7 @@
       <workItem from="1603694464284" duration="1009000" />
       <workItem from="1603700439655" duration="84000" />
       <workItem from="1604611342319" duration="373000" />
+      <workItem from="1604624137328" duration="7397000" />
     </task>
     <task id="LOCAL-00001" summary="Move image type below">
       <created>1603508919405</created>
@@ -143,7 +176,7 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -162,20 +195,26 @@
     <option name="LAST_COMMIT_MESSAGE" value="Move image type below" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="504" y="163" width="1290" height="837" key="#Project_Structure" timestamp="1603694602444">
-      <screen x="0" y="23" width="1680" height="977" />
+    <state x="891" y="300" width="1280" height="1049" key="#Project_Structure" timestamp="1604640348623">
+      <screen x="0" y="0" width="3840" height="2096" />
     </state>
+    <state x="891" y="300" width="1280" height="1049" key="#Project_Structure/0.0.3840.2096/3840.0.1920.1200@0.0.3840.2096" timestamp="1604640348623" />
     <state x="504" y="163" key="#Project_Structure/0.23.1680.977@0.23.1680.977" timestamp="1603694602444" />
     <state x="768" y="287" width="1290" height="837" key="#Project_Structure/0.23.2560.1367/2560.413.1680.1027@0.23.2560.1367" timestamp="1603512133758" />
     <state x="744" y="368" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603504756083">
       <screen x="0" y="23" width="2560" height="1367" />
     </state>
     <state x="744" y="368" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.2560.1367/2560.413.1680.1027@0.23.2560.1367" timestamp="1603504756083" />
-    <state x="667" y="366" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1603694562411">
-      <screen x="0" y="23" width="1680" height="977" />
+    <state x="1525" y="736" width="656" height="510" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1604638740933">
+      <screen x="0" y="0" width="3840" height="2096" />
     </state>
+    <state x="1525" y="736" width="656" height="510" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.3840.2096/3840.0.1920.1200@0.0.3840.2096" timestamp="1604638740933" />
     <state x="667" y="366" key="#com.intellij.ide.util.TreeClassChooserDialog/0.23.1680.977@0.23.1680.977" timestamp="1603694562411" />
     <state x="1017" y="503" key="#com.intellij.ide.util.TreeClassChooserDialog/0.23.2560.1367/2560.413.1680.1027@0.23.2560.1367" timestamp="1603504768169" />
+    <state x="2033" y="899" width="655" height="598" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog" timestamp="1604635794012">
+      <screen x="0" y="0" width="3840" height="2096" />
+    </state>
+    <state x="2033" y="899" width="655" height="598" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/0.0.3840.2096/3840.0.1920.1200@0.0.3840.2096" timestamp="1604635794012" />
     <state x="100" y="123" width="2360" height="1167" key="DiffContextDialog" timestamp="1603517584566">
       <screen x="0" y="23" width="2560" height="1367" />
     </state>
@@ -184,24 +223,28 @@
       <screen x="0" y="23" width="1680" height="977" />
     </state>
     <state x="628" y="273" key="FileChooserDialogImpl/0.23.1680.977@0.23.1680.977" timestamp="1603694044312" />
-    <state width="1638" height="361" key="GridCell.Tab.0.bottom" timestamp="1603700522789">
-      <screen x="0" y="23" width="1680" height="977" />
+    <state width="2222" height="412" key="GridCell.Tab.0.bottom" timestamp="1604640892446">
+      <screen x="0" y="0" width="3840" height="2096" />
     </state>
+    <state width="2222" height="412" key="GridCell.Tab.0.bottom/0.0.3840.2096/3840.0.1920.1200@0.0.3840.2096" timestamp="1604640892446" />
     <state width="1638" height="361" key="GridCell.Tab.0.bottom/0.23.1680.977@0.23.1680.977" timestamp="1603700522789" />
     <state width="2518" height="361" key="GridCell.Tab.0.bottom/0.23.2560.1367/2560.413.1680.1027@0.23.2560.1367" timestamp="1603521794526" />
-    <state width="1638" height="361" key="GridCell.Tab.0.center" timestamp="1603700522788">
-      <screen x="0" y="23" width="1680" height="977" />
+    <state width="2222" height="412" key="GridCell.Tab.0.center" timestamp="1604640892446">
+      <screen x="0" y="0" width="3840" height="2096" />
     </state>
+    <state width="2222" height="412" key="GridCell.Tab.0.center/0.0.3840.2096/3840.0.1920.1200@0.0.3840.2096" timestamp="1604640892446" />
     <state width="1638" height="361" key="GridCell.Tab.0.center/0.23.1680.977@0.23.1680.977" timestamp="1603700522788" />
     <state width="2518" height="361" key="GridCell.Tab.0.center/0.23.2560.1367/2560.413.1680.1027@0.23.2560.1367" timestamp="1603521794525" />
-    <state width="1638" height="361" key="GridCell.Tab.0.left" timestamp="1603700522788">
-      <screen x="0" y="23" width="1680" height="977" />
+    <state width="2222" height="412" key="GridCell.Tab.0.left" timestamp="1604640892446">
+      <screen x="0" y="0" width="3840" height="2096" />
     </state>
+    <state width="2222" height="412" key="GridCell.Tab.0.left/0.0.3840.2096/3840.0.1920.1200@0.0.3840.2096" timestamp="1604640892446" />
     <state width="1638" height="361" key="GridCell.Tab.0.left/0.23.1680.977@0.23.1680.977" timestamp="1603700522788" />
     <state width="2518" height="361" key="GridCell.Tab.0.left/0.23.2560.1367/2560.413.1680.1027@0.23.2560.1367" timestamp="1603521794525" />
-    <state width="1638" height="361" key="GridCell.Tab.0.right" timestamp="1603700522789">
-      <screen x="0" y="23" width="1680" height="977" />
+    <state width="2222" height="412" key="GridCell.Tab.0.right" timestamp="1604640892446">
+      <screen x="0" y="0" width="3840" height="2096" />
     </state>
+    <state width="2222" height="412" key="GridCell.Tab.0.right/0.0.3840.2096/3840.0.1920.1200@0.0.3840.2096" timestamp="1604640892446" />
     <state width="1638" height="361" key="GridCell.Tab.0.right/0.23.1680.977@0.23.1680.977" timestamp="1603700522789" />
     <state width="2518" height="361" key="GridCell.Tab.0.right/0.23.2560.1367/2560.413.1680.1027@0.23.2560.1367" timestamp="1603521794526" />
     <state width="2518" height="474" key="GridCell.Tab.1.bottom" timestamp="1603516175512">
@@ -224,18 +267,21 @@
       <screen x="0" y="23" width="2560" height="1367" />
     </state>
     <state x="789" y="345" key="SettingsEditor/0.23.2560.1367/2560.413.1680.1027@0.23.2560.1367" timestamp="1603509635989" />
-    <state x="556" y="148" width="1017" height="926" key="find.popup" timestamp="1603521149504">
-      <screen x="0" y="23" width="2560" height="1367" />
+    <state x="834" y="192" width="2062" height="1420" key="find.popup" timestamp="1604640336565">
+      <screen x="0" y="0" width="3840" height="2096" />
     </state>
+    <state x="834" y="192" width="2062" height="1420" key="find.popup/0.0.3840.2096/3840.0.1920.1200@0.0.3840.2096" timestamp="1604640336565" />
     <state x="556" y="148" width="1017" height="926" key="find.popup/0.23.2560.1367/2560.413.1680.1027@0.23.2560.1367" timestamp="1603521149504" />
-    <state x="620" y="245" width="670" height="483" key="run.anything.popup" timestamp="1603695064579">
-      <screen x="0" y="23" width="1680" height="977" />
+    <state x="2373" y="168" width="1532" height="1037" key="run.anything.popup" timestamp="1604638384465">
+      <screen x="0" y="0" width="3840" height="2096" />
     </state>
+    <state x="2373" y="168" width="1532" height="1037" key="run.anything.popup/0.0.3840.2096/3840.0.1920.1200@0.0.3840.2096" timestamp="1604638384465" />
     <state x="620" y="245" width="670" height="483" key="run.anything.popup/0.23.1680.977@0.23.1680.977" timestamp="1603695064579" />
     <state x="945" y="333" width="670" height="675" key="run.anything.popup/0.23.2560.1367/2560.413.1680.1027@0.23.2560.1367" timestamp="1603509649780" />
-    <state x="945" y="335" width="670" height="676" key="search.everywhere.popup" timestamp="1603509656206">
-      <screen x="0" y="23" width="2560" height="1367" />
+    <state x="1418" y="478" width="1005" height="1037" key="search.everywhere.popup" timestamp="1604634881299">
+      <screen x="0" y="0" width="3840" height="2096" />
     </state>
+    <state x="1418" y="478" width="1005" height="1037" key="search.everywhere.popup/0.0.3840.2096/3840.0.1920.1200@0.0.3840.2096" timestamp="1604634881299" />
     <state x="945" y="335" width="670" height="676" key="search.everywhere.popup/0.23.2560.1367/2560.413.1680.1027@0.23.2560.1367" timestamp="1603509656206" />
   </component>
 </project>
