@@ -106,9 +106,11 @@ public class AddParticleViewController extends AbstractDialogController implemen
 
         if (!useFolder.get()) {
             FileChooser dc = new FileChooser();
-            dc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images (bmp|png|jpg|tif)", "*.bmp", "*.jpg", "*.jpeg", "*.png", "*.tif", "*.tiff"));
+            dc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images (bmp|png|jpg|tif)",
+                    "*.bmp", "*.jpg", "*.jpeg", "*.png", "*.tif", "*.tiff",
+                    "*.BMP", "*.JPG", "*.JPEG", "*.PNG", "*.TIF", "*.TIFF"));
             String path = App.getPrefs().getImagePath();
-            if(path != null && Files.exists(Paths.get(path))) {
+            if (path != null && Files.exists(Paths.get(path))) {
                 dc.setInitialDirectory(new File(path));
             }
             dc.setTitle("Select images to add");
@@ -121,7 +123,7 @@ public class AddParticleViewController extends AbstractDialogController implemen
         } else {
             DirectoryChooser dc = new DirectoryChooser();
             String path = App.getPrefs().getImagePath();
-            if(path != null && Files.exists(Paths.get(path))) {
+            if (path != null && Files.exists(Paths.get(path))) {
                 dc.setInitialDirectory(new File(path));
             }
             dc.setTitle("Select folder of images to add");
@@ -132,44 +134,44 @@ public class AddParticleViewController extends AbstractDialogController implemen
             App.getPrefs().setImagePath(dir.getAbsolutePath());
             App.getPrefs().save();
 //            try {
-                Service<List<File>> service = new Service<List<File>>() {
-                    @Override
-                    protected Task<List<File>> createTask() {
-                        return new Task<List<File>>() {
-                            @Override
-                            protected List<File> call() throws Exception {
-                                final AtomicInteger count = new AtomicInteger(0);
-                                List<File> filesToAdd = Files.find(Paths.get(dir.getAbsolutePath()), Integer.MAX_VALUE, (filePath, fileAttr) -> {
-                                    if (fileAttr.isRegularFile()) {
-                                        String extension = FilenameUtils.getExtension(filePath.toString());
-                                        if (extension.endsWith("bmp") ||
-                                                extension.endsWith("png") ||
-                                                extension.endsWith("tiff") ||
-                                                extension.endsWith("tif") ||
-                                                extension.endsWith("jpg") ||
-                                                extension.endsWith("jpeg")) {
-                                            updateMessage(String.format("%d images found", count.incrementAndGet()));
-                                            return true;
-                                        }
+            Service<List<File>> service = new Service<List<File>>() {
+                @Override
+                protected Task<List<File>> createTask() {
+                    return new Task<List<File>>() {
+                        @Override
+                        protected List<File> call() throws Exception {
+                            final AtomicInteger count = new AtomicInteger(0);
+                            List<File> filesToAdd = Files.find(Paths.get(dir.getAbsolutePath()), Integer.MAX_VALUE, (filePath, fileAttr) -> {
+                                if (fileAttr.isRegularFile()) {
+                                    String extension = FilenameUtils.getExtension(filePath.toString());
+                                    if (extension.toLowerCase().endsWith("bmp") ||
+                                            extension.toLowerCase().endsWith("png") ||
+                                            extension.toLowerCase().endsWith("tiff") ||
+                                            extension.toLowerCase().endsWith("tif") ||
+                                            extension.toLowerCase().endsWith("jpg") ||
+                                            extension.toLowerCase().endsWith("jpeg")) {
+                                        updateMessage(String.format("%d images found", count.incrementAndGet()));
+                                        return true;
                                     }
-                                    return false;
-                                }).sorted().map(Path::toFile).collect(Collectors.toList());
-                                return filesToAdd;
-                            }
-                        };
-                    }
-                };
-                service.setOnSucceeded(event1 -> {
-                    files.clear();
-                    files.addAll(service.getValue());
-                });
-                service.setOnFailed(event1 -> {
-                    BasicDialogs.ShowException("Error loading files", new Exception(service.getException()));
-                });
-                service.messageProperty().addListener((observable, oldValue, newValue) -> {
-                    labelFileCount.setText(newValue);
-                });
-                service.start();
+                                }
+                                return false;
+                            }).sorted().map(Path::toFile).collect(Collectors.toList());
+                            return filesToAdd;
+                        }
+                    };
+                }
+            };
+            service.setOnSucceeded(event1 -> {
+                files.clear();
+                files.addAll(service.getValue());
+            });
+            service.setOnFailed(event1 -> {
+                BasicDialogs.ShowException("Error loading files", new Exception(service.getException()));
+            });
+            service.messageProperty().addListener((observable, oldValue, newValue) -> {
+                labelFileCount.setText(newValue);
+            });
+            service.start();
 //                List<File> filesToAdd = Files.find(Paths.get(dir.getAbsolutePath()), Integer.MAX_VALUE, (filePath, fileAttr) -> {
 //                    if (fileAttr.isRegularFile()) {
 //                        String extension = FilenameUtils.getExtension(filePath.toString());
@@ -243,6 +245,7 @@ public class AddParticleViewController extends AbstractDialogController implemen
                 });
                 task.setOnFailed(event -> {
                     setText("Error");
+                    System.out.println((new Exception(task.getException())).getMessage());
                 });
                 App.getExecutorService().submit(task);
             }
@@ -260,8 +263,7 @@ public class AddParticleViewController extends AbstractDialogController implemen
             if (checkBoxRandom.isSelected()) {
                 try {
                     selectionSize = Integer.parseInt(textFieldRandom.getText());
-                }
-                catch (NumberFormatException ex) {
+                } catch (NumberFormatException ex) {
 
                 }
             }
