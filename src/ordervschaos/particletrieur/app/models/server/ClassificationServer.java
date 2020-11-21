@@ -205,7 +205,14 @@ public class ClassificationServer {
                                 response += String.format("\"circularity\": %.3f, ", morphologyPixels.circularity);
                                 response += String.format("\"roundness\": %.3f, ", morphologyPixels.roundness);
                                 response += String.format("\"solidity\": %.3f, ", morphologyPixels.solidity);
-                                response += String.format("\"eccentricity\": %.3f", morphologyPixels.eccentricity);
+                                response += String.format("\"eccentricity\": %.3f,", morphologyPixels.eccentricity);
+                                response += String.format("\"mean\": %.3f,", morphologyPixels.mean);
+                                response += String.format("\"stddev\": %.3f,", morphologyPixels.stddev);
+                                response += String.format("\"stddevInvariant\": %.3f,", morphologyPixels.stddevInvariant);
+                                response += String.format("\"skew\": %.3f,", morphologyPixels.skew);
+                                response += String.format("\"kurtosis\": %.3f,", morphologyPixels.kurtosis);
+                                response += String.format("\"moment5\": %.3f,", morphologyPixels.moment5);
+                                response += String.format("\"moment6\": %.3f", morphologyPixels.moment6);
                                 response += "}";
                             }
                             else {

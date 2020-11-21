@@ -273,6 +273,7 @@ public class MainController extends AbstractController implements Initializable 
                 //Save preferences
                 App.getPrefs().setUsername(supervisor.getUsername());
                 App.getPrefs().save();
+                App.getExecutorService().shutdown();
             }
         });
         this.stage.setTitle("Particle Trieur (" + App.class.getPackage().getImplementationVersion() + ")");
