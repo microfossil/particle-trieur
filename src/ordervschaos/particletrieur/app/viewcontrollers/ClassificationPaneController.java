@@ -55,13 +55,17 @@ import java.util.stream.Collectors;
  */
 public class ClassificationPaneController implements Initializable {
 
+    @FXML SymbolLabel symbolValidate;
+    @FXML Button buttonValidate;
+    @FXML CheckBox checkBoxAutoValidate;
+    @FXML CheckBox checkBoxAutoAdvance;
     @FXML GridPane gridPaneCNN;
     @FXML GridPane gridPaneKNN;
     @FXML HBox hboxCNN;
     @FXML
     SymbolLabel symbolLabelDeepCNNRefresh;
-    @FXML
-    ToggleSwitch toggleSwitchAutoAdvance;
+//    @FXML
+//    ToggleSwitch toggleSwitchAutoAdvance;
     @FXML
     CheckBox checkBoxPreprocessBeforeClassification;
     @FXML
@@ -100,51 +104,38 @@ public class ClassificationPaneController implements Initializable {
     LabelsViewModel labelsViewModel;
 
     //Buttons for classification and tagging
-    Map<String, StackPane> labelStackPanes = new HashMap<>();
-
     Map<String, ClassificationButton> labelButtons = new HashMap<>();
-
-    Map<String, Pane> labelKNNRegions = new HashMap<>();
-    Map<String, Pane> labelCNNRegions = new HashMap<>();
-
     Map<String, Button> tagButtons = new HashMap<>();
-
     RotateTransition rotateTransitionSymbolLabelDeepCNN;
-
     public ArrayList<String> taxonCodes = new ArrayList<>();
-
-    //Properties for rest of UI
-    public BooleanProperty autoAdvance = new SimpleBooleanProperty(true);
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        //CNN classifying animation
         rotateTransitionSymbolLabelDeepCNN = new RotateTransition(Duration.millis(3000), symbolLabelDeepCNNRefresh);
         rotateTransitionSymbolLabelDeepCNN.setByAngle(360);
         rotateTransitionSymbolLabelDeepCNN.setInterpolator(Interpolator.LINEAR);
         rotateTransitionSymbolLabelDeepCNN.setCycleCount(Animation.INDEFINITE);
         symbolLabelDeepCNNRefresh.setCache(true);
         symbolLabelDeepCNNRefresh.setCacheHint(CacheHint.SPEED);
-        //rotateTransitionSymbolLabelDeepCNN.play();
 
         //Controls
         checkBoxPreprocessBeforeClassification.selectedProperty().bindBidirectional(supervisor.project.processingInfo.processBeforeClassificationProperty());
-
-//        hboxCNN.disableProperty().bind(Bindings.not(supervisor.network.enabledProperty()));
-//        gridPaneCnn.disableProperty().bind(Bindings.not(supervisor.network.enabledProperty()));
-
         spinnerCNNThreshold.getValueFactory().valueProperty().bindBidirectional(predictionViewModel.cnnThresholdProperty());
         spinnerKNNThreshold.getValueFactory().valueProperty().bindBidirectional(predictionViewModel.knnThresholdProperty());
 
-        //Current particle
+        //Current particle updated
         selectionViewModel.currentParticleProperty().addListener((observable, oldValue, newValue) -> {
-            //if (newValue != null) {
-                updateClassificationUI(newValue);
-                updateTagUI(newValue);
-            //}
+            updateClassificationUI(newValue);
+            updateTagUI(newValue);
         });
 
-        //Events
+        //Network updated
+        supervisor.project.networkDefinitionProperty().addListener(listener -> {
+            setupNetworkUI(supervisor.project.getNetworkDefinition());
+        });
+
+        //Updated events
         supervisor.project.taxonsUpdatedEvent.addListener(listener -> {
             setupClassificationUI(supervisor.project);
             updateClassificationUI(selectionViewModel.getCurrentParticle());
@@ -154,9 +145,6 @@ public class ClassificationPaneController implements Initializable {
             setupTagUI(supervisor.project);
             updateTagUI(selectionViewModel.getCurrentParticle());
         });
-        supervisor.project.networkDefinitionProperty().addListener(listener -> {
-            setupNetworkUI(supervisor.project.getNetworkDefinition());
-        });
         selectionViewModel.currentParticleUpdatedEvent.addListener(listener -> {
             updateClassificationUI(selectionViewModel.getCurrentParticle());
             updateTagUI(selectionViewModel.getCurrentParticle());
@@ -165,32 +153,33 @@ public class ClassificationPaneController implements Initializable {
         setupClassificationUI(supervisor.project);
         setupTagUI(supervisor.project);
 
+        //kNN classification updated
         selectionViewModel.knnPredictionViewModel.kNNPredictedClassificationProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null || newValue.classifications.size() == 0) {
-                //gridPaneKnn.setDisable(true);
                 buttonkNNLabel.setText("N/A");
                 updateKNNUI(null);
                 progressBarkNNScore.setProgress(0);
             } else {
-                //gridPaneKnn.setDisable(false);
                 updateKNNUI(newValue);
                 buttonkNNLabel.setText(newValue.getBestCode());
                 progressBarkNNScore.setProgress(newValue.getBest().getValue());
             }
         });
+
+        //CNN classification updated
         selectionViewModel.cnnPredictionViewModel.cnnPredictedClassificationProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null || newValue.classifications.size() == 0) {
-                //gridPaneCnn.setDisable(true);
                 buttonCNNLabel.setText("N/A");
                 updateCNNUI(null);
                 progressBarCNNScore.setProgress(0);
             } else {
-                //gridPaneCnn.setDisable(false);
                 updateCNNUI(newValue);
                 buttonCNNLabel.setText(newValue.getBest().getCode());
                 progressBarCNNScore.setProgress(newValue.getBest().getValue());
             }
         });
+
+        //CNN running
         selectionViewModel.cnnPredictionViewModel.runningProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 symbolLabelDeepCNNRefresh.setVisible(true);
@@ -201,7 +190,6 @@ public class ClassificationPaneController implements Initializable {
                 rotateTransitionSymbolLabelDeepCNN.stop();
             }
         });
-
         gridPaneCNN.getChildren().clear();
         gridPaneCNN.addRow(0, new Label("N/A"));
         supervisor.network.enabledProperty().addListener((observable, oldValue, newValue) -> {
@@ -224,13 +212,16 @@ public class ClassificationPaneController implements Initializable {
                 e.printStackTrace();
             }
         }
+
+        //Validation button
+        buttonValidate.setOnAction(event -> {
+            labelsViewModel.toggleValidated();
+        });
     }
 
     private void setupClassificationUI(Project project) {
-
         taxonCodes.clear();
         labelButtons.clear();
-//        labelKNNRegions.clear();
         vboxClasses.getChildren().clear();
 
         Label labelClasses = new Label("Classes:");
@@ -242,8 +233,6 @@ public class ClassificationPaneController implements Initializable {
         FlowPane requiredFlowPane = new FlowPane();
         requiredFlowPane.setHgap(7);
         requiredFlowPane.setVgap(7);
-//        requiredFlowPane.setPadding(new Insets(7, 0, 0, 0));
-
         vboxClasses.getChildren().addAll(
                 labelClasses,
                 labelFlowPane,
@@ -256,24 +245,14 @@ public class ClassificationPaneController implements Initializable {
             final String code = taxon.getCode();
 
             //Create a button
-//            StackPane stackPane = new StackPane();
-//            Button button = new Button(code);
             ClassificationButton button = new ClassificationButton(code);
             button.getButton().setMinWidth(80);
 
-//            Pane knnRegion = new Pane();
-//            knnRegion.setMaxWidth(5);
-//            knnRegion.setStyle("-fx-opacity: 0.0;");
-//            stackPane.getChildren().add(button);
-//            stackPane.getChildren().add(knnRegion);
-//            StackPane.setAlignment(knnRegion, Pos.CENTER_RIGHT);
-
             //Change the particle label when the button is clicked
-            //Event when the button is clicked
             button.getButton().addEventHandler(MouseEvent.MOUSE_CLICKED, (event -> {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     labelsViewModel.setLabel(code, 1.0, true);
-                    if (toggleSwitchAutoAdvance.isSelected()) {
+                    if (checkBoxAutoAdvance.isSelected()) {
                         selectionViewModel.nextImageRequested.broadcast(true);
                     }
                 } else if (event.getButton() == MouseButton.SECONDARY) {
@@ -281,18 +260,14 @@ public class ClassificationPaneController implements Initializable {
                     popOver.show(button);
                 }
             }));
-
             //Add it to the appropriate vBox
             if (!taxon.getIsClass() || taxon.getGroup().equalsIgnoreCase("other")) {
                 requiredFlowPane.getChildren().add(button);
             } else {
                 labelFlowPane.getChildren().add(button);
             }
-
             //Put button in dictionary so we can modify it later.
             labelButtons.put(code, button);
-//            labelStackPanes.put(code, stackPane);
-//            labelKNNRegions.put(code, knnRegion);
         }
 
         //Button to add a new label
@@ -302,15 +277,12 @@ public class ClassificationPaneController implements Initializable {
         buttonAddNewLabel.setText("Add");
         buttonAddNewLabel.setGraphic(new SymbolLabel("featherplus", 12));
         buttonAddNewLabel.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            //App.blur(true);
             showEditLabelDialog(null);
-            //App.blur(false);
         });
         labelFlowPane.getChildren().add(buttonAddNewLabel);
     }
 
     private void setupTagUI(Project project) {
-
         flowPaneTags.getChildren().clear();
         tagButtons.clear();
 
@@ -347,13 +319,10 @@ public class ClassificationPaneController implements Initializable {
         buttonAddNewTag.setText("Add");
         buttonAddNewTag.setGraphic(new SymbolLabel("featherplus", 12));
         buttonAddNewTag.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            //App.blur(true);
             showEditTagDialog(null);
-            //App.blur(false);
         });
         flowPaneTags.getChildren().add(buttonAddNewTag);
     }
-
 
     private void setupNetworkUI(NetworkInfo def) {
         labelNetwork.setText("No network");
@@ -361,7 +330,6 @@ public class ClassificationPaneController implements Initializable {
             labelNetwork.setText(def.protobuf);
         }
     }
-
 
     private void showEditLabelDialog(Taxon taxon) {
         try {
@@ -373,7 +341,6 @@ public class ClassificationPaneController implements Initializable {
         }
     }
 
-
     private void showEditTagDialog(Tag tag) {
         try {
             EditTagViewController controller = AbstractDialogController.create(EditTagViewController.class);
@@ -383,7 +350,6 @@ public class ClassificationPaneController implements Initializable {
             e.printStackTrace();
         }
     }
-
 
     private PopOver createLabelPopover(Taxon taxon) {
         final String code = taxon.getCode();
@@ -504,12 +470,23 @@ public class ClassificationPaneController implements Initializable {
         return popOver;
     }
 
-
     private void updateClassificationUI(Particle particle) {
         if (particle != null) {
             String code = particle.getClassification();
             for (Map.Entry<String, ClassificationButton> b : labelButtons.entrySet()) {
                 b.getValue().setIsHighlighted(b.getKey().equals(code));
+            }
+            if (!particle.getValidator().equals("")) {
+                buttonValidate.setText("Validated");
+                buttonValidate.setStyle("-fx-text-fill: green");
+                symbolValidate.setSymbol("feathercheckcircle");
+                symbolValidate.setSymbolColor("green");
+            }
+            else {
+                buttonValidate.setText("Not validated");
+                buttonValidate.setStyle("-fx-text-fill: red");
+                symbolValidate.setSymbol("featherxcircle");
+                symbolValidate.setSymbolColor("red");
             }
         }
         else {
@@ -517,43 +494,6 @@ public class ClassificationPaneController implements Initializable {
                 b.getValue().setIsHighlighted(false);
             }
         }
-//        if (Map.Entry<String, Button> b : labelButtons.entrySet()) {
-//            b.getValue().setStyle("");
-//            if (removeDecorations) {
-//                StackPane stackPane = labelStackPanes.get(b.getKey());
-//                ArrayList<Node> toRemove = new ArrayList<>();
-//                for (Node node : stackPane.getChildren()) {
-//                    if (node.getClass() == SymbolLabel.class) {
-//                        toRemove.add(node);
-//                    }
-//                }
-//                stackPane.getChildren().removeAll(toRemove);
-////                if (stackPane.getChildren().size() > 1)
-////                    stackPane.getChildren().remove(1, stackPane.getChildren().size());
-//            }
-//        }
-//        if (particle != null) {
-//            for (Classification cl : particle.getClassificationsAsList()) {
-//                String code = cl.getCode();
-//                if (labelButtons.containsKey(code)) {
-//                    if (cl.getValue() > 0.01) {
-//                        Button b = labelButtons.get(code);
-//                        if (code.equalsIgnoreCase(particle.classification.get())) {
-//                            b.setStyle(String.format("-fx-base: derive(#0096C9,%d%%)", (int) (100 - cl.getValue() * 100)));
-//                        } else {
-//                            b.setStyle(String.format("-fx-base: derive(#FF3355,%d%%)", (int) (100 - cl.getValue() * 100)));
-//                        }
-//                        //styleButton(b, cl.getValue());
-//
-////                        b.setStyle(String.format("-fx-base: derive(#0096C9,%d%%);"
-////                                        + "-fx-inner-border: derive(#0096C9,100%%); "
-////                                        + "-fx-background-insets: 0 0 -1 0, 0, 1, 1 %d 1 1;",
-////                                (int) (50), 1 + (int) ((b.getWidth() - 2) * (1.0 - cl.getValue()))
-////                        ));
-//                    }
-//                }
-//            }
-//        }
     }
 
     private void addClassificationRow(GridPane pane, ClassificationSet cls) {
@@ -608,35 +548,6 @@ public class ClassificationPaneController implements Initializable {
                 button.setIsKNN(false);
             }
         }
-//        for (Map.Entry<String, Pane> region : labelKNNRegions.entrySet()) {
-//
-//        }
-//        if (labelStackPanes.containsKey(cls.getCode())) {
-//            StackPane stackPane = labelStackPanes.get(cls.getCode());
-//            SymbolLabel symbolLabel = new SymbolLabel("feathergrid", 12);
-//            symbolLabel.getStyleClass().add("button-decoration");
-//            stackPane.getChildren().add(symbolLabel);
-//            stackPane.setAlignment(symbolLabel, Pos.TOP_LEFT);
-//            if (stackPane.getChildren().size() < 3) {
-//                stackPane.setMargin(symbolLabel, new Insets(-4, 0, 0, -4));
-//            } else {
-//                stackPane.setMargin(symbolLabel, new Insets(-4, 0, 0, 12));
-//            }
-//        }
-//        for (Map.Entry<String, Pane> region : labelKNNRegions.entrySet()) {
-//            if (region.getKey().equals(cls.getCode())) {
-//                region.getValue().setPrefWidth(labelButtons.get(cls.getCode()).getWidth());
-//                region.getValue().setStyle(String.format(
-//                        "-fx-background-insets: 0 %d 0 0;" +
-//                                "-fx-background-color: blue;" +
-//                                "-fx-background-radius: 2, 0, 0, 2;" +
-//                                "-fx-opacity: 0.3;",
-//                        (int) (labelButtons.get(cls.getCode()).getWidth() * (1.0 - cls.getValue()))));
-//            }
-//            else {
-//                region.getValue().setStyle("-fx-opacity: 0.0");
-//            }
-//        }
     }
 
     private void updateCNNUI(ClassificationSet cls) {
@@ -659,8 +570,7 @@ public class ClassificationPaneController implements Initializable {
                     button.setIsCNN(false);
                 }
             }
-        }
-        else {
+        } else {
             gridPaneCNN.getChildren().clear();
             gridPaneCNN.addRow(0, new Label("N/A"));
             for (Map.Entry<String, ClassificationButton> b : labelButtons.entrySet()) {
@@ -668,32 +578,7 @@ public class ClassificationPaneController implements Initializable {
                 button.setIsCNN(false);
             }
         }
-//        if (labelStackPanes.containsKey(code)) {
-//            StackPane stackPane = labelStackPanes.get(code);
-//            SymbolLabel symbolLabel = new SymbolLabel("feathercpu", 12);
-//            symbolLabel.getStyleClass().add("button-decoration");
-//            stackPane.getChildren().add(symbolLabel);
-//            stackPane.setAlignment(symbolLabel, Pos.TOP_LEFT);
-//            if (stackPane.getChildren().size() < 3) {
-//                stackPane.setMargin(symbolLabel, new Insets(-4, 0, 0, -4));
-//            } else {
-//                stackPane.setMargin(symbolLabel, new Insets(-4, 0, 0, 12));
-//            }
-//        }
     }
-
-//    private void styleButton(Button button, double fraction) {
-//        //String style = String.format("-fx-background-insets: 0 0 -1 0, 0, 1, 2 %d 2 2;", 1 + (int) ((button.getWidth() - 2) * (1.0 - fraction)));
-//        //button.setStyle(style);
-//        if (fraction > 0.01) {
-//            SymbolLabel symbolLabel = new SymbolLabel("feathercircle",8);
-//            symbolLabel.setStyle("-fx-text-fill: green");
-//            button.setGraphic(symbolLabel);
-//        }
-//        else {
-//            button.setGraphic(null);
-//        }
-//    }
 
     private void updateTagUI(Particle particle) {
         for (Map.Entry<String, Button> b : tagButtons.entrySet()) {
@@ -711,18 +596,6 @@ public class ClassificationPaneController implements Initializable {
         }
     }
 
-
-//    private void updateRatingUI(Particle particle) {
-//        //ratingImage.setRating(particle.getImageQuality());
-//    }
-
-
-//    @FXML
-//    private void handleRating(MouseEvent event) {
-//        supervisor.project.setParticleQuality(selectionViewModel.getCurrentParticles(), (int) ratingImage.getRating());
-//    }
-
-
     @FXML
     private void handleChangeCNNPredictionNetwork(ActionEvent event) {
         try {
@@ -731,14 +604,6 @@ public class ClassificationPaneController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//
-//        SelectNetworkViewController dialog = new SelectNetworkViewController();
-//        dialog.setData(supervisor.project.getNetworkDefinition());
-//        Optional<NetworkInfo> result = dialog.showAndWait();
-//        if (!result.isPresent()) {
-//            return;
-//        }
-//        supervisor.project.setNetworkDefinition(result.get());
     }
 
     @FXML
@@ -746,32 +611,23 @@ public class ClassificationPaneController implements Initializable {
         predictionViewModel.predictUsingCNN(
                 selectionViewModel.getCurrentParticles(),
                 supervisor.project.processingInfo.getProcessBeforeClassification());
-        selectionViewModel.currentParticleUpdatedEvent.broadcast(null);
     }
 
     @FXML
     private void handleSetClassFromkNNPrediction(ActionEvent event) {
         Classification cls = selectionViewModel.knnPredictionViewModel.getkNNPredictedClassification().getBest();
         labelsViewModel.setLabel(cls.getCode(), cls.getValue(), true);
-        if (toggleSwitchAutoAdvance.isSelected()) {
-            selectionViewModel.nextImageRequested.broadcast(true);
-        }
+
     }
 
     private void handleSetClassFromPrediction(Classification cls) {
         labelsViewModel.setLabel(cls.getCode(), cls.getValue(), true);
-        if (toggleSwitchAutoAdvance.isSelected()) {
-            selectionViewModel.nextImageRequested.broadcast(true);
-        }
     }
 
     @FXML
     private void handleSetClassFromCNNPrediction(ActionEvent event) {
         Classification cls = selectionViewModel.cnnPredictionViewModel.getCnnPredictedClassification().getBest();
         labelsViewModel.setLabel(cls.getCode(), cls.getValue(), true);
-        if (toggleSwitchAutoAdvance.isSelected()) {
-            selectionViewModel.nextImageRequested.broadcast(true);
-        }
     }
 
     @FXML

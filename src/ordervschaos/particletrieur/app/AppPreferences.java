@@ -21,7 +21,6 @@ public class AppPreferences {
     //Preferences
     public static Preferences appPrefs =  Preferences.userRoot().node("particleTrieur");
 
-    //Stored properties
     //Needs checking in here for valid path
     public String getProjectPath() { return appPrefs.get("projectPath", System.getProperty("user.home")); }
     public void setProjectPath(String path) { appPrefs.put("projectPath", path); }
@@ -38,13 +37,16 @@ public class AppPreferences {
     public String getNetworkPath() { return appPrefs.get("networkPath", System.getProperty("user.home")); }
     public void setNetworkPath(String path) { appPrefs.put("networkPath", path); }
 
+    public String getTrainingPath() { return appPrefs.get("trainingPath", System.getProperty("user.home")); }
+    public void setTrainingPath(String path) { appPrefs.put("trainingPath", path); }
+
     public String getFlowcamPath() { return appPrefs.get("flowcamPath", System.getProperty("user.home")); }
     public void setFlowcamPath(String path) { appPrefs.put("flowcamPath", path); }
     
     public String getParseString() { return appPrefs.get("parseString", ""); }
     public void setParseString(String path) { appPrefs.put("parseString", path); }
     
-    public String getUsername() { return appPrefs.get("username", ""); }
+    public String getUsername() { return appPrefs.get("username", System.getProperty("user.name")); }
     public void setUsername(String path) { appPrefs.put("username", path); }
 
     public String getPythonPath() { return appPrefs.get("pythonPath", ""); }
@@ -87,16 +89,6 @@ public class AppPreferences {
         for ( ; i < 5; i++) {
             appPrefs.put(keys[i], "");
         }
-    }
-
-
-    //Fixed properties
-    public String getAnacondaActivation() {
-        //%windir%\System32\cmd.exe "/K"
-        return "C:\\Users\\rossm\\Anaconda3\\Scripts\\activate.bat C:\\Users\\rossm\\Anaconda3";
-    }
-    public String getAnacondaEnvironment() {
-        return "activate miso";
     }
 
     //Save all

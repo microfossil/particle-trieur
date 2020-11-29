@@ -8,6 +8,7 @@ package ordervschaos.particletrieur.app.viewcontrollers.particle;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.GridPane;
 import ordervschaos.particletrieur.app.App;
+import ordervschaos.particletrieur.app.controls.SymbolLabel;
 import ordervschaos.particletrieur.app.models.Supervisor;
 import ordervschaos.particletrieur.app.models.project.Particle;
 import ordervschaos.particletrieur.app.AbstractController;
@@ -34,6 +35,12 @@ import java.util.ResourceBundle;
 @FxmlLocation("views/particle/ImageDetailView.fxml")
 public class ImageDetailViewController extends AbstractController implements Initializable {
 
+    @FXML
+    SymbolLabel symbolValidated;
+    @FXML
+    Label labelValidator;
+    @FXML
+    Label labelClassifierId;
     @FXML
     ScrollPane scrollPane;
     @FXML
@@ -62,7 +69,6 @@ public class ImageDetailViewController extends AbstractController implements Ini
     @FXML
     Label labelGUID;
 
-
     @Inject
     private SelectionViewModel selectionViewModel;
     @Inject
@@ -90,6 +96,12 @@ public class ImageDetailViewController extends AbstractController implements Ini
             setData(newValue);
         });
         gridPane.setVisible(false);
+        symbolValidated.setVisible(false);
+
+        labelValidator.textProperty().addListener(((observable, oldValue, newValue) -> {
+            if (newValue.equals("")) symbolValidated.setVisible(false);
+            else symbolValidated.setVisible(true);
+        }));
     }    
     
     public void setImage(Image image) {
@@ -164,6 +176,22 @@ public class ImageDetailViewController extends AbstractController implements Ini
             e.printStackTrace();
         }
         labelSample.textProperty().bind(particle.sampleIDProperty());
+
+        try {
+            labelClassifierId.textProperty().unbind();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        labelClassifierId.textProperty().bind(particle.classifierIdProperty);
+
+        try {
+            labelValidator.textProperty().unbind();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        labelValidator.textProperty().bind(particle.validatorProperty());
 
         labelFilename.setText(particle.getShortFilename());
         labelPath.setText(particle.getFolder());

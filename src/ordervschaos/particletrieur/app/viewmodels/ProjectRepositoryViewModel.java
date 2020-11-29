@@ -14,6 +14,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import ordervschaos.particletrieur.app.viewmanagers.UndoManager;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
@@ -30,6 +31,8 @@ public class ProjectRepositoryViewModel {
     Supervisor supervisor;
     @Inject
     MainViewModel mainViewModel;
+    @Inject
+    UndoManager undoManager;
 
     //TODO put operation in progress in App
     public void openProject() {
@@ -52,6 +55,7 @@ public class ProjectRepositoryViewModel {
         if (file != null) {
             try {
                 supervisor.projectRepository.open(file);
+                undoManager.clear();
             } catch (Exception ex) {
                 BasicDialogs.ShowException("Error opening project", ex);
             }
@@ -66,6 +70,7 @@ public class ProjectRepositoryViewModel {
         if (file.exists()) {
             try {
                 supervisor.projectRepository.open(file);
+                undoManager.clear();
             } catch (Exception ex) {
                 BasicDialogs.ShowException("Error opening project", ex);
             }
@@ -106,6 +111,7 @@ public class ProjectRepositoryViewModel {
         if (file != null) {
             try {
                 supervisor.projectRepository.loadFromTemplate(file);
+                undoManager.clear();
             } catch (Exception ex) {
                 BasicDialogs.ShowException("Error opening project template", ex);
             }
@@ -117,7 +123,9 @@ public class ProjectRepositoryViewModel {
         if (!showIfProjectNeedsSave("Choose whether to save before starting a new project")) {
             return;
         }
+        undoManager.clear();
         supervisor.project.resetToDefaults();
+
     }
 
     public void saveProject() {

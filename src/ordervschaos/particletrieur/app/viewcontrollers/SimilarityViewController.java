@@ -98,7 +98,7 @@ public class SimilarityViewController extends AbstractController implements Init
                     cell.get().updateSelection();
                 }
                 catch (NullPointerException ex) {
-                    System.out.println("disposed");
+//                    System.out.println("disposed");
                     itr.remove();
                 }
             }
@@ -140,8 +140,12 @@ public class SimilarityViewController extends AbstractController implements Init
     @FXML
     private void handleSetLabel(ActionEvent event) {
         String code = menuButtonLabels.getText();
+        ArrayList<Particle> particles = new ArrayList<>();
         for (Similarity similarity : selectedItems) {
-            labelsViewModel.setLabel(supervisor.project.particles.get(similarity.index), code, 1.0, true);
+            particles.add(supervisor.project.particles.get(similarity.index));
+        }
+        if (particles.size() > 0) {
+            labelsViewModel.setLabel(particles, code, 1.0, true);
         }
     }
 

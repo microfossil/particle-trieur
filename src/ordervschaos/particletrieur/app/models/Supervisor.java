@@ -35,9 +35,13 @@ public class Supervisor {
     public final ParticleInformationManager particleInformationManager;
 
     //Current user
-    private final StringProperty username = new SimpleStringProperty();
-    public String getUsername() { return username.get(); }
-    public void setUsername(String value) { username.set(value); }
+    private final StringProperty username = new SimpleStringProperty("");
+    public String getUsername() {
+        return username.get();
+    }
+    public void setUsername(String value) {
+        username.set(value);
+    }
     public StringProperty usernameProperty() { return username; }
 
     public ExceptionMonitor exceptionMonitor = new ExceptionMonitor();
@@ -55,6 +59,7 @@ public class Supervisor {
                 App.getPrefs().save();
             }
         });
+
         //Connect project and network
         project.networkDefinitionProperty().addListener((objv,oldv,newv) -> {
             network.setNetworkInfo(newv);
@@ -64,8 +69,17 @@ public class Supervisor {
             }
             if (!network.isEnabled() && newv != null) project.setNetworkDefinition(null);
         });
+
         //Load preferences
-        setUsername(App.getPrefs().getUsername());
+        String username = App.getPrefs().getUsername();
+        if (username.equals("")) username = System.getProperty("user.name");
+        setUsername(username);
+
+        //Update username
+        usernameProperty().addListener(((observable, oldValue, newValue) -> {
+            App.getPrefs().setUsername(newValue);
+        }));
+
         //Exception handling
         Thread.setDefaultUncaughtExceptionHandler(exceptionMonitor);
     }

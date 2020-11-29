@@ -30,6 +30,8 @@ import sun.applet.Main;
  * @author Ross Marchant <ross.g.marchant@gmail.com>
  */
 public class App extends Application {
+
+    public static String VERSION = "2.2.2";
     
     public static Image iconImage = new Image(App.class.getResourceAsStream("resources/icon.png" ),44, 44,true,true);
     
@@ -62,7 +64,7 @@ public class App extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("views/StartupView.fxml"),bundle);
         loader.setControllerFactory(instantiatedClass -> injector.getInstance(instantiatedClass));
         root = loader.load();
-        stage.setTitle("Particle Trieur (" + App.class.getPackage().getImplementationVersion() + ")");
+        stage.setTitle("Particle Trieur " + App.VERSION);
         stage.getIcons().add(new Image(App.class.getResourceAsStream("resources/icon.png" )));
         
         Scene scene = new Scene(root);

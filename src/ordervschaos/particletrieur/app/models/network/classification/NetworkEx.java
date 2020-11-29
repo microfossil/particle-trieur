@@ -99,8 +99,8 @@ public class NetworkEx {
                         tensorInfo.height = shape.numDimensions() > 1 ? (int)shape.size(1) : 0;
                         tensorInfo.width = shape.numDimensions() > 2 ? (int)shape.size(2) : 0;
                         tensorInfo.channels = shape.numDimensions() > 3 ? (int)shape.size(3) : 0;
-                        System.out.println(operation.output(0).op().name());
-                        System.out.println(operation.output(0).shape());
+//                        System.out.println(operation.output(0).op().name());
+//                        System.out.println(operation.output(0).shape());
                     }
                 }
             });

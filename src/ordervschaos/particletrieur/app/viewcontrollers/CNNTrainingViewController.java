@@ -49,10 +49,14 @@ import java.util.*;
 @FxmlLocation("views/CNNTrainingView.fxml")
 public class CNNTrainingViewController extends AbstractDialogController implements Initializable {
 
-    @FXML Label labelPythonLocation;
-    @FXML CheckBox checkBoxUseOther;
-    @FXML CheckBox checkBoxUseSplit;
-    @FXML GridPane gridPaneSplit;
+    @FXML
+    Label labelPythonLocation;
+    @FXML
+    CheckBox checkBoxUseOther;
+    @FXML
+    CheckBox checkBoxUseSplit;
+    @FXML
+    GridPane gridPaneSplit;
     @FXML
     CustomTextField textFieldName;
     @FXML
@@ -116,7 +120,7 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
             Label description = new Label();
             vBox.getChildren().addAll(name, description);
             hBox.getChildren().addAll(pane, vBox);
-            HBox.setMargin(pane, new Insets(0,7,0,0));
+            HBox.setMargin(pane, new Insets(0, 7, 0, 0));
             ListCell<TrainingLaunchInfo> cell = new ListCell<TrainingLaunchInfo>() {
                 @Override
                 protected void updateItem(TrainingLaunchInfo item, boolean empty) {
@@ -127,11 +131,9 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
                     } else {
                         if (item.networkType.startsWith("base_cyclic") || item.networkType.startsWith("resnet_cyclic")) {
                             pane.setStyle("-fx-background-color: darkorange;");
-                        }
-                        else if (item.networkType.endsWith("tl")) {
+                        } else if (item.networkType.endsWith("tl")) {
                             pane.setStyle("-fx-background-color: darkgreen;");
-                        }
-                        else {
+                        } else {
                             pane.setStyle("-fx-background-color: darkred;");
                         }
                         name.setText(item.name);
@@ -193,8 +195,7 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
             if (newValue.networkType.endsWith("_tl")) {
                 //comboBoxColourMode.setDisable(true);
                 checkBoxApplyAugmentation.setDisable(true);
-            }
-            else {
+            } else {
                 //comboBoxColourMode.setDisable(false);
                 checkBoxApplyAugmentation.setDisable(false);
             }
@@ -206,11 +207,7 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
 
         gridPaneSplit.disableProperty().bind(Bindings.not(checkBoxUseSplit.selectedProperty()));
 
-        radioButtonInputThisProject.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue && textFieldOutputFolder.getText().equals("") && supervisor.project.getFile().exists()) {
-                textFieldOutputFolder.setText(supervisor.project.getFile().getParent());
-            }
-        });
+        defaultOutputFolder();
 
         //Spinner hack
         for (Field field : getClass().getDeclaredFields()) {
@@ -229,6 +226,20 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
         labelPythonLocation.setText("Python location: " + CNNTrainingService.getAnacondaInstallationLocation());
     }
 
+    private void defaultOutputFolder() {
+        File savedOutput = new File(App.getPrefs().getTrainingPath());
+        if (savedOutput.exists()) {
+            textFieldOutputFolder.setText(savedOutput.getAbsolutePath());
+        }
+        else {
+            if (supervisor.project.getFile().exists()) {
+                textFieldOutputFolder.setText(supervisor.project.getFile().getParent() + File.separator + "training");
+            } else {
+                textFieldOutputFolder.setText(System.getProperty("user.home"));
+            }
+        }
+    }
+
     public TrainingLaunchInfo getLaunchInfo() {
 
         TrainingLaunchInfo info = new TrainingLaunchInfo();
@@ -237,11 +248,9 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
         //Input
         if (radioButtonInputFolder.isSelected()) {
             info.inputSource = textFieldInputFolder.getText();
-        }
-        else if (radioButtonInputCloudZipFile.isSelected()) {
+        } else if (radioButtonInputCloudZipFile.isSelected()) {
             info.inputSource = textFieldCloudZipFile.getText();
-        }
-        else {
+        } else {
             info.inputSource = supervisor.project.getFile().getAbsolutePath();
         }
 
@@ -302,12 +311,10 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
             if (radioButtonInputThisProject.isSelected()) {
                 try {
                     folder = supervisor.project.getFile().getParentFile();
-                }
-                catch (Exception ex) {
+                } catch (Exception ex) {
 
                 }
-            }
-            else {
+            } else {
                 folder = new File(App.getPrefs().getExportPath());
                 if (!folder.exists()) {
                     folder = new File(System.getProperty("user.home"));
@@ -334,6 +341,9 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
                 BasicDialogs.ShowException("Error opening folder", e);
             }
         }
+        else {
+            BasicDialogs.ShowError("Error", "Output folder has not been created yet");
+        }
     }
 
     @FXML
@@ -348,7 +358,7 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
         if (python.equals("") || !(new File(python).exists())) python = System.getProperty("user.home");
         FileChooser fc = new FileChooser();
         fc.setInitialDirectory(new File(python).getParentFile());
-        File file = fc.showOpenDialog(App.getWindow());
+        File file = fc.showOpenDialog(this.stage);
         //Open
         if (file != null) {
             appPrefs.setPythonPath(file.getAbsolutePath());
@@ -361,8 +371,8 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
         CNNTrainingService trainingService = new CNNTrainingService();
         if (trainingService.getAnacondaInstallationLocation() == null) {
             BasicDialogs.ShowError("Python Missing", "Python could not be found at any of the default locations.\nPlease update its location");
-        }
-        else {
+        } else {
+            App.getPrefs().setTrainingPath(textFieldOutputFolder.getText());
             trainingService.launch(getLaunchInfo());
         }
     }
@@ -376,22 +386,22 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
 //            BasicDialogs.ShowError("Python Missing", "Python could not be found at any of the default locations.\nPlease update its location");
 //        }
 //        else {i
-            String script = trainingService.getLaunchInfoScript(info);
+        String script = trainingService.getLaunchInfoScript(info);
 
-            final Clipboard clipboard = Clipboard.getSystemClipboard();
-            final ClipboardContent content = new ClipboardContent();
-            content.putString(script);
-            clipboard.setContent(content);
+        final Clipboard clipboard = Clipboard.getSystemClipboard();
+        final ClipboardContent content = new ClipboardContent();
+        content.putString(script);
+        clipboard.setContent(content);
 
-            AlertEx alert = new AlertEx(Alert.AlertType.INFORMATION, "Script has been copied to clipboard", ButtonType.OK);
-            alert.setHeaderText("Script Generated");
-            alert.showAndWait();
+        AlertEx alert = new AlertEx(Alert.AlertType.INFORMATION, "Script has been copied to clipboard", ButtonType.OK);
+        alert.setHeaderText("Script Generated");
+        alert.showAndWait();
 //        }
     }
 
     @Override
     public void postDialogSetup() {
-        ((BorderPane)this.root).setPadding(new Insets(0));
+        ((BorderPane) this.root).setPadding(new Insets(0));
     }
 
     @Override
@@ -411,6 +421,6 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
 
     @Override
     public ButtonType[] getButtonTypes() {
-        return new ButtonType[] { ButtonType.CLOSE };
+        return new ButtonType[]{ButtonType.CLOSE};
     }
 }

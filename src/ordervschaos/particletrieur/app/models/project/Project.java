@@ -79,7 +79,6 @@ public class Project implements Serializable {
 
     //Network    
     private ObjectProperty<NetworkInfo> networkDefinition = new SimpleObjectProperty<>();
-
     public ObjectProperty<NetworkInfo> networkDefinitionProperty() {
         return networkDefinition;
     }
@@ -494,6 +493,22 @@ public class Project implements Serializable {
     public void setParticleFilename(Particle particle, String filename) {
         particle.setFilename(filename);
         setIsDirty(true);
+    }
+
+    public void setParticleValidator(Particle particle, String validator) {
+        if (validator != null) {
+            particle.validate(validator);
+            setIsDirty(true);
+        }
+    }
+
+    public void setParticleValidator(List<Particle> particles, String validator) {
+        if (validator != null) {
+            for (Particle particle : particles) {
+                particle.validate(validator);
+            }
+            setIsDirty(true);
+        }
     }
 
     /*

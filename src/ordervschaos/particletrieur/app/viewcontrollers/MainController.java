@@ -63,6 +63,8 @@ public class MainController extends AbstractController implements Initializable 
     public static MainController instance;
     public StackPane rootDialog;
     public VBox rootVBox;
+    @FXML CheckBox checkBoxAutoAdvance;
+    @FXML CheckBox checkBoxAutoValidate;
 
 
     public Pane getRootPane() { return root; }
@@ -173,7 +175,7 @@ public class MainController extends AbstractController implements Initializable 
 
         instance = this;
 
-        mainMenuBar.setUseSystemMenuBar(true);
+//        mainMenuBar.setUseSystemMenuBar(true);
 
 
 
@@ -271,12 +273,12 @@ public class MainController extends AbstractController implements Initializable 
                 supervisor.classificationServer.stop();
                 supervisor.folderWatch.stop();
                 //Save preferences
-                App.getPrefs().setUsername(supervisor.getUsername());
+//                App.getPrefs().setUsername(supervisor.getUsername());
                 App.getPrefs().save();
                 App.getExecutorService().shutdown();
             }
         });
-        this.stage.setTitle("Particle Trieur (" + App.class.getPackage().getImplementationVersion() + ")");
+        this.stage.setTitle("Particle Trieur " + App.VERSION);
     }
 
     /**
@@ -286,8 +288,15 @@ public class MainController extends AbstractController implements Initializable 
 
         //Window Title
         supervisor.project.fileProperty().addListener((observable, oldValue, newValue) -> {
-            this.stage.setTitle("Particle Trieur (" + App.class.getPackage().getImplementationVersion() + ")  -  "  + newValue);
+            this.stage.setTitle("Particle Trieur " + App.VERSION + " - "  + newValue);
         });
+
+        //Username
+        textFieldUser.textProperty().bindBidirectional(supervisor.usernameProperty());
+
+        //Validation
+        checkBoxAutoAdvance.selectedProperty().bindBidirectional(labelsViewModel.autoAdvanceProperty());
+        checkBoxAutoValidate.selectedProperty().bindBidirectional(labelsViewModel.autoValidateProperty());
 
         //Events
         mainViewModel.expandListRequested.addListener(val -> expandList());

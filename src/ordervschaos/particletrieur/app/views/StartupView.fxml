@@ -20,26 +20,26 @@
             <children>
             <VBox fx:id="vboxWelcome" spacing="14.0">
                <children>
-                        <HBox alignment="CENTER_LEFT">
-                            <children>
-                                <Label styleClass="header" text="Welcome" />
-                                <Pane HBox.hgrow="ALWAYS" />
-                                <StackPane alignment="CENTER_RIGHT">
-                                    <children>
-                                        <Label fx:id="labelUpdate" text="Checking for updates..." textFill="darkgoldenrod">
-                                            <graphic>
-                                                <SymbolLabel fx:id="symbolLabelChecking" symbol="featherrefreshcw" symbolColor="darkgoldenrod" symbolSize="14" />
-                                            </graphic>
-                                        </Label>
-                                        <Hyperlink fx:id="hyperlinkUpdate" onAction="#handleUpdate" text="Update available" textFill="darkred" underline="true" visible="false">
-                                            <graphic>
-                                                <SymbolLabel symbol="featheralerttriangle" symbolSize="14" textFill="darkred" />
-                                            </graphic>
-                                        </Hyperlink>
-                                    </children>
-                                </StackPane>
-                            </children>
-                        </HBox>
+<!--                        <HBox alignment="CENTER_LEFT">-->
+<!--                            <children>-->
+<!--                                <Label styleClass="header" text="Welcome" />-->
+<!--                                <Pane HBox.hgrow="ALWAYS" />-->
+<!--&lt;!&ndash;                                <StackPane alignment="CENTER_RIGHT">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <children>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <Label fx:id="labelUpdate" text="Checking for updates..." textFill="darkgoldenrod">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <graphic>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <SymbolLabel fx:id="symbolLabelChecking" symbol="featherrefreshcw" symbolColor="darkgoldenrod" symbolSize="14" />&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </graphic>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </Label>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <Hyperlink fx:id="hyperlinkUpdate" onAction="#handleUpdate" text="Update available" textFill="darkred" underline="true" visible="false">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <graphic>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <SymbolLabel symbol="featheralerttriangle" symbolSize="14" textFill="darkred" />&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </graphic>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </Hyperlink>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </children>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </StackPane>&ndash;&gt;-->
+<!--                            </children>-->
+<!--                        </HBox>-->
                   <GridPane>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" />
@@ -51,6 +51,7 @@
                      <children>
                             <VBox prefHeight="200.0" prefWidth="400.0" spacing="14.0">
                                 <children>
+                                    <Label styleClass="header" text="Welcome" />
                                     <Button contentDisplay="BOTTOM" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNew">
                                         <graphic>
                                             <GridPane hgap="14.0">
@@ -143,7 +144,7 @@
                             </VBox>
                         <VBox prefHeight="200.0" prefWidth="400.0" spacing="7.0" GridPane.columnIndex="1">
                            <children>
-                              <Label styleClass="subheader" text="Recent Projects" />
+                              <Label styleClass="header" text="Recent Projects" />
                               <VBox fx:id="vboxRecent" />
 <!--                                    <Button fx:id="buttonOpenRecent" contentDisplay="BOTTOM" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleOpenRecent">-->
 <!--                                        <graphic>-->

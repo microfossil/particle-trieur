@@ -13,16 +13,21 @@ public class SetLabelSetCommand extends UndoableCommand {
     private HashMap<Particle,ClassificationSet> oldClassifications;
     double threshold;
     boolean wasAuto;
+    String validator;
+    private HashMap<Particle,String> oldValidators;
 
-    public SetLabelSetCommand(Project project, HashMap<Particle,ClassificationSet> classifications, double threshold, boolean wasAuto) {
+    public SetLabelSetCommand(Project project, HashMap<Particle,ClassificationSet> classifications, double threshold, boolean wasAuto, String validator) {
         super(String.format("label %d images", classifications.size()));
         this.project = project;
         this.threshold = threshold;
         this.classifications = classifications;
         this.wasAuto = wasAuto;
+        this.validator = validator;
         oldClassifications = new LinkedHashMap<>();
+        oldValidators = new LinkedHashMap<>();
         for (Map.Entry<Particle, ClassificationSet> entry : classifications.entrySet()) {
             oldClassifications.put(entry.getKey(), entry.getKey().getClassifications());
+            oldValidators.put(entry.getKey(), entry.getKey().getValidator());
         }
     }
 
@@ -30,6 +35,7 @@ public class SetLabelSetCommand extends UndoableCommand {
     public boolean apply() {
         for (Map.Entry<Particle, ClassificationSet> entry : classifications.entrySet()) {
             project.setParticleLabelSet(entry.getKey(), entry.getValue(), threshold, wasAuto);
+            project.setParticleValidator(entry.getKey(), validator);
         }
         return true;
     }
@@ -38,6 +44,9 @@ public class SetLabelSetCommand extends UndoableCommand {
     public boolean revert() {
         for (Map.Entry<Particle, ClassificationSet> entry : oldClassifications.entrySet()) {
             project.setParticleLabelSet(entry.getKey(), entry.getValue());
+        }
+        for (Map.Entry<Particle, String> entry : oldValidators.entrySet()) {
+            project.setParticleValidator(entry.getKey(), entry.getValue());
         }
         return true;
     }

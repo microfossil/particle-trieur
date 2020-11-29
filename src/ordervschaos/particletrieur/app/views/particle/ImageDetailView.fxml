@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import ordervschaos.particletrieur.app.controls.SymbolLabel?>
 
+<?import javafx.scene.layout.Pane?>
 <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" style="-fx-background-color: transparent;"
             xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ordervschaos.particletrieur.app.viewcontrollers.particle.ImageDetailViewController">
@@ -25,10 +26,16 @@
                 <VBox layoutX="7.0" layoutY="7.0" spacing="7.0" AnchorPane.bottomAnchor="0.0"
                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <Label fx:id="labelImageNumber" styleClass="header" text="Image #"/>
+                        <HBox spacing="4" alignment="CENTER_LEFT">
+                            <Label fx:id="labelImageNumber" styleClass="header" text="Image #"/>
+                            <Pane HBox.hgrow="ALWAYS"/>
+                            <SymbolLabel fx:id="symbolValidated" symbol="feathercheckcircle" symbolColor="green" symbolSize="24">
+                            </SymbolLabel>
+                        </HBox>
                         <HBox spacing="4.0">
                             <children>
                                 <Label fx:id="labelImageLabel" styleClass="subheader" text="Label"/>
+                                <Pane HBox.hgrow="ALWAYS"/>
                                 <Button mnemonicParsing="false" onAction="#handleDecreaseSize" text="">
                                     <styleClass>
                                         <String fx:value="flat-button"/>
@@ -89,6 +96,7 @@
                                 <RowConstraints valignment="TOP" vgrow="SOMETIMES"/>
                                 <RowConstraints valignment="TOP" vgrow="SOMETIMES"/>
                                 <RowConstraints valignment="TOP" vgrow="SOMETIMES"/>
+                                <RowConstraints valignment="TOP" vgrow="SOMETIMES"/>
                                 <RowConstraints vgrow="SOMETIMES"/>
                             </rowConstraints>
                             <children>
@@ -96,28 +104,38 @@
                                        GridPane.columnIndex="1"/>
                                 <Label fx:id="labelTag" alignment="TOP_LEFT" wrapText="true" GridPane.columnIndex="1"
                                        GridPane.rowIndex="1"/>
-                                <Label fx:id="labelSample" alignment="TOP_LEFT" GridPane.columnIndex="1"
+                                <Label fx:id="labelClassifierId" alignment="TOP_LEFT" wrapText="true"
+                                       GridPane.columnIndex="1"
                                        GridPane.rowIndex="2"/>
-                                <Label fx:id="labelFilename" alignment="TOP_LEFT" wrapText="true"
-                                       GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                                <Label fx:id="labelPath" alignment="TOP_LEFT" wrapText="true" GridPane.columnIndex="1"
-                                       GridPane.rowIndex="4"/>
-                                <Label fx:id="labelInfo" alignment="TOP_LEFT" minWidth="20.0" wrapText="true"
-                                       GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                                <Label fx:id="labelGUID" alignment="TOP_LEFT" wrapText="true" GridPane.columnIndex="1"
-                                       GridPane.rowIndex="6"/>
-                                <Label alignment="TOP_LEFT" text="Label:" GridPane.columnIndex="0"/>
-                                <Label alignment="TOP_LEFT" text="Sample:" GridPane.columnIndex="0"
-                                       GridPane.rowIndex="2"/>
-                                <Label alignment="TOP_LEFT" text="Filename:" GridPane.columnIndex="0"
+                                <Label fx:id="labelValidator" alignment="TOP_LEFT" wrapText="true"
+                                       GridPane.columnIndex="1"
                                        GridPane.rowIndex="3"/>
-                                <Label alignment="TOP_LEFT" text="Path:" GridPane.columnIndex="0"
+                                <Label fx:id="labelSample" alignment="TOP_LEFT" GridPane.columnIndex="1"
                                        GridPane.rowIndex="4"/>
-                                <Label alignment="TOP_LEFT" text="Info:" GridPane.columnIndex="0"
-                                       GridPane.rowIndex="5"/>
-                                <Label alignment="TOP_LEFT" text="GUID:" GridPane.columnIndex="0"
+                                <Label fx:id="labelFilename" alignment="TOP_LEFT" wrapText="true"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                                <Label fx:id="labelPath" alignment="TOP_LEFT" wrapText="true" GridPane.columnIndex="1"
                                        GridPane.rowIndex="6"/>
+                                <Label fx:id="labelInfo" alignment="TOP_LEFT" minWidth="20.0" wrapText="true"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                                <Label fx:id="labelGUID" alignment="TOP_LEFT" wrapText="true" GridPane.columnIndex="1"
+                                       GridPane.rowIndex="8"/>
+                                <Label alignment="TOP_LEFT" text="Label:" GridPane.columnIndex="0"/>
                                 <Label alignment="TOP_LEFT" text="Tags:" GridPane.rowIndex="1"/>
+                                <Label alignment="TOP_LEFT" text="Classifier:" GridPane.columnIndex="0"
+                                       GridPane.rowIndex="2"/>
+                                <Label alignment="TOP_LEFT" text="Validated:" GridPane.columnIndex="0"
+                                       GridPane.rowIndex="3"/>
+                                <Label alignment="TOP_LEFT" text="Sample:" GridPane.columnIndex="0"
+                                       GridPane.rowIndex="4"/>
+                                <Label alignment="TOP_LEFT" text="Filename:" GridPane.columnIndex="0"
+                                       GridPane.rowIndex="5"/>
+                                <Label alignment="TOP_LEFT" text="Path:" GridPane.columnIndex="0"
+                                       GridPane.rowIndex="6"/>
+                                <Label alignment="TOP_LEFT" text="Info:" GridPane.columnIndex="0"
+                                       GridPane.rowIndex="7"/>
+                                <Label alignment="TOP_LEFT" text="GUID:" GridPane.columnIndex="0"
+                                       GridPane.rowIndex="8"/>
                             </children>
                         </GridPane>
                     </children>

@@ -25,4 +25,9 @@ public class UndoManager {
         commands.push(command);
         stackUpdated.broadcast(commands.size());
     }
+
+    public void clear() {
+        commands.clear();
+        stackUpdated.broadcast(commands.size());
+    }
 }

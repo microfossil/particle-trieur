@@ -154,7 +154,7 @@ public class ParticleListViewController implements Initializable {
             TableCell<Particle, File> cell = new TableCell<Particle, File>() {
                 @Override
                 public void updateItem(File item, boolean empty) {
-                    //Stop already running image fetch tast
+                    //Stop already running image fetch task
                     if (loadingTask.get() != null &&
                             loadingTask.get().getState() != Worker.State.SUCCEEDED &&
                             loadingTask.get().getState() != Worker.State.FAILED) {
@@ -224,7 +224,7 @@ public class ParticleListViewController implements Initializable {
                     }
                     else {
                         vBox.setVisible(true);
-                        String[] part = item.split("#");
+                        String[] part = item.split("#",-1);
                         if (part.length == 3) {
                             labelCore.setText(part[0].equals("") ? "unknown" : part[0]);
                             labelNum1.setText("[1] " + part[1]);
@@ -244,7 +244,10 @@ public class ParticleListViewController implements Initializable {
         classCol.setCellValueFactory(cellData -> Bindings.concat(
                 cellData.getValue().classification,
                 "#",
-                cellData.getValue().tagUIProperty
+                cellData.getValue().tagUIProperty,
+                "#",
+                cellData.getValue().validatorProperty(),
+                "#"
         ));
         classCol.setCellFactory(param -> {
             //VBox
@@ -252,7 +255,9 @@ public class ParticleListViewController implements Initializable {
             final Label labelClass = new Label();
             final Label labelTags = new Label();
             labelClass.setStyle("-fx-font-weight: bold");
-            vBox.getChildren().addAll(labelClass, labelTags);
+            final SymbolLabel symbolLabel = new SymbolLabel("feathercheckcircle", 16);
+            symbolLabel.setSymbolColor("green");
+            vBox.getChildren().addAll(labelClass, labelTags, symbolLabel);
 
             TableCell<Particle, String> cell = new TableCell<Particle, String>() {
                 @Override
@@ -262,12 +267,20 @@ public class ParticleListViewController implements Initializable {
                     }
                     else {
                         vBox.setVisible(true);
-                        String[] part = item.split("#");
+                        String[] part = item.split("#",-1);
                         if (part.length > 0) {
                             labelClass.setText(part[0]);
                         }
                         if (part.length > 1) {
                             labelTags.setText(part[1]);
+                        }
+                        if (part.length > 2) {
+                            if (part[2].equals("")) {
+                                symbolLabel.setVisible(false);
+                            }
+                            else {
+                                symbolLabel.setVisible(true);
+                            }
                         }
                     }
                 }
@@ -277,6 +290,46 @@ public class ParticleListViewController implements Initializable {
         });
         classCol.setPrefWidth(90);
         tableViewForams.getColumns().add(classCol);
+
+        //Class / tags
+        TableColumn<Particle, String> valCol = new TableColumn<>("Annotator");
+        valCol.setCellValueFactory(cellData -> Bindings.concat(
+                cellData.getValue().classifierIdProperty,
+                "#",
+                cellData.getValue().validatorProperty(),
+                "#"
+        ));
+        valCol.setCellFactory(param -> {
+            //VBox
+            final VBox vBox = new VBox();
+            final Label labelAnnotator = new Label();
+            final Label labelValidator = new Label();
+            labelAnnotator.setStyle("-fx-font-weight: bold");
+            vBox.getChildren().addAll(labelAnnotator, labelValidator);
+
+            TableCell<Particle, String> cell = new TableCell<Particle, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    if (empty || item == null) {
+                        vBox.setVisible(false);
+                    }
+                    else {
+                        vBox.setVisible(true);
+                        String[] part = item.split("#",-1);
+                        if (part.length > 0) {
+                            labelAnnotator.setText(part[0]);
+                        }
+                        if (part.length > 1) {
+                            labelValidator.setText(part[1]);
+                        }
+                    }
+                }
+            };
+            cell.setGraphic(vBox);
+            return cell;
+        });
+        valCol.setPrefWidth(90);
+        tableViewForams.getColumns().add(valCol);
 
 
         //Filename

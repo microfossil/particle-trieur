@@ -111,6 +111,20 @@ public class Particle {
         return folder;
     }
 
+    //Validator
+    private final StringProperty validator = new SimpleStringProperty("");
+    @XmlElement
+    @XmlPath("val_by/text()")
+    public String getValidator() {
+        return validator.get();
+    }
+    private void setValidator(String value) {
+        validator.set(value);
+    }
+    public StringProperty validatorProperty() {
+        return validator;
+    }
+
     //Image Width
     private final IntegerProperty imageWidth = new SimpleIntegerProperty();
     @XmlElement
@@ -306,6 +320,7 @@ public class Particle {
         classifications.clearAndAdd(code, score, classifierId);
         classification.set(classifications.getBestCode());
         classifierIdProperty.set(classifications.getClassifierId());
+        setValidator("");
         removeTag("auto");
     }
     
@@ -313,6 +328,7 @@ public class Particle {
         classifications.add(code, score, classifierId);
         classification.set(classifications.getBestCode());
         classifierIdProperty.set(classifications.getClassifierId());
+        setValidator("");
         removeTag("auto");
     }
 
@@ -323,6 +339,7 @@ public class Particle {
         }
         classification.set(classifications.getBestCode());
         classifierIdProperty.set(classifications.getClassifierId());
+        setValidator("");
         if (wasAuto) addTag("auto");
         else removeTag("auto");
     }
@@ -342,6 +359,10 @@ public class Particle {
         else {
             return 0.0;
         }
+    }
+
+    public void validate(String validator) {
+        setValidator(validator);
     }
     
     /*
@@ -431,20 +452,7 @@ public class Particle {
             return null;
         }
     }
-    
-    /*
-    Morphology_old
-    */
-//    public Mat calculateMorphology(ProcessedImage processedImage, ProcessingInfo proDef) throws ProcessingException {
-//        long start = System.currentTimeMillis();
-//        Mat mat =  morphology.Calculate(this.getMat(), processedImage, proDef);
-//        morphologyStateProperty.set(morphology.isCalculated());
-//        long end = System.currentTimeMillis();
-//        System.out.println("Time");
-//        System.out.println(end - start);
-//        return mat;
-//    }
-    
+
     //Properties needed for tableView
     public void initUIProperties() {
 //        if (getShortFilename().startsWith("00026")) {

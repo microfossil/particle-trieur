@@ -24,6 +24,8 @@
 <?import javafx.scene.text.Font?>
 <?import ordervschaos.particletrieur.app.controls.SymbolLabel?>
 
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.CheckBox?>
 <StackPane fx:id="root" prefHeight="1024" prefWidth="1400" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.MainController">
     <children>
         <AnchorPane id="AnchorPane" fx:id="rootMain" prefHeight="800.0" prefWidth="1284.0">
@@ -314,7 +316,6 @@
                                         <!--<SymbolLabel symbol="feathercpu"/>-->
                                         <!--</graphic>-->
                                         <!--</SplitMenuButton>-->
-                                        <!--<TextField fx:id="textFieldUser" promptText="Enter user name"/>-->
                                         <Separator orientation="VERTICAL" />
                                         <Button fx:id="buttonExport" mnemonicParsing="false" onAction="#handleExport" styleClass="vertical-button" text="Export">
                                             <graphic>
@@ -333,8 +334,18 @@
                                             </tooltip>
                                         </Button>
                                         <Separator layoutX="1072.0" layoutY="10.0" orientation="VERTICAL" />
-                                        <Pane prefWidth="50.0" HBox.hgrow="ALWAYS" />
-                                        <VBox alignment="CENTER_RIGHT" spacing="7.0">
+                                        <VBox spacing="3">
+                                            <Label text="Username:"/>
+                                            <TextField fx:id="textFieldUser" promptText="Enter user name" prefWidth="120"/>
+                                        </VBox>
+                                        <Separator layoutX="1072.0" layoutY="10.0" orientation="VERTICAL" />
+                                        <VBox spacing="3">
+                                            <CheckBox fx:id="checkBoxAutoAdvance" text="Auto-advance"/>
+                                            <Pane VBox.vgrow="ALWAYS"/>
+                                            <CheckBox fx:id="checkBoxAutoValidate" text="Auto-validate"/>
+                                        </VBox>
+                                        <Pane HBox.hgrow="ALWAYS" minWidth="0" />
+                                        <VBox alignment="CENTER_RIGHT" spacing="7.0" minWidth="120">
                                             <Label fx:id="labelServer" styleClass="green-text" text="Server">
                                                 <graphic>
                                                     <SymbolLabel styleClass="green-text" symbol="featherserver" />

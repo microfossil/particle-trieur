@@ -19,7 +19,7 @@ public class AboutViewController extends AbstractDialogController implements Ini
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        labelTitle.setText("ParticleTrieur v" + App.class.getPackage().getImplementationVersion());
+        labelTitle.setText("ParticleTrieur " + App.VERSION + ", User: " + System.getProperty("user.name"));
     }
 
     @Override

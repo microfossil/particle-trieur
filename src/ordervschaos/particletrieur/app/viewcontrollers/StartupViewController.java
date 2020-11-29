@@ -59,13 +59,13 @@ public class StartupViewController extends AbstractController implements Initial
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        rt = new RotateTransition(Duration.millis(3000), symbolLabelChecking);
-        rt.setByAngle(360);
-        rt.setInterpolator(Interpolator.LINEAR);
-        rt.setCycleCount(Animation.INDEFINITE);
-        symbolLabelChecking.setCache(true);
-        symbolLabelChecking.setCacheHint(CacheHint.SPEED);
-        rt.play();
+//        rt = new RotateTransition(Duration.millis(3000), symbolLabelChecking);
+//        rt.setByAngle(360);
+//        rt.setInterpolator(Interpolator.LINEAR);
+//        rt.setCycleCount(Animation.INDEFINITE);
+//        symbolLabelChecking.setCache(true);
+//        symbolLabelChecking.setCacheHint(CacheHint.SPEED);
+//        rt.play();
 
         List<String> recents = App.getPrefs().getRecentProjects();
         for (String recent : recents) {
@@ -92,51 +92,51 @@ public class StartupViewController extends AbstractController implements Initial
 //            labelRecent.setText(file.getAbsolutePath());
 //        }
 
-        Service<String> service = UpdateCheckService.getVersion();
-
-        service.setOnSucceeded(event -> {
-            String version = service.getValue();
-            String currentVersion = App.class.getPackage().getImplementationVersion() != null ?
-                    App.class.getPackage().getImplementationVersion().split("-")[0] : "dev";
-            System.out.println(version);
-            System.out.println(currentVersion);
-            if (version == null) {
-                rt.stop();
-                symbolLabelChecking.setCache(false);
-                symbolLabelChecking.setRotate(0);
-                symbolLabelChecking.setSymbol("featherxoctagon");
-                symbolLabelChecking.setSymbolColor("darkred");
-                labelUpdate.setText("Could not check for updates");
-                labelUpdate.setStyle("-fx-text-fill: darkred;");
-            }
-            else if (!version.equals(currentVersion)) {
-                rt.stop();
-                symbolLabelChecking.setCache(false);
-                symbolLabelChecking.setRotate(0);
-                labelUpdate.setVisible(false);
-                hyperlinkUpdate.setText(String.format("Update available (%s)", version));
-                hyperlinkUpdate.setVisible(true);
-            }
-            else {
-                rt.stop();
-                symbolLabelChecking.setCache(false);
-                symbolLabelChecking.setRotate(0);
-                symbolLabelChecking.setSymbol("feathercheckcircle");
-                symbolLabelChecking.setSymbolColor("darkgreen");
-                labelUpdate.setText("Up to date");
-                labelUpdate.setStyle("-fx-text-fill: darkgreen;");
-            }
-        });
-        service.setOnFailed(event -> {
-            rt.stop();
-            symbolLabelChecking.setCache(false);
-            symbolLabelChecking.setRotate(0);
-            symbolLabelChecking.setSymbol("featherxoctagon");
-            symbolLabelChecking.setSymbolColor("darkred");
-            labelUpdate.setText("Could not check for updates");
-        });
-
-        service.start();
+//        Service<String> service = UpdateCheckService.getVersion();
+//
+//        service.setOnSucceeded(event -> {
+//            String version = service.getValue();
+//            String currentVersion = App.class.getPackage().getImplementationVersion() != null ?
+//                    App.class.getPackage().getImplementationVersion().split("-")[0] : "dev";
+//            System.out.println(version);
+//            System.out.println(currentVersion);
+//            if (version == null) {
+//                rt.stop();
+//                symbolLabelChecking.setCache(false);
+//                symbolLabelChecking.setRotate(0);
+//                symbolLabelChecking.setSymbol("featherxoctagon");
+//                symbolLabelChecking.setSymbolColor("darkred");
+//                labelUpdate.setText("Could not check for updates");
+//                labelUpdate.setStyle("-fx-text-fill: darkred;");
+//            }
+//            else if (!version.equals(currentVersion)) {
+//                rt.stop();
+//                symbolLabelChecking.setCache(false);
+//                symbolLabelChecking.setRotate(0);
+//                labelUpdate.setVisible(false);
+//                hyperlinkUpdate.setText(String.format("Update available (%s)", version));
+//                hyperlinkUpdate.setVisible(true);
+//            }
+//            else {
+//                rt.stop();
+//                symbolLabelChecking.setCache(false);
+//                symbolLabelChecking.setRotate(0);
+//                symbolLabelChecking.setSymbol("feathercheckcircle");
+//                symbolLabelChecking.setSymbolColor("darkgreen");
+//                labelUpdate.setText("Up to date");
+//                labelUpdate.setStyle("-fx-text-fill: darkgreen;");
+//            }
+//        });
+//        service.setOnFailed(event -> {
+//            rt.stop();
+//            symbolLabelChecking.setCache(false);
+//            symbolLabelChecking.setRotate(0);
+//            symbolLabelChecking.setSymbol("featherxoctagon");
+//            symbolLabelChecking.setSymbolColor("darkred");
+//            labelUpdate.setText("Could not check for updates");
+//        });
+//
+//        service.start();
     }
 
     @FXML

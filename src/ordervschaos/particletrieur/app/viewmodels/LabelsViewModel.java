@@ -1,5 +1,7 @@
 package ordervschaos.particletrieur.app.viewmodels;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import ordervschaos.particletrieur.app.models.network.classification.ClassificationSet;
 import ordervschaos.particletrieur.app.models.project.Project;
 import ordervschaos.particletrieur.app.models.Supervisor;
@@ -23,14 +25,54 @@ public class LabelsViewModel {
     SelectionViewModel selectionViewModel;
     @Inject
     Supervisor supervisor;
-
     @Inject
     UndoManager undoManager;
+
+    private BooleanProperty autoValidate = new SimpleBooleanProperty(false);
+    public boolean isAutoValidate() {
+        return autoValidate.get();
+    }
+    public BooleanProperty autoValidateProperty() {
+        return autoValidate;
+    }
+    public void setAutoValidate(boolean autoValidate) {
+        this.autoValidate.set(autoValidate);
+    }
+
+    private BooleanProperty autoAdvance = new SimpleBooleanProperty(false);
+    public boolean isAutoAdvance() {
+        return autoAdvance.get();
+    }
+    public BooleanProperty autoAdvanceProperty() {
+        return autoAdvance;
+    }
+    public void setAutoAdvance(boolean autoAdvance) {
+        this.autoAdvance.set(autoAdvance);
+    }
 
     @Inject
     public LabelsViewModel(SelectionViewModel selectionViewModel, Supervisor supervisor) {
         this.selectionViewModel = selectionViewModel;
         this.supervisor = supervisor;
+    }
+
+    private String getValidator() {
+        if (!isAutoValidate()) return null;
+        else return supervisor.getUsername();
+    }
+
+    public void toggleValidated() {
+        Particle particle = selectionViewModel.getCurrentParticle();
+        if (particle.getValidator().equals("")) {
+            supervisor.project.setParticleValidator(selectionViewModel.getCurrentParticles(), supervisor.getUsername());
+        }
+        else {
+            supervisor.project.setParticleValidator(selectionViewModel.getCurrentParticles(), "");
+        }
+        selectionViewModel.currentParticleUpdatedEvent.broadcast();
+        if (isAutoAdvance()) {
+            selectionViewModel.nextImageRequested.broadcast(true);
+        }
     }
 
     public void setLabel(String code, double score, boolean clearOthers) {
@@ -47,10 +89,13 @@ public class LabelsViewModel {
 
     public void setLabel(List<Particle> particles, String code, double score, boolean clearOthers) {
         try {
-            SetLabelCommand command = new SetLabelCommand(supervisor.project, particles, code, score, supervisor.getUsername(), clearOthers);
+            SetLabelCommand command = new SetLabelCommand(supervisor.project, particles, code, score, supervisor.getUsername(), clearOthers, getValidator());
             command.apply();
             undoManager.add(command);
             selectionViewModel.checkIfCurrentWasUpdated(particles);
+            if (isAutoAdvance()) {
+                selectionViewModel.nextImageRequested.broadcast(true);
+            }
         } catch (Project.TaxonDoesntExistException ex) {
             BasicDialogs.ShowError("Label doesn't exist",
                     "The label referred to by the button doesn't exist in the project's label list.\n"
@@ -59,7 +104,7 @@ public class LabelsViewModel {
     }
 
     public void setLabelSet(HashMap<Particle, ClassificationSet> classifications, double threshold, boolean wasAuto) {
-        SetLabelSetCommand command = new SetLabelSetCommand(supervisor.project, classifications, threshold, wasAuto);
+        SetLabelSetCommand command = new SetLabelSetCommand(supervisor.project, classifications, threshold, wasAuto, getValidator());
         command.apply();
         undoManager.add(command);
         selectionViewModel.checkIfCurrentWasUpdated(new ArrayList<>(classifications.keySet()));
