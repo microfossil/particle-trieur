@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.animation.Animation;
@@ -782,6 +783,24 @@ public class MainController extends AbstractController implements Initializable 
 
     @FXML
     private void handleStartStopServer(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog("5555");
+        dialog.setHeaderText("Start classification server");
+        dialog.setContentText("Enter the port number for the server (1024 - 65353)");
+        Optional<String> result = dialog.showAndWait();
+        int port = 5555;
+        if (result.isPresent()) {
+            try {
+                port = Integer.parseInt(result.get());
+                if (port < 1024 || port > 65353) {
+                    BasicDialogs.ShowError("Error", "Port number must be between 1024 and 65353");
+                    return;
+                }
+            }
+            catch (NumberFormatException ex) {
+                BasicDialogs.ShowError("Error", "Port number must be between 1024 and 65353");
+                return;
+            }
+        }
         if (!supervisor.classificationServer.getIsRunning()) {
             try {
                 supervisor.classificationServer.start(5555);
