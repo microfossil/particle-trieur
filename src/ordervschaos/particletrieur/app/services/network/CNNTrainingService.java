@@ -1,24 +1,24 @@
 package ordervschaos.particletrieur.app.services.network;
 
-import ordervschaos.particletrieur.app.App;
 import ordervschaos.particletrieur.app.AppPreferences;
 import ordervschaos.particletrieur.app.controls.BasicDialogs;
+import ordervschaos.particletrieur.app.models.network.training.GPUStatus;
+import ordervschaos.particletrieur.app.models.network.training.MISOTrainingScript;
 import ordervschaos.particletrieur.app.models.network.training.TrainingLaunchInfo;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import org.apache.commons.lang3.SystemUtils;
-import org.tensorflow.Session;
 
 import java.io.*;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 public class CNNTrainingService {
 
     Process process = null;
     private static AppPreferences appPrefs = new AppPreferences();
+
+    public static String ENV = "miso2";
+    public static String PACKAGE = "miso2";
 
     public CNNTrainingService() {
 
@@ -38,55 +38,6 @@ public class CNNTrainingService {
         }).start();
     }
 
-    public String getLaunchInfoScript(TrainingLaunchInfo info) {
-        StringBuilder sb = new StringBuilder();
-//        String basePath = (new File(getAnacondaInstallationLocation())).getParent();
-//        sb.append("import sys\nprint('Python %s on %s' % (sys.version, sys.platform))\n");
-//        sb.append("sys.path.extend([r'" + basePath + "'])\n");
-
-        sb.append("from miso.training.model_params import default_params\n" +
-                "from miso.training.model_trainer import train_image_classification_model\n" +
-                "from miso.data.download import download_images\n" +
-                "\n" +
-                "params = default_params()\n\n");
-
-        //Network
-        sb.append(String.format("params['type'] = '%s'\n", info.networkType));
-        sb.append(String.format("params['name'] = '%s'\n", info.name));
-        sb.append(String.format("params['description'] = %s\n", info.description.equals("") ? "None" : info.description));
-        sb.append(String.format("params['filters'] = %d\n", info.numFilters));
-
-        //Input
-        sb.append(String.format("params['input_source'] = r'%s'\n", info.inputSource));
-        sb.append(String.format("params['data_min_count'] = %d\n", info.minCountPerClass));
-        sb.append(String.format("params['data_split'] = %f\n", info.trainTestSplit).replace(',','.'));
-        sb.append(String.format("params['data_map_others'] = %s\n", info.mapOthers ? "True" : "False"));
-        sb.append(String.format("params['use_mmap'] = %s\n", info.useMemoryMapping ? "True" : "False"));
-
-        //Output
-        sb.append(String.format("params['output_dir'] = r'%s'\n", info.outputDirectory));
-        sb.append(String.format("params['save_model'] = %s\n", info.saveModel ? "'frozen'" : "None"));
-        sb.append(String.format("params['save_mislabeled'] = %s\n", info.saveMislabeled ? "True" : "False"));
-
-        //Image
-        sb.append(String.format("params['img_height'] = %d\n", info.imageHeight));
-        sb.append(String.format("params['img_width'] = %d\n", info.imageWidth));
-        sb.append(String.format("params['img_channels'] = %d\n", info.imageChannels));
-
-        //Augmentation
-        sb.append(String.format("params['use_augmentation'] = %s\n", info.useAugmentation ? "True" : "False"));
-
-        //Training
-        sb.append(String.format("params['use_class_weights'] = %s\n", info.useClassWeights ? "True" : "False"));
-        sb.append(String.format("params['alr_epochs'] = %d\n", info.alrEpochs));
-        sb.append(String.format("params['batch_size'] = %d\n", info.batchSize));
-
-        //Run
-        sb.append("\nmodel, vector_model, data_source, result = train_image_classification_model(params)\n");
-
-        return sb.toString();
-    }
-
     public String getFlowcamScript(String input, String species, String output) {
         StringBuilder sb = new StringBuilder();
         sb.append("from miso.data.flowcam import process\n");
@@ -97,14 +48,12 @@ public class CNNTrainingService {
     public static void executeInTerminal(String command) throws IOException, InterruptedException {
         final String[] wrappedCommand;
         if (SystemUtils.IS_OS_WINDOWS) {
-            wrappedCommand = new String[]{ "cmd", "/c", "start", "/wait", "cmd.exe", "/K", command };
-        }
-        else if (SystemUtils.IS_OS_MAC_OSX) {
+            wrappedCommand = new String[]{"cmd", "/c", "start", "/wait", "cmd.exe", "/K", command};
+        } else if (SystemUtils.IS_OS_MAC_OSX) {
             wrappedCommand = new String[]{"osascript",
                     "-e", "tell application \"Terminal\" to activate",
                     "-e", "tell application \"Terminal\" to do script \"" + command + ";exit\""};
-        }
-        else if (SystemUtils.IS_OS_LINUX) {
+        } else if (SystemUtils.IS_OS_LINUX) {
             wrappedCommand = new String[]{
                     "x-terminal-emulator",
                     "-e",
@@ -112,12 +61,12 @@ public class CNNTrainingService {
                     "-l",
                     "-c",
                     command + "; echo ~~~ Script complete, press any key to close ~~~; read line"};
-        }
-        else {
+        } else {
             throw new RuntimeException("Unsupported OS");
         }
-        Process process = Runtime.getRuntime().exec(wrappedCommand);
         System.out.println(command);
+        Process process = Runtime.getRuntime().exec(wrappedCommand);
+
 //        Process process = new ProcessBuilder(wrappedCommand)
 //                .redirectErrorStream(true)
 //                .start();
@@ -130,25 +79,99 @@ public class CNNTrainingService {
 //        return process.waitFor();
     }
 
+    public static String executeInTerminalAndReturnOutput(String command) throws IOException {
+//        final String[] wrappedCommand;
+//        if (SystemUtils.IS_OS_WINDOWS) {
+//            wrappedCommand = new String[]{ "cmd", "/c", "start", "/wait", "cmd.exe", "/K", command };
+//        }
+//        else if (SystemUtils.IS_OS_MAC_OSX) {
+//            wrappedCommand = new String[]{"osascript",
+//                    "-e", "tell application \"Terminal\" to activate",
+//                    "-e", "tell application \"Terminal\" to do script \"" + command + ";exit\""};
+//        }
+//        else if (SystemUtils.IS_OS_LINUX) {
+//            wrappedCommand = new String[]{
+//                    "x-terminal-emulator",
+//                    "-e",
+//                    "bash",
+//                    "-l",
+//                    "-c",
+//                    command + "; echo ~~~ Script complete, press any key to close ~~~; read line"};
+//        }
+//        else {
+//            throw new RuntimeException("Unsupported OS");
+//        }
+        System.out.println(command);
+
+        Process process = new ProcessBuilder(command)
+                .redirectErrorStream(true)
+                .start();
+        try {
+            return streamToString(process.getInputStream());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return "";
+        }
+    }
+
+    public static String streamToString(InputStream stream) throws IOException {
+        ByteArrayOutputStream result = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int length;
+        while ((length = stream.read(buffer)) != -1) {
+            result.write(buffer, 0, length);
+        }
+        return result.toString("UTF-8");
+    }
+
+    public static GPUStatus getNVIDIAStatus() throws IOException {
+        String command;
+        if (SystemUtils.IS_OS_WINDOWS) {
+            command = "\"c:\\Program Files\\NVIDIA Corporation\\NVSMI\\nvidia-smi.exe\"";
+        } else if (SystemUtils.IS_OS_MAC_OSX) {
+            command = "nvidia-smi";
+        } else if (SystemUtils.IS_OS_LINUX) {
+            command = "nvidia-smi";
+        } else {
+            throw new RuntimeException("Unsupported OS");
+        }
+        String result = executeInTerminalAndReturnOutput(command);
+        System.out.println(result);
+
+        String[] lines = result.split("\r\n|\n|\r");
+        System.out.println(lines[9]);
+
+        String[] parts = lines[9].split("\\s+");
+        System.out.println(parts[12]);
+
+        GPUStatus status = new GPUStatus(
+                Integer.parseInt(parts[4].substring(0, parts[4].length() - 1)),
+                Integer.parseInt(parts[6].substring(0, parts[6].length() - 1)),
+                Integer.parseInt(parts[8].substring(0, parts[8].length() - 3)),
+                Integer.parseInt(parts[10].substring(0, parts[10].length() - 3)),
+                Integer.parseInt(parts[12].substring(0, parts[12].length()-1))
+                );
+
+        return status;
+    }
+
     public static String getAnacondaInstallationLocation() {
-        String windowsA = System.getProperty("user.home") + "\\Anaconda3\\envs\\miso\\python.exe";
-        String windowsB = System.getProperty("user.home") + "\\AppData\\Local\\Continuum\\Anaconda3\\envs\\miso\\python.exe";
-        String macA = System.getProperty("user.home") + "/anaconda3/envs/miso/bin/python";
-        String macB = System.getProperty("user.home") + "/opt/anaconda3/envs/miso/bin/python";
-        String linuxA = System.getProperty("user.home") + "/anaconda3/envs/miso/bin/python";
-        String linuxB = "/usr/local/anaconda3/envs/miso/bin/python";
+        String windowsA = System.getProperty("user.home") + "\\Anaconda3\\envs\\" + ENV + "\\python.exe";
+        String windowsB = System.getProperty("user.home") + "\\AppData\\Local\\Continuum\\Anaconda3\\envs\\" + ENV + "\\python.exe";
+        String macA = System.getProperty("user.home") + "/anaconda3/envs/" + ENV + "/bin/python";
+        String macB = System.getProperty("user.home") + "/opt/anaconda3/envs/\" + ENV + \"/bin/python";
+        String linuxA = System.getProperty("user.home") + "/anaconda3/envs/" + ENV + "/bin/python";
+        String linuxB = "/usr/local/anaconda3/envs/" + ENV + "/bin/python";
         String commonA = appPrefs.getPythonPath();
         if (SystemUtils.IS_OS_WINDOWS) {
             if (!commonA.equals("") && new File(commonA).exists()) return commonA;
             else if (new File(windowsA).exists()) return windowsA;
             else if (new File(windowsB).exists()) return windowsB;
-        }
-        else if (SystemUtils.IS_OS_MAC_OSX) {
+        } else if (SystemUtils.IS_OS_MAC_OSX) {
             if (!commonA.equals("") && new File(commonA).exists()) return commonA;
             if (new File(macA).exists()) return macA;
             else if (new File(macB).exists()) return macB;
-        }
-        else if (SystemUtils.IS_OS_LINUX) {
+        } else if (SystemUtils.IS_OS_LINUX) {
             if (!commonA.equals("") && new File(commonA).exists()) return commonA;
             else if (new File(linuxA).exists()) return linuxA;
             else if (new File(linuxB).exists()) return linuxB;
@@ -160,58 +183,56 @@ public class CNNTrainingService {
         if (SystemUtils.IS_OS_WINDOWS) {
             BasicDialogs.ShowError("Error", "Python not found, please check your installation or update the location\n" +
                     "\n" +
-                    "1) %HOMEPATH%\\Anaconda3\\\n" +
-                    "2) %HOMEPATH%\\AppData\\Local\\Continuum\\Anaconda3\\\n" +
+                    "1) %HOMEPATH%\\Anaconda3\\" + ENV + "\\python.exe\n" +
+                    "2) %HOMEPATH%\\AppData\\Local\\Continuum\\Anaconda3\\envs\\" + ENV + "\\python.exe\n" +
                     "3) " + appPrefs.getPythonPath());
-        }
-        else if (SystemUtils.IS_OS_MAC_OSX) {
+        } else if (SystemUtils.IS_OS_MAC_OSX) {
             BasicDialogs.ShowError("Error", "Python not found, please check your installation or update the location\n" +
                     "\n" +
-                    "1) ./anaconda3/\n" +
-                    "2) ./opt/anaconda3/\n" +
+                    "1) ./anaconda3/envs/" + ENV + "/bin/python\n" +
+                    "2) ./opt/anaconda3/" + ENV + "/bin/python\n" +
                     "3) " + appPrefs.getPythonPath());
-        }
-        else if (SystemUtils.IS_OS_LINUX) {
+        } else if (SystemUtils.IS_OS_LINUX) {
             BasicDialogs.ShowError("Error", "Python not found, please check your installation or update the location\n" +
                     "\n" +
-                    "1) ~/anaconda3/envs/miso/bin/python\n" +
-                    "2) ~/.conda/envs/miso/bin/python\n" +
+                    "1) ~/anaconda3/envs/" + ENV + "/bin/python\n" +
+                    "2) ~/.conda/envs/" + ENV + "/bin/python\n" +
                     "3) " + appPrefs.getPythonPath());
-        }
-        else {
+        } else {
             BasicDialogs.ShowError("Error", "Your operating system is neither Windows, Mac or Linux.");
         }
     }
 
-    public void launch(TrainingLaunchInfo info) {
+    public void executePythonCommand(String command) throws IOException, InterruptedException, RuntimeException {
+        String pythonPath = getAnacondaInstallationLocation();
+        if (pythonPath == null) {
+            showAnacondaNotFoundError();
+            return;
+        }
+        String basePath = (new File(pythonPath)).getParent();
+        String anacondaPath = (new File(pythonPath)).getParentFile().getParentFile().getParentFile().getPath();
+        String terminalCommand;
+        if (SystemUtils.IS_OS_WINDOWS) {
+            terminalCommand = "call \"" + anacondaPath + "\\Scripts\\activate.bat\" " + ENV + " && " + "cd /d \"" + basePath + "\" && python -W ignore -u " + command;
+        } else if (SystemUtils.IS_OS_MAC_OSX) {
+            terminalCommand = "conda activate " + ENV + " && cd \"" + basePath + "\" && python -u " + command;
+        } else if (SystemUtils.IS_OS_LINUX) {
+            terminalCommand = pythonPath + " -u " + command;
+        } else {
+            throw new RuntimeException("Unsupported OS");
+        }
+        executeInTerminal(terminalCommand);
+    }
+
+    public void launchTraining(MISOTrainingScript info) {
         try {
-            String script = getLaunchInfoScript(info);
-            File temp = File.createTempFile("script", ".py");
+            String script = info.getScript();
+            File temp = File.createTempFile("miso_", ".py");
             BufferedWriter writer = new BufferedWriter(new FileWriter(temp));
             writer.write(script);
             writer.close();
-
-            String pythonPath = getAnacondaInstallationLocation();
-            if (pythonPath == null) {
-                showAnacondaNotFoundError();
-                return;
-            }
-            String basePath = (new File(pythonPath)).getParent();
-            String anacondaPath = (new File(pythonPath)).getParentFile().getParentFile().getParentFile().getPath();
-            if (SystemUtils.IS_OS_WINDOWS) {
-                executeInTerminal("call \"" + anacondaPath + "\\Scripts\\activate.bat\" miso && " + "cd /d \"" + basePath + "\" && python -W ignore -u " + String.format("\"%s\"", temp.getAbsolutePath()));
-            }
-            else if (SystemUtils.IS_OS_MAC_OSX) {
-                executeInTerminal("conda activate miso && cd \"" + basePath + "\" && python -u " + String.format("\"%s\"", temp.getAbsolutePath()));
-            }
-            else if (SystemUtils.IS_OS_LINUX) {
-                executeInTerminal(pythonPath + " -u " + String.format("\"%s\"", temp.getAbsolutePath()));
-            }
-            else {
-                throw new RuntimeException("Unsupported OS");
-            }
-        }
-        catch (Exception ex) {
+            executePythonCommand("\"" + temp.getAbsolutePath() + "\"");
+        } catch (Exception ex) {
             BasicDialogs.ShowException("Error launching training", ex);
         }
     }
@@ -219,105 +240,55 @@ public class CNNTrainingService {
     public void launchFlowcam(String input, String species, String output) {
         try {
             String script = getFlowcamScript(input, species, output);
-            File temp = File.createTempFile("script", ".py");
+            File temp = File.createTempFile("flowcam_", ".py");
             BufferedWriter writer = new BufferedWriter(new FileWriter(temp));
             writer.write(script);
             writer.close();
-
-//            String pythonPath = getAnacondaInstallationLocation();
-//            if (pythonPath == null) {
-//                showAnacondaNotFoundError();
-//                return;
-//            }
-//            String command = String.format("-i \"%s\" -s \"%s\" -o \"%s\"", input, species, output);
-//            String basePath = (new File(pythonPath)).getParent();
-//            String anacondaPath = (new File(pythonPath)).getParentFile().getParentFile().getParentFile().getPath();
-//            if (SystemUtils.IS_OS_WINDOWS) {
-//                executeInTerminal("call \"" + anacondaPath + "\\Scripts\\activate.bat\" miso && " + "cd /d \"" + basePath + "\" && python -u -m miso.data.flowcam " + command);
-//            }
-//            else if (SystemUtils.IS_OS_MAC_OSX) {
-//                executeInTerminal("conda activate miso && cd \"" + basePath + "\" && python -u miso.data.flowcam " + command);
-//            }
-//            else if (SystemUtils.IS_OS_LINUX) {
-//                executeInTerminal(pythonPath + " -u " + String.format("\"%s\"", temp.getAbsolutePath()));
-//            }
-//            else {
-//                throw new RuntimeException("Unsupported OS");
-//            }
-            String pythonPath = getAnacondaInstallationLocation();
-            if (pythonPath == null) {
-                showAnacondaNotFoundError();
-                return;
-            }
-            String basePath = (new File(pythonPath)).getParent();
-            String anacondaPath = (new File(pythonPath)).getParentFile().getParentFile().getParentFile().getPath();
-            if (SystemUtils.IS_OS_WINDOWS) {
-                executeInTerminal("call \"" + anacondaPath + "\\Scripts\\activate.bat\" miso && " + "cd /d \"" + basePath + "\" && python -W ignore -u " + String.format("\"%s\"", temp.getAbsolutePath()));
-            }
-            else if (SystemUtils.IS_OS_MAC_OSX) {
-                executeInTerminal("conda activate miso && cd \"" + basePath + "\" && python -u " + String.format("\"%s\"", temp.getAbsolutePath()));
-            }
-            else if (SystemUtils.IS_OS_LINUX) {
-                executeInTerminal(pythonPath + " -u " + String.format("\"%s\"", temp.getAbsolutePath()));
-            }
-            else {
-                throw new RuntimeException("Unsupported OS");
-            }
-        }
-        catch (Exception ex) {
-            BasicDialogs.ShowException("Error launching training", ex);
+            executePythonCommand("\"" + temp.getAbsolutePath() + "\"");
+        } catch (Exception ex) {
+            BasicDialogs.ShowException("Error launching flowcam", ex);
         }
     }
 
     public void updateMISO() {
         try {
-            String pythonPath = getAnacondaInstallationLocation();
-            if (pythonPath == null) {
-                showAnacondaNotFoundError();
-                return;
-            }
-            executeInTerminal(pythonPath + " -m pip install -U git+http://www.github.com/microfossil/particle-classification");
-
-//            if (SystemUtils.IS_OS_WINDOWS) {
-//                executeInTerminal(pythonPath + " -m pip install -U git+http://www.github.com/microfossil/particle-classification");
-//            }
-//            else if (SystemUtils.IS_OS_MAC_OSX) {
-//                executeInTerminal(pythonPath + " -m pip install -U git+http://www.github.com/microfossil/particle-classification");
-//            }
-//            else if (SystemUtils.IS_OS_LINUX) {
-//                executeInTerminal(pythonPath + " -m pip install -U git+http://www.github.com/microfossil/particle-classification");
-//            }
+            getNVIDIAStatus();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        catch (Exception ex) {
-            BasicDialogs.ShowException("Error updating MISO library", ex);
-        }
+//        try {
+//            executePythonCommand(" -m pip install -U " + PACKAGE);
+//        }
+//        catch (Exception ex) {
+//            BasicDialogs.ShowException("Error updating MISO library", ex);
+//        }
     }
 
-    public Service<Void> createLaunchService(TrainingLaunchInfo info) {
-        Service<Void> service = new Service<Void>() {
-            @Override
-            protected Task<Void> createTask() {
-                Task<Void> task = new Task<Void>() {
-                    @Override
-                    protected Void call() throws Exception {
-                        String script = getLaunchInfoScript(info);
-                        File temp = File.createTempFile("script", ".py");
-                        BufferedWriter writer = new BufferedWriter(new FileWriter(temp));
-                        writer.write(script);
-                        writer.close();
-                        ArrayList<String> commands = new ArrayList<>();
-                        return null;
-                    }
-                };
-                return task;
-            }
-        };
-        return service;
-    }
-
-    public void terminate() {
-        if (process != null) {
-            process.destroyForcibly();
-        }
-    }
+//    public Service<Void> createLaunchService(MISOTrainingScript info) {
+//        Service<Void> service = new Service<Void>() {
+//            @Override
+//            protected Task<Void> createTask() {
+//                Task<Void> task = new Task<Void>() {
+//                    @Override
+//                    protected Void call() throws Exception {
+//                        String script = info.getScript();
+//                        File temp = File.createTempFile("script", ".py");
+//                        BufferedWriter writer = new BufferedWriter(new FileWriter(temp));
+//                        writer.write(script);
+//                        writer.close();
+//                        ArrayList<String> commands = new ArrayList<>();
+//                        return null;
+//                    }
+//                };
+//                return task;
+//            }
+//        };
+//        return service;
+//    }
+//
+//    public void terminate() {
+//        if (process != null) {
+//            process.destroyForcibly();
+//        }
+//    }
 }

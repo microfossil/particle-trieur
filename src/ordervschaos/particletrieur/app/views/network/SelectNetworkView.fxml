@@ -14,6 +14,9 @@
 <BorderPane prefWidth="600.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.network.SelectNetworkViewController">
     <center>
         <GridPane hgap="14.0">
+            <padding>
+                <Insets left="7.0" right="7.0" top="7.0" bottom="7.0"/>
+            </padding>
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
@@ -117,7 +120,7 @@
                 </VBox>
             </children>
             <BorderPane.margin>
-                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+
             </BorderPane.margin>
         </GridPane>
     </center>

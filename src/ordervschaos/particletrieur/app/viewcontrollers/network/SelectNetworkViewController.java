@@ -161,7 +161,7 @@ public class SelectNetworkViewController extends AbstractDialogController implem
     private void handleChooseNetwork(ActionEvent event) {
         FileChooser dc = new FileChooser();
         dc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Network Information (xml)", "*.xml"));
-        String path = App.getPrefs().getNetworkPath();
+        String path = App.getPrefs().getTrainingPath();
         if(path != null && Files.exists(Paths.get(path))) {
             dc.setInitialDirectory(new File(path));
         }

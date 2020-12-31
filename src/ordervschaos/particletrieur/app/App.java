@@ -23,6 +23,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import ordervschaos.particletrieur.app.viewmodels.CNNVectorViewModel;
 import sun.applet.Main;
 
 /**
@@ -31,7 +32,7 @@ import sun.applet.Main;
  */
 public class App extends Application {
 
-    public static String VERSION = "2.2.2";
+    public static String VERSION = "2.3.0";
     
     public static Image iconImage = new Image(App.class.getResourceAsStream("resources/icon.png" ),44, 44,true,true);
     
@@ -82,6 +83,7 @@ public class App extends Application {
     public void stop() {
         System.out.println("STOP AND SHUTDOWN");
         executorService.shutdown();
+        injector.getInstance(CNNVectorViewModel.class).Stop();
         try {
             if (!executorService.awaitTermination(800, TimeUnit.MILLISECONDS)) {
                 executorService.shutdownNow();

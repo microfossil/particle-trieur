@@ -49,6 +49,13 @@
     -fx-text-fill: black;
 }
 
+.caption {
+    -fx-font-family: 'Montserrat';
+    -fx-font-size: 10;
+    -fx-text-fill: #333333;
+    -fx-padding: -2pt 0pt 4pt 0pt;
+}
+
 .control-shadow-0p5 {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);
 }
@@ -230,6 +237,10 @@
 
 .green-text {
     -fx-text-fill: derive(darkgreen, 0%);
+}
+
+.red-text {
+    -fx-text-fill: derive(red, -10%);
 }
 
 .orange-button {

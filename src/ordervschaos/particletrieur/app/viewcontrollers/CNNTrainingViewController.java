@@ -14,14 +14,13 @@ import ordervschaos.particletrieur.app.FxmlLocation;
 import ordervschaos.particletrieur.app.controls.AlertEx;
 import ordervschaos.particletrieur.app.controls.BasicDialogs;
 import ordervschaos.particletrieur.app.models.Supervisor;
-import ordervschaos.particletrieur.app.models.network.classification.NetworkInfo;
+import ordervschaos.particletrieur.app.models.network.training.GPUStatus;
+import ordervschaos.particletrieur.app.models.network.training.MISOTrainingScript;
 import ordervschaos.particletrieur.app.models.network.training.TrainingLaunchInfo;
 import ordervschaos.particletrieur.app.services.network.CNNTrainingService;
 import ordervschaos.particletrieur.app.services.network.TrainingNetworkDescriptionService;
 import ordervschaos.particletrieur.app.AbstractDialogController;
-import ordervschaos.particletrieur.app.viewcontrollers.network.NetworkTrainingProgressViewController;
 import javafx.beans.binding.Bindings;
-import javafx.concurrent.Service;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -49,6 +48,8 @@ import java.util.*;
 @FxmlLocation("views/CNNTrainingView.fxml")
 public class CNNTrainingViewController extends AbstractDialogController implements Initializable {
 
+    @FXML Label labelGPUMemory;
+    @FXML Label labelGPUUsage;
     @FXML
     Label labelPythonLocation;
     @FXML
@@ -224,6 +225,14 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
             }
         }
         labelPythonLocation.setText("Python location: " + CNNTrainingService.getAnacondaInstallationLocation());
+
+//        try {
+//            GPUStatus status = CNNTrainingService.getNVIDIAStatus();
+//            labelGPUMemory.setText(String.format("GPU memory: %dW / %dW (%.2f%%)", status.memory, status.maxMemory, status.memoryPercentage));
+//            labelGPUUsage.setText(String.format("GPU usage: %d%%", status.usagePercentage));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void defaultOutputFolder() {
@@ -240,52 +249,54 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
         }
     }
 
-    public TrainingLaunchInfo getLaunchInfo() {
+    public MISOTrainingScript createTrainingScript() {
 
-        TrainingLaunchInfo info = new TrainingLaunchInfo();
+        MISOTrainingScript info = new MISOTrainingScript();
         TrainingLaunchInfo networkInfo = comboBoxCNNType.getSelectionModel().getSelectedItem();
 
         //Input
         if (radioButtonInputFolder.isSelected()) {
-            info.inputSource = textFieldInputFolder.getText();
+            info.datasetSource = textFieldInputFolder.getText();
         } else if (radioButtonInputCloudZipFile.isSelected()) {
-            info.inputSource = textFieldCloudZipFile.getText();
+            info.datasetSource = textFieldCloudZipFile.getText();
         } else {
-            info.inputSource = supervisor.project.getFile().getAbsolutePath();
+            info.datasetSource = supervisor.project.getFile().getAbsolutePath();
         }
 
-        info.minCountPerClass = spinnerMinImagesPerClass.getValue();
-        info.trainTestSplit = checkBoxUseSplit.isSelected() ? spinnerTestSplitFraction.getValue() : 0.0;
-        info.mapOthers = checkBoxUseOther.isSelected();
-        info.useMemoryMapping = checkBoxUseMemoryMapping.isSelected();
+        info.datasetMinCount = spinnerMinImagesPerClass.getValue();
+        info.datasetValSplit = checkBoxUseSplit.isSelected() ? spinnerTestSplitFraction.getValue() : 0.0;
+        info.datasetMapOthers = checkBoxUseOther.isSelected();
+        info.datasetUseMemmap = checkBoxUseMemoryMapping.isSelected();
 
         //Output
         info.outputDirectory = textFieldOutputFolder.getText();
-        info.saveModel = checkBoxOutputSaveModel.isSelected();
-        info.saveMislabeled = checkBoxOutputSaveMislabeled.isSelected();
+        info.outputSaveModel = checkBoxOutputSaveModel.isSelected();
+        info.outputSaveMislabeled = checkBoxOutputSaveMislabeled.isSelected();
 
         //Network
-        info.networkType = networkInfo.networkType;
+        info.cnnId = networkInfo.networkType;
         info.name = textFieldName.getText();
         info.description = "";
-        info.numFilters = networkInfo.numFilters;
+        info.cnnFilters = networkInfo.numFilters;
 
         //Image Input
-        info.imageHeight = (comboBoxInputSize.getValue());
-        info.imageWidth = (comboBoxInputSize.getValue());
+        info.cnnImgShape[0] = comboBoxInputSize.getValue();
+        info.cnnImgShape[1] = comboBoxInputSize.getValue();
         if (comboBoxColourMode.getSelectionModel().getSelectedIndex() == 0) {
-            info.imageChannels = 1;
+            info.cnnImgType = "greyscale";
+            info.cnnImgShape[2] = 1;
         } else {
-            info.imageChannels = 3;
+            info.cnnImgType = "rgb";
+            info.cnnImgShape[2] = 3;
         }
 
         //Augmentation
-        info.useAugmentation = checkBoxApplyAugmentation.isSelected();
+        info.trainingUseAugmentation = checkBoxApplyAugmentation.isSelected();
 
         //Training
-        info.useClassWeights = checkBoxBalanceClassWeights.isSelected();
-        info.batchSize = spinnerBatchSize.getValue();
-        info.alrEpochs = spinnerAlrEpochs.getValue();
+        info.trainingUseClassWeights = checkBoxBalanceClassWeights.isSelected();
+        info.trainingBatchSize = spinnerBatchSize.getValue();
+        info.trainingAlrEpochs = spinnerAlrEpochs.getValue();
 
         return info;
     }
@@ -373,20 +384,30 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
             BasicDialogs.ShowError("Python Missing", "Python could not be found at any of the default locations.\nPlease update its location");
         } else {
             App.getPrefs().setTrainingPath(textFieldOutputFolder.getText());
-            trainingService.launch(getLaunchInfo());
+
+            if (radioButtonInputThisProject.isSelected() && supervisor.project.getFile() == null) {
+                BasicDialogs.ShowError("Error", "You must save the project first");
+                return;
+            }
+            trainingService.launchTraining(createTrainingScript());
         }
     }
 
     @FXML
     private void handleCreateScript(ActionEvent event) {
+        if (radioButtonInputThisProject.isSelected() && supervisor.project.getFile() == null) {
+            BasicDialogs.ShowError("Error", "You must save the project first");
+            return;
+        }
+        MISOTrainingScript info = createTrainingScript();
 
-        TrainingLaunchInfo info = getLaunchInfo();
-        CNNTrainingService trainingService = new CNNTrainingService();
-//        f (trainingService.getAnacondaInstallationLocation() == null) {
-//            BasicDialogs.ShowError("Python Missing", "Python could not be found at any of the default locations.\nPlease update its location");
-//        }
-//        else {i
-        String script = trainingService.getLaunchInfoScript(info);
+        String script = null;
+        try {
+            script = info.getScript();
+        } catch (IOException e) {
+            BasicDialogs.ShowError("Error", "Could not create temporary directory for memmap file");
+            return;
+        }
 
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         final ClipboardContent content = new ClipboardContent();
@@ -396,7 +417,6 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
         AlertEx alert = new AlertEx(Alert.AlertType.INFORMATION, "Script has been copied to clipboard", ButtonType.OK);
         alert.setHeaderText("Script Generated");
         alert.showAndWait();
-//        }
     }
 
     @Override

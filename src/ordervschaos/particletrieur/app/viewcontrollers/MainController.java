@@ -64,6 +64,9 @@ public class MainController extends AbstractController implements Initializable 
     public static MainController instance;
     public StackPane rootDialog;
     public VBox rootVBox;
+
+    @FXML Label labelGPUMemory;
+    @FXML Label labelGPUUsage;
     @FXML CheckBox checkBoxAutoAdvance;
     @FXML CheckBox checkBoxAutoValidate;
 
@@ -405,6 +408,27 @@ public class MainController extends AbstractController implements Initializable 
 
         supervisor.exceptionMonitor.errorCountProperty().addListener((observable, oldValue, newValue) -> {
             menuItemExceptionLog.setText(String.format("Exception Log (%d)", newValue));
+        });
+
+        cnnVectorViewModel.GPUStatus.addListener((observable, oldValue, newValue) -> {
+            labelGPUMemory.setText(String.format("GPU memory: %.0f%%", newValue.memoryPercentage));
+            labelGPUMemory.getStyleClass().clear();
+            if (newValue.memoryPercentage > 50) {
+                labelGPUMemory.getStyleClass().add("red-text");
+            }
+            else {
+                labelGPUMemory.getStyleClass().add("green-text");
+            }
+
+            labelGPUUsage.setText(String.format("GPU usage: %d%%", newValue.usagePercentage));
+            labelGPUUsage.getStyleClass().clear();
+            if (newValue.usagePercentage > 50) {
+                labelGPUUsage.getStyleClass().add("red-text");
+            }
+            else {
+                labelGPUUsage.getStyleClass().add("green-text");
+            }
+
         });
     }
 

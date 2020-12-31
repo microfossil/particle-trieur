@@ -17,8 +17,8 @@ public class TrainingLaunchInfo {
     public int alrEpochs = 40;
     public int alrDrops = 4;
 
-    public int minCountPerClass = 40;
-    public double trainTestSplit = 0.25;
+    public int minCountPerClass = 10;
+    public double trainTestSplit = 0.2;
     public boolean mapOthers = false;
     public boolean useMemoryMapping = false;
     public boolean saveTrainingSet = false;
@@ -32,5 +32,4 @@ public class TrainingLaunchInfo {
 
     public String inputSource = "";
     public String outputDirectory = "";
-
 }
