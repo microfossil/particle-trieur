@@ -156,26 +156,26 @@ public class ClassificationPaneController implements Initializable {
         //kNN classification updated
         selectionViewModel.knnPredictionViewModel.kNNPredictedClassificationProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null || newValue.classifications.size() == 0) {
-                buttonkNNLabel.setText("N/A");
+//                buttonkNNLabel.setText("N/A");
                 updateKNNUI(null);
-                progressBarkNNScore.setProgress(0);
+//                progressBarkNNScore.setProgress(0);
             } else {
                 updateKNNUI(newValue);
-                buttonkNNLabel.setText(newValue.getBestCode());
-                progressBarkNNScore.setProgress(newValue.getBest().getValue());
+//                buttonkNNLabel.setText(newValue.getBestCode());
+//                progressBarkNNScore.setProgress(newValue.getBest().getValue());
             }
         });
 
         //CNN classification updated
         selectionViewModel.cnnPredictionViewModel.cnnPredictedClassificationProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null || newValue.classifications.size() == 0) {
-                buttonCNNLabel.setText("N/A");
+//                buttonCNNLabel.setText("N/A");
                 updateCNNUI(null);
-                progressBarCNNScore.setProgress(0);
+//                progressBarCNNScore.setProgress(0);
             } else {
                 updateCNNUI(newValue);
-                buttonCNNLabel.setText(newValue.getBest().getCode());
-                progressBarCNNScore.setProgress(newValue.getBest().getValue());
+//                buttonCNNLabel.setText(newValue.getBest().getCode());
+//                progressBarCNNScore.setProgress(newValue.getBest().getValue());
             }
         });
 

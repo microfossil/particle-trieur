@@ -420,7 +420,7 @@ public class MainController extends AbstractController implements Initializable 
                 labelGPUMemory.getStyleClass().add("green-text");
             }
 
-            labelGPUUsage.setText(String.format("GPU usage: %d%%", newValue.usagePercentage));
+            labelGPUUsage.setText(String.format("GPU cores: %d%%", newValue.usagePercentage));
             labelGPUUsage.getStyleClass().clear();
             if (newValue.usagePercentage > 50) {
                 labelGPUUsage.getStyleClass().add("red-text");
