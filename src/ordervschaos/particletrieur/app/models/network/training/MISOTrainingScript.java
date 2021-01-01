@@ -182,9 +182,24 @@ public class MISOTrainingScript {
                         "\n" +
                         "\n" +
                         "# Train the model!!!\n" +
+                        "import time\n" +
+                        "from datetime import datetime\n" +
+                        "import numpy as np\n" +
+                        "from miso.utils import singleton\n" +
                         "# Guard for windows\n" +
                         "if __name__ == \"__main__\":\n" +
-                        "    train_image_classification_model(tp)";
+                        "    # Only one script at a time\n" +
+                        "    start = time.time()\n" +
+                        "    done = False\n" +
+                        "    while not done:\n" +
+                        "        try:\n" +
+                        "            lock = singleton.SingleInstance(lockfile=\"miso.lock\")\n" +
+                        "            print()\n" +
+                        "            train_image_classification_model(tp)\n" +
+                        "            done = True\n" +
+                        "        except singleton.SingleInstanceException:\n" +
+                        "            print(\"{}: Another script is already running, trying again in 10 seconds. ({}s waiting)\\r\".format(datetime.now(), np.round(time.time() - start)), end='')\n" +
+                        "            time.sleep(10)";
         return script;
     }
 
