@@ -124,7 +124,7 @@ public class CNNTrainingService {
         return result.toString("UTF-8");
     }
 
-    public static GPUStatus getNVIDIAStatus() throws IOException {
+    public static GPUStatus getNVIDIAStatus() {
         String command;
         if (SystemUtils.IS_OS_WINDOWS) {
             command = "\"c:\\Program Files\\NVIDIA Corporation\\NVSMI\\nvidia-smi.exe\"";
@@ -135,24 +135,23 @@ public class CNNTrainingService {
         } else {
             throw new RuntimeException("Unsupported OS");
         }
-        String result = executeInTerminalAndReturnOutput(command);
-        System.out.println(result);
 
-        String[] lines = result.split("\r\n|\n|\r");
-        System.out.println(lines[9]);
-
-        String[] parts = lines[9].split("\\s+");
-        System.out.println(parts[12]);
-
-        GPUStatus status = new GPUStatus(
-                Integer.parseInt(parts[4].substring(0, parts[4].length() - 1)),
-                Integer.parseInt(parts[6].substring(0, parts[6].length() - 1)),
-                Integer.parseInt(parts[8].substring(0, parts[8].length() - 3)),
-                Integer.parseInt(parts[10].substring(0, parts[10].length() - 3)),
-                Integer.parseInt(parts[12].substring(0, parts[12].length()-1))
-                );
-
-        return status;
+        try {
+            String result = executeInTerminalAndReturnOutput(command);
+            String[] lines = result.split("\r\n|\n|\r");
+            String[] parts = lines[9].split("\\s+");
+            GPUStatus status = new GPUStatus(
+                    Integer.parseInt(parts[4].substring(0, parts[4].length() - 1)),
+                    Integer.parseInt(parts[6].substring(0, parts[6].length() - 1)),
+                    Integer.parseInt(parts[8].substring(0, parts[8].length() - 3)),
+                    Integer.parseInt(parts[10].substring(0, parts[10].length() - 3)),
+                    Integer.parseInt(parts[12].substring(0, parts[12].length()-1))
+            );
+            return status;
+        }
+        catch (IOException ex) {
+            return null;
+        }
     }
 
     public static String getAnacondaInstallationLocation() {
@@ -252,16 +251,11 @@ public class CNNTrainingService {
 
     public void updateMISO() {
         try {
-            getNVIDIAStatus();
-        } catch (IOException e) {
-            e.printStackTrace();
+            executePythonCommand(" -m pip install -U " + PACKAGE);
         }
-//        try {
-//            executePythonCommand(" -m pip install -U " + PACKAGE);
-//        }
-//        catch (Exception ex) {
-//            BasicDialogs.ShowException("Error updating MISO library", ex);
-//        }
+        catch (Exception ex) {
+            BasicDialogs.ShowException("Error updating MISO library", ex);
+        }
     }
 
 //    public Service<Void> createLaunchService(MISOTrainingScript info) {

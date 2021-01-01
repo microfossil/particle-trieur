@@ -48,8 +48,10 @@ import java.util.*;
 @FxmlLocation("views/CNNTrainingView.fxml")
 public class CNNTrainingViewController extends AbstractDialogController implements Initializable {
 
-    @FXML Label labelGPUMemory;
-    @FXML Label labelGPUUsage;
+    @FXML
+    Label labelGPUMemory;
+    @FXML
+    Label labelGPUUsage;
     @FXML
     Label labelPythonLocation;
     @FXML
@@ -225,14 +227,6 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
             }
         }
         labelPythonLocation.setText("Python location: " + CNNTrainingService.getAnacondaInstallationLocation());
-
-//        try {
-//            GPUStatus status = CNNTrainingService.getNVIDIAStatus();
-//            labelGPUMemory.setText(String.format("GPU memory: %dW / %dW (%.2f%%)", status.memory, status.maxMemory, status.memoryPercentage));
-//            labelGPUUsage.setText(String.format("GPU usage: %d%%", status.usagePercentage));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     private void defaultOutputFolder() {
@@ -379,6 +373,11 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
 
     @FXML
     private void handleLaunch(ActionEvent event) {
+        GPUStatus status = CNNTrainingService.getNVIDIAStatus();
+        if (status != null && (status.memoryPercentage > 50 || status.usagePercentage > 50)) {
+            BasicDialogs.ShowError("GPU In Use", String.format("The GPU is currently in use (%d%% cores, %.0f%% memory)\n\nTraining may be delayed until any scripts have finished.", status.usagePercentage, status.memoryPercentage));
+//            return;
+        }
         CNNTrainingService trainingService = new CNNTrainingService();
         if (trainingService.getAnacondaInstallationLocation() == null) {
             BasicDialogs.ShowError("Python Missing", "Python could not be found at any of the default locations.\nPlease update its location");

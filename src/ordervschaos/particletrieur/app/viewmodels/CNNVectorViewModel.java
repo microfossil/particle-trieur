@@ -32,11 +32,7 @@ public class CNNVectorViewModel {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                    try {
-                        GPUStatus.set(CNNTrainingService.getNVIDIAStatus());
-                    } catch (IOException e) {
-
-                    }
+                    GPUStatus.set(CNNTrainingService.getNVIDIAStatus());
                 });
             }
         }, 0, 10000);
