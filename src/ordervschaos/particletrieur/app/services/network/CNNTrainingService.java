@@ -38,10 +38,10 @@ public class CNNTrainingService {
         }).start();
     }
 
-    public String getFlowcamScript(String input, String species, String output) {
+    public String getFlowcamScript(String input, String output, String campaign, String species) {
         StringBuilder sb = new StringBuilder();
-        sb.append("from miso.data.flowcam import process\n");
-        sb.append(String.format("process(r\"%s\", r\"%s\", r\"%s\")", input, species, output));
+        sb.append("from miso.utils.flowcam import process_dir\n");
+        sb.append(String.format("process_dir(r\"%s\", r\"%s\", r\"%s\")", input, output, campaign, species));
         return sb.toString();
     }
 
@@ -64,7 +64,7 @@ public class CNNTrainingService {
         } else {
             throw new RuntimeException("Unsupported OS");
         }
-        System.out.println(command);
+//        System.out.println(command);
         Process process = Runtime.getRuntime().exec(wrappedCommand);
 
 //        Process process = new ProcessBuilder(wrappedCommand)
@@ -101,7 +101,7 @@ public class CNNTrainingService {
 //        else {
 //            throw new RuntimeException("Unsupported OS");
 //        }
-        System.out.println(command);
+//        System.out.println(command);
 
         Process process = new ProcessBuilder(command)
                 .redirectErrorStream(true)
@@ -236,9 +236,9 @@ public class CNNTrainingService {
         }
     }
 
-    public void launchFlowcam(String input, String species, String output) {
+    public void launchFlowcam(String input, String output, String campaign, String species) {
         try {
-            String script = getFlowcamScript(input, species, output);
+            String script = getFlowcamScript(input, output, campaign, species);
             File temp = File.createTempFile("flowcam_", ".py");
             BufferedWriter writer = new BufferedWriter(new FileWriter(temp));
             writer.write(script);

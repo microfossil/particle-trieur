@@ -7,6 +7,7 @@ import ordervschaos.particletrieur.app.viewcontrollers.CNNTrainingViewController
 import com.google.inject.Inject;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import ordervschaos.particletrieur.app.viewcontrollers.FlowcamSegmenterViewController;
 
 import java.io.IOException;
 
@@ -17,6 +18,7 @@ public class MainViewModel {
     public CSEvent expandListRequested = new CSEvent();
 
     public CNNTrainingViewController cnnTrainingViewController;
+    public FlowcamSegmenterViewController flowcamSegmenterViewController;
 
     private final BooleanProperty operationInProgress = new SimpleBooleanProperty(false);
     public BooleanProperty operationInProgressProperty() { return operationInProgress; }
@@ -29,6 +31,7 @@ public class MainViewModel {
     public MainViewModel() {
         try {
             cnnTrainingViewController = AbstractDialogController.create(CNNTrainingViewController.class);
+            flowcamSegmenterViewController = AbstractDialogController.create(FlowcamSegmenterViewController.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

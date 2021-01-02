@@ -753,11 +753,7 @@ public class MainController extends AbstractController implements Initializable 
 
     @FXML
     private void handleFlowcamSegmenter(ActionEvent event) {
-        try {
-            AbstractDialogController.create(FlowcamSegmenterViewController.class).showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        mainViewModel.flowcamSegmenterViewController.showAndWait();
     }
 
     @FXML
