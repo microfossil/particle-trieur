@@ -89,8 +89,8 @@ public class ExpressionBuilderControl extends VBox {
 
         badIcon = new SymbolLabel("featherxcircle", 16);
         badIcon.setSymbolColor("red");
-        badIcon = new SymbolLabel("feathercheckcircle", 16);
-        badIcon.setSymbolColor("green");
+        goodIcon = new SymbolLabel("feathercheckcircle", 16);
+        goodIcon.setSymbolColor("green");
 
 //        badIcon = new FontIcon("fth-circle-cross:16:RED");
 //        goodIcon = new FontIcon("fth-circle-check:16:GREEN");
