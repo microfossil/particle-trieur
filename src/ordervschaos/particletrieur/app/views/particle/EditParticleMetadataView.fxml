@@ -13,6 +13,7 @@
 <?import ordervschaos.particletrieur.app.controls.ExpressionBuilderControl?>
 <?import ordervschaos.particletrieur.app.controls.SymbolLabel?>
 
+<?import javafx.scene.control.RadioButton?>
 <GridPane hgap="21.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.particle.EditParticleMetadataViewController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" prefWidth="240.0" />
@@ -24,36 +25,42 @@
     <children>
         <VBox spacing="7" stylesheets="@../../styles/style.css" GridPane.columnIndex="1">
             <children>
-                <Label styleClass="subheader" text="Extract From Filename" />
-                <CheckBox fx:id="checkBoxExtractFromFilename" text="Extract image metadata from its path and filename" />
+                <Label styleClass="subheader" text="Extract from filename" />
+                <HBox alignment="CENTER_LEFT" spacing="21.0">
+                    <children>
+                        <Label text="Example Filename:" />
+                        <Button mnemonicParsing="false" onAction="#handlePickRandom" style="-fx-font-size: 10;" styleClass="flat-button" text="New Random File">
+                            <graphic>
+                                <SymbolLabel symbol="featherrefreshccw" />
+                            </graphic>
+                        </Button>
+                    </children>
+                </HBox>
+                <Label fx:id="labelExampleFilename" style="-fx-font-weight: bold;" text="None" />
+                <CheckBox fx:id="checkBoxExtractFromFilename" text="Extract image metadata from its path and filename"/>
+
                 <VBox fx:id="vboxExtract" spacing="7.0">
                     <children>
-                      <!--      <VBox>-->
-                      <CheckBox fx:id="checkboxIncludeParentDirectory" text="Also include the name of the parent directories (2)" />
-                      <HBox alignment="CENTER_LEFT" spacing="21.0">
-                          <children>
-                              <Label text="Example Filename:" />
-                              <Button mnemonicParsing="false" onAction="#handlePickRandom" style="-fx-font-size: 10;" styleClass="flat-button" text="New Random File">
-                                  <graphic>
-                                      <SymbolLabel symbol="featherrefreshccw" />
-                                  </graphic>
-                              </Button>
-                          </children>
-                      </HBox>
-                      <Label fx:id="labelExampleFilename" style="-fx-font-weight: bold;" text="None" />
-                      <Separator prefWidth="200.0" />
-                        <ExpressionBuilderControl fx:id="expressionBuilderControl" />
+
+                        <Label text="Presets:"/>
                         <HBox spacing="7">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#handleTestExtraction" text="Test If Matching">
-                                    <graphic>
-                                        <SymbolLabel symbol="featherhelpcircle" />
-                                    </graphic>
-                                </Button>
-                                <Button mnemonicParsing="false" onAction="#handleSetFolderAsLabelRegex" text="Use folder name as label" />
-                                <Button mnemonicParsing="false" onAction="#handleSetMachineRegex" text="Use MISO pattern" />
+                                <Button mnemonicParsing="false" onAction="#handleSetFolderAsLabelRegex" text="ClassID/Image" />
+                                <Button mnemonicParsing="false" onAction="#handleSetFolderAsSampleLabelRegex" text="SampleID/ClassID/Image" />
+                                <Button mnemonicParsing="false" onAction="#handleSetMachineRegex" text="MISO machine" />
                             </children>
                         </HBox>
+                        <Separator prefWidth="200.0" />
+                        <ExpressionBuilderControl fx:id="expressionBuilderControl" />
+                        <Button mnemonicParsing="false" onAction="#handleTestExtraction" text="Test If Matching">
+                            <graphic>
+                                <SymbolLabel symbol="featherhelpcircle" />
+                            </graphic>
+                        </Button>
+
+                      <!--      <VBox>-->
+<!--                      <CheckBox fx:id="checkboxIncludeParentDirectory" text="Also include the name of the parent directories (2)" />-->
+
                     </children>
                 </VBox>
                 <!--      </VBox>-->
