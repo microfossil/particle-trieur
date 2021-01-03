@@ -164,13 +164,16 @@ public class AddParticleViewController extends AbstractDialogController implemen
             service.setOnSucceeded(event1 -> {
                 files.clear();
                 files.addAll(service.getValue());
+                this.getDialog().getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
             });
             service.setOnFailed(event1 -> {
                 BasicDialogs.ShowException("Error loading files", new Exception(service.getException()));
+                this.getDialog().getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
             });
             service.messageProperty().addListener((observable, oldValue, newValue) -> {
                 labelFileCount.setText(newValue);
             });
+            this.getDialog().getDialogPane().lookupButton(ButtonType.OK).setDisable(true);
             service.start();
 //                List<File> filesToAdd = Files.find(Paths.get(dir.getAbsolutePath()), Integer.MAX_VALUE, (filePath, fileAttr) -> {
 //                    if (fileAttr.isRegularFile()) {
