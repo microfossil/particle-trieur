@@ -36,6 +36,9 @@ import org.apache.commons.io.FilenameUtils;
 @FxmlLocation("views/particle/EditParticleMetadataView.fxml")
 public class EditParticleMetadataViewController extends AbstractDialogController implements Initializable {
 
+    public RadioButton radioButtonClass;
+    public RadioButton radioButtonSampleClass;
+    public RadioButton radioButtonCustom;
     @FXML VBox vboxExtract;
     @FXML ComboBox<String> comboBoxSample;
     @FXML ComboBox<String> comboBoxNumeric1;
@@ -43,7 +46,7 @@ public class EditParticleMetadataViewController extends AbstractDialogController
     @FXML ComboBox<String> comboBoxResolution;
     @FXML Label labelExampleFilename;
     @FXML CheckBox checkBoxExtractFromFilename;
-    @FXML CheckBox checkboxIncludeParentDirectory;
+//    @FXML CheckBox checkboxIncludeParentDirectory;
     @FXML ExpressionBuilderControl expressionBuilderControl;
 
     List<Particle> particles;
@@ -70,11 +73,12 @@ public class EditParticleMetadataViewController extends AbstractDialogController
             vboxExtract.setDisable(!newv);
             if (newv == true) expressionBuilderControl.refresh();
         });
+//        checkBoxExtractFromFilename.setSelected(true);
         vboxExtract.setDisable(true);
-        checkboxIncludeParentDirectory.selectedProperty().addListener((ob,ov,nv) -> {
-            updateDisplayFile();
-        });
-        checkboxIncludeParentDirectory.setSelected(true);
+//        checkboxIncludeParentDirectory.selectedProperty().addListener((ob,ov,nv) -> {
+//            updateDisplayFile();
+//        });
+//        checkboxIncludeParentDirectory.setSelected(true);
 
         String prefs = App.getPrefs().getParseString();
         prefs = prefs.replace("$class$", "$label$");
@@ -102,13 +106,13 @@ public class EditParticleMetadataViewController extends AbstractDialogController
     }
 
     public String getFileString(File file) {
-        if (checkboxIncludeParentDirectory.isSelected()) {
+//        if (checkboxIncludeParentDirectory.isSelected()) {
             Path rootPath = Paths.get(file.getParentFile().getParentFile().getParent());
             return FilenameUtils.removeExtension(rootPath.relativize(file.toPath()).toString().replace('\\', '/'));
-        }
-        else {
-            return FilenameUtils.removeExtension(file.getName());
-        }
+//        }
+//        else {
+//            return FilenameUtils.removeExtension(file.getName());
+//        }
     }
     
     private void updateDisplayFile(File file) {
@@ -140,6 +144,11 @@ public class EditParticleMetadataViewController extends AbstractDialogController
     @FXML
     private void handleSetFolderAsLabelRegex(ActionEvent event) {
         expressionBuilderControl.setSimpleRegex("$skip$/$label$/$end$");
+    }
+
+    @FXML
+    private void handleSetFolderAsSampleLabelRegex(ActionEvent event) {
+        expressionBuilderControl.setSimpleRegex("$sample$/$label$/$end$");
     }
     
     @FXML
