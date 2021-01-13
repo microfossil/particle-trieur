@@ -27,12 +27,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2a2d7e8-5c07-421e-a18f-7e6936f4ce78" name="Default Changelist" comment="Move image type below">
+    <list default="true" id="d2a2d7e8-5c07-421e-a18f-7e6936f4ce78" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ExpressionBuilderControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ExpressionBuilderControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/AddParticleViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/AddParticleViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/EditParticleMetadataViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/EditParticleMetadataViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/particle/EditParticleMetadataView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/particle/EditParticleMetadataView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/training/MISOTrainingScript.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/training/MISOTrainingScript.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/CNNVectorViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/CNNVectorViewModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,6 +124,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="clean_jar.sh" type="ShConfigurationType" temporary="true">
       <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
       <option name="SCRIPT_PATH" value="$PROJECT_DIR$/clean_jar.sh" />
@@ -201,7 +210,9 @@
       <workItem from="1609364091331" duration="16706000" />
       <workItem from="1609471935102" duration="5489000" />
       <workItem from="1609571350233" duration="3886000" />
-      <workItem from="1609632620878" duration="4232000" />
+      <workItem from="1609632620878" duration="5207000" />
+      <workItem from="1610334502780" duration="3073000" />
+      <workItem from="1610531148310" duration="3372000" />
     </task>
     <task id="LOCAL-00001" summary="Move image type below">
       <created>1603508919405</created>
@@ -210,7 +221,35 @@
       <option name="project" value="LOCAL" />
       <updated>1603508919405</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fixed tick always showing regardless of whether pattern was good or not">
+      <created>1609654992734</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1609654992734</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Disable OK button while waiting for images to load">
+      <created>1609655027382</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1609655027382</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Rearrange UI and add extra button for sample/class/image">
+      <created>1609655089844</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1609655089844</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Rearrange UI with extra buttons for presets">
+      <created>1609655114853</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1609655114853</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,7 +269,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Move image type below" />
-    <option name="LAST_COMMIT_MESSAGE" value="Move image type below" />
+    <MESSAGE value="Fixed tick always showing regardless of whether pattern was good or not" />
+    <MESSAGE value="Disable OK button while waiting for images to load" />
+    <MESSAGE value="Rearrange UI and add extra button for sample/class/image" />
+    <MESSAGE value="Rearrange UI with extra buttons for presets" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rearrange UI with extra buttons for presets" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

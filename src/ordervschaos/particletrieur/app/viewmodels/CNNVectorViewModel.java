@@ -3,8 +3,6 @@ package ordervschaos.particletrieur.app.viewmodels;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import ordervschaos.particletrieur.app.controls.AlertEx;
@@ -43,7 +41,6 @@ public class CNNVectorViewModel {
     }
 
     public void calculateVectors() {
-
         AlertEx alert = new AlertEx(Alert.AlertType.CONFIRMATION, "This will reset all feature vectors. Are you sure?", ButtonType.YES, ButtonType.CANCEL);
         alert.showAndWait().ifPresent(buttonType -> {
             if (buttonType == ButtonType.YES) {

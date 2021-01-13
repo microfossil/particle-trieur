@@ -183,6 +183,7 @@ public class MISOTrainingScript {
                         "\n" +
                         "# Train the model!!!\n" +
                         "import time\n" +
+                        "import tempfile\n" +
                         "from datetime import datetime\n" +
                         "import numpy as np\n" +
                         "from miso.utils import singleton\n" +
@@ -193,7 +194,7 @@ public class MISOTrainingScript {
                         "    done = False\n" +
                         "    while not done:\n" +
                         "        try:\n" +
-                        "            lock = singleton.SingleInstance(lockfile=\"miso.lock\")\n" +
+                        "            lock = singleton.SingleInstance(lockfile=os.path.join(tempfile.gettempdir(), \"miso.lock\"))\n" +
                         "            print()\n" +
                         "            train_image_classification_model(tp)\n" +
                         "            done = True\n" +
