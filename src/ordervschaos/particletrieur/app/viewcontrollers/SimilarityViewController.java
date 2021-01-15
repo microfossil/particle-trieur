@@ -61,6 +61,8 @@ public class SimilarityViewController extends AbstractController implements Init
 
     ObservableList<Similarity> images = FXCollections.observableArrayList();
     private ObservableList<Similarity> selectedItems = FXCollections.observableArrayList();
+    private int selectedIndex = 0;
+    private int shiftSelectedIndex = 0;
 
     public BooleanProperty isEnabledProperty = new SimpleBooleanProperty(false);
 
@@ -91,6 +93,7 @@ public class SimilarityViewController extends AbstractController implements Init
                 Particle particle = supervisor.project.particles.get(similarity.index);
                 menuButtonCurrentLabels.setText(particle.classification.get());
             }
+            System.out.println(String.format("Current cells: %d", currentCells.size()));
             Iterator<WeakReference<SimilarParticleCell>> itr = currentCells.iterator();
             while (itr.hasNext()) {
                 WeakReference<SimilarParticleCell> cell = itr.next();
@@ -169,6 +172,8 @@ public class SimilarityViewController extends AbstractController implements Init
 
         public ForamImageControl im = new ForamImageControl(supervisor, labelsViewModel);
 
+        public int index = 0;
+
         //Loading task
         ObjectProperty<Task<Image>> loadingTask = new SimpleObjectProperty<>();
 
@@ -185,7 +190,63 @@ public class SimilarityViewController extends AbstractController implements Init
                     } else {
                         selectedItems.add(getItem());
                     }
-                } else {
+                    selectedItems.add(getItem());
+                    selectedIndex = super.getIndex();
+                    shiftSelectedIndex = selectedIndex;
+                }
+                else if (event.isShiftDown()) {
+                    int currentIdx = getIndex();
+                    int startIdx = Math.min(currentIdx, selectedIndex);
+                    int endIdx = Math.max(currentIdx, selectedIndex);
+                    int startIdxOld = Math.min(shiftSelectedIndex, currentIdx);
+                    int endIdxOld = Math.max(shiftSelectedIndex, currentIdx);
+
+                    System.out.println("-----");
+                    System.out.println(selectedIndex);
+                    System.out.println(currentIdx);
+                    System.out.println(shiftSelectedIndex);
+
+                    ArrayList<Similarity> toRemove = new ArrayList<>();
+                    ArrayList<Similarity> toAdd= new ArrayList<>();
+
+                    for (int i = startIdxOld; i <= endIdxOld; i++) {
+                        toRemove.add(images.get(i));
+//                        if (!currentItems.contains(images.get(i))) {
+//                            selectedItems.remove(images.get(i));
+//                            System.out.print(i);
+//                            System.out.print(" ");
+//                        }
+                    }
+
+                    for (int i = startIdx; i <= endIdx; i++) {
+                        toAdd.add(images.get(i));
+//                        currentItems.add(images.get(i));
+//                        selectedItems.add(images.get(i));
+//                        System.out.print(i);
+//                        System.out.print(" ");
+                    }
+                    selectedItems.removeAll(toRemove);
+                    selectedItems.addAll(toAdd);
+
+//                    for (int i = startIdx; i <= endIdx; i++) {
+//                        currentItems.add(images.get(i));
+//                        selectedItems.add(images.get(i));
+//                        System.out.print(i);
+//                        System.out.print(" ");
+//                    }
+//                    System.out.println();
+//                    for (int i = startIdxOld; i <= endIdxOld; i++) {
+//                        if (!currentItems.contains(images.get(i))) {
+//                            selectedItems.remove(images.get(i));
+//                            System.out.print(i);
+//                            System.out.print(" ");
+//                        }
+//                    }
+                    shiftSelectedIndex = currentIdx;
+                }
+                else {
+                    selectedIndex = super.getIndex();
+                    shiftSelectedIndex = selectedIndex;
                     selectedItems.clear();
                     selectedItems.add(getItem());
                 }
@@ -253,6 +314,8 @@ public class SimilarityViewController extends AbstractController implements Init
 
         public void updateSelection() {
             im.selected.set(selectedItems.contains(this.getItem()));
+            System.out.print(getIndex());
+            System.out.print(" ");
         }
     }
 
