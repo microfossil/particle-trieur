@@ -37,8 +37,8 @@ import java.util.*;
 
 public class SimilarityViewController extends AbstractController implements Initializable {
 
-    @FXML
-    ToggleButton toggleButtonMultiple;
+//    @FXML
+//    ToggleButton toggleButtonMultiple;
     @FXML
     ComboBox<ParticleSimilarityService.SortBy> comboBoxSimilar;
     @FXML
@@ -93,7 +93,7 @@ public class SimilarityViewController extends AbstractController implements Init
                 Particle particle = supervisor.project.particles.get(similarity.index);
                 menuButtonCurrentLabels.setText(particle.classification.get());
             }
-            System.out.println(String.format("Current cells: %d", currentCells.size()));
+//            System.out.println(String.format("Current cells: %d", currentCells.size()));
             Iterator<WeakReference<SimilarParticleCell>> itr = currentCells.iterator();
             while (itr.hasNext()) {
                 WeakReference<SimilarParticleCell> cell = itr.next();
@@ -184,7 +184,7 @@ public class SimilarityViewController extends AbstractController implements Init
             setOnMouseClicked(event ->
             {
                 if (getItem().isOriginal) return;
-                if (event.isMetaDown() || event.isControlDown() || toggleButtonMultiple.isSelected()) {
+                if (event.isMetaDown() || event.isControlDown()) {
                     if (selectedItems.contains(getItem())) {
                         selectedItems.remove(getItem());
                     } else {
@@ -201,10 +201,10 @@ public class SimilarityViewController extends AbstractController implements Init
                     int startIdxOld = Math.min(shiftSelectedIndex, currentIdx);
                     int endIdxOld = Math.max(shiftSelectedIndex, currentIdx);
 
-                    System.out.println("-----");
-                    System.out.println(selectedIndex);
-                    System.out.println(currentIdx);
-                    System.out.println(shiftSelectedIndex);
+//                    System.out.println("-----");
+//                    System.out.println(selectedIndex);
+//                    System.out.println(currentIdx);
+//                    System.out.println(shiftSelectedIndex);
 
                     ArrayList<Similarity> toRemove = new ArrayList<>();
                     ArrayList<Similarity> toAdd= new ArrayList<>();
@@ -314,8 +314,8 @@ public class SimilarityViewController extends AbstractController implements Init
 
         public void updateSelection() {
             im.selected.set(selectedItems.contains(this.getItem()));
-            System.out.print(getIndex());
-            System.out.print(" ");
+//            System.out.print(getIndex());
+//            System.out.print(" ");
         }
     }
 

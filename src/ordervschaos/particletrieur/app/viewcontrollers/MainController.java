@@ -292,7 +292,9 @@ public class MainController extends AbstractController implements Initializable 
 
         //Window Title
         supervisor.project.fileProperty().addListener((observable, oldValue, newValue) -> {
-            this.stage.setTitle("Particle Trieur " + App.VERSION + " - "  + newValue);
+            String title = "New project, not saved yet";
+            if (newValue != null) title = newValue.getAbsolutePath();
+            this.stage.setTitle("Particle Trieur " + App.VERSION + " - "  + title);
         });
 
         //Username

@@ -182,10 +182,12 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
         comboBoxColourMode.getItems().addAll("Greyscale", "Colour (RGB)");
         comboBoxColourMode.getSelectionModel().select(0);
 
-        spinnerAlrEpochs.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, 10, 5));
-        spinnerBatchSize.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(16, 256, 64, 16));
-        spinnerMinImagesPerClass.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(10, 100000, 40, 5));
-        spinnerTestSplitFraction.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 0.9, 0.2, 0.05));
+        MISOTrainingScript info = new MISOTrainingScript();
+
+        spinnerAlrEpochs.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, info.trainingAlrEpochs, 5));
+        spinnerBatchSize.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(16, 256, info.trainingBatchSize, 16));
+        spinnerMinImagesPerClass.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(10, 100000, info.datasetMinCount, 5));
+        spinnerTestSplitFraction.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 0.9, info.datasetValSplit, 0.05));
 
         hboxInputFolder.disableProperty().bind(Bindings.not(radioButtonInputFolder.selectedProperty()));
         textFieldCloudZipFile.disableProperty().bind(Bindings.not(radioButtonInputCloudZipFile.selectedProperty()));
