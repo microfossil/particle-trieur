@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import ordervschaos.particletrieur.app.controls.SymbolLabel?>
+<?import org.controlsfx.control.textfield.CustomTextField?>
+
+<?import org.controlsfx.control.GridView?>
+<AnchorPane minHeight="0.0" minWidth="0.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.ParticleGridViewController">
+    <children>
+        <BorderPane layoutX="7.0" layoutY="41.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <center>
+                <GridView fx:id="gridViewParticles" cellHeight="220.0" cellWidth="160.0" horizontalCellSpacing="7.0" prefHeight="200.0" prefWidth="200.0" verticalCellSpacing="7.0" BorderPane.alignment="CENTER" >
+                    <BorderPane.margin>
+                        <Insets bottom="7.0" top="7.0" />
+                    </BorderPane.margin>
+                </GridView>
+            </center>
+            <top>
+<!--                <HBox spacing="7.0" BorderPane.alignment="CENTER">-->
+<!--                    <children>-->
+<!--                        <MenuButton fx:id="menuButtonFilter" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" HBox.hgrow="NEVER">-->
+<!--                            <graphic>-->
+<!--                                <SymbolLabel symbol="featherfilter" />-->
+<!--                            </graphic>-->
+<!--                            <items>-->
+<!--                                <MenuItem mnemonicParsing="false" onAction="#handleFilterNumber" text="#" />-->
+<!--                                <MenuItem mnemonicParsing="false" onAction="#handleFilterFile" text="File" />-->
+<!--                                <MenuItem mnemonicParsing="false" onAction="#handleFilterFolder" text="Folder" />-->
+<!--                                <MenuItem mnemonicParsing="false" onAction="#handleFilterLabel" text="Label" />-->
+<!--                                <MenuItem mnemonicParsing="false" onAction="#handleFilterTag" text="Tag" />-->
+<!--                                <MenuItem mnemonicParsing="false" onAction="#handleFilterIndex1" text="Index 1" />-->
+<!--                                <MenuItem mnemonicParsing="false" onAction="#handleFilterIndex2" text="Index 2" />-->
+<!--                                <MenuItem mnemonicParsing="false" onAction="#handleFilterGuid" text="GUID" />-->
+<!--                                <MenuItem mnemonicParsing="false" onAction="#handleFilterAll" text="None" />-->
+<!--                            </items>-->
+<!--                        </MenuButton>-->
+<!--                        <CustomTextField fx:id="customTextFieldFilter" minHeight="0.0" minWidth="0.0" promptText="Filter list..." HBox.hgrow="ALWAYS">-->
+<!--                            <tooltip>-->
+<!--                                <Tooltip text="Filter list by label code.&#10;Use the prefix &quot;tag:&quot; to filter by tag, or &quot;file:&quot; to filter by filename." wrapText="true" />-->
+<!--                            </tooltip>-->
+<!--                        </CustomTextField>-->
+<!--                        <Button fx:id="buttonExpandList" mnemonicParsing="false" onAction="#handleExpandList" prefHeight="25.0">-->
+<!--                            <graphic>-->
+<!--                                <SymbolLabel fx:id="fontIconExpander" symbol="featherfastforward" />-->
+<!--&lt;!&ndash;                                <FontIcon  iconLiteral="fth-fast-forward" />&ndash;&gt;-->
+<!--                            </graphic>-->
+<!--                            <tooltip>-->
+<!--                                <Tooltip text="Add folder of images" />-->
+<!--                            </tooltip>-->
+<!--                        </Button>-->
+<!--                    </children>-->
+<!--                </HBox>-->
+            </top>
+            <bottom>
+<!--                <HBox spacing="7.0" BorderPane.alignment="CENTER">-->
+<!--                    <children>-->
+<!--                        <Button onAction="#handleSelectAll" text="Select All">-->
+<!--                            <tooltip>-->
+<!--                                <Tooltip text="Select all images" />-->
+<!--                            </tooltip>-->
+<!--                        </Button>-->
+<!--                        <HBox HBox.hgrow="ALWAYS" />-->
+<!--                        <Button onAction="#handleSmallImage">-->
+<!--                            <tooltip>-->
+<!--                                <Tooltip text="Reduce image" />-->
+<!--                            </tooltip>-->
+<!--                            <graphic>-->
+<!--                                <SymbolLabel symbol="featherminimize" />-->
+<!--                            </graphic>-->
+<!--                        </Button>-->
+<!--                        <Button onAction="#handleLargeImage">-->
+<!--                            <tooltip>-->
+<!--                                <Tooltip text="Enlarge image" />-->
+<!--                            </tooltip>-->
+<!--                            <graphic>-->
+<!--                                <SymbolLabel symbol="feathermaximize" />-->
+<!--                            </graphic>-->
+<!--                        </Button>-->
+<!--                    </children>-->
+<!--                </HBox>-->
+            </bottom>
+        </BorderPane>
+    </children>
+    <padding>
+        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+    </padding>
+</AnchorPane>

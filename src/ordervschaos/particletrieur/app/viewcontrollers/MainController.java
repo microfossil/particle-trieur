@@ -65,6 +65,8 @@ public class MainController extends AbstractController implements Initializable 
     public StackPane rootDialog;
     public VBox rootVBox;
 
+
+    @FXML AnchorPane particleGridView;
     @FXML Label labelGPUMemory;
     @FXML Label labelGPUUsage;
     @FXML CheckBox checkBoxAutoAdvance;

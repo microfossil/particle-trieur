@@ -53,9 +53,13 @@ public class SelectionViewModel {
     public ObservableList<Particle> getCurrentParticles() { return currentParticles; }
     public void setCurrentParticles(List<Particle> values) { currentParticles.clear(); currentParticles.addAll(values); }
 
-    public int getCurrentForamIndex() {
-        int index =  supervisor.project.particles.indexOf(getCurrentParticle());
+    public int getCurrentParticleIndex() {
+        int index =  supervisor.project.getParticles().indexOf(getCurrentParticle());
         return index;
+    }
+
+    public int getParticleIndex(Particle particle) {
+        return supervisor.project.getParticles().indexOf(particle);
     }
 
     //Particle image

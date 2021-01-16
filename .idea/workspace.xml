@@ -28,9 +28,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d2a2d7e8-5c07-421e-a18f-7e6936f4ce78" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ParticleImageControl.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ParticleImageControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/ParticleGridViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/ParticleGridView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/training/MISOTrainingScript.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/training/MISOTrainingScript.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/CNNVectorViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/CNNVectorViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/SimilarityViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/SimilarityViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/SelectionViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/SelectionViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/Main.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +79,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
@@ -83,9 +89,13 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\controls" />
+      <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\views" />
       <recent name="$PROJECT_DIR$/out/artifacts/ParticleTrieur_jar" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ordervschaos.particletrieur.app.controls" />
+      <recent name="ordervschaos.particletrieur.app.viewcontrollers" />
       <recent name="ordervschaos.particletrieur.app.models.network.training" />
     </key>
   </component>
@@ -99,11 +109,11 @@
       <command value="mvn clean package" />
       <command value="mnv clean compile" />
       <command value="mvn clean compile" />
-      <command value="mvn clean" />
       <command value="mvn clean package shade:shade" />
       <command value="mvn compiler:compile" />
       <command value="mvn clean compiler:compile" />
       <command value="mvn package shade:shade" />
+      <command value="mvn clean" />
     </option>
   </component>
   <component name="RunManager" selected="Application.App">
@@ -120,17 +130,6 @@
       <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="ordervschaos.particletrieur.app.App" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -213,6 +212,8 @@
       <workItem from="1609632620878" duration="5207000" />
       <workItem from="1610334502780" duration="3073000" />
       <workItem from="1610531148310" duration="3372000" />
+      <workItem from="1610568634321" duration="4093000" />
+      <workItem from="1610743172407" duration="3537000" />
     </task>
     <task id="LOCAL-00001" summary="Move image type below">
       <created>1603508919405</created>
@@ -282,6 +283,11 @@
           <url>file://$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/ParticleListViewController.java</url>
           <line>503</line>
           <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/ParticleGridViewController.java</url>
+          <line>95</line>
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

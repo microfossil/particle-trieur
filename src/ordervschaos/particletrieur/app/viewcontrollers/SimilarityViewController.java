@@ -376,7 +376,7 @@ public class SimilarityViewController extends AbstractController implements Init
                         }
                         ForamImageControl im = new ForamImageControl(supervisor, labelsViewModel);
                         im.setSize(100);
-                        im.setData(selectionViewModel.getCurrentParticle(), null, selectionViewModel.getCurrentForamIndex() + 1, "", true);
+                        im.setData(selectionViewModel.getCurrentParticle(), null, selectionViewModel.getCurrentParticleIndex() + 1, "", true);
                         foramImageControls.add(0, im);
 
                         return foramImageControls;

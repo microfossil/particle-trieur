@@ -470,7 +470,8 @@
                         <SplitPane fx:id="splitPaneMain" dividerPositions="0.25" prefHeight="160.0" prefWidth="200.0"
                                    BorderPane.alignment="CENTER">
                             <items>
-                                <fx:include fx:id="particleListView" source="ParticleListView.fxml"/>
+<!--                                <fx:include fx:id="particleListView" source="ParticleListView.fxml"/>-->
+                                <fx:include fx:id="particleGridView" source="ParticleGridView.fxml"/>
                                 <!--<fx:include fx:id="foramImagePane" source="ForamImagePane.fxml" />-->
                                 <TabPane prefHeight="200.0" prefWidth="200.0"
                                          style="-fx-border-width: 0 0 0 1px; -fx-border-color: derive(-fx-base,-20%);"
