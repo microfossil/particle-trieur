@@ -23,6 +23,7 @@ import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -429,60 +430,11 @@ public class ParticleListViewController implements Initializable {
 //        });
 
         //Table of particles
-        selectionViewModel.filteredList = new FilteredList<>(supervisor.project.particles, p -> true);
-        customTextFieldFilter.textProperty().addListener((observable, oldValue, newValue) -> {
-            selectionViewModel.filteredList.setPredicate(foram -> {
-                // If filter text is empty, display all persons.
-                if (newValue == null || newValue.length() < 1) {
-                    return true;
-                }
-                // Compare first name and last name of every person with filter text.
-                String lowerCaseFilter = newValue.toLowerCase();
 
-//                if (lowerCaseFilter.startsWith("rating:")) {
-//                    try {
-//                        int rating = Integer.parseInt(lowerCaseFilter.substring(7));
-//                        return foram.getImageQuality() == rating;
-//                    } catch (Exception ex) {
-//
-//                    }
-//                } else
-                if (lowerCaseFilter.startsWith("#")) {
-                    try {
-                        int index = Integer.parseInt(lowerCaseFilter.substring(1))-1;
-                        if (index >= 0 && index < supervisor.project.particles.size()) {
-                            return supervisor.project.particles.get(index) == foram;
-                        }
-                        else return false;
-                    } catch (NumberFormatException ex) {
-                        return false;
-                    }
-                }
-                else if (lowerCaseFilter.startsWith("file:")) {
-                    return foram.getShortFilename().toLowerCase().contains(lowerCaseFilter.substring(5));
-                } else if (lowerCaseFilter.startsWith("folder:")) {
-                    return foram.getFile().getParent().toLowerCase().contains(lowerCaseFilter.substring(7));
-                } else if (lowerCaseFilter.startsWith("tag:")) {
-                    return foram.tagsToString().toLowerCase().contains(lowerCaseFilter.substring(4));
-                } else if (lowerCaseFilter.startsWith("label:")) {
-                    return foram.getClassification().toLowerCase().contains(lowerCaseFilter.substring(6));
-                } else if (lowerCaseFilter.startsWith("guid:")) {
-                    return foram.getGUID().toLowerCase().contains(lowerCaseFilter.substring(5));
-                } else if (lowerCaseFilter.startsWith("sample:")) {
-                    return foram.getSampleID().toLowerCase().contains(lowerCaseFilter.substring(7));
-                } else if (lowerCaseFilter.startsWith("index1:")) {
-                    String d = Double.toString(foram.getIndex1());
-                    return d.contains(lowerCaseFilter.substring(7));
-                } else if (lowerCaseFilter.startsWith("index2:")) {
-                    String d = Double.toString(foram.getIndex2());
-                    return d.contains(lowerCaseFilter.substring(7));
-                } else if (foram.toString().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false;
-            });
+        customTextFieldFilter.textProperty().addListener((observable, oldValue, newValue) -> {
+            selectionViewModel.filteredList.setPredicate(particle -> filterParticle(particle, newValue));
         });
-        selectionViewModel.sortedList = new SortedList<>(selectionViewModel.filteredList);
+
         selectionViewModel.sortedList.comparatorProperty().bind(tableViewForams.comparatorProperty());
         tableViewForams.setItems(selectionViewModel.sortedList);
 
@@ -490,6 +442,69 @@ public class ParticleListViewController implements Initializable {
             select(foram);
         });
         selectFirst();
+    }
+
+    private boolean filterParticle(Particle particle, String filter) {
+        if (filter == null || filter.length() < 1) {
+            return true;
+        }
+        String lowerCaseFilter = filter.toLowerCase();
+
+        String[] parts = lowerCaseFilter.split("\\s+");
+
+        for (String part : parts) {
+            String[] params = part.split("((?<===)|(?===)|(?=!=)|(?=!=))");
+            if (params.length != 3) {
+                return false;
+            }
+            boolean matched = false;
+            boolean result = false;
+            switch (params[0]) {
+                case "file":
+                    matched = true;
+                    result = particle.getShortFilename().toLowerCase().contains(params[2]);
+                    break;
+                case "folder":
+                    matched = true;
+                    result = particle.getFile().getParent().toLowerCase().contains(params[2]);
+                    break;
+                case "tag":
+                    matched = true;
+                    result = particle.tagsToString().toLowerCase().contains(params[2]);
+                    break;
+                case "label":
+                    matched = true;
+                    result = particle.getClassification().toLowerCase().contains(params[2]);
+                    break;
+                case "guid":
+                    matched = true;
+                    result = particle.getGUID().toLowerCase().contains(params[2]);
+                    break;
+                case "sample":
+                    matched = true;
+                    result = particle.getSampleID().toLowerCase().contains(params[2]);
+                    break;
+                case "index1":
+                    matched = true;
+                    result = Double.toString(particle.getIndex1()).equals(params[2]);
+                    break;
+                case "index2":
+                    matched = true;
+                    result = Double.toString(particle.getIndex2()).equals(params[2]);
+                    break;
+                case "valid":
+                    matched = true;
+                    if (params[2].equals("true")) result = particle.getValidator() != null && !particle.getValidator().equals("");
+                    else result = particle.getValidator() == null || particle.getValidator().equals("");
+                    break;
+            }
+            if (params[1].equals("!=")) {
+                result = !result;
+            }
+            if (!matched) result = false;
+            if (!result) return false;
+        }
+        return true;
     }
 
 

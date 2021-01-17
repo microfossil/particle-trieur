@@ -6,7 +6,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.ToolBar?>
@@ -79,12 +78,6 @@
                                 <Insets left="7.0" right="7.0" top="7.0" bottom="7.0"/>
                             </padding>
                             <children>
-                                <!-- Memory -->
-                                <Label styleClass="subheader" text="Memory Management"/>
-                                <CheckBox fx:id="checkBoxUseMemoryMapping" mnemonicParsing="false"
-                                          text="Create training set on disk instead of memory"/>
-                                <Label styleClass="caption"
-                                       text="Large training datsets may not all fit into RAM memory. Select this option to use disk to store the training set instead of RAM. Ideally the disk is an SSD."/>
                                 <!-- Training set -->
                                 <Label styleClass="subheader" text="Minimum Class Size"/>
                                 <GridPane hgap="7" vgap="7">
@@ -130,6 +123,12 @@
                                 </GridPane>
                                 <Label styleClass="caption"
                                        text="Some images must be set aside from training to provide unseen images for evaluating the model accuracy. A fraction of 0.1 for large datasets, or 0.2 for smaller ones, is recommended."/>
+                                <!-- Memory -->
+                                <Label styleClass="subheader" text="Memory Management"/>
+                                <CheckBox fx:id="checkBoxUseMemoryMapping" mnemonicParsing="false"
+                                          text="Create training set on disk instead of memory"/>
+                                <Label styleClass="caption"
+                                       text="Large training datsets may not all fit into RAM memory. Select this option to use disk to store the training set instead of RAM. Best performance if the disk is an SSD."/>
                             </children>
                         </VBox>
                     </content>

@@ -30,7 +30,7 @@ public class MISOTrainingScript {
     public boolean cnnUseAsoftmax = false;
 
     //Training
-    public int trainingBatchSize = 64;
+    public int trainingBatchSize = 32;
     public int trainingMaxEpochs = 10000;
     public int trainingAlrEpochs = 10;
     public int trainingAlrDrops = 4;
@@ -58,7 +58,7 @@ public class MISOTrainingScript {
     public String getScript() throws IOException {
         String script =
                 "import os\n" +
-                        "os.environ[\"TF_CPP_MIN_LOG_LEVEL\"] = \"2\"\n" +
+                        "os.environ[\"TF_CPP_MIN_LOG_LEVEL\"] = \"3\"\n" +
                         "\n" +
                         "from miso.training.parameters import MisoParameters\n" +
                         "from miso.training.trainer import train_image_classification_model\n" +
@@ -194,7 +194,14 @@ public class MISOTrainingScript {
                         "    done = False\n" +
                         "    while not done:\n" +
                         "        try:\n" +
-                        "            lock = singleton.SingleInstance(lockfile=os.path.join(tempfile.gettempdir(), \"miso.lock\"))\n" +
+                        "            fn = os.path.join(tempfile.gettempdir(), \"miso.lock\")\n" +
+                        "            with open(fn, 'w+') as fh:\n" +
+                        "                fh.write('miso')\n" +
+                        "            try:\n" +
+                        "                os.chmod(fn, 0o777)\n" +
+                        "            except OSError:\n" +
+                        "                pass\n" +
+                        "            lock = singleton.SingleInstance(lockfile=fn)\n" +
                         "            print()\n" +
                         "            train_image_classification_model(tp)\n" +
                         "            done = True\n" +

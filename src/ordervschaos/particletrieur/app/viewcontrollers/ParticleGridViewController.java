@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import ordervschaos.particletrieur.app.App;
+import ordervschaos.particletrieur.app.controls.ParticleGridCellControl;
 import ordervschaos.particletrieur.app.controls.ParticleImageControl;
 import ordervschaos.particletrieur.app.models.Supervisor;
 import ordervschaos.particletrieur.app.models.network.features.Similarity;
@@ -93,17 +94,15 @@ public class ParticleGridViewController implements Initializable {
             }
         });
         gridViewParticles.setCellFactory(param -> new ParticleCell());
-        gridViewParticles.setItems(supervisor.project.particles);
+        gridViewParticles.setItems(selectionViewModel.sortedList);
     }
 
     public class ParticleCell extends GridCell<Particle> {
-
-        public ParticleImageControl im = new ParticleImageControl(supervisor);
+        public ParticleGridCellControl im = new ParticleGridCellControl(supervisor);
         ObjectProperty<Task<Image>> loadingTask = new SimpleObjectProperty<>();
 
         public ParticleCell() {
             super();
-            im.setSize(100);
             currentCells.add(new WeakReference<>(this));
             setOnMouseClicked(event ->
             {
@@ -143,9 +142,10 @@ public class ParticleGridViewController implements Initializable {
                 else {
                     selectedIndex = super.getIndex();
                     shiftSelectedIndex = selectedIndex;
+//                    selectionViewModel.setCurrentParticle(getItem());
+                    selectionViewModel.getCurrentParticles().clear();
+                    selectionViewModel.getCurrentParticles().add(getItem());
                     selectionViewModel.setCurrentParticle(getItem());
-//                    selectedItems.clear();
-//                    selectedItems.add(getItem());
                 }
             });
         }
@@ -177,6 +177,8 @@ public class ParticleGridViewController implements Initializable {
                 setGraphic(null);
             }
             else {
+                updateSelection();
+//                setText(item.getFilename());
                 setGraphic(im);
                 Task<Image> task = new Task<Image>() {
                     @Override
@@ -194,7 +196,6 @@ public class ParticleGridViewController implements Initializable {
                 loadingTask.set(task);
                 task.setOnSucceeded(event -> {
                     im.setData(item, selectionViewModel.getParticleIndex(item));
-                    im.selected.set(selectionViewModel.getCurrentParticles().contains(item));
                 });
                 App.getExecutorService().submit(task);
             }
@@ -207,9 +208,15 @@ public class ParticleGridViewController implements Initializable {
         }
 
         public void updateSelection() {
-            im.selected.set(selectionViewModel.getCurrentParticles().contains(this.getItem()));
-            System.out.print(getIndex());
-            System.out.print(" ");
+            if (selectionViewModel.getCurrentParticles().contains(this.getItem())) {
+                this.setStyle("-fx-background-color: -fx-accent;");
+            }
+            else {
+                this.setStyle("-fx-background-color: transparent;");
+            }
+//            im.selected.set(selectionViewModel.getCurrentParticles().contains(this.getItem()));
+//            System.out.print(getIndex());
+//            System.out.print(" ");
         }
     }
 

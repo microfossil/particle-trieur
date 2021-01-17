@@ -60,11 +60,11 @@
                             </graphic>
                         </SplitMenuButton>
                         <Pane HBox.hgrow="ALWAYS" />
-                  <ToggleButton fx:id="toggleButtonMultiple" mnemonicParsing="false" selected="true" text="Multiple">
-                        <graphic>
-                            <SymbolLabel symbol="featherlist" />
-                        </graphic>
-                  </ToggleButton>
+<!--                  <ToggleButton fx:id="toggleButtonMultiple" mnemonicParsing="false" selected="true" text="Multiple">-->
+<!--                        <graphic>-->
+<!--                            <SymbolLabel symbol="featherlist" />-->
+<!--                        </graphic>-->
+<!--                  </ToggleButton>-->
                         <Button fx:id="buttonDelete" mnemonicParsing="false" onAction="#handleDelete" text="Remove">
                             <graphic>
                                 <SymbolLabel symbol="featherminus" />

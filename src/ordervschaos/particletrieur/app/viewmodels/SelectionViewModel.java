@@ -80,6 +80,9 @@ public class SelectionViewModel {
     @Inject
     public SelectionViewModel(Supervisor supervisor) {
         this.supervisor = supervisor;
+        filteredList = new FilteredList<>(supervisor.project.particles, p -> true);
+        sortedList = new SortedList<>(filteredList);
+
         knnPredictionViewModel = new KNNPredictionViewModel(supervisor);
         cnnPredictionViewModel = new CNNPredictionViewModel(supervisor);
         imageProcessingService = new ImageProcessingService(supervisor.FCNNSegmenter);

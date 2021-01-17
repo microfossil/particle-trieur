@@ -60,7 +60,7 @@ public class CNNTrainingService {
                     "bash",
                     "-l",
                     "-c",
-                    command + "; echo ~~~ Script complete, press any key to close ~~~; read line"};
+                    command + "; echo ~~~ Script complete, press enter key to close ~~~; read line"};
         } else {
             throw new RuntimeException("Unsupported OS");
         }
