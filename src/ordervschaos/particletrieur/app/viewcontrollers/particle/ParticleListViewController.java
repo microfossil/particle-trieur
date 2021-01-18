@@ -3,16 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ordervschaos.particletrieur.app.viewcontrollers;
+package ordervschaos.particletrieur.app.viewcontrollers.particle;
 
-import javafx.scene.text.Text;
 import javafx.util.Callback;
 import ordervschaos.particletrieur.app.App;
 import ordervschaos.particletrieur.app.controls.SymbolLabel;
 import ordervschaos.particletrieur.app.models.Supervisor;
 import ordervschaos.particletrieur.app.models.project.Particle;
-import ordervschaos.particletrieur.app.viewcontrollers.particle.ImageDescriptionPopover;
-import ordervschaos.particletrieur.app.controls.BasicDialogs;
 import ordervschaos.particletrieur.app.viewmodels.MainViewModel;
 import ordervschaos.particletrieur.app.viewmodels.SelectionViewModel;
 import com.google.inject.Inject;
@@ -20,21 +17,16 @@ import com.sun.javafx.scene.control.skin.TableViewSkin;
 import com.sun.javafx.scene.control.skin.VirtualFlow;
 
 import java.io.File;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.Predicate;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
 import javafx.collections.ListChangeListener;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -42,8 +34,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.PopOver;
-import org.controlsfx.control.textfield.CustomTextField;
-import org.controlsfx.control.textfield.TextFields;
 //import org.kordamp.ikonli.javafx.FontIcon;
 
 import javax.imageio.ImageIO;
@@ -57,15 +47,6 @@ public class ParticleListViewController implements Initializable {
 
     @FXML
     TableView tableViewForams;
-    @FXML
-    Button buttonAdd;
-    @FXML
-    Button buttonRemove;
-    @FXML
-    SymbolLabel fontIconExpander;
-//    FontIcon fontIconExpander;
-    @FXML
-    CustomTextField customTextFieldFilter;
 
     @Inject
     private Supervisor supervisor;
@@ -74,36 +55,16 @@ public class ParticleListViewController implements Initializable {
     @Inject
     MainViewModel mainViewModel;
 
-    private final BooleanProperty expanded = new SimpleBooleanProperty();
+    // Column with image
     private TableColumn<Particle, File> colImage = new TableColumn<>();
-
-    //Properties
-    public BooleanProperty expandedProperty() {
-        return expanded;
-    }
-    public boolean isExpanded() {
-        return expanded.get();
-    }
-    public void setExpanded(boolean value) {
-        expanded.set(value);
-        if (value) {
-//            fontIconExpander.setIconLiteral("fth-rewind");
-            fontIconExpander.setSymbol("featherrewind");
-        } else {
-//            fontIconExpander.setIconLiteral("fth-fast-forward");
-            fontIconExpander.setSymbol("featherfastforward");
-        }
-    }
 
     //Scrolling
     private VirtualFlow<?> virtualFlow;
 
-    //TODO make a preference
-    private int imageWidth = 64;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        setupUI();
+        setupListView();
         setupBindings();
         Platform.runLater(() -> {
             virtualFlow = (VirtualFlow<?>) ((TableViewSkin<?>) tableViewForams.getSkin()).getChildren().get(1);
@@ -117,16 +78,7 @@ public class ParticleListViewController implements Initializable {
     }
 
 
-    public void setupUI() {
-
-        //Init the filter text field to have a clear button
-        try {
-            Method m = TextFields.class.getDeclaredMethod("setupClearButtonField", TextField.class, ObjectProperty.class);
-            m.setAccessible(true);
-            m.invoke(null, customTextFieldFilter, customTextFieldFilter.rightProperty());
-        } catch (Exception ex) {
-            BasicDialogs.ShowException("There was a problem setting up the filter text field", ex);
-        }
+    public void setupListView() {
 
         //Enable multiple selection
         tableViewForams.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -141,7 +93,7 @@ public class ParticleListViewController implements Initializable {
         //Image
         colImage = new TableColumn<>("");
         colImage.setText("Image");
-        colImage.setPrefWidth(imageWidth);
+        colImage.setPrefWidth(selectionViewModel.getListViewImageSize());
         colImage.setCellFactory(param -> {
             //Set up the ImageView
             final ImageView imageview = new ImageView();
@@ -178,8 +130,7 @@ public class ParticleListViewController implements Initializable {
                             public Image call() throws Exception {
                                 if (item.exists()) {
                                     return SwingFXUtils.toFXImage(ImageIO.read(item), null);
-                                }
-                                else {
+                                } else {
                                     return new Image(App.class.getResourceAsStream("resources/missing-image-128.png"), 64, 64, true, true);
                                 }
                             }
@@ -222,10 +173,9 @@ public class ParticleListViewController implements Initializable {
                 public void updateItem(String item, boolean empty) {
                     if (empty || item == null) {
                         vBox.setVisible(false);
-                    }
-                    else {
+                    } else {
                         vBox.setVisible(true);
-                        String[] part = item.split("#",-1);
+                        String[] part = item.split("#", -1);
                         if (part.length == 3) {
                             labelCore.setText(part[0].equals("") ? "unknown" : part[0]);
                             labelNum1.setText("[1] " + part[1]);
@@ -265,10 +215,9 @@ public class ParticleListViewController implements Initializable {
                 public void updateItem(String item, boolean empty) {
                     if (empty || item == null) {
                         vBox.setVisible(false);
-                    }
-                    else {
+                    } else {
                         vBox.setVisible(true);
-                        String[] part = item.split("#",-1);
+                        String[] part = item.split("#", -1);
                         if (part.length > 0) {
                             labelClass.setText(part[0]);
                         }
@@ -278,8 +227,7 @@ public class ParticleListViewController implements Initializable {
                         if (part.length > 2) {
                             if (part[2].equals("")) {
                                 symbolLabel.setVisible(false);
-                            }
-                            else {
+                            } else {
                                 symbolLabel.setVisible(true);
                             }
                         }
@@ -313,10 +261,9 @@ public class ParticleListViewController implements Initializable {
                 public void updateItem(String item, boolean empty) {
                     if (empty || item == null) {
                         vBox.setVisible(false);
-                    }
-                    else {
+                    } else {
                         vBox.setVisible(true);
-                        String[] part = item.split("#",-1);
+                        String[] part = item.split("#", -1);
                         if (part.length > 0) {
                             labelAnnotator.setText(part[0]);
                         }
@@ -379,11 +326,6 @@ public class ParticleListViewController implements Initializable {
         columnGUID.setPrefWidth(100);
         tableViewForams.getColumns().add(columnGUID);
 
-
-
-
-
-
         //TableViewHelpers.autoResizeColumns(tableViewForams);
 
         //Display the particle when the user clicks on the list
@@ -415,25 +357,25 @@ public class ParticleListViewController implements Initializable {
         return callback;
     }
 
-
     public void setupBindings() {
 
-        //TODO when any new images are added it should jump to them
+        // Jump to image if added
         supervisor.project.particles.addListener((ListChangeListener<Particle>) (event -> {
             event.next();
             if (event.getAddedSize() > 0) {
                 select(event.getAddedSubList().get(0));
             }
         }));
-//        .imageAddedFromServerEvent.addListener(listener -> {
-//            selectLast();
-//        });
 
-        //Table of particles
-
-        customTextFieldFilter.textProperty().addListener((observable, oldValue, newValue) -> {
-            selectionViewModel.filteredList.setPredicate(particle -> filterParticle(particle, newValue));
+        // Select all if requested
+        selectionViewModel.selectAllRequested.addListener(event -> {
+            selectAll();
         });
+
+        // Image size
+        selectionViewModel.listViewImageSizeProperty().addListener(((observable, oldValue, newValue) -> {
+            colImage.setPrefWidth((int) newValue);
+        }));
 
         selectionViewModel.sortedList.comparatorProperty().bind(tableViewForams.comparatorProperty());
         tableViewForams.setItems(selectionViewModel.sortedList);
@@ -444,75 +386,10 @@ public class ParticleListViewController implements Initializable {
         selectFirst();
     }
 
-    private boolean filterParticle(Particle particle, String filter) {
-        if (filter == null || filter.length() < 1) {
-            return true;
-        }
-        String lowerCaseFilter = filter.toLowerCase();
-
-        String[] parts = lowerCaseFilter.split("\\s+");
-
-        for (String part : parts) {
-            String[] params = part.split("((?<===)|(?===)|(?=!=)|(?=!=))");
-            if (params.length != 3) {
-                return false;
-            }
-            boolean matched = false;
-            boolean result = false;
-            switch (params[0]) {
-                case "file":
-                    matched = true;
-                    result = particle.getShortFilename().toLowerCase().contains(params[2]);
-                    break;
-                case "folder":
-                    matched = true;
-                    result = particle.getFile().getParent().toLowerCase().contains(params[2]);
-                    break;
-                case "tag":
-                    matched = true;
-                    result = particle.tagsToString().toLowerCase().contains(params[2]);
-                    break;
-                case "label":
-                    matched = true;
-                    result = particle.getClassification().toLowerCase().contains(params[2]);
-                    break;
-                case "guid":
-                    matched = true;
-                    result = particle.getGUID().toLowerCase().contains(params[2]);
-                    break;
-                case "sample":
-                    matched = true;
-                    result = particle.getSampleID().toLowerCase().contains(params[2]);
-                    break;
-                case "index1":
-                    matched = true;
-                    result = Double.toString(particle.getIndex1()).equals(params[2]);
-                    break;
-                case "index2":
-                    matched = true;
-                    result = Double.toString(particle.getIndex2()).equals(params[2]);
-                    break;
-                case "valid":
-                    matched = true;
-                    if (params[2].equals("true")) result = particle.getValidator() != null && !particle.getValidator().equals("");
-                    else result = particle.getValidator() == null || particle.getValidator().equals("");
-                    break;
-            }
-            if (params[1].equals("!=")) {
-                result = !result;
-            }
-            if (!matched) result = false;
-            if (!result) return false;
-        }
-        return true;
-    }
-
-
     public void select(Particle particle) {
         tableViewForams.getSelectionModel().clearSelection();
         tableViewForams.getSelectionModel().select(particle);
     }
-
 
     public void selectNext() {
         int idx = tableViewForams.getSelectionModel().getSelectedIndex();
@@ -521,7 +398,6 @@ public class ParticleListViewController implements Initializable {
             scrollToSelectedForam();
         }
     }
-
 
     public void selectPrevious() {
         if (tableViewForams.getItems().size() > 0) {
@@ -532,7 +408,6 @@ public class ParticleListViewController implements Initializable {
             }
         }
     }
-
 
     public void selectFirst() {
         if (tableViewForams.getItems().size() > 0) {
@@ -565,173 +440,5 @@ public class ParticleListViewController implements Initializable {
                 last = virtualFlow.getLastVisibleCell().getIndex();
             }
         }
-    }
-
-//    public void sortByArea() {
-//        for (Particle particle : supervisor.project.particles) {
-//            particle.scoreProperty.set(particle.morphology.getArea());
-//        }
-//        colScore.setText("Area");
-//        colScore.setVisible(true);
-//        tableViewForams.getSortOrder().clear();
-//        tableViewForams.getSortOrder().addAll(colScore);
-//    }
-//
-//
-//    public void sortByEccentricity() {
-//        for (Particle particle : supervisor.project.particles) {
-//            particle.scoreProperty.set(particle.morphology.getEccentricity());
-//        }
-//        colScore.setText("Eccentricity");
-//        colScore.setVisible(true);
-//        tableViewForams.getSortOrder().clear();
-//        tableViewForams.getSortOrder().addAll(colScore);
-//    }
-
-
-//    public void sortBySolidity() {
-//        for (Particle particle : supervisor.project.particles) {
-//            particle.scoreProperty.set(particle.morphology.solidity);
-//        }
-//        colScore.setText("Solidity");
-//        colScore.setVisible(true);
-//        tableViewForams.getSortOrder().clear();
-//        tableViewForams.getSortOrder().addAll(colScore);
-//    }
-//
-//
-//    public void sortByRoundness() {
-//        for (Particle particle : supervisor.project.particles) {
-//            particle.scoreProperty.set(particle.morphology.roundness);
-//        }
-//        colScore.setText("Roundness");
-//        colScore.setVisible(true);
-//        tableViewForams.getSortOrder().clear();
-//        tableViewForams.getSortOrder().addAll(colScore);
-//    }
-//
-//
-//    public void sortByCircularity() {
-//        for (Particle particle : supervisor.project.particles) {
-//            particle.scoreProperty.set(particle.morphology.circularity);
-//        }
-//        colScore.setText("Circularity");
-//        colScore.setVisible(true);
-//        tableViewForams.getSortOrder().clear();
-//        tableViewForams.getSortOrder().addAll(colScore);
-//    }
-//
-//
-//    public void sortBySimilarityMorphology() {
-//        Particle currentParticle = selectionViewModel.getCurrentParticle();
-//        for (Particle particle : supervisor.project.getParticles()) {
-//            particle.scoreProperty.set(particle.morphology.similarityTo(currentParticle.morphology));
-//        }
-//        colScore.setText("Morphology_old");
-//        colScore.setVisible(true);
-//        colScore.setSortType(TableColumn.SortType.DESCENDING);
-//        tableViewForams.getSortOrder().clear();
-//        tableViewForams.getSortOrder().addAll(colScore);
-//    }
-//
-//
-//    public void sortBySimilarityNeuralNetwork() {
-//        Particle currentParticle = selectionViewModel.getCurrentParticle();
-//        List<Particle> particles = supervisor.project.particles;
-//        Service service = particleSimilarityService.similarityByCNNVector(currentParticle, particles, supervisor);
-//        service.setOnSucceeded(value -> {
-//            colScore.setText("Similarity");
-//            colScore.setVisible(true);
-//            colScore.setSortType(TableColumn.SortType.DESCENDING);
-//            tableViewForams.getSortOrder().clear();
-//            tableViewForams.getSortOrder().addAll(colScore);
-//        });
-//        BasicDialogs.ProgressDialogWithCancel2(
-//                "Operation",
-//                "Calculating classification vectors",
-//                App.getRootPane(),
-//                service).start();
-//    }
-
-
-    @FXML
-    private void handleExpandList(ActionEvent event) {
-        mainViewModel.expandListRequested.broadcast();
-    }
-
-    @FXML
-    private void handleSelectAll(ActionEvent event) {
-        tableViewForams.getSelectionModel().selectAll();
-    }
-
-    @FXML
-    private void handleSmallImage(ActionEvent event) {
-        if (imageWidth > 16) {
-            imageWidth -= 16;
-            colImage.setPrefWidth(imageWidth);
-        }
-    }
-
-    @FXML
-    private void handleLargeImage(ActionEvent event) {
-        if (imageWidth < 512) {
-            imageWidth += 16;
-            colImage.setPrefWidth(imageWidth);
-        }
-    }
-
-    private String getCurrentFilterArgument() {
-        String current = customTextFieldFilter.getText();
-        if (current.startsWith("#")) current = current.substring(1);
-        if (current.length() == 0) return "";
-        String[] parts = current.split(":");
-        if (parts.length >= 2) return parts[1];
-        else if (current.contains(":")) return "";
-        else return parts[0];
-    }
-
-    @FXML
-    public void handleFilterNumber(ActionEvent actionEvent) {
-        customTextFieldFilter.setText("#");
-    }
-
-    @FXML
-    public void handleFilterFile(ActionEvent actionEvent) {
-        customTextFieldFilter.setText("file:"+getCurrentFilterArgument());
-    }
-
-    @FXML
-    public void handleFilterFolder(ActionEvent actionEvent) {
-        customTextFieldFilter.setText("folder:"+getCurrentFilterArgument());
-    }
-
-    @FXML
-    public void handleFilterLabel(ActionEvent actionEvent) {
-        customTextFieldFilter.setText("label:"+getCurrentFilterArgument());
-    }
-
-    @FXML
-    public void handleFilterTag(ActionEvent actionEvent) {
-        customTextFieldFilter.setText("tag:"+getCurrentFilterArgument());
-    }
-
-    @FXML
-    public void handleFilterIndex1(ActionEvent actionEvent) {
-        customTextFieldFilter.setText("index1:"+getCurrentFilterArgument());
-    }
-
-    @FXML
-    public void handleFilterIndex2(ActionEvent actionEvent) {
-        customTextFieldFilter.setText("index2:"+getCurrentFilterArgument());
-    }
-
-    @FXML
-    public void handleFilterGuid(ActionEvent actionEvent) {
-        customTextFieldFilter.setText("guid:"+getCurrentFilterArgument());
-    }
-
-    @FXML
-    public void handleFilterAll(ActionEvent actionEvent) {
-        customTextFieldFilter.setText(getCurrentFilterArgument());
     }
 }

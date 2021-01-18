@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<TableView fx:id="tableViewForams" minHeight="0.0" minWidth="0.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ordervschaos.particletrieur.app.viewcontrollers.particle.ParticleListViewController">
+</TableView>

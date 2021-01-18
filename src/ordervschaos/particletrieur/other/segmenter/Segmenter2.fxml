@@ -38,6 +38,7 @@
 <?import org.controlsfx.control.textfield.CustomTextField?>
 <!--<?import org.kordamp.ikonli.javafx.FontIcon?>-->
 
+<?import ordervschaos.particletrieur.app.controls.SymbolLabel?>
 <StackPane fx:id="root" prefHeight="800.0" prefWidth="1284.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.other.segmenter.SegmenterController2">
    <children>
       <AnchorPane id="AnchorPane" fx:id="rootMain" prefHeight="600" prefWidth="800" stylesheets="@../styles/style.css">
@@ -53,7 +54,7 @@
                         </TableView>
                         <Button fx:id="buttonAdd" mnemonicParsing="false" onAction="#handleAdd" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                            <graphic>
-                              <FontIcon iconLiteral="fth-plus" />
+                               <SymbolLabel symbol="featherplus"/>
                            </graphic>
                            <tooltip>
                               <Tooltip text="Add folder of images" />
@@ -61,7 +62,7 @@
                         </Button>
                         <Button fx:id="buttonRemove" mnemonicParsing="false" onAction="#handleRemove" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="36.0">
                            <graphic>
-                              <FontIcon iconLiteral="fth-minus" />
+                               <SymbolLabel symbol="featherminus"/>
                            </graphic>
                            <tooltip>
                               <Tooltip text="Remove currently selected images" />

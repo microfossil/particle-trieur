@@ -42,7 +42,7 @@ public class EditLabelViewController extends AbstractDialogController implements
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-    }    
+    }
     
     public void setData(Taxon taxon) {
         this.taxon = taxon;

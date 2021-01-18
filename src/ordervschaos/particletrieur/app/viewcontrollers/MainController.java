@@ -11,6 +11,7 @@ import javafx.stage.Window;
 import ordervschaos.particletrieur.app.App;
 import ordervschaos.particletrieur.app.FxmlLocation;
 import ordervschaos.particletrieur.app.controls.SymbolLabel;
+import ordervschaos.particletrieur.app.viewcontrollers.particle.ParticleListViewController;
 import ordervschaos.particletrieur.app.viewmanagers.UndoManager;
 import ordervschaos.particletrieur.app.viewmanagers.commands.UndoableCommand;
 import ordervschaos.particletrieur.app.viewmodels.*;
@@ -307,7 +308,6 @@ public class MainController extends AbstractController implements Initializable 
         checkBoxAutoValidate.selectedProperty().bindBidirectional(labelsViewModel.autoValidateProperty());
 
         //Events
-        mainViewModel.expandListRequested.addListener(val -> expandList());
         mainViewModel.addImageRequested.addListener(val -> {
             handleAddWithOptions(null);
         });
@@ -566,16 +566,16 @@ public class MainController extends AbstractController implements Initializable 
      * Expand / contract the forams list
      */
     //TODO remove as not needed
-    private void expandList() {
-        if (splitPaneMain.getDividerPositions()[0] > 0.9) {
-            splitPaneMain.setDividerPositions(splitPaneMainCurrentDivision);
-            particleListViewController.setExpanded(false);
-        } else {
-            splitPaneMainCurrentDivision = splitPaneMain.getDividerPositions()[0];
-            splitPaneMain.setDividerPositions(1.0);
-            particleListViewController.setExpanded(true);
-        }
-    }
+//    private void expandList() {
+//        if (splitPaneMain.getDividerPositions()[0] > 0.9) {
+//            splitPaneMain.setDividerPositions(splitPaneMainCurrentDivision);
+//            particleListViewController.setExpanded(false);
+//        } else {
+//            splitPaneMainCurrentDivision = splitPaneMain.getDividerPositions()[0];
+//            splitPaneMain.setDividerPositions(1.0);
+//            particleListViewController.setExpanded(true);
+//        }
+//    }
 
     /**
      * Edit selected forams

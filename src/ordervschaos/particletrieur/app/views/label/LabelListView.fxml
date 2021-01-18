@@ -78,18 +78,18 @@
             <children>
                 <Button mnemonicParsing="false" onAction="#handleAdd" prefHeight="25.0" prefWidth="25.0">
                     <graphic>
-                        <FontIcon iconLiteral="fth-plus" />
+                        <SymbolLabel symbol="featherplus"/>
                     </graphic>
                 </Button>
                 <Button fx:id="buttonRemove" mnemonicParsing="false" onAction="#handleRemove" prefHeight="25.0" prefWidth="25.0">
                     <graphic>
-                        <FontIcon iconLiteral="fth-minus" />
+                        <SymbolLabel symbol="featherminus"/>
                     </graphic>
                 </Button>
                 <Button mnemonicParsing="false" onAction="#handleAlphabeticalOrdering" prefHeight="25.0" text="a-z" />
                 <Button mnemonicParsing="false" onAction="#handleResetOrdering" prefHeight="25.0" prefWidth="25.0">
                     <graphic>
-                        <FontIcon iconLiteral="fth-reload" />
+                        <SymbolLabel symbol="featherrefreshcw"/>
                     </graphic>
                 </Button>
             </children>

@@ -12,11 +12,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import ordervschaos.particletrieur.app.controls.SymbolLabel?>
 <?import org.controlsfx.control.textfield.CustomTextField?>
-<!--<?import org.kordamp.ikonli.javafx.FontIcon?>-->
-
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.Tab?>
-<AnchorPane minHeight="0.0" minWidth="0.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.ParticleListViewController">
+<AnchorPane minHeight="0.0" minWidth="0.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.particle.ParticleViewController">
     <children>
         <BorderPane layoutX="7.0" layoutY="41.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <center>
@@ -24,19 +22,17 @@
                     <tabs>
                         <Tab text="List">
                             <content>
-                                <TableView fx:id="tableViewForams">
-                                    <columns>
-                                        <TableColumn fx:id="scoreCol" prefWidth="90.0" text="Score" visible="false" />
-                                    </columns>
-                                    <BorderPane.margin>
-                                        <Insets bottom="7.0" top="7.0" />
-                                    </BorderPane.margin>
-                                </TableView>
+                                <fx:include source="ParticleListView.fxml"/>
                             </content>
                         </Tab>
-                        <Tab text="List">
+                        <Tab text="Grid">
                             <content>
                                 <fx:include source="ParticleGridView.fxml"/>
+                            </content>
+                        </Tab>
+                        <Tab text="Image">
+                            <content>
+                                <fx:include source="ImageDetailView.fxml" />
                             </content>
                         </Tab>
                     </tabs>
@@ -44,8 +40,11 @@
             </center>
             <top>
                 <HBox spacing="7.0" BorderPane.alignment="CENTER">
+                    <padding>
+                        <Insets topRightBottomLeft="7"/>
+                    </padding>
                     <children>
-                        <MenuButton fx:id="menuButtonFilter" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" HBox.hgrow="NEVER">
+                        <MenuButton minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" HBox.hgrow="NEVER">
                             <graphic>
                                 <SymbolLabel symbol="featherfilter" />
                             </graphic>
@@ -66,10 +65,10 @@
                                 <Tooltip text="Filter list by label code.&#10;Use the prefix &quot;tag:&quot; to filter by tag, or &quot;file:&quot; to filter by filename." wrapText="true" />
                             </tooltip>
                         </CustomTextField>
-                        <Button fx:id="buttonExpandList" mnemonicParsing="false" onAction="#handleExpandList" prefHeight="25.0">
+                        <Button mnemonicParsing="false" onAction="#handleExpandList" prefHeight="25.0">
                             <graphic>
                                 <SymbolLabel fx:id="fontIconExpander" symbol="featherfastforward" />
-<!--                                <FontIcon  iconLiteral="fth-fast-forward" />-->
+                                <!--                                <FontIcon  iconLiteral="fth-fast-forward" />-->
                             </graphic>
                             <tooltip>
                                 <Tooltip text="Add folder of images" />
@@ -80,6 +79,9 @@
             </top>
             <bottom>
                 <HBox spacing="7.0" BorderPane.alignment="CENTER">
+                    <padding>
+                        <Insets topRightBottomLeft="7" />
+                    </padding>
                     <children>
                         <Button onAction="#handleSelectAll" text="Select All">
                             <tooltip>
@@ -108,7 +110,4 @@
             </bottom>
         </BorderPane>
     </children>
-    <padding>
-        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-    </padding>
 </AnchorPane>
