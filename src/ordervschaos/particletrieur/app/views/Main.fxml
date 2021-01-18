@@ -467,7 +467,7 @@
                         </VBox>
                     </top>
                     <center>
-                        <SplitPane fx:id="splitPaneMain" dividerPositions="0.25" prefHeight="160.0" prefWidth="200.0"
+                        <SplitPane fx:id="splitPaneMain" dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0"
                                    BorderPane.alignment="CENTER">
                             <items>
                                 <fx:include fx:id="particleView" source="particle/ParticleView.fxml"/>
@@ -479,8 +479,8 @@
                                     <tabs>
                                         <Tab text="Classification">
                                             <content>
-                                                <fx:include fx:id="classificationPane"
-                                                            source="ClassificationPane.fxml"/>
+                                                <fx:include fx:id="classificationView"
+                                                            source="ClassificationView.fxml"/>
                                             </content>
                                             <graphic>
                                                 <SymbolLabel symbol="feathertag"/>

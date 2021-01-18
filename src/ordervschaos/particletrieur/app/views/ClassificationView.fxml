@@ -5,19 +5,19 @@
 <?import javafx.scene.layout.*?>
 <?import ordervschaos.particletrieur.app.controls.*?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="626.0" prefWidth="836.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.ClassificationPaneController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="626.0" prefWidth="836.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.ClassificationViewController">
     <children>
         <GridPane hgap="14.0" vgap="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="240" />
+<!--                <ColumnConstraints hgrow="SOMETIMES" />-->
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="240" />
                 <ColumnConstraints hgrow="NEVER" minWidth="240.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <VBox GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                <VBox GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                     <children>
                         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
                             <content>
@@ -55,7 +55,7 @@
                         </ScrollPane>
                     </children>
                 </VBox>
-                <VBox prefHeight="200.0" prefWidth="120.0" spacing="7.0" GridPane.columnIndex="2">
+                <VBox prefHeight="200.0" prefWidth="120.0" spacing="7.0" GridPane.columnIndex="1">
                     <GridPane.margin>
                         <Insets right="14.0" />
                     </GridPane.margin>
@@ -155,7 +155,7 @@
                         <Insets bottom="7.0" left="7.0" right="7.0" />
                     </VBox.margin>
                 </VBox>
-                <fx:include fx:id="imageDetailView" source="particle/ImageDetailView.fxml" />
+<!--                <fx:include fx:id="imageDetailView" source="particle/ImageDetailView.fxml" />-->
             </children>
         </GridPane>
     </children>

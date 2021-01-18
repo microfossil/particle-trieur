@@ -28,18 +28,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d2a2d7e8-5c07-421e-a18f-7e6936f4ce78" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ParticleViewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/particle/ParticleView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/ClassificationPaneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/ClassificationPaneController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/error.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/error.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/ClassificationPaneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/ClassificationViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/ParticleGridViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ParticleGridViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/ParticleListViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ParticleListViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/label/EditLabelViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/label/EditLabelViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/SelectionViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/SelectionViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/ClassificationPane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/ClassificationView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/Main.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/ParticleGridView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/particle/ParticleGridView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/ParticleListView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/particle/ParticleListView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/label/EditLabelView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/label/EditLabelView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/label/LabelListView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/label/LabelListView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/tag/TagListView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/tag/TagListView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/other/segmenter/Segmenter2.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/other/segmenter/Segmenter2.fxml" afterDir="false" />
@@ -145,17 +141,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="clean_jar.sh" type="ShConfigurationType" temporary="true">
       <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
       <option name="SCRIPT_PATH" value="$PROJECT_DIR$/clean_jar.sh" />
@@ -236,6 +221,7 @@
       <workItem from="1610531148310" duration="3372000" />
       <workItem from="1610864573357" duration="6509000" />
       <workItem from="1610964830180" duration="7064000" />
+      <workItem from="1611005032760" duration="1503000" />
     </task>
     <task id="LOCAL-00001" summary="Move image type below">
       <created>1603508919405</created>

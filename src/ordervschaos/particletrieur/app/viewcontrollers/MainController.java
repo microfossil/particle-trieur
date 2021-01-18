@@ -131,7 +131,7 @@ public class MainController extends AbstractController implements Initializable 
     @FXML
     SplitPane splitPaneMain;
     @FXML
-    ClassificationPaneController classificationPaneController;
+    ClassificationViewController classificationViewController;
     @FXML
     ParticleListViewController particleListViewController;
     @FXML
@@ -486,8 +486,8 @@ public class MainController extends AbstractController implements Initializable 
     }
 
     public void setClassFromKeyPress(int index) {
-        if (index < classificationPaneController.taxonCodes.size()) {
-            labelsViewModel.setLabel(classificationPaneController.taxonCodes.get(index), 1.0, true);
+        if (index < classificationViewController.taxonCodes.size()) {
+            labelsViewModel.setLabel(classificationViewController.taxonCodes.get(index), 1.0, true);
         }
     }
 

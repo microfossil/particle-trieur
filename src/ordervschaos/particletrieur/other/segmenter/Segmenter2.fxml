@@ -43,7 +43,7 @@
    <children>
       <AnchorPane id="AnchorPane" fx:id="rootMain" prefHeight="600" prefWidth="800" stylesheets="@../styles/style.css">
           <children>
-            <SplitPane fx:id="splitPaneMain" dividerPositions="0.27223088923556943" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0">
+            <SplitPane fx:id="splitPaneMain" dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
