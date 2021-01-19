@@ -28,7 +28,7 @@ public class EditLabelViewController extends AbstractDialogController implements
     @FXML public TextField textFieldCode;
     @FXML public TextField textFieldName;
     @FXML public TextArea textAreaDescription;
-    @FXML public CheckBox checkBoxIsMorphotype;
+    @FXML public CheckBox checkBoxIsClass;
     @FXML public ComboBox<String> comboBoxGroup;
 
     private Taxon taxon;
@@ -42,13 +42,14 @@ public class EditLabelViewController extends AbstractDialogController implements
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-    }    
+    }
     
     public void setData(Taxon taxon) {
         this.taxon = taxon;
         textFieldCode.setText(taxon.getCode());
         textFieldName.setText(taxon.getName());
         textAreaDescription.setText(taxon.getDescription());
+        checkBoxIsClass.setSelected(taxon.getIsClass());
     }  
     
     public Taxon getData() {
@@ -58,7 +59,7 @@ public class EditLabelViewController extends AbstractDialogController implements
                 textFieldName.getText(),
                 textAreaDescription.getText(),
                 "",
-                true);
+                checkBoxIsClass.isSelected());
         return newTaxon;
     }
 

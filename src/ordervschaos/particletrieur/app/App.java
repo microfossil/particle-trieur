@@ -32,7 +32,7 @@ import sun.applet.Main;
  */
 public class App extends Application {
 
-    public static String VERSION = "2.3.2";
+    public static String VERSION = "2.3.3";
     
     public static Image iconImage = new Image(App.class.getResourceAsStream("resources/icon.png" ),44, 44,true,true);
     

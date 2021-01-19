@@ -32,13 +32,10 @@
       <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/training/MISOTrainingScript.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/training/MISOTrainingScript.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/network/CNNTrainingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/network/CNNTrainingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/CNNTrainingViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/CNNTrainingViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/SimilarityViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/SimilarityViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/CNNTrainingView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/CNNTrainingView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/SimilarityView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/SimilarityView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/label/EditLabelViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/label/EditLabelViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/label/EditLabelView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/label/EditLabelView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/label/LabelListView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/label/LabelListView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/tag/TagListView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/tag/TagListView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,13 +129,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
