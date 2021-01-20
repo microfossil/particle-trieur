@@ -666,6 +666,15 @@ public class MainController extends AbstractController implements Initializable 
     }
 
     @FXML
+    private void handleWhatsNew(ActionEvent event) {
+        try {
+            AbstractDialogController.create(WhatsNewViewController.class).showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     public void handleFolderWatch(ActionEvent event) {
         folderWatchViewModel.toggleFolderWatch();
     }
