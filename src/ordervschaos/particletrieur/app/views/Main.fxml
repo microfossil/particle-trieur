@@ -260,6 +260,7 @@
                                         <Menu mnemonicParsing="false" text="Help">
                                             <items>
                                                 <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About"/>
+                                                <MenuItem mnemonicParsing="false" onAction="#handleWhatsNew" text="What's new"/>
                                                 <MenuItem fx:id="menuItemExceptionLog" mnemonicParsing="false"
                                                           onAction="#handleShowExceptionLog" text="Exception Log"/>
                                             </items>
