@@ -145,7 +145,6 @@ public class ParticleGridViewController implements Initializable {
 //                    selectionViewModel.setCurrentParticle(getItem());
                     selectionViewModel.getCurrentParticles().clear();
                     selectionViewModel.getCurrentParticles().add(getItem());
-                    selectionViewModel.setCurrentParticle(getItem());
                 }
             });
         }

@@ -5,7 +5,7 @@
  */
 package ordervschaos.particletrieur.app.viewmodels;
 
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.*;
 import javafx.collections.ListChangeListener;
 import javafx.concurrent.Service;
 import ordervschaos.particletrieur.app.helpers.AutoCancellingServiceRunner;
@@ -19,9 +19,6 @@ import ordervschaos.particletrieur.app.models.processing.ParticleImage;
 import java.util.List;
 
 import com.google.inject.Inject;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -39,6 +36,7 @@ public class SelectionViewModel {
     public CSEvent currentParticleUpdatedEvent = new CSEvent();
     public CSEvent<Boolean> nextImageRequested = new CSEvent<>();
     public CSEvent<Boolean> previousImageRequested = new CSEvent<>();
+    public CSEvent selectAllRequested = new CSEvent<>();
 
     public SortedList<Particle> sortedList;
     public FilteredList<Particle> filteredList;
@@ -54,9 +52,39 @@ public class SelectionViewModel {
     public ObservableList<Particle> getCurrentParticles() { return currentParticles; }
     public void setCurrentParticles(List<Particle> values) { currentParticles.clear(); currentParticles.addAll(values); }
 
-    public int getCurrentForamIndex() {
-        int index =  supervisor.project.particles.indexOf(getCurrentParticle());
+    public int getCurrentParticleIndex() {
+        int index =  supervisor.project.getParticles().indexOf(getCurrentParticle());
         return index;
+    }
+
+    public int getParticleIndex(Particle particle) {
+        return supervisor.project.getParticles().indexOf(particle);
+    }
+
+    //Image sie
+    private final IntegerProperty listViewImageSize = new SimpleIntegerProperty(64);
+    public int getListViewImageSize() {
+        return listViewImageSize.get();
+    }
+    public IntegerProperty listViewImageSizeProperty() {
+        return listViewImageSize;
+    }
+    public void setListViewImageSize(int listViewImageSize) {
+        this.listViewImageSize.set(listViewImageSize);
+    }
+
+    public void increaseListViewImageSize() {
+        int imageWidth = getListViewImageSize();
+        if (imageWidth < 1024) {
+            setListViewImageSize(imageWidth + 16);
+        }
+    }
+
+    public void decreaseListViewImageSize() {
+        int imageWidth = getListViewImageSize();
+        if (imageWidth >= 48) {
+            setListViewImageSize(imageWidth - 16);
+        }
     }
 
     //Particle image
@@ -77,17 +105,12 @@ public class SelectionViewModel {
     @Inject
     public SelectionViewModel(Supervisor supervisor) {
         this.supervisor = supervisor;
+        filteredList = new FilteredList<>(supervisor.project.particles, p -> true);
+        sortedList = new SortedList<>(filteredList);
+
         knnPredictionViewModel = new KNNPredictionViewModel(supervisor);
         cnnPredictionViewModel = new CNNPredictionViewModel(supervisor);
         imageProcessingService = new ImageProcessingService(supervisor.FCNNSegmenter);
-
-        currentParticles.addListener((ListChangeListener<? super Particle>) listener -> {
-            if (getCurrentParticles().size() > 0) {
-                setCurrentParticle(getCurrentParticles().get(0));
-            } else {
-                setCurrentParticle(null);
-            }
-        });
 
         currentParticleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && newValue.getFile().exists()) {

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ordervschaos.particletrieur.app.viewcontrollers;
+package ordervschaos.particletrieur.app.viewcontrollers.particle;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -334,7 +334,6 @@ public class ParticleListViewController implements Initializable {
         valCol.setPrefWidth(90);
         tableViewForams.getColumns().add(valCol);
 
-
         //Filename
         TableColumn<Particle, String> columnFilename = new TableColumn<>("Filename");
         columnFilename.setCellValueFactory(column -> column.getValue().shortFilenameProperty());
@@ -483,12 +482,10 @@ public class ParticleListViewController implements Initializable {
         selectFirst();
     }
 
-
     public void select(Particle particle) {
         tableViewForams.getSelectionModel().clearSelection();
         tableViewForams.getSelectionModel().select(particle);
     }
-
 
     public void selectNext() {
         int idx = tableViewForams.getSelectionModel().getSelectedIndex();
@@ -497,7 +494,6 @@ public class ParticleListViewController implements Initializable {
             scrollToSelectedForam();
         }
     }
-
 
     public void selectPrevious() {
         if (tableViewForams.getItems().size() > 0) {

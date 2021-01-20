@@ -28,14 +28,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d2a2d7e8-5c07-421e-a18f-7e6936f4ce78" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/WhatsNewViewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/WhatsNewView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/AppPreferences.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/AppPreferences.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/ClassificationPaneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/ClassificationPaneController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/ClassificationViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/ClassificationViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/LabelsViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/LabelsViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/Main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ParticleGridViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ParticleGridViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ParticleListViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ParticleListViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/SelectionViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/SelectionViewModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -283,17 +281,6 @@
     <MESSAGE value="Rearrange UI and add extra button for sample/class/image" />
     <MESSAGE value="Rearrange UI with extra buttons for presets" />
     <option name="LAST_COMMIT_MESSAGE" value="Rearrange UI with extra buttons for presets" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/ParticleListViewController.java</url>
-          <line>494</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

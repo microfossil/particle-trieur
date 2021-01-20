@@ -53,7 +53,7 @@ import java.util.stream.Collectors;
  *
  * @author Ross Marchant <ross.g.marchant@gmail.com>
  */
-public class ClassificationPaneController implements Initializable {
+public class ClassificationViewController implements Initializable {
 
     @FXML
     SymbolLabel symbolValidate;
