@@ -31,7 +31,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/ClassificationViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/ClassificationViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ParticleGridViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ParticleGridViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ParticleListViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ParticleListViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/SelectionViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/SelectionViewModel.java" afterDir="false" />
     </list>

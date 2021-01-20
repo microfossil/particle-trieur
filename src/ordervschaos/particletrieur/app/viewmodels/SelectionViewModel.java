@@ -112,6 +112,14 @@ public class SelectionViewModel {
         cnnPredictionViewModel = new CNNPredictionViewModel(supervisor);
         imageProcessingService = new ImageProcessingService(supervisor.FCNNSegmenter);
 
+        currentParticles.addListener((ListChangeListener<? super Particle>) listener -> {
+            if (getCurrentParticles().size() > 0) {
+                setCurrentParticle(getCurrentParticles().get(0));
+            } else {
+                setCurrentParticle(null);
+            }
+        });
+
         currentParticleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && newValue.getFile().exists()) {
                 Mat mat = newValue.getMat();

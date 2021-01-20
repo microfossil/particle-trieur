@@ -43,6 +43,7 @@ import org.controlsfx.control.PopOver;
 import org.controlsfx.control.ToggleSwitch;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.*;
@@ -144,7 +145,7 @@ public class ClassificationViewController implements Initializable {
 
         //Updated events
         supervisor.project.taxonsUpdatedEvent.addListener(listener -> {
-            setupClassificationUI(supervisor.project);
+            setupClassificationUI(supervisor.project, 1);
             updateClassificationUI(selectionViewModel.getCurrentParticle());
             selectionViewModel.refreshPredictions();
         });
@@ -157,7 +158,7 @@ public class ClassificationViewController implements Initializable {
             updateTagUI(selectionViewModel.getCurrentParticle());
         });
 
-        setupClassificationUI(supervisor.project);
+        setupClassificationUI(supervisor.project, 1);
         setupTagUI(supervisor.project);
 
         //kNN classification updated
@@ -225,67 +226,190 @@ public class ClassificationViewController implements Initializable {
         });
     }
 
-    private void setupClassificationUI(Project project) {
-        taxonCodes.clear();
-        labelButtons.clear();
-        vboxClasses.getChildren().clear();
+    private void setupClassificationUI(Project project, int mode) {
+        if (mode == 0) {
+            taxonCodes.clear();
+            labelButtons.clear();
+            vboxClasses.getChildren().clear();
 
-        Label labelClasses = new Label("Classes:");
-        FlowPane labelFlowPane = new FlowPane();
-        labelFlowPane.setHgap(7);
-        labelFlowPane.setVgap(7);
+            Label labelClasses = new Label("Classes:");
+            FlowPane labelFlowPane = new FlowPane();
+            labelFlowPane.setHgap(7);
+            labelFlowPane.setVgap(7);
 
-        Label labelRequiredClasses = new Label("Non-classes:");
-        FlowPane requiredFlowPane = new FlowPane();
-        requiredFlowPane.setHgap(7);
-        requiredFlowPane.setVgap(7);
-        vboxClasses.getChildren().addAll(
-                labelClasses,
-                labelFlowPane,
-                labelRequiredClasses,
-                requiredFlowPane
-        );
+            Label labelRequiredClasses = new Label("Non-classes:");
+            FlowPane requiredFlowPane = new FlowPane();
+            requiredFlowPane.setHgap(7);
+            requiredFlowPane.setVgap(7);
+            vboxClasses.getChildren().addAll(
+                    labelClasses,
+                    labelFlowPane,
+                    labelRequiredClasses,
+                    requiredFlowPane
+            );
 
-        for (Map.Entry<String, Taxon> entry : project.taxons.entrySet()) {
-            Taxon taxon = entry.getValue();
-            final String code = taxon.getCode();
 
-            //Create a button
-            ClassificationButton button = new ClassificationButton(code);
-            button.getButton().setMinWidth(80);
+            for (Map.Entry<String, Taxon> entry : project.taxons.entrySet()) {
+                Taxon taxon = entry.getValue();
+                final String code = taxon.getCode();
 
-            //Change the particle label when the button is clicked
-            button.getButton().addEventHandler(MouseEvent.MOUSE_CLICKED, (event -> {
-                if (event.getButton() == MouseButton.PRIMARY) {
-                    labelsViewModel.setLabel(code, 1.0, true);
-                    if (checkBoxAutoAdvance.isSelected()) {
-                        selectionViewModel.nextImageRequested.broadcast(true);
+                //Create a button
+                ClassificationButton button = new ClassificationButton(code);
+                button.getButton().setMinWidth(80);
+
+                //Change the particle label when the button is clicked
+                button.getButton().addEventHandler(MouseEvent.MOUSE_CLICKED, (event -> {
+                    if (event.getButton() == MouseButton.PRIMARY) {
+                        labelsViewModel.setLabel(code, 1.0, true);
+                        if (checkBoxAutoAdvance.isSelected()) {
+                            selectionViewModel.nextImageRequested.broadcast(true);
+                        }
+                    } else if (event.getButton() == MouseButton.SECONDARY) {
+                        PopOver popOver = createLabelPopover(taxon);
+                        popOver.show(button);
                     }
-                } else if (event.getButton() == MouseButton.SECONDARY) {
-                    PopOver popOver = createLabelPopover(taxon);
-                    popOver.show(button);
+                }));
+                //Add it to the appropriate vBox
+                if (!taxon.getIsClass() || taxon.getGroup().equalsIgnoreCase("other")) {
+                    requiredFlowPane.getChildren().add(button);
+                } else {
+                    labelFlowPane.getChildren().add(button);
                 }
-            }));
-            //Add it to the appropriate vBox
-            if (!taxon.getIsClass() || taxon.getGroup().equalsIgnoreCase("other")) {
-                requiredFlowPane.getChildren().add(button);
-            } else {
-                labelFlowPane.getChildren().add(button);
+                //Put button in dictionary so we can modify it later.
+                labelButtons.put(code, button);
             }
-            //Put button in dictionary so we can modify it later.
-            labelButtons.put(code, button);
-        }
 
-        //Button to add a new label
-        Button buttonAddNewLabel = new Button();
-        buttonAddNewLabel.setMinWidth(80);
-        buttonAddNewLabel.getStyleClass().add("flat-button");
-        buttonAddNewLabel.setText("Add");
-        buttonAddNewLabel.setGraphic(new SymbolLabel("featherplus", 12));
-        buttonAddNewLabel.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            showEditLabelDialog(null);
-        });
-        labelFlowPane.getChildren().add(buttonAddNewLabel);
+            //Button to add a new label
+            Button buttonAddNewLabel = new Button();
+            buttonAddNewLabel.setMinWidth(80);
+            buttonAddNewLabel.getStyleClass().add("flat-button");
+            buttonAddNewLabel.setText("Add");
+            buttonAddNewLabel.setGraphic(new SymbolLabel("featherplus", 12));
+            buttonAddNewLabel.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                showEditLabelDialog(null, null);
+            });
+            labelFlowPane.getChildren().add(buttonAddNewLabel);
+        }
+        if (mode == 1) {
+
+            //Group the taxons by the start of their code
+            LinkedHashMap<String, ArrayList<Taxon>> rawTaxonMap = new LinkedHashMap<>();
+            ArrayList<Taxon> nonTaxonList = new ArrayList<>();
+            for (Map.Entry<String, Taxon> entry : project.taxons.entrySet()) {
+                Taxon taxon = entry.getValue();
+                final String code = taxon.getCode();
+
+                String[] parts = code.split("[-_ ]+");
+
+                if (!taxon.getIsClass()) {
+                    nonTaxonList.add(taxon);
+                } else if (parts.length == 1) {
+                    ArrayList<Taxon> list = rawTaxonMap.getOrDefault("Other", new ArrayList<>());
+                    list.add(taxon);
+                    rawTaxonMap.putIfAbsent("Other", list);
+                } else if (parts.length > 1) {
+                    ArrayList<Taxon> list = rawTaxonMap.getOrDefault(parts[0], new ArrayList<>());
+                    list.add(taxon);
+                    rawTaxonMap.putIfAbsent(parts[0], list);
+                }
+            }
+
+            // Sort by key
+            LinkedHashMap<String, ArrayList<Taxon>> taxonMap =
+                    rawTaxonMap.entrySet()
+                            .stream()
+                            .sorted(Map.Entry.comparingByKey())
+                            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (x, y) -> y, LinkedHashMap::new));
+            if (taxonMap.containsKey("Other")) {
+                ArrayList<Taxon> list = taxonMap.remove("Other");
+                taxonMap.put("Other", list);
+            }
+
+            taxonCodes.clear();
+            labelButtons.clear();
+            vboxClasses.getChildren().clear();
+
+            for (Map.Entry<String, ArrayList<Taxon>> group : taxonMap.entrySet()) {
+                Label label = new Label(group.getKey());
+                FlowPane flowPane = new FlowPane();
+                flowPane.setHgap(7);
+                flowPane.setVgap(7);
+                vboxClasses.getChildren().addAll(label, flowPane);
+
+                for (Taxon taxon : group.getValue()) {
+                    final String code = taxon.getCode();
+
+                    //Create a button
+                    ClassificationButton button = new ClassificationButton(code);
+                    button.getButton().setMinWidth(80);
+
+                    //Change the particle label when the button is clicked
+                    button.getButton().addEventHandler(MouseEvent.MOUSE_CLICKED, (event -> {
+                        if (event.getButton() == MouseButton.PRIMARY) {
+                            labelsViewModel.setLabel(code, 1.0, true);
+                            if (checkBoxAutoAdvance.isSelected()) {
+                                selectionViewModel.nextImageRequested.broadcast(true);
+                            }
+                        } else if (event.getButton() == MouseButton.SECONDARY) {
+                            PopOver popOver = createLabelPopover(taxon);
+                            popOver.show(button);
+                        }
+                    }));
+                    flowPane.getChildren().add(button);
+                    //Put button in dictionary so we can modify it later.
+                    labelButtons.put(code, button);
+                }
+
+                //Button to add a new label
+                Button buttonAddNewLabel = new Button();
+                buttonAddNewLabel.setMinWidth(80);
+                buttonAddNewLabel.getStyleClass().add("flat-button");
+                buttonAddNewLabel.setText("Add");
+                buttonAddNewLabel.setGraphic(new SymbolLabel("featherplus", 12));
+                buttonAddNewLabel.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    if (group.getKey().equals("Other")) {
+                        showEditLabelDialog(null, "");
+                    }
+                    else {
+                        showEditLabelDialog(null, group.getKey());
+                    }
+                });
+                flowPane.getChildren().add(buttonAddNewLabel);
+            }
+
+            Label labelRequiredClasses = new Label("Non-classes:");
+            FlowPane requiredFlowPane = new FlowPane();
+            requiredFlowPane.setHgap(7);
+            requiredFlowPane.setVgap(7);
+            for (Taxon taxon : nonTaxonList) {
+                final String code = taxon.getCode();
+                //Create a button
+                ClassificationButton button = new ClassificationButton(code);
+                button.getButton().setMinWidth(80);
+
+                //Change the particle label when the button is clicked
+                button.getButton().addEventHandler(MouseEvent.MOUSE_CLICKED, (event -> {
+                    if (event.getButton() == MouseButton.PRIMARY) {
+                        labelsViewModel.setLabel(code, 1.0, true);
+                        if (checkBoxAutoAdvance.isSelected()) {
+                            selectionViewModel.nextImageRequested.broadcast(true);
+                        }
+                    } else if (event.getButton() == MouseButton.SECONDARY) {
+                        PopOver popOver = createLabelPopover(taxon);
+                        popOver.show(button);
+                    }
+                }));
+                requiredFlowPane.getChildren().add(button);
+                //Put button in dictionary so we can modify it later.
+                labelButtons.put(code, button);
+            }
+            vboxClasses.getChildren().addAll(
+                    labelRequiredClasses,
+                    requiredFlowPane
+            );
+
+
+        }
     }
 
     private void setupTagUI(Project project) {
@@ -337,10 +461,13 @@ public class ClassificationViewController implements Initializable {
         }
     }
 
-    private void showEditLabelDialog(Taxon taxon) {
+    private void showEditLabelDialog(Taxon taxon, String prefix) {
         try {
             EditLabelViewController controller = AbstractDialogController.create(EditLabelViewController.class);
             if (taxon != null) controller.setData(taxon);
+            else if (prefix != null) {
+                controller.textFieldCode.setText(prefix);
+            }
             controller.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
@@ -392,7 +519,7 @@ public class ClassificationViewController implements Initializable {
             Button editButton = new Button("Edit");
             editButton.setGraphic(new SymbolLabel("featheredit2", 13));
             editButton.addEventHandler(ActionEvent.ACTION, (event -> {
-                showEditLabelDialog(taxon);
+                showEditLabelDialog(taxon, null);
             }));
             Button deleteButton = new Button("Delete");
             deleteButton.setGraphic(new SymbolLabel("feathertrash2", 13));

@@ -443,10 +443,10 @@ public class MainController extends AbstractController implements Initializable 
             //if (ke.getCode() == KeyCode.LEFT) { previousForam(); ke.consume(); }
             // if (ke.getCode() == KeyCode.RIGHT) { nextForam(); ke.consume(); }
             if (ke.getCode() == KeyCode.UP) {
-                particleListViewController.selectPrevious();
+                selectionViewModel.previousImageRequested.broadcast();
                 ke.consume();
             } else if (ke.getCode() == KeyCode.DOWN) {
-                particleListViewController.selectNext();
+                selectionViewModel.nextImageRequested.broadcast();
                 ke.consume();
             }
             else if (ke.getCode() == KeyCode.DIGIT1 || ke.getCode() == KeyCode.NUMPAD1) {
