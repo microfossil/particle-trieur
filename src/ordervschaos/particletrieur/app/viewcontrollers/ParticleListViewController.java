@@ -5,6 +5,7 @@
  */
 package ordervschaos.particletrieur.app.viewcontrollers;
 
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import ordervschaos.particletrieur.app.App;
@@ -22,7 +23,9 @@ import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -378,21 +381,9 @@ public class ParticleListViewController implements Initializable {
         columnGUID.setPrefWidth(100);
         tableViewForams.getColumns().add(columnGUID);
 
-
-
-
-
-
-        //TableViewHelpers.autoResizeColumns(tableViewForams);
-
         //Display the particle when the user clicks on the list
         tableViewForams.getSelectionModel().getSelectedItems().addListener((ListChangeListener) c -> {
             selectionViewModel.setCurrentParticles(tableViewForams.getSelectionModel().getSelectedItems());
-            if (selectionViewModel.getCurrentParticles().size() > 0) {
-                selectionViewModel.setCurrentParticle(selectionViewModel.getCurrentParticles().get(0));
-            } else {
-                selectionViewModel.setCurrentParticle(null);
-            }
         });
 
         //If the list changes order, scroll such that the current particle is displayed

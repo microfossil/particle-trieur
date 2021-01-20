@@ -6,6 +6,7 @@
 package ordervschaos.particletrieur.app.viewmodels;
 
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.ListChangeListener;
 import javafx.concurrent.Service;
 import ordervschaos.particletrieur.app.helpers.AutoCancellingServiceRunner;
 import ordervschaos.particletrieur.app.helpers.CSEvent;
@@ -45,7 +46,7 @@ public class SelectionViewModel {
     //Current particle
     private final ObjectProperty<Particle> currentParticle = new SimpleObjectProperty<>();
     public ObjectProperty<Particle> currentParticleProperty() { return currentParticle; }
-    public void setCurrentParticle(Particle value) { currentParticle.set(value); }
+    private void setCurrentParticle(Particle value) { currentParticle.set(value); }
     public Particle getCurrentParticle() { return currentParticle.get(); }
     
     //Current particles
@@ -61,7 +62,7 @@ public class SelectionViewModel {
     //Particle image
     private final ObjectProperty<ParticleImage> currentParticleImage = new SimpleObjectProperty<>();
     public ObjectProperty<ParticleImage> currentParticleImageProperty() { return currentParticleImage; }
-    public void setCurrentParticleImage(ParticleImage value) { currentParticleImage.set(value); }
+    private void setCurrentParticleImage(ParticleImage value) { currentParticleImage.set(value); }
     public ParticleImage getCurrentParticleImage() { return currentParticleImage.get(); }
 
     private Supervisor supervisor;
@@ -79,6 +80,14 @@ public class SelectionViewModel {
         knnPredictionViewModel = new KNNPredictionViewModel(supervisor);
         cnnPredictionViewModel = new CNNPredictionViewModel(supervisor);
         imageProcessingService = new ImageProcessingService(supervisor.FCNNSegmenter);
+
+        currentParticles.addListener((ListChangeListener<? super Particle>) listener -> {
+            if (getCurrentParticles().size() > 0) {
+                setCurrentParticle(getCurrentParticles().get(0));
+            } else {
+                setCurrentParticle(null);
+            }
+        });
 
         currentParticleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && newValue.getFile().exists()) {
