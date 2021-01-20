@@ -55,16 +55,23 @@ import java.util.stream.Collectors;
  */
 public class ClassificationPaneController implements Initializable {
 
-    @FXML SymbolLabel symbolValidate;
-    @FXML Button buttonValidate;
-    @FXML CheckBox checkBoxAutoValidate;
-    @FXML CheckBox checkBoxAutoAdvance;
-    @FXML GridPane gridPaneCNN;
-    @FXML GridPane gridPaneKNN;
-    @FXML HBox hboxCNN;
+    @FXML
+    SymbolLabel symbolValidate;
+    @FXML
+    Button buttonValidate;
+    @FXML
+    CheckBox checkBoxAutoValidate;
+    @FXML
+    CheckBox checkBoxAutoAdvance;
+    @FXML
+    GridPane gridPaneCNN;
+    @FXML
+    GridPane gridPaneKNN;
+    @FXML
+    HBox hboxCNN;
     @FXML
     SymbolLabel symbolLabelDeepCNNRefresh;
-//    @FXML
+    //    @FXML
 //    ToggleSwitch toggleSwitchAutoAdvance;
     @FXML
     CheckBox checkBoxPreprocessBeforeClassification;
@@ -184,8 +191,7 @@ public class ClassificationPaneController implements Initializable {
             if (newValue) {
                 symbolLabelDeepCNNRefresh.setVisible(true);
                 rotateTransitionSymbolLabelDeepCNN.play();
-            }
-            else {
+            } else {
                 symbolLabelDeepCNNRefresh.setVisible(false);
                 rotateTransitionSymbolLabelDeepCNN.stop();
             }
@@ -397,9 +403,7 @@ public class ClassificationPaneController implements Initializable {
             HBox.setHgrow(expander, Priority.ALWAYS);
             buttons.getChildren().addAll(editButton, expander, deleteButton);
             infoVBox.getChildren().add(buttons);
-        }
-
-        else {
+        } else {
             infoVBox.getChildren().add(new Label("Cannot be edited / deleted"));
         }
         popOver.setDetachable(false);
@@ -459,8 +463,7 @@ public class ClassificationPaneController implements Initializable {
             HBox.setHgrow(expander, Priority.ALWAYS);
             buttons.getChildren().addAll(editButton, expander, deleteButton);
             infoVBox.getChildren().add(buttons);
-        }
-        else {
+        } else {
             infoVBox.getChildren().add(new Label("Cannot be edited / deleted"));
         }
         popOver.setDetachable(false);
@@ -476,20 +479,24 @@ public class ClassificationPaneController implements Initializable {
             for (Map.Entry<String, ClassificationButton> b : labelButtons.entrySet()) {
                 b.getValue().setIsHighlighted(b.getKey().equals(code));
             }
-            if (!particle.getValidator().equals("")) {
+            LabelsViewModel.ValidationState state = labelsViewModel.getValidationState();
+            if (state == LabelsViewModel.ValidationState.VALIDATED) {
                 buttonValidate.setText("Validated");
                 buttonValidate.setStyle("-fx-text-fill: green");
                 symbolValidate.setSymbol("feathercheckcircle");
                 symbolValidate.setSymbolColor("green");
-            }
-            else {
+            } else if (state == LabelsViewModel.ValidationState.INDETERMINATE) {
+                buttonValidate.setText("Some validated");
+                buttonValidate.setStyle("-fx-text-fill: darkorange");
+                symbolValidate.setSymbol("featheralerttriangle");
+                symbolValidate.setSymbolColor("darkorange");
+            } else {
                 buttonValidate.setText("Not validated");
                 buttonValidate.setStyle("-fx-text-fill: red");
                 symbolValidate.setSymbol("featherxcircle");
                 symbolValidate.setSymbolColor("red");
             }
-        }
-        else {
+        } else {
             for (Map.Entry<String, ClassificationButton> b : labelButtons.entrySet()) {
                 b.getValue().setIsHighlighted(false);
             }
@@ -539,8 +546,7 @@ public class ClassificationPaneController implements Initializable {
                     button.setIsKNN(false);
                 }
             }
-        }
-        else {
+        } else {
             gridPaneKNN.getChildren().clear();
             gridPaneKNN.addRow(0, new Label("N/A"));
             for (Map.Entry<String, ClassificationButton> b : labelButtons.entrySet()) {

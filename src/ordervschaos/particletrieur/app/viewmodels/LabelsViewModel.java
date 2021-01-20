@@ -50,6 +50,12 @@ public class LabelsViewModel {
         this.autoAdvance.set(autoAdvance);
     }
 
+    public enum ValidationState {
+        INVALID,
+        INDETERMINATE,
+        VALIDATED
+    }
+
     @Inject
     public LabelsViewModel(SelectionViewModel selectionViewModel, Supervisor supervisor) {
         this.selectionViewModel = selectionViewModel;
@@ -61,9 +67,23 @@ public class LabelsViewModel {
         else return supervisor.getUsername();
     }
 
+    public ValidationState getValidationState() {
+        int count = 0;
+        int validCount = 0;
+        for (Particle p : selectionViewModel.getCurrentParticles()) {
+            if (!p.getValidator().equals("")) {
+                validCount++;
+            }
+            count++;
+        }
+        if (validCount == count) return ValidationState.VALIDATED;
+        else if (validCount > 0) return ValidationState.INDETERMINATE;
+        else return ValidationState.INVALID;
+    }
+
     public void toggleValidated() {
-        Particle particle = selectionViewModel.getCurrentParticle();
-        if (particle.getValidator().equals("")) {
+        ValidationState state = getValidationState();
+        if (state != ValidationState.VALIDATED) {
             supervisor.project.setParticleValidator(selectionViewModel.getCurrentParticles(), supervisor.getUsername());
         }
         else {
