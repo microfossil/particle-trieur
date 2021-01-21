@@ -46,7 +46,7 @@ import javax.imageio.ImageIO;
 public class ParticleListViewController implements Initializable {
 
     @FXML
-    TableView tableViewForams;
+    TableView<Particle> tableViewForams;
 
     @Inject
     private Supervisor supervisor;
@@ -375,10 +375,25 @@ public class ParticleListViewController implements Initializable {
         selectionViewModel.sortedList.comparatorProperty().bind(tableViewForams.comparatorProperty());
         tableViewForams.setItems(selectionViewModel.sortedList);
 
-        supervisor.project.foramAddedEvent.addListener((foram) -> {
-            select(foram);
-        });
+        supervisor.project.particleAddedEvent.addListener(this::select);
         selectFirst();
+
+        // Indices
+        selectionViewModel.controlSelectIndex.addListener(val ->{
+            if (tableViewForams.getSelectionModel().getSelectedIndices().contains(val)) {
+                tableViewForams.getSelectionModel().clearSelection(val);
+            }
+            else {
+                tableViewForams.getSelectionModel().select(val);
+            }
+        });
+        selectionViewModel.selectIndex.addListener(val -> {
+            tableViewForams.getSelectionModel().clearAndSelect(val);
+        });
+        selectionViewModel.shiftSelectIndices.addListener(val -> {
+            tableViewForams.getSelectionModel().clearSelection();
+            tableViewForams.getSelectionModel().selectRange(val[0], val[1]+1);
+        });
     }
 
     public void select(Particle particle) {

@@ -256,6 +256,10 @@
     -fx-background-color: -fx-background;
 }
 
+.selected-content {
+    -fx-text-background-color: white;
+}
+
 
 /*.header-label {*/
     /*-fx-font-size: 1.166667em;*/

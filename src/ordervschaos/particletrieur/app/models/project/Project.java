@@ -5,7 +5,6 @@
  */
 package ordervschaos.particletrieur.app.models.project;
 
-import javafx.application.Platform;
 import ordervschaos.particletrieur.app.App;
 import ordervschaos.particletrieur.app.helpers.CSEvent;
 import ordervschaos.particletrieur.app.models.network.classification.Classification;
@@ -14,11 +13,6 @@ import ordervschaos.particletrieur.app.models.network.classification.NetworkInfo
 import ordervschaos.particletrieur.app.models.processing.ProcessingInfo;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.*;
 
 import javafx.collections.FXCollections;
@@ -38,7 +32,6 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ObjectUtils;
 
 /**
@@ -141,7 +134,7 @@ public class Project implements Serializable {
     //Events
     public CSEvent taxonsUpdatedEvent = new CSEvent();
     public CSEvent tagsUpdatedEvent = new CSEvent();
-    public CSEvent<Particle> foramAddedEvent = new CSEvent<>();
+    public CSEvent<Particle> particleAddedEvent = new CSEvent<>();
     public CSEvent newProjectEvent = new CSEvent();
 
 
@@ -226,7 +219,7 @@ public class Project implements Serializable {
                 updateTags = true;
             }
         }
-        foramAddedEvent.broadcast(particle);
+        particleAddedEvent.broadcast(particle);
         if (updateTaxons) taxonsUpdatedEvent.broadcast(null);
         if (updateTags) tagsUpdatedEvent.broadcast(null);
         setIsDirty(true);
@@ -258,7 +251,7 @@ public class Project implements Serializable {
                 }
             }
         }
-        foramAddedEvent.broadcast(particles.get(0));
+        particleAddedEvent.broadcast(particles.get(0));
         if (updateTaxons) taxonsUpdatedEvent.broadcast(null);
         if (updateTags) tagsUpdatedEvent.broadcast(null);
         setIsDirty(true);

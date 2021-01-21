@@ -1,10 +1,8 @@
 package ordervschaos.particletrieur.app.models;
 
-import com.sun.xml.fastinfoset.sax.SAXDocumentSerializer;
 import com.sun.xml.fastinfoset.stax.StAXDocumentParser;
 import com.sun.xml.fastinfoset.stax.StAXDocumentSerializer;
 import ordervschaos.particletrieur.app.App;
-import ordervschaos.particletrieur.app.controls.BasicDialogs;
 import ordervschaos.particletrieur.app.helpers.BeanCopyService;
 import ordervschaos.particletrieur.app.models.processing.ProcessingInfo;
 import ordervschaos.particletrieur.app.models.project.Particle;
@@ -16,22 +14,13 @@ import javafx.application.Platform;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.xml.bind.*;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.sax.SAXResult;
 import java.beans.IntrospectionException;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
-import java.nio.file.Paths;
 import java.util.Optional;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipOutputStream;
 
 public class ProjectRepository {
 
@@ -180,7 +169,7 @@ public class ProjectRepository {
             particle.initUIProperties();
         }
 
-        if (project.particles.size() > 0) project.foramAddedEvent.broadcast(project.particles.get(0));
+        if (project.particles.size() > 0) project.particleAddedEvent.broadcast(project.particles.get(0));
 
         project.setIsDirty(false);
     }

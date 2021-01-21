@@ -18,10 +18,15 @@
     <children>
         <BorderPane layoutX="7.0" layoutY="41.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <center>
-                <GridView fx:id="gridViewParticles" cellHeight="220.0" cellWidth="160.0" horizontalCellSpacing="7.0" prefHeight="200.0" prefWidth="200.0" verticalCellSpacing="7.0" BorderPane.alignment="CENTER" >
-                    <BorderPane.margin>
-                        <Insets bottom="7.0" top="7.0" />
-                    </BorderPane.margin>
+                <GridView fx:id="gridViewParticles"
+                          cellHeight="220.0"
+                          cellWidth="160.0"
+                          horizontalCellSpacing="0.0"
+                          verticalCellSpacing="0.0"
+                          BorderPane.alignment="CENTER" >
+<!--                    <BorderPane.margin>-->
+<!--                        <Insets bottom="7.0" top="7.0" />-->
+<!--                    </BorderPane.margin>-->
                 </GridView>
             </center>
             <top>

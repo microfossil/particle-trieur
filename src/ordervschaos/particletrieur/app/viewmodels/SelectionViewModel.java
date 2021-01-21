@@ -33,9 +33,14 @@ import org.opencv.core.Mat;
  */
 public class SelectionViewModel {
 
-    public CSEvent currentParticleUpdatedEvent = new CSEvent();
+    public CSEvent currentParticleUpdatedEvent = new CSEvent<>();
     public CSEvent<Boolean> nextImageRequested = new CSEvent<>();
     public CSEvent<Boolean> previousImageRequested = new CSEvent<>();
+
+    public CSEvent<Integer> controlSelectIndex = new CSEvent<Integer>();
+    public CSEvent<Integer> selectIndex = new CSEvent<Integer>();
+    public CSEvent<int[]> selectIndicesRequested = new CSEvent<>();
+    public CSEvent<int[]> shiftSelectIndices = new CSEvent<>();
     public CSEvent selectAllRequested = new CSEvent<>();
 
     public SortedList<Particle> sortedList;
