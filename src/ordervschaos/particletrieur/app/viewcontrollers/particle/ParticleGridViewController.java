@@ -79,7 +79,7 @@ public class ParticleGridViewController implements Initializable {
         gridViewParticles.setCellFactory(param -> new ParticleCell());
         gridViewParticles.setItems(selectionViewModel.sortedList);
 
-        selectionViewModel.increaseSizeRequested.addListener(v -> {
+        selectionViewModel.decreaseSizeRequested.addListener(v -> {
             if (selectionViewModel.selectedTabIndex != 1) return;
             if (cellWidth >= 96 + 32) {
                 cellWidth -= 32;
@@ -88,7 +88,7 @@ public class ParticleGridViewController implements Initializable {
             gridViewParticles.setCellHeight(cellRatio * cellWidth);
         });
 
-        selectionViewModel.decreaseSizeRequested.addListener(v -> {
+        selectionViewModel.increaseSizeRequested.addListener(v -> {
             if (selectionViewModel.selectedTabIndex != 1) return;
             if (cellWidth <= 512 + 32) {
                 cellWidth += 32;

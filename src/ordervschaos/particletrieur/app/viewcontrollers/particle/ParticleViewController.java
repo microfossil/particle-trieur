@@ -191,12 +191,12 @@ public class ParticleViewController implements Initializable {
 
     @FXML
     private void handleSmallImage(ActionEvent event) {
-        selectionViewModel.increaseSizeRequested.broadcast();
+        selectionViewModel.decreaseSizeRequested.broadcast();
     }
 
     @FXML
     private void handleLargeImage(ActionEvent event) {
-        selectionViewModel.decreaseSizeRequested.broadcast();
+        selectionViewModel.increaseSizeRequested.broadcast();
     }
 
     private String getCurrentFilterArgument() {

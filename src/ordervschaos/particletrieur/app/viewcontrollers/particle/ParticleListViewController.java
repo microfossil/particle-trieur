@@ -57,6 +57,7 @@ public class ParticleListViewController implements Initializable {
 
     // Column with image
     private TableColumn<Particle, File> colImage = new TableColumn<>();
+    private int imageWidth = 64;
 
     //Scrolling
     private VirtualFlow<?> virtualFlow;
@@ -93,7 +94,7 @@ public class ParticleListViewController implements Initializable {
         //Image
         colImage = new TableColumn<>("");
         colImage.setText("Image");
-        colImage.setPrefWidth(selectionViewModel.getListViewImageSize());
+        colImage.setPrefWidth(imageWidth);
         colImage.setCellFactory(param -> {
             //Set up the ImageView
             final ImageView imageview = new ImageView();
@@ -368,9 +369,21 @@ public class ParticleListViewController implements Initializable {
         });
 
         // Image size
-        selectionViewModel.listViewImageSizeProperty().addListener(((observable, oldValue, newValue) -> {
-            colImage.setPrefWidth((int) newValue);
-        }));
+        selectionViewModel.decreaseSizeRequested.addListener(v -> {
+            if (selectionViewModel.selectedTabIndex != 0) return;
+            if (imageWidth >= 32 + 16) {
+                imageWidth -= 16;
+            }
+            colImage.setPrefWidth(imageWidth);
+        });
+
+        selectionViewModel.increaseSizeRequested.addListener(v -> {
+            if (selectionViewModel.selectedTabIndex != 0) return;
+            if (imageWidth <= 512 - 16) {
+                imageWidth += 16;
+            }
+            colImage.setPrefWidth(imageWidth);
+        });
 
         selectionViewModel.sortedList.comparatorProperty().bind(tableViewForams.comparatorProperty());
         tableViewForams.setItems(selectionViewModel.sortedList);
