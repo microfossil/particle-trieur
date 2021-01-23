@@ -503,6 +503,12 @@
                                                 <SymbolLabel symbol="feathersliders"/>
                                             </graphic>
                                         </Tab>
+                                        <Tab text="Morphology">
+                                            <fx:include source="morphology/MorphologyView.fxml" />
+                                            <graphic>
+                                                <SymbolLabel symbol="feathermove"/>
+                                            </graphic>
+                                        </Tab>
                                         <!--                                        <Tab fx:id="tabTraining" text="Training">-->
                                         <!--                                            <content>-->
                                         <!--                                                <fx:include fx:id="trainingView" source="CNNTrainingView.fxml"/>-->
