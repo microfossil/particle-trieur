@@ -49,6 +49,8 @@ import java.util.ResourceBundle;
 public class ParticleViewController implements Initializable {
 
     @FXML
+    TabPane tabPane;
+    @FXML
     SymbolLabel fontIconExpander;
     @FXML
     CustomTextField customTextFieldFilter;
@@ -95,6 +97,10 @@ public class ParticleViewController implements Initializable {
         customTextFieldFilter.textProperty().addListener((observable, oldValue, newValue) -> {
             selectionViewModel.filteredList.setPredicate(particle -> filterParticle(particle, newValue));
         });
+
+        tabPane.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            selectionViewModel.selectedTabIndex = (int) newValue;
+        });
     }
 
     private boolean filterParticle(Particle particle, String filter) {
@@ -113,6 +119,7 @@ public class ParticleViewController implements Initializable {
             // TODO add the match all
             boolean matched = false;
             boolean result = false;
+            // TODO add match everything / some
             switch (params[0]) {
                 case "#":
                     matched = true;
@@ -184,13 +191,12 @@ public class ParticleViewController implements Initializable {
 
     @FXML
     private void handleSmallImage(ActionEvent event) {
-        selectionViewModel.decreaseListViewImageSize();
+        selectionViewModel.increaseSizeRequested.broadcast();
     }
 
     @FXML
     private void handleLargeImage(ActionEvent event) {
-        selectionViewModel.increaseListViewImageSize();
-
+        selectionViewModel.decreaseSizeRequested.broadcast();
     }
 
     private String getCurrentFilterArgument() {

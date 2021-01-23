@@ -18,22 +18,31 @@
     <children>
         <BorderPane layoutX="7.0" layoutY="41.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <center>
-                <TabPane tabClosingPolicy="UNAVAILABLE">
+                <TabPane tabClosingPolicy="UNAVAILABLE" fx:id="tabPane">
                     <tabs>
                         <Tab text="List">
                             <content>
                                 <fx:include source="ParticleListView.fxml"/>
                             </content>
+                            <graphic>
+                                <SymbolLabel symbol="featherlist"/>
+                            </graphic>
                         </Tab>
                         <Tab text="Grid">
                             <content>
                                 <fx:include source="ParticleGridView.fxml"/>
                             </content>
+                            <graphic>
+                                <SymbolLabel symbol="feathergrid"/>
+                            </graphic>
                         </Tab>
                         <Tab text="Image">
                             <content>
-                                <fx:include source="ImageDetailView.fxml" />
+                                <fx:include source="ParticleImageView.fxml" />
                             </content>
+                            <graphic>
+                                <SymbolLabel symbol="featherimage"/>
+                            </graphic>
                         </Tab>
                     </tabs>
                 </TabPane>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ordervschaos.particletrieur.app.viewcontrollers;
+package ordervschaos.particletrieur.app.viewcontrollers.morphology;
 
 import ordervschaos.particletrieur.app.controls.SymbolLabel;
 import ordervschaos.particletrieur.app.models.Supervisor;
@@ -34,7 +34,7 @@ import javafx.util.Duration;
 /**
  * @author Ross Marchant <ross.g.marchant@gmail.com>
  */
-public class ProcessingPaneController extends AbstractController implements Initializable {
+public class ProcessingViewController extends AbstractController implements Initializable {
 
     @FXML
     Label labelNoOutline;

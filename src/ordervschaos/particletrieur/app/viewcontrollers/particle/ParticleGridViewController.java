@@ -15,6 +15,7 @@ import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
 import ordervschaos.particletrieur.app.App;
 import ordervschaos.particletrieur.app.controls.ParticleGridCellControl;
 import ordervschaos.particletrieur.app.models.Supervisor;
@@ -22,6 +23,7 @@ import ordervschaos.particletrieur.app.models.project.Particle;
 import ordervschaos.particletrieur.app.viewmodels.SelectionViewModel;
 import org.controlsfx.control.GridCell;
 import org.controlsfx.control.GridView;
+import org.controlsfx.control.PopOver;
 
 import java.lang.ref.WeakReference;
 import java.net.URL;
@@ -44,13 +46,13 @@ public class ParticleGridViewController implements Initializable {
     @Inject
     private SelectionViewModel selectionViewModel;
 
-    //TODO make a preference
-    private int imageWidth = 64;
-
     private ArrayList<WeakReference<ParticleCell>> currentCells = new ArrayList<>();
     private ObservableList<Particle> selectedItems = FXCollections.observableArrayList();
     private int selectedIndex = 0;
     private int shiftSelectedIndex = 0;
+
+    private double cellWidth = 160;
+    private double cellRatio = 1.25;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -58,9 +60,11 @@ public class ParticleGridViewController implements Initializable {
     }
 
     private void setupGridView() {
+        gridViewParticles.setCellWidth(cellWidth);
+        gridViewParticles.setCellHeight(cellRatio * cellWidth);
+
         selectionViewModel.getCurrentParticles().addListener((ListChangeListener<Particle>) c -> {
             c.next();
-            System.out.printf("Current cells: %d%n", currentCells.size());
             Iterator<WeakReference<ParticleCell>> itr = currentCells.iterator();
             while (itr.hasNext()) {
                 WeakReference<ParticleCell> cell = itr.next();
@@ -74,18 +78,41 @@ public class ParticleGridViewController implements Initializable {
         });
         gridViewParticles.setCellFactory(param -> new ParticleCell());
         gridViewParticles.setItems(selectionViewModel.sortedList);
+
+        selectionViewModel.increaseSizeRequested.addListener(v -> {
+            if (selectionViewModel.selectedTabIndex != 1) return;
+            if (cellWidth >= 96 + 32) {
+                cellWidth -= 32;
+            }
+            gridViewParticles.setCellWidth(cellWidth);
+            gridViewParticles.setCellHeight(cellRatio * cellWidth);
+        });
+
+        selectionViewModel.decreaseSizeRequested.addListener(v -> {
+            if (selectionViewModel.selectedTabIndex != 1) return;
+            if (cellWidth <= 512 + 32) {
+                cellWidth += 32;
+            }
+            gridViewParticles.setCellWidth(cellWidth);
+            gridViewParticles.setCellHeight(cellRatio * cellWidth);
+        });
     }
 
     public class ParticleCell extends GridCell<Particle> {
-        public ParticleGridCellControl im = new ParticleGridCellControl(supervisor);
+        public ParticleGridCellControl im = new ParticleGridCellControl();
         ObjectProperty<Task<Image>> loadingTask = new SimpleObjectProperty<>();
-
 
         public ParticleCell() {
             super();
+//            im.setSize(currentSize);
             currentCells.add(new WeakReference<>(this));
             setOnMouseClicked(event ->
             {
+                if (event.getButton() == MouseButton.SECONDARY) {
+                    ImageDescriptionPopover popover = new ImageDescriptionPopover(getItem(), PopOver.ArrowLocation.LEFT_CENTER);
+                    popover.show(this);
+                    return;
+                }
                 if (event.isMetaDown() || event.isControlDown()) {
 //                    if (selectedItems.contains(getItem())) {
 //                        selectionViewModel.getCurrentParticles().remove(getItem());

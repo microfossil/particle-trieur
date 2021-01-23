@@ -11,6 +11,7 @@ import javafx.stage.Window;
 import ordervschaos.particletrieur.app.App;
 import ordervschaos.particletrieur.app.FxmlLocation;
 import ordervschaos.particletrieur.app.controls.SymbolLabel;
+import ordervschaos.particletrieur.app.viewcontrollers.morphology.ProcessingViewController;
 import ordervschaos.particletrieur.app.viewcontrollers.particle.ParticleListViewController;
 import ordervschaos.particletrieur.app.viewmanagers.UndoManager;
 import ordervschaos.particletrieur.app.viewmanagers.commands.UndoableCommand;
@@ -133,7 +134,7 @@ public class MainController extends AbstractController implements Initializable 
     @FXML
     ParticleListViewController particleListViewController;
     @FXML
-    ProcessingPaneController processingPaneController;
+    ProcessingViewController processingViewController;
     @FXML
     SimilarityViewController similarityViewController;
     @FXML

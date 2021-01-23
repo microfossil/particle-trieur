@@ -43,6 +43,9 @@ public class SelectionViewModel {
     public CSEvent<int[]> shiftSelectIndices = new CSEvent<>();
     public CSEvent selectAllRequested = new CSEvent<>();
 
+    public CSEvent increaseSizeRequested = new CSEvent<>();
+    public CSEvent decreaseSizeRequested = new CSEvent<>();
+
     public SortedList<Particle> sortedList;
     public FilteredList<Particle> filteredList;
     
@@ -65,6 +68,9 @@ public class SelectionViewModel {
     public int getParticleIndex(Particle particle) {
         return supervisor.project.getParticles().indexOf(particle);
     }
+
+    //Current tab
+    public int selectedTabIndex = 0;
 
     //Image sie
     private final IntegerProperty listViewImageSize = new SimpleIntegerProperty(64);

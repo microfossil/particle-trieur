@@ -497,7 +497,7 @@
                                         </Tab>
                                         <Tab fx:id="tabMorphology" text="Processing">
                                             <content>
-                                                <fx:include fx:id="processingPane" source="ProcessingPane.fxml"/>
+                                                <fx:include fx:id="processingPane" source="morphology/ProcessingView.fxml"/>
                                             </content>
                                             <graphic>
                                                 <SymbolLabel symbol="feathersliders"/>

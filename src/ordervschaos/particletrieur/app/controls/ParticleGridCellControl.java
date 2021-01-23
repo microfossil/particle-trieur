@@ -5,6 +5,7 @@
  */
 package ordervschaos.particletrieur.app.controls;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,7 @@ import ordervschaos.particletrieur.app.App;
 import ordervschaos.particletrieur.app.models.Supervisor;
 import ordervschaos.particletrieur.app.models.project.Particle;
 import org.controlsfx.control.PopOver;
+import org.eclipse.persistence.platform.database.SybasePlatform;
 
 import java.io.IOException;
 
@@ -28,18 +30,16 @@ import java.io.IOException;
 public class ParticleGridCellControl extends AnchorPane {
 
     @FXML ImageView imageView;
-    @FXML Label labelId;
-    @FXML Label labelClassification;
-    PopOver popOver;
+    @FXML
+    Label labelId;
+    @FXML
+    Label labelClassification;
+    @FXML
+    SymbolLabel symbolLabelValidated;
 
-    private Supervisor supervisor;
     private Particle particle;
-    private Image missingImage;
 
-    public ParticleGridCellControl(Supervisor supervisor) {
-        missingImage = new Image(App.class.getResourceAsStream("resources/missing-image-128.png"), 128, 128, true, true);
-        this.supervisor =  supervisor;
-        
+    public ParticleGridCellControl() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ParticleGridCellControl.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -52,23 +52,18 @@ public class ParticleGridCellControl extends AnchorPane {
     
     @FXML 
     public void initialize() {
-        popOver = new PopOver();
-        imageView.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.SECONDARY) {
-                popOver.show(imageView);
-            }
-        });
+        symbolLabelValidated.setVisible(false);
     }
 
     public void setData(Particle particle, int index) {
         this.particle = particle;
-        
-        labelId.setText(String.format("#%d", index));
+        labelId.setText(String.format("#%d", index + 1));
         labelClassification.textProperty().bind(this.particle.classification);
-
+        symbolLabelValidated.visibleProperty().bind(Bindings.not(Bindings.equal(particle.validatorProperty(), "")));
         try {
             imageView.setImage(particle.getImage());
         } catch (IOException ex) {
+            Image missingImage = new Image(App.class.getResourceAsStream("resources/missing-image-128.png"), 128, 128, true, true);
             imageView.setImage(missingImage);
         }
     }

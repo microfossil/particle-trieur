@@ -1,4 +1,4 @@
-package ordervschaos.particletrieur.app.viewcontrollers.particle;
+package ordervschaos.particletrieur.app.viewcontrollers.morphology;
 
 import ordervschaos.particletrieur.app.models.processing.Morphology;
 import ordervschaos.particletrieur.app.viewmodels.SelectionViewModel;
