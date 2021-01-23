@@ -72,38 +72,13 @@ public class SelectionViewModel {
     //Current tab
     public int selectedTabIndex = 0;
 
-    //Image sie
-    private final IntegerProperty listViewImageSize = new SimpleIntegerProperty(64);
-    public int getListViewImageSize() {
-        return listViewImageSize.get();
-    }
-    public IntegerProperty listViewImageSizeProperty() {
-        return listViewImageSize;
-    }
-    public void setListViewImageSize(int listViewImageSize) {
-        this.listViewImageSize.set(listViewImageSize);
-    }
-
-    public void increaseListViewImageSize() {
-        int imageWidth = getListViewImageSize();
-        if (imageWidth < 1024) {
-            setListViewImageSize(imageWidth + 16);
-        }
-    }
-
-    public void decreaseListViewImageSize() {
-        int imageWidth = getListViewImageSize();
-        if (imageWidth >= 48) {
-            setListViewImageSize(imageWidth - 16);
-        }
-    }
-
     //Particle image
     private final ObjectProperty<ParticleImage> currentParticleImage = new SimpleObjectProperty<>();
     public ObjectProperty<ParticleImage> currentParticleImageProperty() { return currentParticleImage; }
     private void setCurrentParticleImage(ParticleImage value) { currentParticleImage.set(value); }
     public ParticleImage getCurrentParticleImage() { return currentParticleImage.get(); }
 
+    // Parts
     private Supervisor supervisor;
     private ImageProcessingService imageProcessingService;
     public KNNPredictionViewModel knnPredictionViewModel;
