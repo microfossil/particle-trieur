@@ -307,11 +307,21 @@ public class Particle {
     }
     
     public Particle(File file, String code, String classifierId) {
-        this();
-        setFilename(file.getAbsolutePath());
+        this(file);
         clearAndAddClassification(code, 1.0, classifierId);
-    }        
-    
+    }
+
+    public Particle(File file, String code, String classifierId, double score) {
+        this(file);
+        clearAndAddClassification(code, score, classifierId);
+    }
+
+    public Particle(File file, String code, String classifierId, double score, String sample, double resolution) {
+        this(file, code, classifierId, score);
+        setSampleID(sample);
+        setResolution(resolution);
+    }
+
     /*
     Classification
     */

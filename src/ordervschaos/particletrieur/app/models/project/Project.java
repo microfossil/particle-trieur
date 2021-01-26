@@ -107,6 +107,7 @@ public class Project implements Serializable {
     }
 
     //Constants
+    public static final String UNKNOWN_SAMPLE = "unknown";
     public static final String UNLABELED_CODE = "unlabeled";
     public static final String UNSURE_CODE = "unsure";
     public static final String DUPLICATE_CODE = "duplicate";
@@ -196,7 +197,6 @@ public class Project implements Serializable {
     FORAMS
     */
     public void addParticle(Particle particle) {
-        particles.add(particle);
         boolean updateTaxons = false;
         boolean updateTags = false;
         for (String code : particle.getClassifications().classifications.keySet()) {
@@ -219,6 +219,7 @@ public class Project implements Serializable {
                 updateTags = true;
             }
         }
+        particles.add(particle);
         particleAddedEvent.broadcast(particle);
         if (updateTaxons) taxonsUpdatedEvent.broadcast(null);
         if (updateTags) tagsUpdatedEvent.broadcast(null);
@@ -228,7 +229,6 @@ public class Project implements Serializable {
     public void addParticles(List<Particle> particles) {
         boolean updateTaxons = false;
         boolean updateTags = false;
-        this.particles.addAll(particles);
         for (Particle particle : particles) {
             for (String code : particle.getClassifications().classifications.keySet()) {
                 if (!taxons.containsKey(code)) {
@@ -251,6 +251,7 @@ public class Project implements Serializable {
                 }
             }
         }
+        this.particles.addAll(particles);
         particleAddedEvent.broadcast(particles.get(0));
         if (updateTaxons) taxonsUpdatedEvent.broadcast(null);
         if (updateTags) tagsUpdatedEvent.broadcast(null);
@@ -562,6 +563,12 @@ public class Project implements Serializable {
             taxonsUpdatedEvent.broadcast();
             setIsDirty(true);
         }
+    }
+
+    public void addTaxonIfMissing(String code) {
+        boolean wasNew = false;
+        if (code == null || code.equals("")) return;
+        if (taxons.putIfAbsent(code, new Taxon(code, "", "", "", true)) == null) taxonsUpdatedEvent.broadcast();
     }
 
     public void addTaxonsIfMissing(List<String> codes) {

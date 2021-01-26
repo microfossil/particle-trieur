@@ -183,18 +183,14 @@ public class SelectionViewModel {
         }
 
         public void onCurrentParticleUpdated(Particle particle) {
-
             if (particle == null) {
                 setkNNPredictedClassification(null);
                 return;
             }
-
             Service<ClassificationSet> service = KNNVectorPredictionService.predictUsingKNNService(particle, supervisor.project.getParticles(), K);
-
             service.setOnCancelled(event -> {
 
             });
-
             service.setOnSucceeded(event -> {
                 ClassificationSet classificationSet = service.getValue();
                 if (classificationSet != null) {

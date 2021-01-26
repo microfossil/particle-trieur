@@ -8,6 +8,7 @@ package ordervschaos.particletrieur.app.viewcontrollers.particle;
 import ordervschaos.particletrieur.app.*;
 import ordervschaos.particletrieur.app.controls.BasicDialogs;
 import ordervschaos.particletrieur.app.controls.ProgressDialog2;
+import ordervschaos.particletrieur.app.services.FlowcamCSVService;
 import ordervschaos.particletrieur.app.viewmanagers.UndoManager;
 import ordervschaos.particletrieur.app.viewmanagers.commands.AddParticlesCommand;
 import ordervschaos.particletrieur.app.models.Supervisor;
@@ -15,9 +16,7 @@ import ordervschaos.particletrieur.app.models.project.Particle;
 import ordervschaos.particletrieur.app.services.ProjectService;
 import ordervschaos.particletrieur.app.viewmodels.SelectionViewModel;
 import com.google.inject.Inject;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -55,6 +54,10 @@ import java.util.stream.Collectors;
 public class AddParticleViewController extends AbstractDialogController implements Initializable {
 
     @FXML
+    RadioButton radioButtonFiles;
+    @FXML
+    RadioButton radioButtonCSV;
+    @FXML
     CheckBox checkBoxRandom;
     @FXML
     TextField textFieldRandom;
@@ -70,7 +73,8 @@ public class AddParticleViewController extends AbstractDialogController implemen
     GridView gridViewImages;
 
     ObservableList<File> files = FXCollections.observableArrayList();
-    BooleanProperty useFolder = new SimpleBooleanProperty(true);
+    LinkedHashMap<String, LinkedHashMap<String, String>> csvData = new LinkedHashMap<>();
+//    BooleanProperty useFolder = new SimpleBooleanProperty(true);
 
     @Inject
     Supervisor supervisor;
@@ -87,13 +91,13 @@ public class AddParticleViewController extends AbstractDialogController implemen
     public void initialize(URL location, ResourceBundle resources) {
 
         //Folder or file import options
-        addType.selectedToggleProperty().addListener(event -> {
-            if (addType.getSelectedToggle() == radioButtonFolder) {
-                useFolder.set(true);
-            } else {
-                useFolder.set(false);
-            }
-        });
+//        addType.selectedToggleProperty().addListener(event -> {
+//            if (addType.getSelectedToggle() == radioButtonFolder) {
+//                useFolder.set(true);
+//            } else {
+//                useFolder.set(false);
+//            }
+//        });
 
         radioButtonFolder.setSelected(true);
 
@@ -104,7 +108,7 @@ public class AddParticleViewController extends AbstractDialogController implemen
     @FXML
     private void handleChooseFiles(ActionEvent event) {
 
-        if (!useFolder.get()) {
+        if (addType.getSelectedToggle() == radioButtonFiles) {
             FileChooser dc = new FileChooser();
             dc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images (bmp|png|jpg|tif)",
                     "*.bmp", "*.jpg", "*.jpeg", "*.png", "*.tif", "*.tiff",
@@ -115,12 +119,14 @@ public class AddParticleViewController extends AbstractDialogController implemen
             }
             dc.setTitle("Select images to add");
             files.clear();
+            csvData.clear();
             List<File> dcFiles = dc.showOpenMultipleDialog(buttonChooseFolder.getScene().getWindow());
             files.addAll(dcFiles);
             if (files == null || files.isEmpty()) return;
             App.getPrefs().setImagePath(files.get(0).getParent());
             App.getPrefs().save();
-        } else {
+        }
+        else if (addType.getSelectedToggle() == radioButtonFolder) {
             DirectoryChooser dc = new DirectoryChooser();
             String path = App.getPrefs().getImagePath();
             if (path != null && Files.exists(Paths.get(path))) {
@@ -163,6 +169,7 @@ public class AddParticleViewController extends AbstractDialogController implemen
             };
             service.setOnSucceeded(event1 -> {
                 files.clear();
+                csvData.clear();
                 files.addAll(service.getValue());
                 this.getDialog().getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
             });
@@ -194,6 +201,38 @@ public class AddParticleViewController extends AbstractDialogController implemen
 //            } catch (IOException ex) {
 //                BasicDialogs.ShowException("Error loading files", ex);
 //            }
+        }
+        if (addType.getSelectedToggle() == radioButtonCSV) {
+            FileChooser dc = new FileChooser();
+            dc.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV (csv)","*.csv", "*.CSV"));
+            String path = App.getPrefs().getImagePath();
+            if (path != null && Files.exists(Paths.get(path))) {
+                dc.setInitialDirectory(new File(path));
+            }
+            dc.setTitle("Select CSV file with image data");
+//            files.clear();
+            File file = dc.showOpenDialog(buttonChooseFolder.getScene().getWindow());
+//            files.addAll(dcFiles);
+//            if (files == null || files.isEmpty()) return;
+            Service<LinkedHashMap<String, LinkedHashMap<String, String>>> service = FlowcamCSVService.getImagesFromFlowcamCSV(supervisor, file);
+            service.setOnSucceeded(event1 -> {
+                files.clear();
+                csvData = service.getValue();
+                List<File> toAdd = csvData.keySet().stream().map(File::new).collect(Collectors.toList());
+                files.addAll(toAdd);
+                this.getDialog().getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
+            });
+            service.setOnFailed(event1 -> {
+                BasicDialogs.ShowException("Error loading CSV", new Exception(service.getException()));
+                this.getDialog().getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
+            });
+            service.messageProperty().addListener((observable, oldValue, newValue) -> {
+                labelFileCount.setText(newValue);
+            });
+            this.getDialog().getDialogPane().lookupButton(ButtonType.OK).setDisable(true);
+            service.start();
+            App.getPrefs().setImagePath(files.get(0).getParent());
+            App.getPrefs().save();
         }
 
         if (files.size() == 0) {
@@ -270,7 +309,13 @@ public class AddParticleViewController extends AbstractDialogController implemen
 
                 }
             }
-            Service<ArrayList<Particle>> service = ProjectService.addImagesToProject(files, supervisor.project, selectionSize);
+            Service<ArrayList<Particle>> service;
+            if (radioButtonCSV.isSelected()) {
+                service = ProjectService.addImagesToProject(csvData, supervisor.project, selectionSize);
+            }
+            else {
+                service = ProjectService.addImagesToProject(files, supervisor.project, selectionSize);
+            }
             service.setOnSucceeded(succeeded -> {
 //                supervisor.project.addParticles((ArrayList<Particle>) service.getValue());
 //                selectionViewModel.setCurrentParticle(service.getValue().get(0));

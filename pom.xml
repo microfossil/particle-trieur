@@ -175,7 +175,15 @@
             <version>3.4.2-1</version>
         </dependency>
 
-<!--        <dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-csv -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>1.8</version>
+        </dependency>
+
+
+        <!--        <dependency>-->
 <!--            <groupId>org.bytedeco</groupId>-->
 <!--            <artifactId>javacv-platform</artifactId>-->
 <!--            <version>1.5.1</version>-->
