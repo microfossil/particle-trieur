@@ -45,7 +45,7 @@ public class FlowcamCSVService {
                             String filename = record.get(filenameHeader);
                             for (String headerName : headerNames) {
                                 if (headerName.equals("")) continue;
-                                payload.put(headerName, record.get(headerName));
+                                payload.put(headerName.toLowerCase(), record.get(headerName));
                             }
                             data.put(filename, payload);
                             count++;
