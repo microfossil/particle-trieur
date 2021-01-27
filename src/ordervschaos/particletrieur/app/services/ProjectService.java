@@ -258,7 +258,8 @@ public class ProjectService {
                                     classifierID,
                                     score,
                                     sample,
-                                    resolution);
+                                    resolution,
+                                    data);
                             toAdd.add(particle);
                             idx++;
                             //if(idx == 200) throw new RuntimeException();

@@ -5,9 +5,6 @@
       <artifact name="ParticleTrieurNoInstaller" />
     </artifacts-to-build>
   </component>
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -21,24 +18,23 @@
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:master" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </expand>
     <select />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d2a2d7e8-5c07-421e-a18f-7e6936f4ce78" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_csv_1_8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/FlowcamCSVService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/morphology/ParametersViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/morphology/ParametersView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ParticleTrieur.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ParticleTrieur.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/project/Particle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/project/Particle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/project/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/project/Project.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/ProjectService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/ProjectService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/network/CNNTrainingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/network/CNNTrainingService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/AddParticleViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/AddParticleViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/SelectionViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/SelectionViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/particle/AddParticleView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/particle/AddParticleView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ParticleViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ParticleViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/Main.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +66,11 @@
         <option name="usePluginRegistry" value="true" />
       </MavenGeneralSettings>
     </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
   </component>
   <component name="ProjectId" id="1jIi2XTb26t6t7bxxu65zpvr0xw" />
   <component name="ProjectViewState">
@@ -82,29 +83,31 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/morphology" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.importing" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\controls" />
-      <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\views\particle" />
-      <recent name="$PROJECT_DIR$/out/artifacts/ParticleTrieur_jar" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\views\particle" />
       <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\views\morphology" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ordervschaos.particletrieur.app.viewcontrollers.morphology" />
       <recent name="ordervschaos.particletrieur.app.controls" />
       <recent name="ordervschaos.particletrieur.app.viewcontrollers.particle" />
       <recent name="ordervschaos.particletrieur.app.viewcontrollers" />
       <recent name="ordervschaos.particletrieur.app.models.network.training" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/morphology" />
+      <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\controls" />
+      <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\views\particle" />
+      <recent name="$PROJECT_DIR$/out/artifacts/ParticleTrieur_jar" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -142,17 +145,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="clean_jar.sh" type="ShConfigurationType" temporary="true">
       <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
       <option name="SCRIPT_PATH" value="$PROJECT_DIR$/clean_jar.sh" />
@@ -162,8 +154,6 @@
       <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
       <option name="INTERPRETER_PATH" value="/bin/bash" />
       <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="EXECUTE_IN_TERMINAL" value="true" />
-      <envs />
       <method v="2" />
     </configuration>
     <list>
@@ -176,7 +166,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -237,6 +227,8 @@
       <workItem from="1611350661749" duration="12676000" />
       <workItem from="1611383466490" duration="3928000" />
       <workItem from="1611608696129" duration="6759000" />
+      <workItem from="1611700659565" duration="943000" />
+      <workItem from="1611743147458" duration="7090000" />
     </task>
     <task id="LOCAL-00001" summary="Move image type below">
       <created>1603508919405</created>
@@ -277,7 +269,7 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -298,6 +290,64 @@
     <MESSAGE value="Rearrange UI and add extra button for sample/class/image" />
     <MESSAGE value="Rearrange UI with extra buttons for presets" />
     <option name="LAST_COMMIT_MESSAGE" value="Rearrange UI with extra buttons for presets" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="446" height="466" key="DebuggerActiveHint" timestamp="1611748934178">
+      <screen x="0" y="23" width="1680" height="977" />
+    </state>
+    <state width="446" height="466" key="DebuggerActiveHint/0.23.1680.977@0.23.1680.977" timestamp="1611748934178" />
+    <state width="1638" height="325" key="GridCell.Tab.0.bottom" timestamp="1611751010556">
+      <screen x="0" y="23" width="1680" height="977" />
+    </state>
+    <state width="1638" height="325" key="GridCell.Tab.0.bottom/0.23.1680.977@0.0.1680.1050" timestamp="1611746107150" />
+    <state width="1638" height="325" key="GridCell.Tab.0.bottom/0.23.1680.977@0.23.1680.977" timestamp="1611751010556" />
+    <state width="1638" height="325" key="GridCell.Tab.0.center" timestamp="1611751010555">
+      <screen x="0" y="23" width="1680" height="977" />
+    </state>
+    <state width="1638" height="325" key="GridCell.Tab.0.center/0.23.1680.977@0.0.1680.1050" timestamp="1611746107149" />
+    <state width="1638" height="325" key="GridCell.Tab.0.center/0.23.1680.977@0.23.1680.977" timestamp="1611751010555" />
+    <state width="1638" height="325" key="GridCell.Tab.0.left" timestamp="1611751010555">
+      <screen x="0" y="23" width="1680" height="977" />
+    </state>
+    <state width="1638" height="325" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1611746107141" />
+    <state width="1638" height="325" key="GridCell.Tab.0.left/0.23.1680.977@0.23.1680.977" timestamp="1611751010555" />
+    <state width="1638" height="325" key="GridCell.Tab.0.right" timestamp="1611751010556">
+      <screen x="0" y="23" width="1680" height="977" />
+    </state>
+    <state width="1638" height="325" key="GridCell.Tab.0.right/0.23.1680.977@0.0.1680.1050" timestamp="1611746107149" />
+    <state width="1638" height="325" key="GridCell.Tab.0.right/0.23.1680.977@0.23.1680.977" timestamp="1611751010556" />
+    <state width="1638" height="325" key="GridCell.Tab.1.bottom" timestamp="1611751068148">
+      <screen x="0" y="23" width="1680" height="977" />
+    </state>
+    <state width="1638" height="325" key="GridCell.Tab.1.bottom/0.23.1680.977@0.0.1680.1050" timestamp="1611746107152" />
+    <state width="1638" height="325" key="GridCell.Tab.1.bottom/0.23.1680.977@0.23.1680.977" timestamp="1611751068148" />
+    <state width="1638" height="325" key="GridCell.Tab.1.center" timestamp="1611751068148">
+      <screen x="0" y="23" width="1680" height="977" />
+    </state>
+    <state width="1638" height="325" key="GridCell.Tab.1.center/0.23.1680.977@0.0.1680.1050" timestamp="1611746107150" />
+    <state width="1638" height="325" key="GridCell.Tab.1.center/0.23.1680.977@0.23.1680.977" timestamp="1611751068148" />
+    <state width="1638" height="325" key="GridCell.Tab.1.left" timestamp="1611751068147">
+      <screen x="0" y="23" width="1680" height="977" />
+    </state>
+    <state width="1638" height="325" key="GridCell.Tab.1.left/0.23.1680.977@0.0.1680.1050" timestamp="1611746107150" />
+    <state width="1638" height="325" key="GridCell.Tab.1.left/0.23.1680.977@0.23.1680.977" timestamp="1611751068147" />
+    <state width="1638" height="325" key="GridCell.Tab.1.right" timestamp="1611751068148">
+      <screen x="0" y="23" width="1680" height="977" />
+    </state>
+    <state width="1638" height="325" key="GridCell.Tab.1.right/0.23.1680.977@0.0.1680.1050" timestamp="1611746107151" />
+    <state width="1638" height="325" key="GridCell.Tab.1.right/0.23.1680.977@0.23.1680.977" timestamp="1611751068148" />
+    <state x="341" y="150" key="SettingsEditor" timestamp="1611743050295">
+      <screen x="0" y="23" width="1680" height="977" />
+    </state>
+    <state x="341" y="150" key="SettingsEditor/0.23.1680.977@0.23.1680.977" timestamp="1611743050295" />
+    <state x="541" y="266" width="613" height="490" key="find.popup" timestamp="1611748644610">
+      <screen x="0" y="23" width="1680" height="977" />
+    </state>
+    <state x="541" y="266" width="613" height="490" key="find.popup/0.23.1680.977@0.23.1680.977" timestamp="1611748644610" />
+    <state x="505" y="238" width="670" height="676" key="search.everywhere.popup" timestamp="1611743055972">
+      <screen x="0" y="23" width="1680" height="977" />
+    </state>
+    <state x="505" y="238" width="670" height="676" key="search.everywhere.popup/0.23.1680.977@0.23.1680.977" timestamp="1611743055972" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

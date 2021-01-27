@@ -213,7 +213,7 @@ public class AddParticleViewController extends AbstractDialogController implemen
 //            files.clear();
             File file = dc.showOpenDialog(buttonChooseFolder.getScene().getWindow());
 //            files.addAll(dcFiles);
-//            if (files == null || files.isEmpty()) return;
+            if (file == null) return;
             Service<LinkedHashMap<String, LinkedHashMap<String, String>>> service = FlowcamCSVService.getImagesFromFlowcamCSV(supervisor, file);
             service.setOnSucceeded(event1 -> {
                 files.clear();

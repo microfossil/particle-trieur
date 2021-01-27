@@ -39,7 +39,11 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * FXML Controller class
@@ -107,9 +111,15 @@ public class ParticleViewController implements Initializable {
         if (filter == null || filter.length() < 1) {
             return true;
         }
-        String lowerCaseFilter = filter.toLowerCase();
+        String lowerCaseFilter = filter.toLowerCase().trim();
 
         String[] parts = lowerCaseFilter.split("\\s+");
+
+//        List<String> parts = new ArrayList<>();
+//        Matcher m = Pattern.compile("\\S+\"[^\"]*\"|\\S+").matcher(lowerCaseFilter);
+//        while (m.find()) {
+//            parts.add(m.group(1).replace("\"", ""));
+//        }
 
         for (String part : parts) {
             String[] params = part.split("((?<=:)|(?=:)|(?<===)|(?===)|(?=!=)|(?=!=))");

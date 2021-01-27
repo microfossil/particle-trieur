@@ -9,6 +9,9 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import org.apache.commons.lang3.SystemUtils;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -45,7 +48,7 @@ public class CNNTrainingService {
         return sb.toString();
     }
 
-    public static void executeInTerminal(String command) throws IOException, InterruptedException {
+    public static void executeInTerminal(String command) throws IOException, InterruptedException, ScriptException {
         final String[] wrappedCommand;
         if (SystemUtils.IS_OS_WINDOWS) {
             wrappedCommand = new String[]{"cmd", "/c", "start", "/wait", "cmd.exe", "/K", command};
@@ -53,6 +56,13 @@ public class CNNTrainingService {
             wrappedCommand = new String[]{"osascript",
                     "-e", "tell application \"Terminal\" to activate",
                     "-e", "tell application \"Terminal\" to do script \"" + command + ";exit\""};
+//            String script = "tell application \"Terminal\"\n" +
+//                    "activate\n" +
+//                    "do script \"" + command + ";exit\"\n" +
+//                    "end tell";
+//            ScriptEngineManager mgr = new ScriptEngineManager();
+//            ScriptEngine engine = mgr.getEngineByName("AppleScriptEngine");
+//            engine.eval(script);
         } else if (SystemUtils.IS_OS_LINUX) {
             wrappedCommand = new String[]{
                     "x-terminal-emulator",
@@ -202,7 +212,7 @@ public class CNNTrainingService {
         }
     }
 
-    public void executePythonCommand(String command) throws IOException, InterruptedException, RuntimeException {
+    public void executePythonCommand(String command) throws IOException, InterruptedException, RuntimeException, ScriptException {
         String pythonPath = getAnacondaInstallationLocation();
         if (pythonPath == null) {
             showAnacondaNotFoundError();

@@ -509,6 +509,12 @@
                                                 <SymbolLabel symbol="feathermove"/>
                                             </graphic>
                                         </Tab>
+                                        <Tab text="Parameters">
+                                            <fx:include source="morphology/ParametersView.fxml" />
+                                            <graphic>
+                                                <SymbolLabel symbol="feathermove"/>
+                                            </graphic>
+                                        </Tab>
                                         <!--                                        <Tab fx:id="tabTraining" text="Training">-->
                                         <!--                                            <content>-->
                                         <!--                                                <fx:include fx:id="trainingView" source="CNNTrainingView.fxml"/>-->

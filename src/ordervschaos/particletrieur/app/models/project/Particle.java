@@ -5,6 +5,8 @@
  */
 package ordervschaos.particletrieur.app.models.project;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 import ordervschaos.particletrieur.app.models.network.classification.Classification;
 import ordervschaos.particletrieur.app.models.network.classification.ClassificationSet;
 import ordervschaos.particletrieur.app.models.processing.Morphology;
@@ -14,10 +16,7 @@ import ordervschaos.particletrieur.app.xml.RelativePathAdapter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import io.seruco.encoding.base62.Base62;
 import javafx.beans.property.DoubleProperty;
@@ -273,6 +272,9 @@ public class Particle {
         this.morphology.set(morphology);
     }
 
+    //Parameters
+    public LinkedHashMap<String, String> parameters = new LinkedHashMap<>();
+
     //UI
     public StringProperty classification = new SimpleStringProperty(this, "classification", Project.UNLABELED_CODE);
     public String getClassification() {
@@ -320,6 +322,12 @@ public class Particle {
         this(file, code, classifierId, score);
         setSampleID(sample);
         setResolution(resolution);
+    }
+
+    public Particle(File file, String code, String classifierId, double score, String sample, double resolution, LinkedHashMap<String, String> parameters) {
+        this(file, code, classifierId, score, sample, resolution);
+        this.parameters.clear();
+        this.parameters.putAll(parameters);
     }
 
     /*
