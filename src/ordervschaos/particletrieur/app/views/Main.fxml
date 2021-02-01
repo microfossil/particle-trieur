@@ -85,6 +85,9 @@
                                                         <MenuItem mnemonicParsing="false" onAction="#handleExport"
                                                                   text="Images..."/>
                                                         <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handleExportProjectToCSV"
+                                                                  text="Project to CSV..."/>
+                                                        <MenuItem mnemonicParsing="false"
                                                                   onAction="#handleExportMorphologyToCSV"
                                                                   text="Morphology to CSV..."/>
                                                         <MenuItem mnemonicParsing="false"

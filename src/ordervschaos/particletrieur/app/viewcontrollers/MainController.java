@@ -685,7 +685,12 @@ public class MainController extends AbstractController implements Initializable 
 
     @FXML
     private void handleExportMorphologyToCSV(ActionEvent event) {
-        exportViewModel.exportProjectData();
+        exportViewModel.exportMorphologyToCSV();
+    }
+
+    @FXML
+    private void handleExportProjectToCSV(ActionEvent event) {
+        exportViewModel.exportProjectToCSV();
     }
 
     @FXML

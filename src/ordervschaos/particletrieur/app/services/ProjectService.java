@@ -220,25 +220,31 @@ public class ProjectService {
                             String classifierID = "from_csv";
                             double score = 1.0;
                             double resolution = 0.0;
+                            ArrayList<String> toRemove = new ArrayList<>();
                             //Sample
                             if (data.containsKey("sample")) {
                                 sample = data.get("sample");
+                                toRemove.add("sample");
                             }
                             //Class
                             if (data.containsKey("class")) {
                                 code = data.get("class");
+                                toRemove.add("class");
                             }
                             else if (data.containsKey("label")) {
                                 code = data.get("label");
+                                toRemove.add("label");
                             }
                             //Classifier
                             if (data.containsKey("classifier")) {
                                 classifierID = data.get("classifier");
+                                toRemove.add("classifier");
                             }
                             //Score
                             if (data.containsKey("score")) {
                                 try {
                                     score = Double.parseDouble(data.get("score"));
+                                    toRemove.add("score");
                                 }
                                 catch (NumberFormatException ex) {
 
@@ -248,10 +254,15 @@ public class ProjectService {
                             if (data.containsKey("resolution")) {
                                 try {
                                     resolution = Double.parseDouble(data.get("resolution"));
+                                    toRemove.add("resolution");
                                 }
                                 catch (NumberFormatException ex) {
 
                                 }
+                            }
+                            //TODO remove extra fields?
+                            for (String s : toRemove) {
+                                data.remove(s);
                             }
                             Particle particle = new Particle(new File(key),
                                     code,

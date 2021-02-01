@@ -11,7 +11,7 @@ import ordervschaos.particletrieur.app.models.network.classification.Classificat
 import ordervschaos.particletrieur.app.models.network.classification.ClassificationSet;
 import ordervschaos.particletrieur.app.models.processing.Morphology;
 import ordervschaos.particletrieur.app.models.processing.processors.MatUtilities;
-import ordervschaos.particletrieur.app.xml.FloatBufferMapAdapter;
+import ordervschaos.particletrieur.app.xml.ParametersMapAdapter;
 import ordervschaos.particletrieur.app.xml.RelativePathAdapter;
 import java.io.File;
 import java.io.IOException;
@@ -274,6 +274,9 @@ public class Particle {
 
     //Parameters
     public LinkedHashMap<String, String> parameters = new LinkedHashMap<>();
+    @XmlElement(name="parameters")
+    @XmlJavaTypeAdapter(ParametersMapAdapter.class)
+    public LinkedHashMap<String, String> getParameters() { return parameters; }
 
     //UI
     public StringProperty classification = new SimpleStringProperty(this, "classification", Project.UNLABELED_CODE);

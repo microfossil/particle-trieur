@@ -38,7 +38,7 @@ public class ExportViewModel {
         }
     }
 
-    public void exportProjectData() {
+    public void exportMorphologyToCSV() {
         //Export file
         FileChooser fc = new FileChooser();
 //        String dir = App.getPrefs().getProjectPath();
@@ -76,6 +76,40 @@ public class ExportViewModel {
             BasicDialogs.ProgressDialogWithCancel2(
                     "Operation",
                     "Exporting morphology to CSV",
+                    App.getRootPane(),
+                    service).start();
+        }
+    }
+
+    public void exportProjectToCSV() {
+        //Export file
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Choose where to save exported file");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV file (*.csv)", "*.csv"));
+        fc.setInitialFileName("project.csv");
+        String path = App.getPrefs().getExportPath();
+        if(path != null && Files.exists(Paths.get(path))) {
+            fc.setInitialDirectory(new File(path));
+        }
+        File file = fc.showSaveDialog(App.getWindow());
+
+        if (file == null) return;
+
+        //Confimation dialog
+        AlertEx alert = new AlertEx(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Export project to CSV");
+        alert.setContentText("Exporting information to "  + file.getAbsolutePath());
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        Optional<ButtonType> result = alert.showAndWait();
+        if(!result.isPresent()) {
+            return;
+        }
+        App.getPrefs().setExportPath(file.getParent());
+        if (result.get() == ButtonType.OK) {
+            Service service = ExportMorphologyService.exportInformationToCSV(supervisor.project.particles, supervisor, file);
+            BasicDialogs.ProgressDialogWithCancel2(
+                    "Operation",
+                    "Exporting project to CSV",
                     App.getRootPane(),
                     service).start();
         }

@@ -10,17 +10,16 @@ import ordervschaos.particletrieur.app.models.processing.processors.MorphologyPr
 import ordervschaos.particletrieur.app.models.project.Particle;
 import ordervschaos.particletrieur.app.models.project.Project;
 import ordervschaos.particletrieur.app.services.ImageProcessingService;
+import org.eclipse.persistence.internal.jaxb.many.MapEntry;
 import org.opencv.core.Mat;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class ExportMorphologyService {
 
@@ -61,8 +60,7 @@ public class ExportMorphologyService {
                                         indices.put(foram, idx.intValue() + 1);
                                         image.release();
                                     }
-                                }
-                                catch (Exception ex) {
+                                } catch (Exception ex) {
                                     skippedBecauseOfErrors.getAndIncrement();
                                 }
                                 idx.getAndIncrement();
@@ -78,7 +76,7 @@ public class ExportMorphologyService {
                         BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
                         writer.write(headerString);
                         int idx2 = 0;
-                        for (Map.Entry<Particle,Morphology> entry : morphologies.entrySet()) {
+                        for (Map.Entry<Particle, Morphology> entry : morphologies.entrySet()) {
                             if (this.isCancelled()) return null;
                             Particle particle = entry.getKey();
                             Morphology morphology = entry.getValue();
@@ -93,6 +91,75 @@ public class ExportMorphologyService {
                                     particle.getImageHeight(),
                                     particle.getImageWidth())
                                     + morphology.toStringCSV(particle.getResolution()) + '\n');
+                            idx2++;
+                            updateMessage(String.format("%d/%d records exported", idx2, particles.size()));
+                            updateProgress(idx2, particles.size());
+                        }
+                        writer.close();
+                        return null;
+                    }
+                };
+            }
+        };
+        return service;
+    }
+
+    public static Service exportInformationToCSV(
+            List<Particle> particles,
+            Supervisor supervisor,
+            File file) {
+
+
+        Service<Void> service = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws InterruptedException, IOException {
+                        updateMessage("Exporting...");
+
+                        final AtomicInteger skippedBecauseOfErrors = new AtomicInteger(0);
+                        final AtomicInteger idx = new AtomicInteger(0);
+
+                        LinkedHashMap<Particle, Morphology> morphologies = new LinkedHashMap<>();
+                        LinkedHashMap<Particle, Integer> indices = new LinkedHashMap<>();
+
+                        //Get headers
+                        HashSet<String> headerSet = new HashSet<>();
+                        particles.forEach(particle -> {
+                            for (Map.Entry<String, String> entry : particle.parameters.entrySet()) {
+                                headerSet.add(entry.getKey());
+                            }
+                        });
+                        List<String> headers = headerSet.stream().sorted().collect(Collectors.toList());
+
+                        //Output to file
+                        String headerString = "id,filename,label,sample,index1,index2,resolution,GUID,labeled_by,validated_by";
+                        for (String header : headers) {
+                            headerString += "," + header;
+                        }
+                        headerString += "\n";
+                        BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
+                        writer.write(headerString);
+                        int idx2 = 0;
+                        for (Particle particle : particles) {
+                            if (this.isCancelled()) return null;
+                            writer.write(String.format("%d,%s,%s,%s,%f,%f,%f,%s,%s,%s",
+                                    idx2 + 1,
+                                    particle.getFile().getAbsolutePath(),
+                                    particle.getClassification(),
+                                    particle.getSampleID(),
+                                    particle.getIndex1(),
+                                    particle.getIndex2(),
+                                    particle.getResolution(),
+                                    particle.getGUID(),
+                                    particle.classifierIdProperty.get(),
+                                    particle.getValidator()));
+                            for (String header : headers) {
+                                String value = particle.parameters.getOrDefault(header,"");
+                                writer.write("," + value);
+                            }
+                            writer.write("\n");
                             idx2++;
                             updateMessage(String.format("%d/%d records exported", idx2, particles.size()));
                             updateProgress(idx2, particles.size());
