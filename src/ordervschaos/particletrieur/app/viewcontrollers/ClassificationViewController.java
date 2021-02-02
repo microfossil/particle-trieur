@@ -57,6 +57,12 @@ import java.util.stream.Collectors;
 public class ClassificationViewController implements Initializable {
 
     @FXML
+    ToggleButton toggleButtonLabelsCategory;
+    @FXML
+    ToggleGroup toggleGroupLabelMode;
+    @FXML
+    ToggleButton toggleButtonLabelsFlat;
+    @FXML
     SymbolLabel symbolValidate;
     @FXML
     Button buttonValidate;
@@ -695,5 +701,15 @@ public class ClassificationViewController implements Initializable {
     @FXML
     private void handlePredictUsingkNN(ActionEvent event) {
         predictionViewModel.predictUsingkNN(selectionViewModel.getCurrentParticles());
+    }
+
+    @FXML
+    private void handleToggleLabelModeFlat(ActionEvent event) {
+        setupClassificationUI(supervisor.project, 0);
+    }
+
+    @FXML
+    private void handleToggleLabelModeCategory(ActionEvent event) {
+        setupClassificationUI(supervisor.project, 1);
     }
 }

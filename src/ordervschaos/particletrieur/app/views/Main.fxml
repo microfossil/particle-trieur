@@ -515,7 +515,7 @@
                                         <Tab text="Parameters">
                                             <fx:include source="morphology/ParametersView.fxml" />
                                             <graphic>
-                                                <SymbolLabel symbol="feathermove"/>
+                                                <SymbolLabel symbol="featherlist"/>
                                             </graphic>
                                         </Tab>
                                         <!--                                        <Tab fx:id="tabTraining" text="Training">-->

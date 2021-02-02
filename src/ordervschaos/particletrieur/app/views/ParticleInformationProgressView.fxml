@@ -12,7 +12,7 @@
 
 <HBox alignment="CENTER_LEFT" spacing="7.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.ParticleInformationProgressViewController">
     <children>
-        <VBox alignment="CENTER_RIGHT" spacing="3.0">
+        <VBox alignment="CENTER_RIGHT" spacing="3.0" HBox.hgrow="ALWAYS">
             <children>
                 <HBox alignment="CENTER_LEFT">
                     <children>
