@@ -264,6 +264,16 @@ public class MainController extends AbstractController implements Initializable 
                 projectRepositoryViewModel.openProject((String) startupParams);
                 break;
         }
+
+        if (!App.getPrefs().getLastVersion().equals(App.VERSION)) {
+            try {
+                AbstractDialogController.create(WhatsNewViewController.class).showAndWait();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            App.getPrefs().setLastVersion(App.VERSION);
+            App.getPrefs().save();
+        }
     }
 
     /**

@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -21,18 +22,13 @@
             <VBox>
                 <Label fx:id="labelId" text="Index"/>
                 <Label fx:id="labelClassification" text="Classification"/>
+                <Label fx:id="labelInfo" text=""/>
             </VBox>
             <Pane HBox.hgrow="ALWAYS"/>
-            <StackPane fx:id="validated" >
-                <Circle radius="14" style="-fx-fill: -fx-background;"/>
-                <SymbolLabel fx:id="symbolLabelValidated"
-                             symbol="feathercheckcircle"
-                             symbolColor="green"
-                             symbolSize="20">
-                        <StackPane.margin>
-                            <Insets top="-1"/>
-                        </StackPane.margin>
-                </SymbolLabel>
+            <StackPane>
+                <Circle radius="10" style="-fx-fill: -fx-background;"/>
+                <Circle fx:id="circleRed" radius="8" style="-fx-fill: red;"/>
+                <Circle fx:id="circleGreen" radius="8" style="-fx-fill: green;"/>
             </StackPane>
         </HBox>
     </top>

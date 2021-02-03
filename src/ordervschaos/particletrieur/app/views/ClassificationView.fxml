@@ -123,9 +123,7 @@
                                 </Spinner>
                             </children>
                         </HBox>
-                        <fx:include source="ParticleInformationProgressView.fxml"/>
-
-
+<!--                        <fx:include source="ParticleInformationProgressView.fxml"/>-->
                         <Separator>
                             <VBox.margin>
                                 <Insets top="14.0"/>

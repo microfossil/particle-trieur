@@ -277,6 +277,7 @@ public class Particle {
     @XmlElement(name="parameters")
     @XmlJavaTypeAdapter(ParametersMapAdapter.class)
     public LinkedHashMap<String, String> getParameters() { return parameters; }
+    public void setParameters(LinkedHashMap<String, String> value) { parameters = value; }
 
     //UI
     public StringProperty classification = new SimpleStringProperty(this, "classification", Project.UNLABELED_CODE);

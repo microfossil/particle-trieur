@@ -4,6 +4,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.image.Image;
 import ordervschaos.particletrieur.app.App;
+import ordervschaos.particletrieur.app.controls.ParticleGridCellSimilarityControl;
 import ordervschaos.particletrieur.app.helpers.AutoCancellingServiceRunner;
 import ordervschaos.particletrieur.app.models.network.features.Similarity;
 import ordervschaos.particletrieur.app.models.Supervisor;
@@ -170,8 +171,7 @@ public class SimilarityViewController extends AbstractController implements Init
 
     public class SimilarParticleCell extends GridCell<Similarity> {
 
-        public ForamImageControl im = new ForamImageControl(supervisor, labelsViewModel);
-
+        public ParticleGridCellSimilarityControl im = new ParticleGridCellSimilarityControl();
         public int index = 0;
 
         //Loading task
@@ -179,7 +179,7 @@ public class SimilarityViewController extends AbstractController implements Init
 
         public SimilarParticleCell() {
             super();
-            im.setSize(100);
+            updateSelection();
             currentCells.add(new WeakReference<>(this));
             setOnMouseClicked(event ->
             {
@@ -201,47 +201,18 @@ public class SimilarityViewController extends AbstractController implements Init
                     int startIdxOld = Math.min(shiftSelectedIndex, currentIdx);
                     int endIdxOld = Math.max(shiftSelectedIndex, currentIdx);
 
-//                    System.out.println("-----");
-//                    System.out.println(selectedIndex);
-//                    System.out.println(currentIdx);
-//                    System.out.println(shiftSelectedIndex);
-
                     ArrayList<Similarity> toRemove = new ArrayList<>();
                     ArrayList<Similarity> toAdd= new ArrayList<>();
 
                     for (int i = startIdxOld; i <= endIdxOld; i++) {
                         toRemove.add(images.get(i));
-//                        if (!currentItems.contains(images.get(i))) {
-//                            selectedItems.remove(images.get(i));
-//                            System.out.print(i);
-//                            System.out.print(" ");
-//                        }
                     }
 
                     for (int i = startIdx; i <= endIdx; i++) {
                         toAdd.add(images.get(i));
-//                        currentItems.add(images.get(i));
-//                        selectedItems.add(images.get(i));
-//                        System.out.print(i);
-//                        System.out.print(" ");
                     }
                     selectedItems.removeAll(toRemove);
                     selectedItems.addAll(toAdd);
-
-//                    for (int i = startIdx; i <= endIdx; i++) {
-//                        currentItems.add(images.get(i));
-//                        selectedItems.add(images.get(i));
-//                        System.out.print(i);
-//                        System.out.print(" ");
-//                    }
-//                    System.out.println();
-//                    for (int i = startIdxOld; i <= endIdxOld; i++) {
-//                        if (!currentItems.contains(images.get(i))) {
-//                            selectedItems.remove(images.get(i));
-//                            System.out.print(i);
-//                            System.out.print(" ");
-//                        }
-//                    }
                     shiftSelectedIndex = currentIdx;
                 }
                 else {
@@ -265,7 +236,6 @@ public class SimilarityViewController extends AbstractController implements Init
 
         @Override
         protected void updateItem(Similarity item, boolean empty) {
-
             //Stop already running image fetch tast
             if (loadingTask.get() != null &&
                     loadingTask.get().getState() != Worker.State.SUCCEEDED &&
@@ -299,8 +269,8 @@ public class SimilarityViewController extends AbstractController implements Init
                 };
                 loadingTask.set(task);
                 task.setOnSucceeded(event -> {
-                    im.setData(thisParticle, thatParticle, item.index + 1, item.value, true ,task.getValue());
-                    im.selected.set(selectedItems.contains(item));
+                    im.setData(thisParticle, thatParticle, item.index + 1, item.value, task.getValue());
+//                    im.selected.set(selectedItems.contains(item));
                 });
                 App.getExecutorService().submit(task);
             }
@@ -313,9 +283,21 @@ public class SimilarityViewController extends AbstractController implements Init
         }
 
         public void updateSelection() {
-            im.selected.set(selectedItems.contains(this.getItem()));
-//            System.out.print(getIndex());
-//            System.out.print(" ");
+//            if (this.getItem() == null) {
+//                this.setStyle("-fx-border-color: #eeeeee; -fx-background-color: transparent; -fx-text-fill: -fx-text-base-color;");
+//            }
+//            else if (this.getItem().index == selectionViewModel.getCurrentParticleIndex()) {
+//                this.setStyle("-fx-border-color: #eeeeee; -fx-background-color: #333333; -fx-text-fill: white;");
+//            }
+            if (selectedItems.contains(this.getItem())) {
+                this.setStyle("-fx-border-color: #eeeeee; -fx-background-color: -fx-accent; -fx-text-fill: white;");
+                im.getStyleClass().clear();
+                im.getStyleClass().add("selected-content");
+            }
+            else {
+                this.setStyle("-fx-border-color: #eeeeee; -fx-background-color: transparent; -fx-text-fill: -fx-text-base-color;");
+                im.getStyleClass().clear();
+            }
         }
     }
 
@@ -350,39 +332,39 @@ public class SimilarityViewController extends AbstractController implements Init
     }
 
 
-    private Service<List<ForamImageControl>> populateImagesService(List<Similarity> similarities) {
-        return new Service<List<ForamImageControl>>() {
-            @Override
-            protected Task<List<ForamImageControl>> createTask() {
-                return new Task<List<ForamImageControl>>() {
-                    @Override
-                    protected List<ForamImageControl> call() throws Exception {
-                        ArrayList<ForamImageControl> foramImageControls = new ArrayList<>();
-
-                        for (Similarity sim : similarities) {
-                            if (this.isCancelled()) {
-                                return null;
-                            }
-                            ForamImageControl im;
-                            if (supervisor.project.particles.get(sim.index) == selectionViewModel.getCurrentParticle()) {
-                                continue;
-                            }
-                            else {
-                                im = new ForamImageControl(supervisor, labelsViewModel);
-                                im.setSize(100);
-                                im.setData(supervisor.project.particles.get(sim.index), selectionViewModel.getCurrentParticle(), sim.index + 1, sim.value, true);
-                            }
-                            foramImageControls.add(im);
-                        }
-                        ForamImageControl im = new ForamImageControl(supervisor, labelsViewModel);
-                        im.setSize(100);
-                        im.setData(selectionViewModel.getCurrentParticle(), null, selectionViewModel.getCurrentParticleIndex() + 1, "", true);
-                        foramImageControls.add(0, im);
-
-                        return foramImageControls;
-                    }
-                };
-            }
-        };
-    }
+//    private Service<List<ForamImageControl>> populateImagesService(List<Similarity> similarities) {
+//        return new Service<List<ForamImageControl>>() {
+//            @Override
+//            protected Task<List<ForamImageControl>> createTask() {
+//                return new Task<List<ForamImageControl>>() {
+//                    @Override
+//                    protected List<ForamImageControl> call() throws Exception {
+//                        ArrayList<ForamImageControl> foramImageControls = new ArrayList<>();
+//
+//                        for (Similarity sim : similarities) {
+//                            if (this.isCancelled()) {
+//                                return null;
+//                            }
+//                            ForamImageControl im;
+//                            if (supervisor.project.particles.get(sim.index) == selectionViewModel.getCurrentParticle()) {
+//                                continue;
+//                            }
+//                            else {
+//                                im = new ForamImageControl(supervisor, labelsViewModel);
+//                                im.setSize(100);
+//                                im.setData(supervisor.project.particles.get(sim.index), selectionViewModel.getCurrentParticle(), sim.index + 1, sim.value, true);
+//                            }
+//                            foramImageControls.add(im);
+//                        }
+//                        ForamImageControl im = new ForamImageControl(supervisor, labelsViewModel);
+//                        im.setSize(100);
+//                        im.setData(selectionViewModel.getCurrentParticle(), null, selectionViewModel.getCurrentParticleIndex() + 1, "", true);
+//                        foramImageControls.add(0, im);
+//
+//                        return foramImageControls;
+//                    }
+//                };
+//            }
+//        };
+//    }
 }

@@ -173,15 +173,15 @@ public class CNNTrainingService {
         String linuxB = "/usr/local/anaconda3/envs/" + ENV + "/bin/python";
         String commonA = appPrefs.getPythonPath();
         if (SystemUtils.IS_OS_WINDOWS) {
-            if (!commonA.equals("") && new File(commonA).exists()) return commonA;
+            if (commonA != null && !commonA.equals("") && new File(commonA).exists()) return commonA;
             else if (new File(windowsA).exists()) return windowsA;
             else if (new File(windowsB).exists()) return windowsB;
         } else if (SystemUtils.IS_OS_MAC_OSX) {
-            if (!commonA.equals("") && new File(commonA).exists()) return commonA;
-            if (new File(macA).exists()) return macA;
+            if (commonA != null && !commonA.equals("") && new File(commonA).exists()) return commonA;
+            else if (new File(macA).exists()) return macA;
             else if (new File(macB).exists()) return macB;
         } else if (SystemUtils.IS_OS_LINUX) {
-            if (!commonA.equals("") && new File(commonA).exists()) return commonA;
+            if (commonA != null && !commonA.equals("") && new File(commonA).exists()) return commonA;
             else if (new File(linuxA).exists()) return linuxA;
             else if (new File(linuxB).exists()) return linuxB;
         }

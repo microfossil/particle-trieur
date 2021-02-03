@@ -104,6 +104,7 @@ public class ParticleGridViewController implements Initializable {
 
         public ParticleCell() {
             super();
+//            this.setStyle("-fx-border-color: #eeeeee; -fx-background-color: transparent; -fx-text-fill: -fx-text-base-color;");
 //            im.setSize(currentSize);
             currentCells.add(new WeakReference<>(this));
             setOnMouseClicked(event ->

@@ -16,6 +16,10 @@
             prefHeight="360.0" prefWidth="480.0">
     <VBox spacing="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <children>
+            <Label text="2.4.0" styleClass="subheader"/>
+            <Label wrapText="true">Added grid view and grouped classification labels</Label>
+            <Label wrapText="true">Changed layout of the similarity tab</Label>
+            <Label wrapText="true">Add support for loading Flowcam CSVs</Label>
             <Label text="2.3.3" styleClass="subheader"/>
             <Label wrapText="true">Fixed validation button to show an indeterminate state when particles with a mix of validation states have been selected</Label>
         </children>

@@ -4,6 +4,7 @@ import ordervschaos.particletrieur.app.models.processing.Mask;
 import ordervschaos.particletrieur.app.models.processing.Morphology;
 import ordervschaos.particletrieur.app.models.processing.ParticleImage;
 import org.opencv.core.*;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.ArrayList;
@@ -15,7 +16,14 @@ public class MorphologyProcessor {
         Morphology m = new Morphology();
 
         Mask mask = image.mask;
-        Mat greyscale = image.greyscaleImage;
+        Mat greyscale;
+        if (image.workingImage.channels() == 3) {
+            greyscale = new Mat();
+            Imgproc.cvtColor(image.workingImage, greyscale, Imgproc.COLOR_BGR2GRAY);
+        }
+        else {
+            greyscale = image.workingImage.clone();
+        }
         Mat binary = mask.binary;
         Mat binaryF = mask.binaryF;
         MatOfPoint contour = mask.contour;

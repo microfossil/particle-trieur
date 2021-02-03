@@ -45,7 +45,7 @@
                         </HBox>
                         <Separator orientation="VERTICAL" />
                         <SymbolLabel symbol="feathercornerrightdown" />
-                        <Label text="Set below to" />
+<!--                        <Label text="Set below to" />-->
                         <SplitMenuButton fx:id="menuButtonLabels" minWidth="120.0" mnemonicParsing="false" onAction="#handleSetLabel" text="N/A">
                             <graphic>
                                 <SymbolLabel symbol="feathertag" />
@@ -53,7 +53,7 @@
                         </SplitMenuButton>
                         <Separator orientation="VERTICAL" />
                         <SymbolLabel symbol="feathercornerupleft" />
-                        <Label text="Set current to" />
+<!--                        <Label text="Set current to" />-->
                         <SplitMenuButton fx:id="menuButtonCurrentLabels" minWidth="120.0" mnemonicParsing="false" onAction="#handleSetCurrentLabel" text="N/A">
                             <graphic>
                                 <SymbolLabel symbol="feathertag" />
@@ -65,7 +65,7 @@
 <!--                            <SymbolLabel symbol="featherlist" />-->
 <!--                        </graphic>-->
 <!--                  </ToggleButton>-->
-                        <Button fx:id="buttonDelete" mnemonicParsing="false" onAction="#handleDelete" text="Remove">
+                        <Button fx:id="buttonDelete" mnemonicParsing="false" onAction="#handleDelete">
                             <graphic>
                                 <SymbolLabel symbol="featherminus" />
                             </graphic>
@@ -74,7 +74,14 @@
                 </ToolBar>
             </top>
             <center>
-                <GridView fx:id="gridView" cellHeight="220.0" cellWidth="160.0" horizontalCellSpacing="7.0" prefHeight="200.0" prefWidth="200.0" verticalCellSpacing="7.0" BorderPane.alignment="CENTER" />
+                <GridView fx:id="gridView"
+                          cellHeight="220.0"
+                          cellWidth="160.0"
+                          horizontalCellSpacing="0.0"
+                          prefHeight="224.0"
+                          prefWidth="160.0"
+                          verticalCellSpacing="0.0"
+                          BorderPane.alignment="CENTER" />
             </center>
         </BorderPane>
     </children>

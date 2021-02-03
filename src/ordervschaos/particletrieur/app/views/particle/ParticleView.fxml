@@ -74,15 +74,15 @@
                                 <Tooltip text="Filter list by label code.&#10;Use the prefix &quot;tag:&quot; to filter by tag, or &quot;file:&quot; to filter by filename." wrapText="true" />
                             </tooltip>
                         </CustomTextField>
-                        <Button mnemonicParsing="false" onAction="#handleExpandList" prefHeight="25.0">
-                            <graphic>
-                                <SymbolLabel fx:id="fontIconExpander" symbol="featherfastforward" />
-                                <!--                                <FontIcon  iconLiteral="fth-fast-forward" />-->
-                            </graphic>
-                            <tooltip>
-                                <Tooltip text="Add folder of images" />
-                            </tooltip>
-                        </Button>
+<!--                        <Button mnemonicParsing="false" onAction="#handleExpandList" prefHeight="25.0">-->
+<!--                            <graphic>-->
+<!--                                <SymbolLabel fx:id="fontIconExpander" symbol="featherfastforward" />-->
+<!--                                &lt;!&ndash;                                <FontIcon  iconLiteral="fth-fast-forward" />&ndash;&gt;-->
+<!--                            </graphic>-->
+<!--                            <tooltip>-->
+<!--                                <Tooltip text="Add folder of images" />-->
+<!--                            </tooltip>-->
+<!--                        </Button>-->
                     </children>
                 </HBox>
             </top>

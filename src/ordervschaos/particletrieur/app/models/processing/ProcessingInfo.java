@@ -26,7 +26,7 @@ public class ProcessingInfo {
     //
     //
     //Image Type
-    private final ObjectProperty<ImageType> imageType = new SimpleObjectProperty<>(ImageType.LIGHTONDARK);
+    private final ObjectProperty<ImageType> imageType = new SimpleObjectProperty<>(ImageType.DARKONLIGHT);
     @XmlElement(name = "imageType")
     public ImageType getImageType() {
         return imageType.get();
@@ -265,7 +265,7 @@ public class ProcessingInfo {
 
     public void resetToDefaults() {
         //Image
-        setImageType(ImageType.LIGHTONDARK);
+        setImageType(ImageType.DARKONLIGHT);
         //Initial fixes
         setRemoveBlackBorder(false);
         setRemoveWhiteBorder(false);

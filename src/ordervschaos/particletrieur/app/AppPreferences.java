@@ -19,7 +19,7 @@ import java.util.prefs.Preferences;
 public class AppPreferences {
     
     //Preferences
-    public static Preferences appPrefs =  Preferences.userRoot().node("particleTrieur");
+    public static Preferences appPrefs =  Preferences.userRoot().node("particleTrieur2");
 
     //Needs checking in here for valid path
     public String getProjectPath() { return appPrefs.get("projectPath", System.getProperty("user.home")); }

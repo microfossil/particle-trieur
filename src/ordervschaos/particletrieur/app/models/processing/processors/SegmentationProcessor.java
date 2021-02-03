@@ -109,7 +109,7 @@ public class SegmentationProcessor {
         if (imageType == ImageType.LIGHTONDARK)
             Imgproc.threshold(image, mask.binary, threshold, 255, Imgproc.THRESH_BINARY);
         if (imageType == ImageType.DARKONLIGHT)
-            Imgproc.threshold(image, mask.binary, threshold, 255, Imgproc.THRESH_BINARY_INV);
+            Imgproc.threshold(image, mask.binary, 255 - threshold, 255, Imgproc.THRESH_BINARY_INV);
         if (mask.binaryF != null) mask.binaryF.release();
         mask.binaryF = new Mat();
         mask.binary.convertTo(mask.binaryF, CvType.CV_32F);

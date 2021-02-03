@@ -6,22 +6,17 @@
 package ordervschaos.particletrieur.app.controls;
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
 import ordervschaos.particletrieur.app.App;
-import ordervschaos.particletrieur.app.models.Supervisor;
 import ordervschaos.particletrieur.app.models.project.Particle;
-import org.controlsfx.control.PopOver;
-import org.eclipse.persistence.platform.database.SybasePlatform;
 
 import java.io.IOException;
 
@@ -30,10 +25,12 @@ import java.io.IOException;
  *
  * @author Ross Marchant <ross.g.marchant@gmail.com>
  */
-public class ParticleGridCellControl extends BorderPane {
+public class ParticleGridCellSimilarityControl extends BorderPane {
 
     @FXML
-    StackPane validated;
+    Circle circleRed;
+    @FXML
+    Circle circleGreen;
     @FXML
     ImageViewPane imageViewPane;
     @FXML
@@ -43,12 +40,13 @@ public class ParticleGridCellControl extends BorderPane {
     @FXML
     Label labelClassification;
     @FXML
-    SymbolLabel symbolLabelValidated;
+    Label labelInfo;
 
     private Particle particle;
+    private Particle relativeParticle;
 
-    public ParticleGridCellControl() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ParticleGridCellControl.fxml"));
+    public ParticleGridCellSimilarityControl() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ParticleGridCellSimilarityControl.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -60,22 +58,46 @@ public class ParticleGridCellControl extends BorderPane {
     
     @FXML 
     public void initialize() {
-        validated.setVisible(false);
+        circleRed.setVisible(false);
+        circleGreen.setVisible(false);
         BorderPane.setMargin(imageViewPane, new Insets(4));
-//        symbolLabelValidated.setVisible(false);
+        labelClassification.textProperty().addListener((observable, oldValue, newValue) -> setState());
     }
 
-    public void setData(Particle particle, int index) {
+    private void setState() {
+        if (particle == relativeParticle) {
+            circleGreen.setVisible(false);
+            circleRed.setVisible(false);
+        }
+        else if (particle.getClassification().equals(relativeParticle.getClassification())) {
+            circleGreen.setVisible(true);
+            circleRed.setVisible(false);
+        }
+        else {
+            circleGreen.setVisible(false);
+            circleRed.setVisible(true);
+        }
+    }
+
+    public void setData(Particle particle, Particle relativeParticle, int index, String description, Image image) {
         this.particle = particle;
-        labelId.setText(String.format("#%d", index + 1));
+        this.relativeParticle = relativeParticle;
+
+        labelId.setText(String.format("#%d",index));
         labelClassification.textProperty().bind(this.particle.classification);
-        validated.visibleProperty().bind(Bindings.not(Bindings.equal(particle.validatorProperty(), "")));
-        try {
-            imageView.setImage(particle.getImage());
-        } catch (IOException ex) {
+        labelInfo.setText(description);
+
+        if (particle.equals(relativeParticle)) {
+            labelInfo.setText("selected");
+        }
+        setState();
+
+        if (image != null) {
+            imageView.setImage(image);
+        }
+        else {
             Image missingImage = new Image(App.class.getResourceAsStream("resources/missing-image-128.png"), 128, 128, true, true);
             imageView.setImage(missingImage);
         }
-        imageViewPane.layoutChildren();
     }
 }

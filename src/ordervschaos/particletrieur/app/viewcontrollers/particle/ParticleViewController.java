@@ -122,13 +122,17 @@ public class ParticleViewController implements Initializable {
 //        }
 
         for (String part : parts) {
-            String[] params = part.split("((?<=:)|(?=:)|(?<===)|(?===)|(?=!=)|(?=!=))");
+            String[] params = part.split("((?<====)|(?====)|(?<=:)|(?=:)|(?<===)|(?===)|(?=!=)|(?=!=))");
             if (params.length != 3) {
                 return false;
             }
             // TODO add the match all
             boolean matched = false;
             boolean result = false;
+            boolean exact = false;
+            if (params[1].equals("===")) {
+                exact = true;
+            }
             // TODO add match everything / some
             switch (params[0]) {
                 case "#":
@@ -144,27 +148,32 @@ public class ParticleViewController implements Initializable {
                     break;
                 case "file":
                     matched = true;
-                    result = particle.getShortFilename().toLowerCase().contains(params[2]);
+                    if (exact) result = particle.getShortFilename().toLowerCase().equals(params[2]);
+                    else result = particle.getShortFilename().toLowerCase().contains(params[2]);
                     break;
                 case "folder":
                     matched = true;
-                    result = particle.getFile().getParent().toLowerCase().contains(params[2]);
+                    if (exact) result = particle.getFile().getParent().toLowerCase().equals(params[2]);
+                    else result = particle.getFile().getParent().toLowerCase().contains(params[2]);
                     break;
                 case "tag":
                     matched = true;
-                    result = particle.tagsToString().toLowerCase().contains(params[2]);
+                    result = particle.tagsToString().toLowerCase().replace(" ", "_").contains(params[2]);
                     break;
                 case "label":
                     matched = true;
-                    result = particle.getClassification().toLowerCase().contains(params[2]);
+                    if (exact) result = particle.getClassification().toLowerCase().replace(" ", "_").equals(params[2]);
+                    else result = particle.getClassification().toLowerCase().replace(" ", "_").contains(params[2]);
                     break;
                 case "guid":
                     matched = true;
-                    result = particle.getGUID().toLowerCase().contains(params[2]);
+                    if (exact) result = particle.getGUID().toLowerCase().equals(params[2]);
+                    else result = particle.getGUID().toLowerCase().contains(params[2]);
                     break;
                 case "sample":
                     matched = true;
-                    result = particle.getSampleID().toLowerCase().contains(params[2]);
+                    if (exact) result = particle.getSampleID().toLowerCase().equals(params[2]);
+                    else result = particle.getSampleID().toLowerCase().contains(params[2]);
                     break;
                 case "index1":
                     matched = true;
