@@ -123,6 +123,11 @@ public class KNNPredictionViewModel {
         }
     }
 
+
+    public void refreshPredictions() {
+        onCurrentParticleUpdated(selectionViewModel.getCurrentParticle());
+    }
+
     public void calculateVectors() {
         AlertEx alert = new AlertEx(Alert.AlertType.CONFIRMATION, "This will reset all feature vectors. Are you sure?", ButtonType.YES, ButtonType.CANCEL);
         alert.showAndWait().ifPresent(buttonType -> {

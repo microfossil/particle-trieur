@@ -157,6 +157,10 @@ public class CNNPredictionViewModel {
         }
     }
 
+    public void refreshPredictions() {
+        onCurrentParticleUpdated(selectionViewModel.getCurrentParticle());
+    }
+
     public NetworkInfo loadNetworkDefinition() {
         FileChooser dc = new FileChooser();
         dc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Network Information (xml)", "*.xml"));

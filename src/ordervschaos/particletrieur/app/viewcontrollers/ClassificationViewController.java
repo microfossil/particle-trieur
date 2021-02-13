@@ -155,7 +155,8 @@ public class ClassificationViewController implements Initializable {
         supervisor.project.taxonsUpdatedEvent.addListener(listener -> {
             setupClassificationUI(supervisor.project, 1);
             updateClassificationUI(selectionViewModel.getCurrentParticle());
-            selectionViewModel.refreshPredictions();
+            cnnPredictionViewModel.refreshPredictions();
+            knnPredictionViewModel.refreshPredictions();
         });
         supervisor.project.tagsUpdatedEvent.addListener(listener -> {
             setupTagUI(supervisor.project);

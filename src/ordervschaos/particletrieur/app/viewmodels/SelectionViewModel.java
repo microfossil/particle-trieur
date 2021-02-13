@@ -64,7 +64,6 @@ public class SelectionViewModel {
         int index =  supervisor.project.getParticles().indexOf(getCurrentParticle());
         return index;
     }
-
     public int getParticleIndex(Particle particle) {
         return supervisor.project.getParticles().indexOf(particle);
     }
@@ -106,8 +105,6 @@ public class SelectionViewModel {
                 Mat mat = newValue.getMat();
                 if (mat != null) {
                     imageProcessingService.processAsyncAndReleaseMat(mat, supervisor.project.processingInfo, currentParticleImage);
-//                    knnPredictionViewModel.onCurrentParticleUpdated(newValue);
-//                    cnnPredictionViewModel.onCurrentParticleUpdated(newValue);
                 }
             }
             else {
@@ -123,11 +120,6 @@ public class SelectionViewModel {
                 imageProcessingService.processAsyncAndReleaseMat(mat, supervisor.project.processingInfo, currentParticleImage);
             }
         }
-    }
-
-    public void refreshPredictions() {
-//        knnPredictionViewModel.onCurrentParticleUpdated(getCurrentParticle());
-//        cnnPredictionViewModel.onCurrentParticleUpdated(getCurrentParticle());
     }
 
     public void checkIfCurrentWasUpdated(Particle particle) {
