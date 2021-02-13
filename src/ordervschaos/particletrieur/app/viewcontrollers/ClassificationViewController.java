@@ -25,9 +25,6 @@ import com.google.inject.Inject;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -39,12 +36,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import ordervschaos.particletrieur.app.viewmodels.network.CNNPredictionViewModel;
+import ordervschaos.particletrieur.app.viewmodels.network.KNNPredictionViewModel;
+import ordervschaos.particletrieur.app.viewmodels.particles.LabelsViewModel;
+import ordervschaos.particletrieur.app.viewmodels.particles.TagsViewModel;
 import ordervschaos.particletrieur.app.viewmodels.network.NetworkViewModel;
 import org.controlsfx.control.PopOver;
-import org.controlsfx.control.ToggleSwitch;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.*;
@@ -114,7 +113,9 @@ public class ClassificationViewController implements Initializable {
     @Inject
     TagsViewModel tagsViewModel;
     @Inject
-    NetworkViewModel networkViewModel;
+    CNNPredictionViewModel cnnPredictionViewModel;
+    @Inject
+    KNNPredictionViewModel knnPredictionViewModel;
     @Inject
     LabelsViewModel labelsViewModel;
 
@@ -136,8 +137,8 @@ public class ClassificationViewController implements Initializable {
 
         //Controls
         checkBoxPreprocessBeforeClassification.selectedProperty().bindBidirectional(supervisor.project.processingInfo.processBeforeClassificationProperty());
-        spinnerCNNThreshold.getValueFactory().valueProperty().bindBidirectional(networkViewModel.cnnThresholdProperty());
-        spinnerKNNThreshold.getValueFactory().valueProperty().bindBidirectional(networkViewModel.knnThresholdProperty());
+        spinnerCNNThreshold.getValueFactory().valueProperty().bindBidirectional(cnnPredictionViewModel.cnnThresholdProperty());
+        spinnerKNNThreshold.getValueFactory().valueProperty().bindBidirectional(knnPredictionViewModel.knnThresholdProperty());
 
         //Current particle updated
         selectionViewModel.currentParticleProperty().addListener((observable, oldValue, newValue) -> {
@@ -169,7 +170,7 @@ public class ClassificationViewController implements Initializable {
         setupTagUI(supervisor.project);
 
         //kNN classification updated
-        selectionViewModel.knnPredictionViewModel.kNNPredictedClassificationProperty().addListener((observable, oldValue, newValue) -> {
+        knnPredictionViewModel.kNNPredictedClassificationProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null || newValue.classifications.size() == 0) {
 //                buttonkNNLabel.setText("N/A");
                 updateKNNUI(null);
@@ -182,7 +183,7 @@ public class ClassificationViewController implements Initializable {
         });
 
         //CNN classification updated
-        selectionViewModel.cnnPredictionViewModel.cnnPredictedClassificationProperty().addListener((observable, oldValue, newValue) -> {
+        cnnPredictionViewModel.cnnPredictedClassificationProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null || newValue.classifications.size() == 0) {
 //                buttonCNNLabel.setText("N/A");
                 updateCNNUI(null);
@@ -195,7 +196,7 @@ public class ClassificationViewController implements Initializable {
         });
 
         //CNN running
-        selectionViewModel.cnnPredictionViewModel.runningProperty().addListener((observable, oldValue, newValue) -> {
+        cnnPredictionViewModel.runningProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 symbolLabelDeepCNNRefresh.setVisible(true);
                 rotateTransitionSymbolLabelDeepCNN.play();
@@ -677,14 +678,14 @@ public class ClassificationViewController implements Initializable {
 
     @FXML
     private void handlePredictUsingCNN(ActionEvent event) {
-        networkViewModel.predictUsingCNN(
+        cnnPredictionViewModel.predictUsingCNN(
                 selectionViewModel.getCurrentParticles(),
                 supervisor.project.processingInfo.getProcessBeforeClassification());
     }
 
     @FXML
     private void handleSetClassFromkNNPrediction(ActionEvent event) {
-        Classification cls = selectionViewModel.knnPredictionViewModel.getkNNPredictedClassification().getBest();
+        Classification cls = knnPredictionViewModel.getkNNPredictedClassification().getBest();
         labelsViewModel.setLabel(cls.getCode(), cls.getValue(), true);
 
     }
@@ -695,13 +696,13 @@ public class ClassificationViewController implements Initializable {
 
     @FXML
     private void handleSetClassFromCNNPrediction(ActionEvent event) {
-        Classification cls = selectionViewModel.cnnPredictionViewModel.getCnnPredictedClassification().getBest();
+        Classification cls = cnnPredictionViewModel.getCnnPredictedClassification().getBest();
         labelsViewModel.setLabel(cls.getCode(), cls.getValue(), true);
     }
 
     @FXML
     private void handlePredictUsingkNN(ActionEvent event) {
-        networkViewModel.predictUsingkNN(selectionViewModel.getCurrentParticles());
+        knnPredictionViewModel.predictUsingkNN(selectionViewModel.getCurrentParticles());
     }
 
     @FXML

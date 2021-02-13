@@ -1,4 +1,4 @@
-package ordervschaos.particletrieur.app.viewmodels;
+package ordervschaos.particletrieur.app.viewmodels.particles;
 
 import ordervschaos.particletrieur.app.controls.AlertEx;
 import ordervschaos.particletrieur.app.viewmanagers.UndoManager;
@@ -11,6 +11,7 @@ import ordervschaos.particletrieur.app.viewcontrollers.particle.EditParticleMeta
 import com.google.inject.Inject;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import ordervschaos.particletrieur.app.viewmodels.SelectionViewModel;
 
 import java.io.IOException;
 import java.util.List;

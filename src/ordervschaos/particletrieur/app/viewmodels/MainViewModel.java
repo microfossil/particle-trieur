@@ -15,7 +15,6 @@ public class MainViewModel {
 
     public CSEvent addImageRequested = new CSEvent();
     public CSEvent removeImageRequested = new CSEvent();
-    public CSEvent expandListRequested = new CSEvent();
 
     public CNNTrainingViewController cnnTrainingViewController;
     public FlowcamSegmenterViewController flowcamSegmenterViewController;

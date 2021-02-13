@@ -81,9 +81,6 @@ public class SelectionViewModel {
     // Parts
     private Supervisor supervisor;
     private ImageProcessingService imageProcessingService;
-    public KNNPredictionViewModel knnPredictionViewModel;
-    public CNNPredictionViewModel cnnPredictionViewModel;
-
     public BooleanProperty getImageProcessingIsRunningProperty() {
         return imageProcessingService.runningProperty();
     }
@@ -94,8 +91,6 @@ public class SelectionViewModel {
         filteredList = new FilteredList<>(supervisor.project.particles, p -> true);
         sortedList = new SortedList<>(filteredList);
 
-        knnPredictionViewModel = new KNNPredictionViewModel(supervisor);
-        cnnPredictionViewModel = new CNNPredictionViewModel(supervisor);
         imageProcessingService = new ImageProcessingService(supervisor.FCNNSegmenter);
 
         currentParticles.addListener((ListChangeListener<? super Particle>) listener -> {
@@ -111,8 +106,8 @@ public class SelectionViewModel {
                 Mat mat = newValue.getMat();
                 if (mat != null) {
                     imageProcessingService.processAsyncAndReleaseMat(mat, supervisor.project.processingInfo, currentParticleImage);
-                    knnPredictionViewModel.onCurrentParticleUpdated(newValue);
-                    cnnPredictionViewModel.onCurrentParticleUpdated(newValue);
+//                    knnPredictionViewModel.onCurrentParticleUpdated(newValue);
+//                    cnnPredictionViewModel.onCurrentParticleUpdated(newValue);
                 }
             }
             else {
@@ -131,8 +126,8 @@ public class SelectionViewModel {
     }
 
     public void refreshPredictions() {
-        knnPredictionViewModel.onCurrentParticleUpdated(getCurrentParticle());
-        cnnPredictionViewModel.onCurrentParticleUpdated(getCurrentParticle());
+//        knnPredictionViewModel.onCurrentParticleUpdated(getCurrentParticle());
+//        cnnPredictionViewModel.onCurrentParticleUpdated(getCurrentParticle());
     }
 
     public void checkIfCurrentWasUpdated(Particle particle) {
@@ -141,139 +136,5 @@ public class SelectionViewModel {
 
     public void checkIfCurrentWasUpdated(List<Particle> particles) {
         if (particles.contains(getCurrentParticle())) currentParticleUpdatedEvent.broadcast();
-    }
-    /**
-     * Monitors the currently selected particle and predicts what label it should have
-     */
-    public class KNNPredictionViewModel {
-
-        public final int K = 10;
-
-
-        private AutoCancellingServiceRunner<ClassificationSet> kNNPredictionServiceRunner = new AutoCancellingServiceRunner<>("knn");
-
-        private ObjectProperty<ClassificationSet> kNNPredictedClassification = new SimpleObjectProperty<>();
-        public ClassificationSet getkNNPredictedClassification() {
-            return kNNPredictedClassification.get();
-        }
-        public ObjectProperty<ClassificationSet> kNNPredictedClassificationProperty() {
-            return kNNPredictedClassification;
-        }
-        public void setkNNPredictedClassification(ClassificationSet kNNPredictedClassification) {
-            this.kNNPredictedClassification.set(kNNPredictedClassification);
-        }
-
-        private BooleanProperty running = new SimpleBooleanProperty(false);
-        public boolean isRunning() {
-            return running.get();
-        }
-        public BooleanProperty runningProperty() {
-            return running;
-        }
-        public void setRunning(boolean running) {
-            this.running.set(running);
-        }
-
-        private Supervisor supervisor;
-        private ordervschaos.particletrieur.app.services.network.KNNVectorPredictionService KNNVectorPredictionService;
-
-        public KNNPredictionViewModel(Supervisor supervisor) {
-            this.supervisor = supervisor;
-            KNNVectorPredictionService = new KNNVectorPredictionService(supervisor);
-        }
-
-        public void onCurrentParticleUpdated(Particle particle) {
-            if (particle == null) {
-                setkNNPredictedClassification(null);
-                return;
-            }
-            Service<ClassificationSet> service = KNNVectorPredictionService.predictUsingKNNService(particle, supervisor.project.getParticles(), K);
-            service.setOnCancelled(event -> {
-
-            });
-            service.setOnSucceeded(event -> {
-                ClassificationSet classificationSet = service.getValue();
-                if (classificationSet != null) {
-                    setkNNPredictedClassification(classificationSet);
-                }
-                else {
-                    setkNNPredictedClassification(null);
-                }
-            });
-            service.setOnFailed(event -> {
-                Exception ex = new Exception(service.getException());
-                ex.printStackTrace();
-            });
-            kNNPredictionServiceRunner.run(service);
-        }
-    }
-
-    /**
-     * Monitors the currently selected particle and predicts what label it should have
-     */
-    public class CNNPredictionViewModel {
-
-        public final int K = 10;
-        private AutoCancellingServiceRunner<ClassificationSet> cnnPredictionServiceRunner = new AutoCancellingServiceRunner<>("cnn");
-
-        private ObjectProperty<ClassificationSet> cnnPredictedClassification = new SimpleObjectProperty<>();
-        public ClassificationSet getCnnPredictedClassification() {
-            return cnnPredictedClassification.get();
-        }
-        public ObjectProperty<ClassificationSet> cnnPredictedClassificationProperty() {
-            return cnnPredictedClassification;
-        }
-        public void setCnnPredictedClassification(ClassificationSet cnnPredictedClassification) {
-            this.cnnPredictedClassification.set(cnnPredictedClassification);
-        }
-
-        private BooleanProperty running = new SimpleBooleanProperty(false);
-        public boolean isRunning() {
-            return running.get();
-        }
-        public BooleanProperty runningProperty() {
-            return running;
-        }
-        public void setRunning(boolean running) {
-            this.running.set(running);
-        }
-
-        private Supervisor supervisor;
-        private CNNPredictionService cnnPredictionService;
-
-        public CNNPredictionViewModel(Supervisor supervisor) {
-            this.supervisor = supervisor;
-            this.cnnPredictionService = new CNNPredictionService(supervisor);
-        }
-
-        public void onCurrentParticleUpdated(Particle particle) {
-
-            if (particle == null || !supervisor.network.isEnabled()) {
-                setCnnPredictedClassification(null);
-                return;
-            }
-
-            Service<ClassificationSet> service = cnnPredictionService.predictService(particle, supervisor.project.processingInfo.getProcessBeforeClassification());
-
-            service.setOnCancelled(event -> {
-
-            });
-
-            //TODO remove the thread is interupted from the services
-            service.setOnSucceeded(event -> {
-                if (service.getValue() != null) {
-                    setCnnPredictedClassification(service.getValue());
-                }
-                setRunning(false);
-            });
-
-            service.setOnFailed(event -> {
-                Exception ex = new Exception(service.getException());
-                ex.printStackTrace();
-                setRunning(false);
-            });
-            setRunning(true);
-            cnnPredictionServiceRunner.run(service);
-        }
     }
 }

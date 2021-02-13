@@ -6,7 +6,6 @@
 package ordervschaos.particletrieur.app.controls;
 
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -17,8 +16,6 @@ import javafx.scene.layout.AnchorPane;
 import ordervschaos.particletrieur.app.App;
 import ordervschaos.particletrieur.app.models.Supervisor;
 import ordervschaos.particletrieur.app.models.project.Particle;
-import ordervschaos.particletrieur.app.viewcontrollers.particle.ImageDescriptionPopover;
-import ordervschaos.particletrieur.app.viewmodels.LabelsViewModel;
 import org.controlsfx.control.PopOver;
 
 import java.io.IOException;

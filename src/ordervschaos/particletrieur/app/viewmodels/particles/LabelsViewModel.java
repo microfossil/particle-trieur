@@ -1,4 +1,4 @@
-package ordervschaos.particletrieur.app.viewmodels;
+package ordervschaos.particletrieur.app.viewmodels.particles;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -12,12 +12,11 @@ import com.google.inject.Inject;
 import ordervschaos.particletrieur.app.viewmanagers.UndoManager;
 import ordervschaos.particletrieur.app.viewmanagers.commands.SetLabelCommand;
 import ordervschaos.particletrieur.app.viewmanagers.commands.SetLabelSetCommand;
+import ordervschaos.particletrieur.app.viewmodels.SelectionViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class LabelsViewModel {
 

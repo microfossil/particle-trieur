@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ordervschaos.particletrieur.app.services.network;
 
 import ordervschaos.particletrieur.app.models.Supervisor;
@@ -12,7 +7,6 @@ import ordervschaos.particletrieur.app.models.processing.ParticleImage;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package ordervschaos.particletrieur.app.viewmodels;
+package ordervschaos.particletrieur.app.viewmodels.project;
 
 import ordervschaos.particletrieur.app.App;
 import ordervschaos.particletrieur.app.controls.BasicDialogs;
@@ -15,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ordervschaos.particletrieur.app.viewmanagers.UndoManager;
+import ordervschaos.particletrieur.app.viewmodels.MainViewModel;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
@@ -48,7 +49,6 @@ public class ProjectRepositoryViewModel {
             fc.setInitialDirectory(new File(path));
         }
         fc.setTitle("Choose a project file to open");
-//        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Project file", "*.xml", "*.miso"));
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Project file", "*.xml"));
         File file = fc.showOpenDialog(App.getWindow());
         //Open
@@ -104,7 +104,6 @@ public class ProjectRepositoryViewModel {
             fc.setInitialDirectory(new File(path));
         }
         fc.setTitle("Choose a project file as a template");
-//        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Project file", "*.xml", "*.miso"));
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Project file", "*.xml"));
         File file = fc.showOpenDialog(App.getWindow());
         //Open
@@ -172,15 +171,8 @@ public class ProjectRepositoryViewModel {
         } else {
             fc.setInitialFileName("project.xml");
         }
-        String initialFilename = fc.getInitialFileName();
-//        if (initialFilename.endsWith("miso")) {
-//            fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Compressed project (*.miso)", "*.miso"));
-//            fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Project (*.xml)", "*.xml"));
-//        }
-//        else {
+
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Project (*.xml)", "*.xml"));
-//            fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Compressed project (*.miso)", "*.miso"));
-//        }
         File file = fc.showSaveDialog(App.getWindow());
         //Save
         if (file != null) {

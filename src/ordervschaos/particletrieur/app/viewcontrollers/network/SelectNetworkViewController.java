@@ -19,6 +19,7 @@ import ordervschaos.particletrieur.app.FxmlLocation;
 import ordervschaos.particletrieur.app.models.Supervisor;
 import ordervschaos.particletrieur.app.models.network.classification.NetworkInfo;
 import ordervschaos.particletrieur.app.models.network.classification.NetworkLabel;
+import ordervschaos.particletrieur.app.viewmodels.network.CNNPredictionViewModel;
 import ordervschaos.particletrieur.app.viewmodels.network.NetworkViewModel;
 
 import java.net.URL;
@@ -50,7 +51,7 @@ public class SelectNetworkViewController extends AbstractDialogController implem
     Supervisor supervisor;
 
     @Inject
-    NetworkViewModel networkViewModel;
+    CNNPredictionViewModel cnnPredictionViewModel;
 
     NetworkInfo def = null;
     
@@ -118,7 +119,7 @@ public class SelectNetworkViewController extends AbstractDialogController implem
 
     @FXML
     private void handleChooseNetwork(ActionEvent event) {
-        NetworkInfo info = networkViewModel.loadNetworkDefinition();
+        NetworkInfo info = cnnPredictionViewModel.loadNetworkDefinition();
         if (info != null) {
             def = info;
             updateUI(false);

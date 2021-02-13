@@ -8,7 +8,7 @@ package ordervschaos.particletrieur.app.viewcontrollers.label;
 import ordervschaos.particletrieur.app.models.project.Taxon;
 import ordervschaos.particletrieur.app.AbstractDialogController;
 import ordervschaos.particletrieur.app.FxmlLocation;
-import ordervschaos.particletrieur.app.viewmodels.LabelsViewModel;
+import ordervschaos.particletrieur.app.viewmodels.particles.LabelsViewModel;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

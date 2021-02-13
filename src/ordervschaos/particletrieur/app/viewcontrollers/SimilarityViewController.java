@@ -10,12 +10,12 @@ import ordervschaos.particletrieur.app.models.network.features.Similarity;
 import ordervschaos.particletrieur.app.models.Supervisor;
 import ordervschaos.particletrieur.app.models.project.Particle;
 import ordervschaos.particletrieur.app.models.project.Taxon;
-import ordervschaos.particletrieur.app.viewmodels.LabelsViewModel;
-import ordervschaos.particletrieur.app.viewmodels.ParticlesViewModel;
+import ordervschaos.particletrieur.app.viewmodels.network.KNNPredictionViewModel;
+import ordervschaos.particletrieur.app.viewmodels.particles.LabelsViewModel;
+import ordervschaos.particletrieur.app.viewmodels.particles.ParticlesViewModel;
 import ordervschaos.particletrieur.app.services.ParticleSimilarityService;
 import ordervschaos.particletrieur.app.AbstractController;
 import ordervschaos.particletrieur.app.viewmodels.SelectionViewModel;
-import ordervschaos.particletrieur.app.controls.ForamImageControl;
 import com.google.inject.Inject;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -59,6 +59,8 @@ public class SimilarityViewController extends AbstractController implements Init
     ParticlesViewModel particlesViewModel;
     @Inject
     LabelsViewModel labelsViewModel;
+    @Inject
+    KNNPredictionViewModel knnPredictionViewModel;
 
     ObservableList<Similarity> images = FXCollections.observableArrayList();
     private ObservableList<Similarity> selectedItems = FXCollections.observableArrayList();
@@ -115,7 +117,7 @@ public class SimilarityViewController extends AbstractController implements Init
         });
         onTaxonsUpdated();
 
-        selectionViewModel.knnPredictionViewModel.kNNPredictedClassificationProperty().addListener((observable, oldValue, newValue) -> {
+        knnPredictionViewModel.kNNPredictedClassificationProperty().addListener((observable, oldValue, newValue) -> {
             menuButtonCurrentLabels.setText(newValue.getBestCode());
         });
     }

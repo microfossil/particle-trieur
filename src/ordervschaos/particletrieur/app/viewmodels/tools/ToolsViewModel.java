@@ -1,5 +1,6 @@
-package ordervschaos.particletrieur.app.viewmodels;
+package ordervschaos.particletrieur.app.viewmodels.tools;
 
+import javafx.stage.DirectoryChooser;
 import ordervschaos.particletrieur.app.App;
 import ordervschaos.particletrieur.app.controls.BasicDialogs;
 import ordervschaos.particletrieur.app.models.project.Project;
@@ -12,15 +13,19 @@ import com.google.inject.Inject;
 import javafx.concurrent.Service;
 import javafx.scene.control.TextInputDialog;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
-public class FindDuplicatesViewModel {
-
-    Supervisor supervisor;
+public class ToolsViewModel {
 
     @Inject
-    public FindDuplicatesViewModel(Supervisor supervisor) {
-        this.supervisor = supervisor;
+    Supervisor supervisor;
+
+    public ToolsViewModel() {
+
     }
 
     public void tagMissing(List<Particle> particles) {
@@ -121,5 +126,36 @@ public class FindDuplicatesViewModel {
                 "Tagging duplicates by feature vector",
                 App.getRootPane(),
                 service).start();
+    }
+
+    public void toggleFolderWatch() {
+        if (!supervisor.folderWatch.isEnabled()) {
+            BasicDialogs.ShowInfo("Folder Watch", "Select a folder to watch. Images added to this directory will be added to the current project.");
+            DirectoryChooser chooser = new DirectoryChooser();
+            chooser.setTitle("Select folder to watch...");
+            String path = App.getPrefs().getProjectPath();
+            if (path != null && Files.exists(Paths.get(path))) {
+                chooser.setInitialDirectory(new File(path));
+            }
+            File res = chooser.showDialog(App.getWindow());
+            if (res == null) return;
+            try {
+                supervisor.folderWatch.start(res);
+                if (supervisor.folderWatch.isEnabled()) {
+                    BasicDialogs.ShowInfo("Folder Watch",
+                            String.format("The folder\n%s\nis now being watched.",
+                                    res.getAbsolutePath()));
+                }
+                else {
+                    BasicDialogs.ShowError("Folder Watch", "Unknown error starting folder watch.");
+                }
+            } catch (IOException e) {
+                BasicDialogs.ShowException("Error starting folder watch", e);
+            }
+
+        }
+        else {
+            supervisor.folderWatch.stop();
+        }
     }
 }

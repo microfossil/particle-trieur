@@ -1,19 +1,19 @@
-package ordervschaos.particletrieur.app.viewmodels;
+package ordervschaos.particletrieur.app.viewmodels.export;
 
-import ordervschaos.particletrieur.app.App;
-import ordervschaos.particletrieur.app.models.Supervisor;
-import ordervschaos.particletrieur.app.AbstractDialogController;
-import ordervschaos.particletrieur.app.services.export.ExportAbundanceService;
-import ordervschaos.particletrieur.app.services.export.ExportMorphologyService;
-import ordervschaos.particletrieur.app.viewcontrollers.ExportViewController;
-import ordervschaos.particletrieur.app.controls.BasicDialogs;
 import com.google.inject.Inject;
 import javafx.concurrent.Service;
-import ordervschaos.particletrieur.app.controls.AlertEx;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
+import ordervschaos.particletrieur.app.AbstractDialogController;
+import ordervschaos.particletrieur.app.App;
+import ordervschaos.particletrieur.app.controls.AlertEx;
+import ordervschaos.particletrieur.app.controls.BasicDialogs;
+import ordervschaos.particletrieur.app.models.Supervisor;
+import ordervschaos.particletrieur.app.services.export.ExportAbundanceService;
+import ordervschaos.particletrieur.app.services.export.ExportMorphologyService;
+import ordervschaos.particletrieur.app.viewcontrollers.ExportViewController;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,12 +21,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Optional;
 
+
 public class ExportViewModel {
 
     @Inject
     Supervisor supervisor;
-    @Inject
-    SelectionViewModel selectionViewModel;
 
     public void exportProjectImages() {
         //Show export option
@@ -41,13 +40,6 @@ public class ExportViewModel {
     public void exportMorphologyToCSV() {
         //Export file
         FileChooser fc = new FileChooser();
-//        String dir = App.getPrefs().getProjectPath();
-//        if (dir != null) {
-//            File dirFile = new File(dir);
-//            if (dirFile.exists()) {
-//                fc.setInitialDirectory(dirFile);
-//            }
-//        }
         fc.setTitle("Choose where to save exported file");
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV file (*.csv)", "*.csv"));
         fc.setInitialFileName("morphology.csv");
@@ -118,13 +110,6 @@ public class ExportViewModel {
     public void exportAbundance() {
         //Export file
         FileChooser fc = new FileChooser();
-//        String dir = App.getPrefs().getProjectPath();
-//        if (dir != null) {
-//            File dirFile = new File(dir);
-//            if (dirFile.exists()) {
-//                fc.setInitialDirectory(dirFile);
-//            }
-//        }
         fc.setTitle("Choose where to save exported file");
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV file (*.csv)", "*.csv"));
         fc.setInitialFileName("abundance.csv");
@@ -160,13 +145,6 @@ public class ExportViewModel {
     public void exportSampleCounts() {
         //Export file
         FileChooser fc = new FileChooser();
-//        String dir = App.getPrefs().getProjectPath();
-//        if (dir != null) {
-//            File dirFile = new File(dir);
-//            if (dirFile.exists()) {
-//                fc.setInitialDirectory(dirFile);
-//            }
-//        }
         fc.setTitle("Choose where to save exported file");
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV file (*.csv)", "*.csv"));
         fc.setInitialFileName("sample_counts.csv");

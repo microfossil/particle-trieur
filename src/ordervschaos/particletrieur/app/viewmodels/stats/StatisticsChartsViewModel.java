@@ -1,4 +1,4 @@
-package ordervschaos.particletrieur.app.viewmodels;
+package ordervschaos.particletrieur.app.viewmodels.stats;
 
 import ordervschaos.particletrieur.app.models.Supervisor;
 import ordervschaos.particletrieur.app.services.StatisticsService;

@@ -13,7 +13,7 @@ import ordervschaos.particletrieur.app.viewcontrollers.particle.ImageDescription
 
 import java.io.IOException;
 
-import ordervschaos.particletrieur.app.viewmodels.LabelsViewModel;
+import ordervschaos.particletrieur.app.viewmodels.particles.LabelsViewModel;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

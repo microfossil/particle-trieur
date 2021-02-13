@@ -1,4 +1,4 @@
-package ordervschaos.particletrieur.app.viewmodels;
+package ordervschaos.particletrieur.app.viewmodels.particles;
 
 import ordervschaos.particletrieur.app.AppPreferences;
 import ordervschaos.particletrieur.app.models.project.Project;
@@ -6,6 +6,7 @@ import ordervschaos.particletrieur.app.models.Supervisor;
 import ordervschaos.particletrieur.app.models.project.Tag;
 import ordervschaos.particletrieur.app.controls.BasicDialogs;
 import com.google.inject.Inject;
+import ordervschaos.particletrieur.app.viewmodels.SelectionViewModel;
 
 import java.util.List;
 

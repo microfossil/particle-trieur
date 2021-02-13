@@ -199,11 +199,6 @@ public class ParticleViewController implements Initializable {
     }
 
     @FXML
-    private void handleExpandList(ActionEvent event) {
-        mainViewModel.expandListRequested.broadcast();
-    }
-
-    @FXML
     private void handleSelectAll(ActionEvent event) {
         selectionViewModel.selectAllRequested.broadcast();
     }

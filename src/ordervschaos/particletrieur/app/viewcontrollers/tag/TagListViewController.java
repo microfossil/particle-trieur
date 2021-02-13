@@ -11,10 +11,10 @@ import ordervschaos.particletrieur.app.AbstractDialogController;
 import ordervschaos.particletrieur.app.FxmlLocation;
 import ordervschaos.particletrieur.app.models.project.Project;
 import ordervschaos.particletrieur.app.models.Supervisor;
-import ordervschaos.particletrieur.app.viewmodels.LabelsViewModel;
+import ordervschaos.particletrieur.app.viewmodels.particles.LabelsViewModel;
 import ordervschaos.particletrieur.app.viewmodels.SelectionViewModel;
 import ordervschaos.particletrieur.app.models.project.Tag;
-import ordervschaos.particletrieur.app.viewmodels.TagsViewModel;
+import ordervschaos.particletrieur.app.viewmodels.particles.TagsViewModel;
 import com.google.inject.Inject;
 
 import java.io.IOException;

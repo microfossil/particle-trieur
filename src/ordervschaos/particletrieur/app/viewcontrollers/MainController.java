@@ -52,7 +52,15 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 //import org.bytedeco.javacpp.Loader;
 //import org.bytedeco.opencv.opencv_java;
+import ordervschaos.particletrieur.app.viewmodels.export.ExportViewModel;
+import ordervschaos.particletrieur.app.viewmodels.network.CNNPredictionViewModel;
+import ordervschaos.particletrieur.app.viewmodels.network.KNNPredictionViewModel;
+import ordervschaos.particletrieur.app.viewmodels.particles.LabelsViewModel;
+import ordervschaos.particletrieur.app.viewmodels.particles.ParticlesViewModel;
 import ordervschaos.particletrieur.app.viewmodels.network.NetworkViewModel;
+import ordervschaos.particletrieur.app.viewmodels.project.ProjectRepositoryViewModel;
+import ordervschaos.particletrieur.app.viewmodels.stats.StatisticsChartsViewModel;
+import ordervschaos.particletrieur.app.viewmodels.tools.ToolsViewModel;
 import org.tensorflow.TensorFlow;
 
 import java.util.stream.Collectors;
@@ -156,13 +164,15 @@ public class MainController extends AbstractController implements Initializable 
     @Inject
     NetworkViewModel networkViewModel;
     @Inject
+    KNNPredictionViewModel knnPredictionViewModel;
+    @Inject
+    CNNPredictionViewModel cnnPredictionViewModel;
+    @Inject
     ExportViewModel exportViewModel;
     @Inject
     ProjectRepositoryViewModel projectRepositoryViewModel;
     @Inject
-    FindDuplicatesViewModel findDuplicatesViewModel;
-    @Inject
-    FolderWatchViewModel folderWatchViewModel;
+    ToolsViewModel toolsViewModel;
     @Inject
     UndoManager undoManager;
     @Inject
@@ -276,7 +286,8 @@ public class MainController extends AbstractController implements Initializable 
     }
 
     /**
-     * Check if the project needs saving, if so display the save dialog, if not clean up and exit
+     * Setup stage for events
+     * close: check if the project needs saving, if so display the save dialog, if not clean up and exit
      * @param stage
      */
     public void setupStage(Stage stage) {
@@ -542,9 +553,9 @@ public class MainController extends AbstractController implements Initializable 
     @FXML
     private void handleTagDuplicatesByCNNVector(ActionEvent event) {
         if (selectionViewModel.getCurrentParticles().size() > 1) {
-            findDuplicatesViewModel.tagDuplicatesUsingCNNVector(selectionViewModel.getCurrentParticles(), true);
+            toolsViewModel.tagDuplicatesUsingCNNVector(selectionViewModel.getCurrentParticles(), true);
         } else {
-            findDuplicatesViewModel.tagDuplicatesUsingCNNVector(selectionViewModel.getCurrentParticles(), false);
+            toolsViewModel.tagDuplicatesUsingCNNVector(selectionViewModel.getCurrentParticles(), false);
         }
     }
 
@@ -555,9 +566,9 @@ public class MainController extends AbstractController implements Initializable 
     @FXML
     private void handleTagDuplicatesUsingFileHash(ActionEvent event) {
         if (selectionViewModel.getCurrentParticles().size() > 1) {
-            findDuplicatesViewModel.tagDuplicatesUsingFilename(selectionViewModel.getCurrentParticles(), true);
+            toolsViewModel.tagDuplicatesUsingFilename(selectionViewModel.getCurrentParticles(), true);
         } else {
-            findDuplicatesViewModel.tagDuplicatesUsingFilename(selectionViewModel.getCurrentParticles(), false);
+            toolsViewModel.tagDuplicatesUsingFilename(selectionViewModel.getCurrentParticles(), false);
         }
     }
 
@@ -567,28 +578,9 @@ public class MainController extends AbstractController implements Initializable 
      */
     @FXML
     private void handleTagMissing(ActionEvent event) {
-        findDuplicatesViewModel.tagMissing(supervisor.project.getParticles());
+        toolsViewModel.tagMissing(supervisor.project.getParticles());
     }
 
-    /**
-     * Expand / contract the forams list
-     */
-    //TODO remove as not needed
-//    private void expandList() {
-//        if (splitPaneMain.getDividerPositions()[0] > 0.9) {
-//            splitPaneMain.setDividerPositions(splitPaneMainCurrentDivision);
-//            particleListViewController.setExpanded(false);
-//        } else {
-//            splitPaneMainCurrentDivision = splitPaneMain.getDividerPositions()[0];
-//            splitPaneMain.setDividerPositions(1.0);
-//            particleListViewController.setExpanded(true);
-//        }
-//    }
-
-    /**
-     * Edit selected forams
-     * @param event
-     */
     @FXML
     private void handleEditForam(ActionEvent event) {
         particlesViewModel.editParticlesMetadata();
@@ -684,7 +676,7 @@ public class MainController extends AbstractController implements Initializable 
 
     @FXML
     public void handleFolderWatch(ActionEvent event) {
-        folderWatchViewModel.toggleFolderWatch();
+        toolsViewModel.toggleFolderWatch();
     }
 
     @FXML
@@ -739,12 +731,12 @@ public class MainController extends AbstractController implements Initializable 
 
     @FXML
     private void handlePredictUsingCNN(ActionEvent event) {
-        networkViewModel.predictUsingCNN(selectionViewModel.getCurrentParticles(), supervisor.project.processingInfo.getProcessBeforeClassification());
+        cnnPredictionViewModel.predictUsingCNN(selectionViewModel.getCurrentParticles(), supervisor.project.processingInfo.getProcessBeforeClassification());
     }
 
     @FXML
     private void handlePredictUsingCNNAll(ActionEvent event) {
-        networkViewModel.predictUsingCNN(supervisor.project.getParticles(), supervisor.project.processingInfo.getProcessBeforeClassification());
+        cnnPredictionViewModel.predictUsingCNN(supervisor.project.getParticles(), supervisor.project.processingInfo.getProcessBeforeClassification());
     }
 
     //TODO move into viewmodel
@@ -754,17 +746,17 @@ public class MainController extends AbstractController implements Initializable 
                 .stream()
                 .filter(foram -> foram.classification.get().equalsIgnoreCase(Project.UNLABELED_CODE))
                 .collect(Collectors.toList());
-        networkViewModel.predictUsingCNN(unlabeledParticles, supervisor.project.processingInfo.getProcessBeforeClassification());
+        cnnPredictionViewModel.predictUsingCNN(unlabeledParticles, supervisor.project.processingInfo.getProcessBeforeClassification());
     }
 
     @FXML
     private void handlePredictUsingKNN(ActionEvent event) {
-        networkViewModel.predictUsingkNN(selectionViewModel.getCurrentParticles());
+        knnPredictionViewModel.predictUsingkNN(selectionViewModel.getCurrentParticles());
     }
 
     @FXML
     private void handlePredictUsingKNNAll(ActionEvent event) {
-        networkViewModel.predictUsingkNN(supervisor.project.getParticles());
+        knnPredictionViewModel.predictUsingkNN(supervisor.project.getParticles());
     }
 
     //TODO move into viewmodel
@@ -774,7 +766,7 @@ public class MainController extends AbstractController implements Initializable 
                 .stream()
                 .filter(foram -> foram.classification.get().equalsIgnoreCase(Project.UNLABELED_CODE))
                 .collect(Collectors.toList());
-        networkViewModel.predictUsingkNN(unlabeledParticles);
+        knnPredictionViewModel.predictUsingkNN(unlabeledParticles);
     }
 
     @FXML
@@ -784,7 +776,7 @@ public class MainController extends AbstractController implements Initializable 
 
     @FXML
     private void handleCalculateCNNVectors(ActionEvent event) {
-        networkViewModel.calculateVectors();
+        knnPredictionViewModel.calculateVectors();
     }
 
     @FXML
