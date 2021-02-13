@@ -52,6 +52,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 //import org.bytedeco.javacpp.Loader;
 //import org.bytedeco.opencv.opencv_java;
+import ordervschaos.particletrieur.app.viewmodels.network.NetworkViewModel;
 import org.tensorflow.TensorFlow;
 
 import java.util.stream.Collectors;
@@ -153,11 +154,9 @@ public class MainController extends AbstractController implements Initializable 
     @Inject
     LabelsViewModel labelsViewModel;
     @Inject
-    CNNVectorViewModel cnnVectorViewModel;
+    NetworkViewModel networkViewModel;
     @Inject
     ExportViewModel exportViewModel;
-    @Inject
-    PredictionViewModel predictionViewModel;
     @Inject
     ProjectRepositoryViewModel projectRepositoryViewModel;
     @Inject
@@ -423,7 +422,7 @@ public class MainController extends AbstractController implements Initializable 
             menuItemExceptionLog.setText(String.format("Exception Log (%d)", newValue));
         });
 
-        cnnVectorViewModel.GPUStatus.addListener((observable, oldValue, newValue) -> {
+        networkViewModel.GPUStatus.addListener((observable, oldValue, newValue) -> {
             labelGPUMemory.setText(String.format("GPU memory: %.0f%%", newValue.memoryPercentage));
             labelGPUMemory.getStyleClass().clear();
             if (newValue.memoryPercentage > 50) {
@@ -740,12 +739,12 @@ public class MainController extends AbstractController implements Initializable 
 
     @FXML
     private void handlePredictUsingCNN(ActionEvent event) {
-        predictionViewModel.predictUsingCNN(selectionViewModel.getCurrentParticles(), supervisor.project.processingInfo.getProcessBeforeClassification());
+        networkViewModel.predictUsingCNN(selectionViewModel.getCurrentParticles(), supervisor.project.processingInfo.getProcessBeforeClassification());
     }
 
     @FXML
     private void handlePredictUsingCNNAll(ActionEvent event) {
-        predictionViewModel.predictUsingCNN(supervisor.project.getParticles(), supervisor.project.processingInfo.getProcessBeforeClassification());
+        networkViewModel.predictUsingCNN(supervisor.project.getParticles(), supervisor.project.processingInfo.getProcessBeforeClassification());
     }
 
     //TODO move into viewmodel
@@ -755,17 +754,17 @@ public class MainController extends AbstractController implements Initializable 
                 .stream()
                 .filter(foram -> foram.classification.get().equalsIgnoreCase(Project.UNLABELED_CODE))
                 .collect(Collectors.toList());
-        predictionViewModel.predictUsingCNN(unlabeledParticles, supervisor.project.processingInfo.getProcessBeforeClassification());
+        networkViewModel.predictUsingCNN(unlabeledParticles, supervisor.project.processingInfo.getProcessBeforeClassification());
     }
 
     @FXML
     private void handlePredictUsingKNN(ActionEvent event) {
-        predictionViewModel.predictUsingkNN(selectionViewModel.getCurrentParticles());
+        networkViewModel.predictUsingkNN(selectionViewModel.getCurrentParticles());
     }
 
     @FXML
     private void handlePredictUsingKNNAll(ActionEvent event) {
-        predictionViewModel.predictUsingkNN(supervisor.project.getParticles());
+        networkViewModel.predictUsingkNN(supervisor.project.getParticles());
     }
 
     //TODO move into viewmodel
@@ -775,7 +774,7 @@ public class MainController extends AbstractController implements Initializable 
                 .stream()
                 .filter(foram -> foram.classification.get().equalsIgnoreCase(Project.UNLABELED_CODE))
                 .collect(Collectors.toList());
-        predictionViewModel.predictUsingkNN(unlabeledParticles);
+        networkViewModel.predictUsingkNN(unlabeledParticles);
     }
 
     @FXML
@@ -785,7 +784,7 @@ public class MainController extends AbstractController implements Initializable 
 
     @FXML
     private void handleCalculateCNNVectors(ActionEvent event) {
-        cnnVectorViewModel.calculateVectors();
+        networkViewModel.calculateVectors();
     }
 
     @FXML

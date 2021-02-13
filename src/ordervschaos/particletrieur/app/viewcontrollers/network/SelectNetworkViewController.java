@@ -5,30 +5,24 @@
  */
 package ordervschaos.particletrieur.app.viewcontrollers.network;
 
-import ordervschaos.particletrieur.app.AbstractDialogController;
-import ordervschaos.particletrieur.app.App;
-import ordervschaos.particletrieur.app.FxmlLocation;
-import ordervschaos.particletrieur.app.controls.BasicDialogs;
-
-import java.io.File;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ResourceBundle;
-
-import ordervschaos.particletrieur.app.models.Supervisor;
-import ordervschaos.particletrieur.app.models.network.classification.NetworkInfo;
-import ordervschaos.particletrieur.app.models.network.classification.NetworkLabel;
 import com.google.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
-import javafx.stage.FileChooser;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import ordervschaos.particletrieur.app.AbstractDialogController;
+import ordervschaos.particletrieur.app.FxmlLocation;
+import ordervschaos.particletrieur.app.models.Supervisor;
+import ordervschaos.particletrieur.app.models.network.classification.NetworkInfo;
+import ordervschaos.particletrieur.app.models.network.classification.NetworkLabel;
+import ordervschaos.particletrieur.app.viewmodels.network.NetworkViewModel;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -51,41 +45,17 @@ public class SelectNetworkViewController extends AbstractDialogController implem
     @FXML Label labelOutputName;
     @FXML Label labelOutputOperation;
     @FXML Label labelOutputShape;
-    @FXML Button buttonChoose;
-    
-    
 
     @Inject
     Supervisor supervisor;
 
+    @Inject
+    NetworkViewModel networkViewModel;
+
     NetworkInfo def = null;
     
     public SelectNetworkViewController() {
-        
-//        Image iconImage = new Image(App.class.getResourceAsStream("resources/icon.png" ),64,,64,,true,true);
-//        ((Stage)this.getDialogPane().getScene().getWindow()).getIcons().add(iconImage);
-//        this.setTitle("Choose network");
-//        this.setHeaderText("Choose network to use for classification");
-//        this.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-//
-//        // Set the controls
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../views/network/SelectNetworkView.fxml"));
-//        fxmlLoader.setController(this);
-//        try {
-//            VBox content = fxmlLoader.load();
-//            this.getDialogPane().setContent(content);
-//        } catch (IOException exception) {
-//             throw new RuntimeException(exception);
-//        }
-//
-//        this.setResultConverter(dialogButton -> {
-//            if (dialogButton == ButtonType.OK) {
-//                return getData();
-//            }
-//            else {
-//                return null;
-//            }
-//        });
+
     }
 
     @Override
@@ -94,7 +64,6 @@ public class SelectNetworkViewController extends AbstractDialogController implem
             def = supervisor.project.getNetworkDefinition().cloneByXML();
         }
         updateUI(true);
-        //this.getDialog().getDialogPane().setPadding(new Insets(0));
     }
     
     private void updateUI(boolean isInit) {
@@ -126,16 +95,6 @@ public class SelectNetworkViewController extends AbstractDialogController implem
                     def.outputs.get(0).height,
                     def.outputs.get(0).width,
                     def.outputs.get(0).channels));
-
-//            labelNetworkDefinitionFilename.setText(def.protobuf);
-//            labelGraphFilename.setText(def.protobuf);
-//            TensorInfo input = def.inputs.get(0);
-//            TensorInfo output = def.outputs.get(0);
-//            labelInputDimensions.setText(String.format("%d x %d x %d", input.width, input.height, input.channels));
-//            labelInput.setText(input.operation);
-//            labelOutput.setText(output.operation);
-//            labelVector.setText("");
-//            labelRange.setText(String.format("0 - %d", 0));
             flowPaneLabels.getChildren().clear();
             if (def.labels != null) {
                 int i = 0;
@@ -159,24 +118,10 @@ public class SelectNetworkViewController extends AbstractDialogController implem
 
     @FXML
     private void handleChooseNetwork(ActionEvent event) {
-        FileChooser dc = new FileChooser();
-        dc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Network Information (xml)", "*.xml"));
-        String path = App.getPrefs().getTrainingPath();
-        if(path != null && Files.exists(Paths.get(path))) {
-            dc.setInitialDirectory(new File(path));
-        }
-        dc.setTitle("Select network definition");
-        File file = dc.showOpenDialog(this.stage.getOwner());
-        if (file == null) return;            
-        try {
-            def = NetworkInfo.load(file);
+        NetworkInfo info = networkViewModel.loadNetworkDefinition();
+        if (info != null) {
+            def = info;
             updateUI(false);
-            //TODO should this be here?
-            App.getPrefs().setNetworkPath(file.getParent());
-            App.getPrefs().save();
-        }
-        catch (Exception ex) {  
-            BasicDialogs.ShowException("The definition file is not valid", ex);
         }
     }
 
@@ -207,6 +152,4 @@ public class SelectNetworkViewController extends AbstractDialogController implem
     public ButtonType[] getButtonTypes() {
         return new ButtonType[] {ButtonType.OK, ButtonType.CANCEL};
     }
-
-
 }

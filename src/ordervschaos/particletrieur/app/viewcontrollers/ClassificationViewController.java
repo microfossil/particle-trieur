@@ -39,6 +39,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import ordervschaos.particletrieur.app.viewmodels.network.NetworkViewModel;
 import org.controlsfx.control.PopOver;
 import org.controlsfx.control.ToggleSwitch;
 
@@ -113,7 +114,7 @@ public class ClassificationViewController implements Initializable {
     @Inject
     TagsViewModel tagsViewModel;
     @Inject
-    PredictionViewModel predictionViewModel;
+    NetworkViewModel networkViewModel;
     @Inject
     LabelsViewModel labelsViewModel;
 
@@ -135,8 +136,8 @@ public class ClassificationViewController implements Initializable {
 
         //Controls
         checkBoxPreprocessBeforeClassification.selectedProperty().bindBidirectional(supervisor.project.processingInfo.processBeforeClassificationProperty());
-        spinnerCNNThreshold.getValueFactory().valueProperty().bindBidirectional(predictionViewModel.cnnThresholdProperty());
-        spinnerKNNThreshold.getValueFactory().valueProperty().bindBidirectional(predictionViewModel.knnThresholdProperty());
+        spinnerCNNThreshold.getValueFactory().valueProperty().bindBidirectional(networkViewModel.cnnThresholdProperty());
+        spinnerKNNThreshold.getValueFactory().valueProperty().bindBidirectional(networkViewModel.knnThresholdProperty());
 
         //Current particle updated
         selectionViewModel.currentParticleProperty().addListener((observable, oldValue, newValue) -> {
@@ -658,7 +659,7 @@ public class ClassificationViewController implements Initializable {
                     tagButtons.get(tag).setStyle(String.format("-fx-base: derive(#0096C9,%d%%)", 0));
                 } else {
                     BasicDialogs.ShowError("Tag Error",
-                            String.format("The tag %s is not in the app.", tag));
+                            String.format("The tag %s is not in the project.", tag));
                 }
             }
         }
@@ -676,7 +677,7 @@ public class ClassificationViewController implements Initializable {
 
     @FXML
     private void handlePredictUsingCNN(ActionEvent event) {
-        predictionViewModel.predictUsingCNN(
+        networkViewModel.predictUsingCNN(
                 selectionViewModel.getCurrentParticles(),
                 supervisor.project.processingInfo.getProcessBeforeClassification());
     }
@@ -700,7 +701,7 @@ public class ClassificationViewController implements Initializable {
 
     @FXML
     private void handlePredictUsingkNN(ActionEvent event) {
-        predictionViewModel.predictUsingkNN(selectionViewModel.getCurrentParticles());
+        networkViewModel.predictUsingkNN(selectionViewModel.getCurrentParticles());
     }
 
     @FXML

@@ -18,13 +18,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import ordervschaos.particletrieur.app.viewmodels.CNNVectorViewModel;
-import sun.applet.Main;
+import ordervschaos.particletrieur.app.viewmodels.network.NetworkViewModel;
 
 /**
  *
@@ -83,7 +81,7 @@ public class App extends Application {
     public void stop() {
         System.out.println("STOP AND SHUTDOWN");
         executorService.shutdown();
-        injector.getInstance(CNNVectorViewModel.class).Stop();
+        injector.getInstance(NetworkViewModel.class).Stop();
         try {
             if (!executorService.awaitTermination(800, TimeUnit.MILLISECONDS)) {
                 executorService.shutdownNow();

@@ -10,6 +10,7 @@ import ordervschaos.particletrieur.app.models.Supervisor;
 import ordervschaos.particletrieur.app.viewmodels.*;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
+import ordervschaos.particletrieur.app.viewmodels.network.NetworkViewModel;
 
 /**
  *
@@ -28,8 +29,7 @@ public class MainModule extends AbstractModule {
         bind(SelectionViewModel.class).in(Singleton.class);
 
         //Classification
-        bind(CNNVectorViewModel.class).in(Singleton.class);
-        bind(PredictionViewModel.class).in(Singleton.class);
+        bind(NetworkViewModel.class).in(Singleton.class);
 
         //Labelling
         bind(ParticlesViewModel.class).in(Singleton.class);
