@@ -13,13 +13,13 @@ public class AlertEx extends Alert {
         super(alertType);
         Scene scene = this.getDialogPane().getScene();
         ((Stage)scene.getWindow()).getIcons().add(new Image(App.class.getResourceAsStream("resources/icon.png")));
-        scene.getStylesheets().add(App.class.getResource("styles/style.css").toExternalForm());
+        scene.getStylesheets().add(App.class.getResource("resources/styles/style.css").toExternalForm());
     }
 
     public AlertEx(AlertType alertType, String contentText, ButtonType... buttons) {
         super(alertType, contentText, buttons);
         Scene scene = this.getDialogPane().getScene();
         ((Stage)scene.getWindow()).getIcons().add(new Image(App.class.getResourceAsStream("resources/icon.png")));
-        scene.getStylesheets().add(App.class.getResource("styles/style.css").toExternalForm());
+        scene.getStylesheets().add(App.class.getResource("resources/styles/style.css").toExternalForm());
     }
 }

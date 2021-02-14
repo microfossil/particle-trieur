@@ -41,7 +41,7 @@
 <?import ordervschaos.particletrieur.app.controls.SymbolLabel?>
 <StackPane fx:id="root" prefHeight="800.0" prefWidth="1284.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.other.segmenter.SegmenterController2">
    <children>
-      <AnchorPane id="AnchorPane" fx:id="rootMain" prefHeight="600" prefWidth="800" stylesheets="@../styles/style.css">
+      <AnchorPane id="AnchorPane" fx:id="rootMain" prefHeight="600" prefWidth="800" stylesheets="@../resources/styles/style.css">
           <children>
             <SplitPane fx:id="splitPaneMain" dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0">
               <items>
