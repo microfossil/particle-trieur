@@ -10,7 +10,9 @@ package ordervschaos.particletrieur.app.models.network.classification;
  * @author Ross Marchant <ross.g.marchant@gmail.com>
  */
 public class Classification {
-    
+
+    //TODO put index of class as well
+//    private int index = 0;
     private String code = "";
     private double value = 0.0;
 
@@ -23,10 +25,18 @@ public class Classification {
         this.value = value;
     }
 
+//    public Classification(int index, String code, double value) {
+//        this.index = index;
+//        this.code = code;
+//        this.value = value;
+//    }
+
+//    public int getIndex() { return index; }
+//    public void setIndex(int value) { index = value; }
+
     public String getCode() {
         return code;
     }
-
     public void setCode(String code) {
         this.code = code;
     }
@@ -34,22 +44,9 @@ public class Classification {
     public double getValue() {
         return value;
     }
-
     public void setValue(double value) {
         this.value = value;
     }
-
-//    @Override
-//    public boolean equals(Object obj) {
-//        if ((obj instanceof Classification)
-//                && ((Classification) obj).getCode().equals(this.code))
-//        {
-//            return true;
-//        }
-//        else {
-//            return false;
-//        }
-//    }
 
     @Override
     public int hashCode() {

@@ -6,7 +6,7 @@ import javafx.beans.property.*;
 import javafx.collections.ListChangeListener;
 import javafx.concurrent.Service;
 import ordervschaos.particletrieur.app.models.Supervisor;
-import ordervschaos.particletrieur.app.models.network.features.ResNet50FeatureVectorService;
+import ordervschaos.particletrieur.app.services.network.ResNet50FeatureVectorService;
 import ordervschaos.particletrieur.app.models.network.training.GPUStatus;
 import ordervschaos.particletrieur.app.services.network.CNNTrainingService;
 

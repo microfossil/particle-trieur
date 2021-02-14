@@ -7,10 +7,9 @@ package ordervschaos.particletrieur.app.services;
 
 import ordervschaos.particletrieur.app.helpers.Metrics;
 import ordervschaos.particletrieur.app.models.project.Particle;
-import ordervschaos.particletrieur.app.models.network.features.Similarity;
+import ordervschaos.particletrieur.app.models.network.classification.Similarity;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.IntStream;
 

@@ -1,4 +1,4 @@
-package ordervschaos.particletrieur.app.models.network.segmentation;
+package ordervschaos.particletrieur.app.services.network;
 
 import ordervschaos.particletrieur.app.controls.BasicDialogs;
 import ordervschaos.particletrieur.app.models.network.classification.NetworkEx;
@@ -9,11 +9,11 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
 
-public class FCNNSegmenter {
+public class FCNNSegmenterService {
 
     public NetworkEx networkEx;
 
-    public FCNNSegmenter() {
+    public FCNNSegmenterService() {
 
         NetworkInfo info = new NetworkInfo();
         info.name = "debugging";

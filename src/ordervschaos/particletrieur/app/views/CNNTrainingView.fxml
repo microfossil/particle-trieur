@@ -21,7 +21,7 @@
 
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.Tab?>
-<BorderPane prefHeight="640.0" prefWidth="800.0" stylesheets="@../styles/style.css"
+<BorderPane prefHeight="640.0" prefWidth="800.0" stylesheets="@../resources/styles/style.css"
             xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ordervschaos.particletrieur.app.viewcontrollers.network.CNNTrainingViewController">
     <center>

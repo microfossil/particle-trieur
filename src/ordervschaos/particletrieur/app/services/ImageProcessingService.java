@@ -2,7 +2,7 @@ package ordervschaos.particletrieur.app.services;
 
 import ordervschaos.particletrieur.app.models.network.classification.NetworkInfo;
 import ordervschaos.particletrieur.app.models.network.classification.TensorInfo;
-import ordervschaos.particletrieur.app.models.network.segmentation.FCNNSegmenter;
+import ordervschaos.particletrieur.app.services.network.FCNNSegmenterService;
 import ordervschaos.particletrieur.app.helpers.AutoCancellingServiceRunner;
 import ordervschaos.particletrieur.app.models.processing.*;
 import ordervschaos.particletrieur.app.models.processing.processors.MorphologyProcessor;
@@ -18,7 +18,7 @@ public class ImageProcessingService {
     //TODO this is not a service??
     //TODO the process stuff should be in another class
     //TODO the processAsync should be in a manager
-    private FCNNSegmenter fcnnSegmenter;
+    private FCNNSegmenterService fcnnSegmenterService;
     private AutoCancellingServiceRunner<ParticleImage> processingServiceRunner;
 
     private BooleanProperty running = new SimpleBooleanProperty(false);
@@ -32,8 +32,8 @@ public class ImageProcessingService {
         this.running.set(running);
     }
 
-    public ImageProcessingService(FCNNSegmenter fcnnSegmenter) {
-        this.fcnnSegmenter = fcnnSegmenter;
+    public ImageProcessingService(FCNNSegmenterService fcnnSegmenterService) {
+        this.fcnnSegmenterService = fcnnSegmenterService;
     }
 
     public ParticleImage process(Mat mat, ProcessingInfo def) {
@@ -57,7 +57,7 @@ public class ImageProcessingService {
                 mask.segmentOtsuIntensity(def.getSegmentationThreshold());
                 break;
             case CNN:
-                mask.segmentCNN(def.getSegmentationThreshold(), fcnnSegmenter);
+                mask.segmentCNN(def.getSegmentationThreshold(), fcnnSegmenterService);
         }
         mask.largestRegion().calculateParameters();
         mask.forDisplay();

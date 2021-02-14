@@ -23,7 +23,7 @@
 <AnchorPane fx:id="root"
             xmlns="http://javafx.com/javafx/8.0.172-ea"
             xmlns:fx="http://javafx.com/fxml/1"
-            stylesheets="@../../styles/style.css"
+            stylesheets="@../../resources/styles/style.css"
             fx:controller="ordervschaos.particletrieur.app.viewcontrollers.particle.ParticleImageViewController">
     <padding>
         <Insets topRightBottomLeft="14"/>

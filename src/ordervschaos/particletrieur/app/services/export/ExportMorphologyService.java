@@ -10,7 +10,6 @@ import ordervschaos.particletrieur.app.models.processing.processors.MorphologyPr
 import ordervschaos.particletrieur.app.models.project.Particle;
 import ordervschaos.particletrieur.app.models.project.Project;
 import ordervschaos.particletrieur.app.services.ImageProcessingService;
-import org.eclipse.persistence.internal.jaxb.many.MapEntry;
 import org.opencv.core.Mat;
 
 import java.io.BufferedWriter;
@@ -28,7 +27,7 @@ public class ExportMorphologyService {
             Supervisor supervisor,
             File file) {
 
-        ImageProcessingService imageProcessingService = new ImageProcessingService(supervisor.FCNNSegmenter);
+        ImageProcessingService imageProcessingService = new ImageProcessingService(supervisor.FCNNSegmenterService);
         Project project = supervisor.project;
         ProcessingInfo proDef = project.processingInfo;
 

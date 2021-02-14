@@ -1,4 +1,4 @@
-package ordervschaos.particletrieur.app.models;
+package ordervschaos.particletrieur.app.models.tools;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ordervschaos.particletrieur.app.models.server;
+package ordervschaos.particletrieur.app.models.tools;
 
 import javafx.application.Platform;
 import ordervschaos.particletrieur.app.models.Supervisor;
@@ -14,7 +14,6 @@ import ordervschaos.particletrieur.app.models.processing.Morphology;
 import ordervschaos.particletrieur.app.models.processing.ParticleImage;
 import ordervschaos.particletrieur.app.models.processing.processors.MorphologyProcessor;
 import ordervschaos.particletrieur.app.models.project.Particle;
-import ordervschaos.particletrieur.app.models.project.Taxon;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import javafx.beans.property.ReadOnlyBooleanProperty;
@@ -35,8 +34,6 @@ import org.opencv.core.Mat;
 
 import java.io.*;
 import java.net.InetSocketAddress;
-import java.net.URI;
-import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -44,8 +41,6 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author Ross Marchant <ross.g.marchant@gmail.com>
@@ -407,7 +402,7 @@ public class ClassificationServer {
     }
 
     public Morphology calculateMorphology(Particle particle) {
-        ImageProcessingService imageProcessingService = new ImageProcessingService(supervisor.FCNNSegmenter);
+        ImageProcessingService imageProcessingService = new ImageProcessingService(supervisor.FCNNSegmenterService);
         Mat mat = particle.getMat();
         if (mat != null) {
             ParticleImage image = imageProcessingService.process(mat, supervisor.project.processingInfo);

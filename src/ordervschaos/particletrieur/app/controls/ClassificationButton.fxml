@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
-<fx:root stylesheets="@../styles/style.css" type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root stylesheets="@../resources/styles/style.css" type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Button fx:id="button" mnemonicParsing="false" text="This is a very big button" />
 

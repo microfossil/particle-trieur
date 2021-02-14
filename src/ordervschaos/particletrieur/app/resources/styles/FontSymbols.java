@@ -1,4 +1,4 @@
-package ordervschaos.particletrieur.app.styles;
+package ordervschaos.particletrieur.app.resources.styles;
 
 public enum FontSymbols {  
     

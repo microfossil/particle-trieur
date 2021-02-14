@@ -1,12 +1,11 @@
 package ordervschaos.particletrieur.app.models.processing.processors;
 
-import ordervschaos.particletrieur.app.models.network.segmentation.FCNNSegmenter;
+import ordervschaos.particletrieur.app.services.network.FCNNSegmenterService;
 import ordervschaos.particletrieur.app.models.processing.ImageType;
 import ordervschaos.particletrieur.app.models.processing.Mask;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 
 public class SegmentationProcessor {
@@ -117,7 +116,7 @@ public class SegmentationProcessor {
         image.release();
     }
 
-    public static void segmentCNN(Mask mask, ImageType imageType, double threshold, FCNNSegmenter predictionService) {
+    public static void segmentCNN(Mask mask, ImageType imageType, double threshold, FCNNSegmenterService predictionService) {
         //Get image
         Mat input = new Mat();
         mask.image.convertTo(input, CvType.CV_32F);

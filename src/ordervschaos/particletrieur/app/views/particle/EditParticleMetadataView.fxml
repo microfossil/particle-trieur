@@ -14,7 +14,7 @@
 <?import ordervschaos.particletrieur.app.controls.SymbolLabel?>
 
 <?import javafx.scene.control.RadioButton?>
-<GridPane hgap="21.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.particle.EditParticleMetadataViewController">
+<GridPane hgap="21.0" stylesheets="@../../resources/styles/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.particle.EditParticleMetadataViewController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" prefWidth="240.0" />
         <ColumnConstraints hgrow="SOMETIMES" />
@@ -23,7 +23,7 @@
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <VBox spacing="7" stylesheets="@../../styles/style.css" GridPane.columnIndex="1">
+        <VBox spacing="7" stylesheets="@../../resources/styles/style.css" GridPane.columnIndex="1">
             <children>
                 <Label styleClass="subheader" text="Extract from filename" />
                 <HBox alignment="CENTER_LEFT" spacing="21.0">

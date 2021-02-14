@@ -235,7 +235,7 @@ public class ExportImagesService {
 
                                     //Processing
                                     if (performPreprocessing) {
-                                        ImageProcessingService imageProcessingService = new ImageProcessingService(supervisor.FCNNSegmenter);
+                                        ImageProcessingService imageProcessingService = new ImageProcessingService(supervisor.FCNNSegmenterService);
                                         ParticleImage image = null;
                                         Mat mat = new Mat();
                                         if (mat != null) {

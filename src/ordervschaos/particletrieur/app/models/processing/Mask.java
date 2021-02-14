@@ -1,6 +1,6 @@
 package ordervschaos.particletrieur.app.models.processing;
 
-import ordervschaos.particletrieur.app.models.network.segmentation.FCNNSegmenter;
+import ordervschaos.particletrieur.app.services.network.FCNNSegmenterService;
 import ordervschaos.particletrieur.app.models.processing.processors.DisplayProcessor;
 import ordervschaos.particletrieur.app.models.processing.processors.SegmentationProcessor;
 import org.opencv.core.Mat;
@@ -64,7 +64,7 @@ public class Mask {
         return this;
     }
 
-    public Mask segmentCNN(double threshold, FCNNSegmenter predictionService) {
+    public Mask segmentCNN(double threshold, FCNNSegmenterService predictionService) {
         SegmentationProcessor.segmentCNN(this, this.type, threshold, predictionService);
         return this;
     }

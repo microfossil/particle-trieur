@@ -1,6 +1,6 @@
 package ordervschaos.particletrieur.app.controls;
 
-import ordervschaos.particletrieur.app.styles.FontSymbols;
+import ordervschaos.particletrieur.app.resources.styles.FontSymbols;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.StringProperty;
 import javafx.css.*;

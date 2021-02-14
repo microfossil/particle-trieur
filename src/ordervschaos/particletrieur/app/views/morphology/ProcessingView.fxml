@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import ordervschaos.particletrieur.app.controls.*?>
 
-<AnchorPane fx:id="root" minHeight="0.0" minWidth="0.0" prefHeight="688.0" prefWidth="763.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.morphology.ProcessingViewController">
+<AnchorPane fx:id="root" minHeight="0.0" minWidth="0.0" prefHeight="688.0" prefWidth="763.0" stylesheets="@../../resources/styles/style.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.morphology.ProcessingViewController">
     <children>
         <GridPane fx:id="gridPaneRoot" hgap="21.0" vgap="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>

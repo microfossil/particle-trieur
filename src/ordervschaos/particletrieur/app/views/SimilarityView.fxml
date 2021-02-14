@@ -15,7 +15,7 @@
 <?import ordervschaos.particletrieur.app.controls.SymbolLabel?>
 <?import org.controlsfx.control.GridView?>
 
-<AnchorPane fx:id="root" prefHeight="400.0" prefWidth="785.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.classification.SimilarityViewController">
+<AnchorPane fx:id="root" prefHeight="400.0" prefWidth="785.0" stylesheets="@../resources/styles/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.classification.SimilarityViewController">
     <children>
         <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <!--         <center>-->

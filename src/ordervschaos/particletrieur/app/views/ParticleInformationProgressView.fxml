@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import ordervschaos.particletrieur.app.controls.SymbolLabel?>
 
-<HBox alignment="CENTER_LEFT" spacing="7.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.network.VectorProgressViewController">
+<HBox alignment="CENTER_LEFT" spacing="7.0" stylesheets="@../resources/styles/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.network.VectorProgressViewController">
     <children>
         <VBox alignment="CENTER_RIGHT" spacing="3.0" HBox.hgrow="ALWAYS">
             <children>

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.CheckBox?>
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="216.0" prefWidth="351.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.label.EditLabelViewController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="216.0" prefWidth="351.0" stylesheets="@../../resources/styles/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.label.EditLabelViewController">
    <center>
       <AnchorPane prefHeight="169.0" prefWidth="351.0">
          <BorderPane.margin>

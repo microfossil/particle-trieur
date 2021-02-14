@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import ordervschaos.particletrieur.app.App;
 import ordervschaos.particletrieur.app.controls.ParticleGridCellSimilarityControl;
 import ordervschaos.particletrieur.app.helpers.AutoCancellingServiceRunner;
-import ordervschaos.particletrieur.app.models.network.features.Similarity;
+import ordervschaos.particletrieur.app.models.network.classification.Similarity;
 import ordervschaos.particletrieur.app.models.Supervisor;
 import ordervschaos.particletrieur.app.models.project.Particle;
 import ordervschaos.particletrieur.app.models.project.Taxon;

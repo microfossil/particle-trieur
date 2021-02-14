@@ -1,4 +1,4 @@
-package ordervschaos.particletrieur.app.models.network.features;
+package ordervschaos.particletrieur.app.services.network;
 
 import ordervschaos.particletrieur.app.controls.BasicDialogs;
 import ordervschaos.particletrieur.app.models.network.classification.NetworkEx;

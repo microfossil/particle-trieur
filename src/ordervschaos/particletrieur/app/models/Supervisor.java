@@ -9,11 +9,12 @@ import ordervschaos.particletrieur.app.App;
 import ordervschaos.particletrieur.app.controls.BasicDialogs;
 import ordervschaos.particletrieur.app.helpers.ExceptionMonitor;
 import ordervschaos.particletrieur.app.models.network.classification.NetworkEx;
-import ordervschaos.particletrieur.app.models.network.segmentation.FCNNSegmenter;
+import ordervschaos.particletrieur.app.services.network.FCNNSegmenterService;
 import ordervschaos.particletrieur.app.models.project.Project;
-import ordervschaos.particletrieur.app.models.server.ClassificationServer;
+import ordervschaos.particletrieur.app.models.tools.ClassificationServer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import ordervschaos.particletrieur.app.models.tools.FolderWatch;
 
 /**
  *
@@ -26,7 +27,7 @@ public class Supervisor {
     public final NetworkEx network = new NetworkEx();
     public final ClassificationServer classificationServer;
     public final FolderWatch folderWatch;
-    public final FCNNSegmenter FCNNSegmenter = new FCNNSegmenter();
+    public final FCNNSegmenterService FCNNSegmenterService = new FCNNSegmenterService();
     public final ProjectRepository projectRepository = new ProjectRepository(project);
 
     //Current user

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ordervschaos.particletrieur.app.models;
+package ordervschaos.particletrieur.app.models.tools;
 
 import ordervschaos.particletrieur.app.controls.BasicDialogs;
 
@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import ordervschaos.particletrieur.app.models.Supervisor;
 import ordervschaos.particletrieur.app.models.network.classification.ClassificationSet;
 import ordervschaos.particletrieur.app.models.project.Particle;
 import ordervschaos.particletrieur.app.models.project.Project;
@@ -102,7 +103,7 @@ public class FolderWatch implements Runnable {
                     System.out.format("%s: %s\n", ev.kind(), folder.toPath().resolve(ev.context()).toFile().getAbsolutePath());
                     File file = folder.toPath().resolve(ev.context()).toFile();
 
-                    if (file.isFile() && extensionsList.contains(FilenameUtils.getExtension(file.getAbsolutePath()))) {
+                    if (file.isFile() && extensionsList.contains(FilenameUtils.getExtension(file.getAbsolutePath()).toLowerCase())) {
                         Platform.runLater(() -> {
                             Particle particle = new Particle(
                                     file,

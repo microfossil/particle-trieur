@@ -7,11 +7,8 @@ package ordervschaos.particletrieur.app.viewmodels;
 
 import javafx.beans.property.*;
 import javafx.collections.ListChangeListener;
-import javafx.concurrent.Service;
-import ordervschaos.particletrieur.app.helpers.AutoCancellingServiceRunner;
 import ordervschaos.particletrieur.app.helpers.CSEvent;
 import ordervschaos.particletrieur.app.models.Supervisor;
-import ordervschaos.particletrieur.app.models.network.classification.ClassificationSet;
 import ordervschaos.particletrieur.app.models.project.Particle;
 import ordervschaos.particletrieur.app.services.ImageProcessingService;
 import ordervschaos.particletrieur.app.models.processing.ParticleImage;
@@ -23,8 +20,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import ordervschaos.particletrieur.app.services.network.CNNPredictionService;
-import ordervschaos.particletrieur.app.services.network.KNNVectorPredictionService;
 import org.opencv.core.Mat;
 
 /**
@@ -82,7 +77,7 @@ public class SelectionViewModel {
         filteredList = new FilteredList<>(supervisor.project.particles, p -> true);
         sortedList = new SortedList<>(filteredList);
 
-        imageProcessingService = new ImageProcessingService(supervisor.FCNNSegmenter);
+        imageProcessingService = new ImageProcessingService(supervisor.FCNNSegmenterService);
 
         currentParticles.addListener((ListChangeListener<? super Particle>) listener -> {
             if (getCurrentParticles().size() > 0) {

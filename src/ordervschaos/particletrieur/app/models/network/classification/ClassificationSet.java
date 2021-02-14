@@ -36,7 +36,6 @@ public class ClassificationSet {
     
     @XmlTransient
     public final double MINIMUM_VALUE = 0.01;
-    
     public double maximumScore = 0;
     
     private final StringProperty classifierId = new SimpleStringProperty();
