@@ -67,7 +67,7 @@ public class App extends Application {
         stage.getIcons().add(new Image(App.class.getResourceAsStream("resources/icon.png" )));
         
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("styles/style.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("resources/styles/style.css").toExternalForm());
 
         StartupViewController controller = loader.getController();
         controller.stage = stage;
