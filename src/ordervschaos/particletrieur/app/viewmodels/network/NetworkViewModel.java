@@ -1,45 +1,48 @@
 package ordervschaos.particletrieur.app.viewmodels.network;
 
+import com.google.inject.Inject;
 import javafx.application.Platform;
 import javafx.beans.property.*;
+import javafx.collections.ListChangeListener;
 import javafx.concurrent.Service;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.stage.FileChooser;
-import ordervschaos.particletrieur.app.App;
-import ordervschaos.particletrieur.app.controls.AlertEx;
-import ordervschaos.particletrieur.app.controls.BasicDialogs;
-import ordervschaos.particletrieur.app.helpers.AutoCancellingServiceRunner;
 import ordervschaos.particletrieur.app.models.Supervisor;
-import com.google.inject.Inject;
-import ordervschaos.particletrieur.app.models.network.classification.ClassificationSet;
-import ordervschaos.particletrieur.app.models.network.classification.NetworkInfo;
-import ordervschaos.particletrieur.app.models.network.classification.NetworkLabel;
+import ordervschaos.particletrieur.app.models.network.features.ResNet50FeatureVectorService;
 import ordervschaos.particletrieur.app.models.network.training.GPUStatus;
-import ordervschaos.particletrieur.app.models.project.Particle;
-import ordervschaos.particletrieur.app.models.project.Project;
-import ordervschaos.particletrieur.app.models.project.Taxon;
-import ordervschaos.particletrieur.app.services.network.CNNPredictionService;
 import ordervschaos.particletrieur.app.services.network.CNNTrainingService;
-import ordervschaos.particletrieur.app.services.network.KNNVectorPredictionService;
-import ordervschaos.particletrieur.app.viewmodels.particles.LabelsViewModel;
-import ordervschaos.particletrieur.app.viewmodels.SelectionViewModel;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class NetworkViewModel {
 
+    private Service vectorCalculationService;
+    public Service getVectorCalculationService() { return vectorCalculationService; }
+
+    private BooleanProperty vectorCalculationEnabled = new SimpleBooleanProperty(true);
+    public boolean getVectorCalculationEnabled() {
+        return vectorCalculationEnabled.get();
+    }
+    public BooleanProperty vectorCalculationEnabledProperty() {
+        return vectorCalculationEnabled;
+    }
+    public void setVectorCalculationEnabled(boolean vectorCalculationEnabled) {
+        this.vectorCalculationEnabled.set(vectorCalculationEnabled);
+    }
+    public void toggleEnabled() {
+        this.vectorCalculationEnabled.set(!vectorCalculationEnabled.get());
+    }
 
     public ObjectProperty<GPUStatus> GPUStatus = new SimpleObjectProperty<>();
+
     private Timer timer;
 
-    public NetworkViewModel() {
+    private Supervisor supervisor;
+    public final ResNet50FeatureVectorService resNet50FeatureVectorService = new ResNet50FeatureVectorService();
+
+    @Inject
+    public NetworkViewModel(Supervisor supervisor) {
+        this.supervisor = supervisor;
+
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -49,6 +52,26 @@ public class NetworkViewModel {
                 });
             }
         }, 0, 10000);
+
+        vectorCalculationService = resNet50FeatureVectorService.calculateCNNVector(supervisor);
+        vectorCalculationService.setOnSucceeded(event -> {
+            resNet50FeatureVectorService.isRecalculate = false;
+        });
+        supervisor.project.particles.addListener((ListChangeListener) observable -> {
+            if (getVectorCalculationEnabled()) vectorCalculationService.restart();
+        });
+
+        vectorCalculationEnabledProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) vectorCalculationService.restart();
+            else vectorCalculationService.cancel();
+        });
+    }
+
+    public void recalculateAll() {
+        supervisor.project.particles.stream().forEach(p -> supervisor.project.setParticleCNNVector(p, null));
+        setVectorCalculationEnabled(true);
+        resNet50FeatureVectorService.isRecalculate = true;
+        vectorCalculationService.restart();
     }
 
     public void Stop() {

@@ -1,4 +1,4 @@
-package ordervschaos.particletrieur.app.viewcontrollers;
+package ordervschaos.particletrieur.app.viewcontrollers.network;
 
 import javafx.scene.control.Button;
 import ordervschaos.particletrieur.app.controls.SymbolLabel;
@@ -10,11 +10,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import ordervschaos.particletrieur.app.models.Supervisor;
+import ordervschaos.particletrieur.app.viewmodels.network.NetworkViewModel;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ParticleInformationProgressViewController extends AbstractController implements Initializable {
+public class VectorProgressViewController extends AbstractController implements Initializable {
 
     @FXML
     SymbolLabel symbolLabelTick;
@@ -28,38 +29,24 @@ public class ParticleInformationProgressViewController extends AbstractControlle
     SymbolLabel symbolLabelPlayPause;
 
     @Inject
-    Supervisor supervisor;
+    NetworkViewModel networkViewModel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-//        progressIndicator.setVisible(false);
         progressIndicator.setProgress(0.00001);
 
-        Service service = supervisor.particleInformationManager.getService();
-
-        service.runningProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-//                labelProgress.setVisible(false);
-//                progressIndicator.setVisible(false);
-            }
-            else {
-//                labelProgress.setVisible(true);
-//                progressIndicator.setVisible(true);
-            }
-        });
-
-        service.messageProperty().addListener((observable, oldValue, newValue) -> {
+        networkViewModel.getVectorCalculationService().messageProperty().addListener((observable, oldValue, newValue) -> {
             labelProgress.setText(newValue);
         });
 
-        service.progressProperty().addListener((observable, oldValue, newValue) -> {
+        networkViewModel.getVectorCalculationService().progressProperty().addListener((observable, oldValue, newValue) -> {
             progressIndicator.setProgress(newValue.doubleValue());
             symbolLabelTick.setVisible(newValue.doubleValue() == 1.0);
             buttonPlayPause.setVisible(newValue.doubleValue() != 1.0);
         });
 
-        supervisor.particleInformationManager.enabledProperty().addListener((observable, oldValue, newValue) -> {
+        networkViewModel.vectorCalculationEnabledProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 symbolLabelPlayPause.setSymbol("featherpause");
             }
@@ -69,8 +56,7 @@ public class ParticleInformationProgressViewController extends AbstractControlle
         });
 
         buttonPlayPause.setOnAction(event -> {
-            supervisor.particleInformationManager.toggleEnabled();
+            networkViewModel.toggleEnabled();
         });
-
     }
 }

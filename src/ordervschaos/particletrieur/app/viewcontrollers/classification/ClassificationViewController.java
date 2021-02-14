@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ordervschaos.particletrieur.app.viewcontrollers;
+package ordervschaos.particletrieur.app.viewcontrollers.classification;
 
 import ordervschaos.particletrieur.app.AbstractDialogController;
 import ordervschaos.particletrieur.app.controls.BasicDialogs;
@@ -40,7 +40,6 @@ import ordervschaos.particletrieur.app.viewmodels.network.CNNPredictionViewModel
 import ordervschaos.particletrieur.app.viewmodels.network.KNNPredictionViewModel;
 import ordervschaos.particletrieur.app.viewmodels.particles.LabelsViewModel;
 import ordervschaos.particletrieur.app.viewmodels.particles.TagsViewModel;
-import ordervschaos.particletrieur.app.viewmodels.network.NetworkViewModel;
 import org.controlsfx.control.PopOver;
 
 import java.io.IOException;

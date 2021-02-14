@@ -62,7 +62,7 @@ public class ProcessingViewController extends AbstractController implements Init
 
     //Segmentation
     @FXML
-    ChoiceBox<SegmentationMethod> choiceBoxSegmentationMethod;
+    ChoiceBox<SegmentationType> choiceBoxSegmentationMethod;
     @FXML
     Spinner spinnerSegmentationThreshold;
     @FXML
@@ -105,7 +105,7 @@ public class ProcessingViewController extends AbstractController implements Init
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         choiceBoxImageType.getItems().setAll(ImageType.values());
-        choiceBoxSegmentationMethod.getItems().setAll(SegmentationMethod.values());
+        choiceBoxSegmentationMethod.getItems().setAll(SegmentationType.values());
         setupBindings();
 
         gridPaneRoot.getColumnConstraints().get(0).prefWidthProperty().bind(

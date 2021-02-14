@@ -48,6 +48,9 @@ public class SelectionViewModel {
 
     public SortedList<Particle> sortedList;
     public FilteredList<Particle> filteredList;
+
+    //Current tab
+    public int selectedTabIndex = 0;
     
     //Current particle
     private final ObjectProperty<Particle> currentParticle = new SimpleObjectProperty<>();
@@ -60,18 +63,7 @@ public class SelectionViewModel {
     public ObservableList<Particle> getCurrentParticles() { return currentParticles; }
     public void setCurrentParticles(List<Particle> values) { currentParticles.clear(); currentParticles.addAll(values); }
 
-    public int getCurrentParticleIndex() {
-        int index =  supervisor.project.getParticles().indexOf(getCurrentParticle());
-        return index;
-    }
-    public int getParticleIndex(Particle particle) {
-        return supervisor.project.getParticles().indexOf(particle);
-    }
-
-    //Current tab
-    public int selectedTabIndex = 0;
-
-    //Particle image
+    //Current particle image
     private final ObjectProperty<ParticleImage> currentParticleImage = new SimpleObjectProperty<>();
     public ObjectProperty<ParticleImage> currentParticleImageProperty() { return currentParticleImage; }
     private void setCurrentParticleImage(ParticleImage value) { currentParticleImage.set(value); }
@@ -111,6 +103,10 @@ public class SelectionViewModel {
                 setCurrentParticleImage(null);
             }
         });
+    }
+
+    public int getParticleIndex(Particle particle) {
+        return supervisor.project.getParticles().indexOf(particle);
     }
 
     public void refreshParticleImage() {

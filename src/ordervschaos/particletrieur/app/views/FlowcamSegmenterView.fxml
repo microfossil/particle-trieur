@@ -5,7 +5,7 @@
 
 <AnchorPane stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="ordervschaos.particletrieur.app.viewcontrollers.FlowcamSegmenterViewController">
+            fx:controller="ordervschaos.particletrieur.app.viewcontrollers.tools.FlowcamSegmenterViewController">
     <children>
         <VBox layoutX="152.0" layoutY="59.0" minWidth="600.0" spacing="7.0" AnchorPane.bottomAnchor="0.0"
               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

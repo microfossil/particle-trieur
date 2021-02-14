@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ordervschaos.particletrieur.app.viewcontrollers;
+package ordervschaos.particletrieur.app.viewcontrollers.network;
 
 import com.google.inject.Inject;
 import javafx.scene.control.Label;
@@ -111,7 +111,6 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         comboBoxCNNType.getItems().addAll(TrainingNetworkDescriptionService.getDescriptions());
         comboBoxCNNType.setCellFactory(param -> {
             HBox hBox = new HBox();

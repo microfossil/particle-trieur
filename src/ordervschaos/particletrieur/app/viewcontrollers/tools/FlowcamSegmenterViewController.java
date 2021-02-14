@@ -1,4 +1,4 @@
-package ordervschaos.particletrieur.app.viewcontrollers;
+package ordervschaos.particletrieur.app.viewcontrollers.tools;
 
 import javafx.stage.FileChooser;
 import ordervschaos.particletrieur.app.App;

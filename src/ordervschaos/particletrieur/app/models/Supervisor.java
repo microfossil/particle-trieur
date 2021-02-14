@@ -8,9 +8,7 @@ package ordervschaos.particletrieur.app.models;
 import ordervschaos.particletrieur.app.App;
 import ordervschaos.particletrieur.app.controls.BasicDialogs;
 import ordervschaos.particletrieur.app.helpers.ExceptionMonitor;
-import ordervschaos.particletrieur.app.viewmanagers.ParticleInformationManager;
 import ordervschaos.particletrieur.app.models.network.classification.NetworkEx;
-import ordervschaos.particletrieur.app.models.network.features.ResNet50FeatureVectorService;
 import ordervschaos.particletrieur.app.models.network.segmentation.FCNNSegmenter;
 import ordervschaos.particletrieur.app.models.project.Project;
 import ordervschaos.particletrieur.app.models.server.ClassificationServer;
@@ -28,11 +26,8 @@ public class Supervisor {
     public final NetworkEx network = new NetworkEx();
     public final ClassificationServer classificationServer;
     public final FolderWatch folderWatch;
-
     public final FCNNSegmenter FCNNSegmenter = new FCNNSegmenter();
     public final ProjectRepository projectRepository = new ProjectRepository(project);
-    public final ResNet50FeatureVectorService ResNet50FeatureVectorService = new ResNet50FeatureVectorService();
-    public final ParticleInformationManager particleInformationManager;
 
     //Current user
     private final StringProperty username = new SimpleStringProperty("");
@@ -45,11 +40,13 @@ public class Supervisor {
     public StringProperty usernameProperty() { return username; }
 
     public ExceptionMonitor exceptionMonitor = new ExceptionMonitor();
-        
+
+    //TODO all of this in a module ?? view model??
+    // Project as a module
+    // This code in the main view model
     public Supervisor() {
         folderWatch = new FolderWatch(this);
         classificationServer = new ClassificationServer(this);
-        particleInformationManager = new ParticleInformationManager(this);
 
         //When project changes, update preferences
         project.fileProperty().addListener((objv,oldv,newv) -> {

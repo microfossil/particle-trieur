@@ -9,7 +9,7 @@
 <?import org.controlsfx.control.SegmentedButton?>
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="626.0" prefWidth="836.0" stylesheets="@../styles/style.css"
             xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="ordervschaos.particletrieur.app.viewcontrollers.ClassificationViewController">
+            fx:controller="ordervschaos.particletrieur.app.viewcontrollers.classification.ClassificationViewController">
     <children>
         <GridPane hgap="14.0" vgap="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

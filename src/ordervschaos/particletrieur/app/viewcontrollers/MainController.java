@@ -11,6 +11,8 @@ import javafx.stage.Window;
 import ordervschaos.particletrieur.app.App;
 import ordervschaos.particletrieur.app.FxmlLocation;
 import ordervschaos.particletrieur.app.controls.SymbolLabel;
+import ordervschaos.particletrieur.app.viewcontrollers.classification.ClassificationViewController;
+import ordervschaos.particletrieur.app.viewcontrollers.classification.SimilarityViewController;
 import ordervschaos.particletrieur.app.viewcontrollers.morphology.ProcessingViewController;
 import ordervschaos.particletrieur.app.viewcontrollers.particle.ParticleListViewController;
 import ordervschaos.particletrieur.app.viewmanagers.UndoManager;

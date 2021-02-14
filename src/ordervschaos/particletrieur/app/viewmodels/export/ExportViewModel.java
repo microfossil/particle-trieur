@@ -13,7 +13,7 @@ import ordervschaos.particletrieur.app.controls.BasicDialogs;
 import ordervschaos.particletrieur.app.models.Supervisor;
 import ordervschaos.particletrieur.app.services.export.ExportAbundanceService;
 import ordervschaos.particletrieur.app.services.export.ExportMorphologyService;
-import ordervschaos.particletrieur.app.viewcontrollers.ExportViewController;
+import ordervschaos.particletrieur.app.viewcontrollers.export.ExportViewController;
 
 import java.io.File;
 import java.io.IOException;

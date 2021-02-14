@@ -66,7 +66,7 @@ java.lang.NullPointerException
 	at java.lang.Thread.run(Thread.java:748)
 
 java.lang.NullPointerException
-	at ordervschaos.particletrieur.app.viewcontrollers.SimilarityViewController.lambda$initialize$6(SimilarityViewController.java:108)
+	at ordervschaos.particletrieur.app.viewcontrollers.classification.SimilarityViewController.lambda$initialize$6(SimilarityViewController.java:108)
 	at com.sun.javafx.binding.ExpressionHelper$Generic.fireValueChangedEvent(ExpressionHelper.java:361)
 	at com.sun.javafx.binding.ExpressionHelper.fireValueChangedEvent(ExpressionHelper.java:81)
 	at javafx.beans.property.ObjectPropertyBase.fireValueChangedEvent(ObjectPropertyBase.java:105)
@@ -75,7 +75,7 @@ java.lang.NullPointerException
 	at ordervschaos.particletrieur.app.viewmodels.SelectionViewModel.KNNPredictionViewModel.setkNNPredictedClassification(KNNPredictionManager.java:32)
 	at ordervschaos.particletrieur.app.viewmodels.SelectionViewModel.KNNPredictionViewModel.onCurrentParticleUpdated(KNNPredictionManager.java:58)
 	at ordervschaos.particletrieur.app.viewmodels.SelectionViewModel.refreshPredictions(SelectionViewModel.java:97)
-	at ordervschaos.particletrieur.app.viewcontrollers.ClassificationViewController.lambda$initialize$1(ClassificationPaneController.java:149)
+	at ordervschaos.particletrieur.app.viewcontrollers.classification.ClassificationViewController.lambda$initialize$1(ClassificationPaneController.java:149)
 	at ordervschaos.particletrieur.app.helpers.CSEvent.lambda$broadcast$0(CSEvent.java:25)
 	at java.lang.Iterable.forEach(Iterable.java:75)
 	at ordervschaos.particletrieur.app.helpers.CSEvent.broadcast(CSEvent.java:25)
@@ -212,7 +212,7 @@ java.lang.NullPointerException
 	at java.lang.Thread.run(Thread.java:748)
 
 java.lang.NullPointerException
-	at ordervschaos.particletrieur.app.viewcontrollers.SimilarityViewController.lambda$initialize$6(SimilarityViewController.java:108)
+	at ordervschaos.particletrieur.app.viewcontrollers.classification.SimilarityViewController.lambda$initialize$6(SimilarityViewController.java:108)
 	at com.sun.javafx.binding.ExpressionHelper$Generic.fireValueChangedEvent(ExpressionHelper.java:361)
 	at com.sun.javafx.binding.ExpressionHelper.fireValueChangedEvent(ExpressionHelper.java:81)
 	at javafx.beans.property.ObjectPropertyBase.fireValueChangedEvent(ObjectPropertyBase.java:105)
@@ -221,7 +221,7 @@ java.lang.NullPointerException
 	at ordervschaos.particletrieur.app.viewmodels.SelectionViewModel.KNNPredictionViewModel.setkNNPredictedClassification(KNNPredictionManager.java:32)
 	at ordervschaos.particletrieur.app.viewmodels.SelectionViewModel.KNNPredictionViewModel.onCurrentParticleUpdated(KNNPredictionManager.java:58)
 	at ordervschaos.particletrieur.app.viewmodels.SelectionViewModel.refreshPredictions(SelectionViewModel.java:97)
-	at ordervschaos.particletrieur.app.viewcontrollers.ClassificationViewController.lambda$initialize$1(ClassificationPaneController.java:149)
+	at ordervschaos.particletrieur.app.viewcontrollers.classification.ClassificationViewController.lambda$initialize$1(ClassificationPaneController.java:149)
 	at ordervschaos.particletrieur.app.helpers.CSEvent.lambda$broadcast$0(CSEvent.java:25)
 	at java.lang.Iterable.forEach(Iterable.java:75)
 	at ordervschaos.particletrieur.app.helpers.CSEvent.broadcast(CSEvent.java:25)
@@ -285,7 +285,7 @@ java.lang.NullPointerException
 	at java.lang.Thread.run(Thread.java:748)
 
 java.lang.NullPointerException
-	at ordervschaos.particletrieur.app.viewcontrollers.SimilarityViewController.lambda$initialize$6(SimilarityViewController.java:108)
+	at ordervschaos.particletrieur.app.viewcontrollers.classification.SimilarityViewController.lambda$initialize$6(SimilarityViewController.java:108)
 	at com.sun.javafx.binding.ExpressionHelper$Generic.fireValueChangedEvent(ExpressionHelper.java:361)
 	at com.sun.javafx.binding.ExpressionHelper.fireValueChangedEvent(ExpressionHelper.java:81)
 	at javafx.beans.property.ObjectPropertyBase.fireValueChangedEvent(ObjectPropertyBase.java:105)
@@ -294,7 +294,7 @@ java.lang.NullPointerException
 	at ordervschaos.particletrieur.app.viewmodels.SelectionViewModel.KNNPredictionViewModel.setkNNPredictedClassification(KNNPredictionManager.java:32)
 	at ordervschaos.particletrieur.app.viewmodels.SelectionViewModel.KNNPredictionViewModel.onCurrentParticleUpdated(KNNPredictionManager.java:58)
 	at ordervschaos.particletrieur.app.viewmodels.SelectionViewModel.refreshPredictions(SelectionViewModel.java:97)
-	at ordervschaos.particletrieur.app.viewcontrollers.ClassificationViewController.lambda$initialize$1(ClassificationPaneController.java:149)
+	at ordervschaos.particletrieur.app.viewcontrollers.classification.ClassificationViewController.lambda$initialize$1(ClassificationPaneController.java:149)
 	at ordervschaos.particletrieur.app.helpers.CSEvent.lambda$broadcast$0(CSEvent.java:25)
 	at java.lang.Iterable.forEach(Iterable.java:75)
 	at ordervschaos.particletrieur.app.helpers.CSEvent.broadcast(CSEvent.java:25)

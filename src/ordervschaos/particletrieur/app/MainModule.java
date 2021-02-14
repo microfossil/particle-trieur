@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ordervschaos.particletrieur.app;
 
 import ordervschaos.particletrieur.app.viewmanagers.UndoManager;
@@ -21,10 +16,7 @@ import ordervschaos.particletrieur.app.viewmodels.project.ProjectRepositoryViewM
 import ordervschaos.particletrieur.app.viewmodels.stats.StatisticsChartsViewModel;
 import ordervschaos.particletrieur.app.viewmodels.tools.ToolsViewModel;
 
-/**
- *
- * @author rossm
- */
+
 public class MainModule extends AbstractModule {
     
     @Override

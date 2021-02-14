@@ -9,13 +9,19 @@ package ordervschaos.particletrieur.app.models.processing;
  *
  * @author rossm
  */
-public class ProcessingException extends Exception {
-    
-    public ProcessingException(){
-        super();
+public enum SegmentationType {
+    INTENSITY("Intensity"),
+    OTSU("Adaptive (Otsu)"),
+    CNN("Segmentation CNN");
+
+    private final String value;
+
+    SegmentationType(String s) {
+        value = s;
     }
 
-    public ProcessingException(String message){
-        super(message);
-    }    
+    @Override
+    public String toString() {
+        return value;
+    }
 }

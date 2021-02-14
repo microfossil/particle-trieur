@@ -2,11 +2,10 @@ package ordervschaos.particletrieur.app.viewmodels.stats;
 
 import ordervschaos.particletrieur.app.models.Supervisor;
 import ordervschaos.particletrieur.app.services.StatisticsService;
-import ordervschaos.particletrieur.app.viewcontrollers.StatisticsDialogs;
+import ordervschaos.particletrieur.app.viewcontrollers.stats.StatisticsDialogs;
 import com.google.inject.Inject;
 import javafx.scene.control.Dialog;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class StatisticsChartsViewModel {

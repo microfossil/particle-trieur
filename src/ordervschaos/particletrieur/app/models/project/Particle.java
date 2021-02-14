@@ -5,14 +5,13 @@
  */
 package ordervschaos.particletrieur.app.models.project;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableMap;
 import ordervschaos.particletrieur.app.models.network.classification.Classification;
 import ordervschaos.particletrieur.app.models.network.classification.ClassificationSet;
 import ordervschaos.particletrieur.app.models.processing.Morphology;
 import ordervschaos.particletrieur.app.models.processing.processors.MatUtilities;
 import ordervschaos.particletrieur.app.xml.ParametersMapAdapter;
 import ordervschaos.particletrieur.app.xml.RelativePathAdapter;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -40,11 +39,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.eclipse.persistence.oxm.annotations.XmlPath;
 import org.opencv.core.Mat;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
 
 /**
- *
  * @author Ross Marchant <ross.g.marchant@gmail.com>
  */
 @XmlRootElement(name = "image")
@@ -81,7 +77,6 @@ public class Particle {
     public StringProperty filenameProperty() {
         return filename;
     }
-
     public void refreshFile() {
         setFile(new File(getFilename()));
     }
@@ -97,7 +92,7 @@ public class Particle {
     public StringProperty shortFilenameProperty() {
         return shortFilename;
     }
-    
+
     //Folder
     private final StringProperty folder = new SimpleStringProperty();
     public String getFolder() {
@@ -151,8 +146,8 @@ public class Particle {
     public IntegerProperty imageHeightProperty() {
         return imageHeight;
     }
-    
-    //Core ID
+
+    //Sample
     private final StringProperty sampleID = new SimpleStringProperty("unknown");
     @XmlElement
     @XmlPath("source/sampleID/text()")
@@ -165,8 +160,8 @@ public class Particle {
     public StringProperty sampleIDProperty() {
         return sampleID;
     }
-    
-    //Depths
+
+    //Indices
     //TODO change to numerics
     private final DoubleProperty index1 = new SimpleDoubleProperty();
     @XmlElement
@@ -179,7 +174,7 @@ public class Particle {
     }
     public DoubleProperty index1Property() {
         return index1;
-    }    
+    }
     private final DoubleProperty index2 = new SimpleDoubleProperty();
     @XmlElement
     @XmlPath("source/index2/text()")
@@ -197,7 +192,7 @@ public class Particle {
         if (N == 1) return getIndex1();
         else return getIndex2();
     }
-    
+
     //GUID
     private final StringProperty GUID = new SimpleStringProperty();
     @XmlElement
@@ -225,7 +220,7 @@ public class Particle {
     public DoubleProperty resolutionProperty() {
         return resolution;
     }
-    
+
     //Score
     private final IntegerProperty imageQuality = new SimpleIntegerProperty();
     @XmlElement
@@ -243,15 +238,13 @@ public class Particle {
     //Classification information
     @XmlElement
     private ClassificationSet classifications = new ClassificationSet();
-    
+
     //Tags   
-    @XmlElementWrapper(name="tags")
-    @XmlElement(name="tag")
+    @XmlElementWrapper(name = "tags")
+    @XmlElement(name = "tag")
     public HashSet<String> tags = new HashSet<>();
-    
+
     //CNN vector
-    //@XmlElement
-    //@XmlJavaTypeAdapter(FloatBufferMapAdapter.class)
     private float[] cnnVector;
     protected void setCNNVector(float[] vector) {
         cnnVector = vector;
@@ -274,12 +267,18 @@ public class Particle {
 
     //Parameters
     public LinkedHashMap<String, String> parameters = new LinkedHashMap<>();
-    @XmlElement(name="parameters")
+    @XmlElement(name = "parameters")
     @XmlJavaTypeAdapter(ParametersMapAdapter.class)
-    public LinkedHashMap<String, String> getParameters() { return parameters; }
-    public void setParameters(LinkedHashMap<String, String> value) { parameters = value; }
+    public LinkedHashMap<String, String> getParameters() {
+        return parameters;
+    }
 
-    //UI
+    public void setParameters(LinkedHashMap<String, String> value) {
+        parameters = value;
+    }
+
+    //Other observable properties for UI (TableView)
+    //Most are derived from others
     public StringProperty classification = new SimpleStringProperty(this, "classification", Project.UNLABELED_CODE);
     public String getClassification() {
         return classification.get();
@@ -296,7 +295,6 @@ public class Particle {
     public IntegerProperty qualityProperty = new SimpleIntegerProperty(this, "quality", 0);
     public DoubleProperty scoreProperty = new SimpleDoubleProperty(this, "score", 0.0);
 
-
     //Constructors
     public Particle() {
         UUID uuid = UUID.randomUUID();
@@ -306,12 +304,12 @@ public class Particle {
         Base62 base62 = Base62.createInstance();
         setGUID(new String(base62.encode(bb.array())));
     }
-        
+
     public Particle(File file) {
         this();
         setFilename(file.getAbsolutePath());
     }
-    
+
     public Particle(File file, String code, String classifierId) {
         this(file);
         clearAndAddClassification(code, 1.0, classifierId);
@@ -337,7 +335,6 @@ public class Particle {
     /*
     Classification
     */
-    //TODO move to project
     protected void clearAndAddClassification(String code, double score, String classifierId) {
         classifications.clearAndAdd(code, score, classifierId);
         classification.set(classifications.getBestCode());
@@ -345,7 +342,7 @@ public class Particle {
         setValidator("");
         removeTag("auto");
     }
-    
+
     protected void addClassification(String code, double score, String classifierId) {
         classifications.add(code, score, classifierId);
         classification.set(classifications.getBestCode());
@@ -365,20 +362,19 @@ public class Particle {
         if (wasAuto) addTag("auto");
         else removeTag("auto");
     }
-    
+
     public ClassificationSet getClassifications() {
         return classifications;
     }
-    
+
     public List<Classification> getClassificationsAsList() {
         return new ArrayList(classifications.classifications.values());
     }
-    
+
     public double getScore(String code) {
         if (classifications.classifications.containsKey(code)) {
             return classifications.classifications.get(code).getValue();
-        }
-        else {
+        } else {
             return 0.0;
         }
     }
@@ -386,17 +382,14 @@ public class Particle {
     public void validate(String validator) {
         setValidator(validator);
     }
-    
+
     /*
     Tag
     */
     protected void toggleTag(String code) {
         if (tags.contains(code)) {
             tags.remove(code);
-            //System.out.println("removed tag " + code);
-        }
-        else {
-            //System.out.println("added tag " + code);
+        } else {
             tags.add(code);
         }
         tagUIProperty.set(tagsToString());
@@ -415,27 +408,32 @@ public class Particle {
         }
         tagUIProperty.set(tagsToString());
     }
-    
+
     public String tagsToString() {
         StringBuilder sb = new StringBuilder();
-        tags.forEach(tag -> {sb.append(tag); sb.append(";");});
+        tags.forEach(tag -> {
+            sb.append(tag);
+            sb.append(";");
+        });
         if (sb.length() > 1) {
-            return sb.substring(0, sb.length()-1);
-        }
-        else {
+            return sb.substring(0, sb.length() - 1);
+        } else {
             return " ";
         }
     }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        tags.forEach(tag -> {sb.append(tag); sb.append(";");});
+        tags.forEach(tag -> {
+            sb.append(tag);
+            sb.append(";");
+        });
         sb.append(getClassification() + ";");
         sb.append(getFilename() + ";");
         sb.append(getGUID() + ";");
         return sb.toString();
     }
-    
+
     /*
     Images
     */
@@ -448,46 +446,36 @@ public class Particle {
                 return null;
             }
             return mat;
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             return null;
         }
     }
-    
+
     public Image getImage() throws IOException {
-        //return SwingFXUtils.toFXImage(ImageIO.read(getFile()), null);
         if (getFile() != null) {
-            //return new Image(getFile().toURI().toString());
             return SwingFXUtils.toFXImage(ImageIO.read(getFile()), null);
-        }
-        else {
+        } else {
             return null;
         }
     }
-    
-    public Image getImageThumbnail() throws IOException {        
+
+    public Image getImageThumbnail() throws IOException {
         if (getFile() != null) {
             return getImage();
-//            return new Image(getFile().toURI().toString(), 128, 128, true, false);
-        }
-        else {
+        } else {
             return null;
         }
     }
 
     //Properties needed for tableView
     public void initUIProperties() {
-//        if (getShortFilename().startsWith("00026")) {
-            if (classifications.classifications == null) setClassifications(new ClassificationSet(), 0, false);
-            if (classifications.classifications.isEmpty()) {
-                addClassification(Project.UNLABELED_CODE, 1.0, "default");
-            }
-//        }
+        if (classifications.classifications == null) setClassifications(new ClassificationSet(), 0, false);
+        if (classifications.classifications.isEmpty()) {
+            addClassification(Project.UNLABELED_CODE, 1.0, "default");
+        }
         classification.set(classifications.getBestCode());
         classifierIdProperty.set(classifications.getClassifierId());
         scoreProperty.set(0.0);
         tagUIProperty.set(tagsToString());
-//        morphologyStateProperty.set(morphology.isCalculated());
-//        cnnVectorStateProperty.set(cnnVector != null);
     }
 }

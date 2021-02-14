@@ -3,11 +3,11 @@ package ordervschaos.particletrieur.app.viewmodels;
 import ordervschaos.particletrieur.app.AbstractDialogController;
 import ordervschaos.particletrieur.app.helpers.CSEvent;
 import ordervschaos.particletrieur.app.models.Supervisor;
-import ordervschaos.particletrieur.app.viewcontrollers.CNNTrainingViewController;
+import ordervschaos.particletrieur.app.viewcontrollers.network.CNNTrainingViewController;
 import com.google.inject.Inject;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import ordervschaos.particletrieur.app.viewcontrollers.FlowcamSegmenterViewController;
+import ordervschaos.particletrieur.app.viewcontrollers.tools.FlowcamSegmenterViewController;
 
 import java.io.IOException;
 

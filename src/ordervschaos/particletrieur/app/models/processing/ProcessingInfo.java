@@ -20,6 +20,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.NONE)
 public class ProcessingInfo {
 
+    //TODO - this should be in the view model
+    //TODO - generic settings class...
+    //TODO - parameters / morphology in filter view
+    //
+
     //
     //
     // Type of image
@@ -151,12 +156,12 @@ public class ProcessingInfo {
         this.segmentationRescale.set(segmentationRescale);
     }
     //Segmentation method
-    private final ObjectProperty<SegmentationMethod> segmentationMethod = new SimpleObjectProperty<>(SegmentationMethod.OTSU);
+    private final ObjectProperty<SegmentationType> segmentationMethod = new SimpleObjectProperty<>(SegmentationType.OTSU);
     @XmlElement(name = "segmentationMethod")
-    public SegmentationMethod getSegmentationMethod() {
+    public SegmentationType getSegmentationMethod() {
         return segmentationMethod.get();
     }
-    public void setSegmentationMethod(SegmentationMethod value) {
+    public void setSegmentationMethod(SegmentationType value) {
         segmentationMethod.set(value);
     }
     public ObjectProperty segmentationMethodProperty() {
@@ -275,7 +280,7 @@ public class ProcessingInfo {
         setNormalisationParameter(0.7);
         setConvertToGreyscale(false);
         //Segmentation
-        setSegmentationMethod(SegmentationMethod.INTENSITY);
+        setSegmentationMethod(SegmentationType.INTENSITY);
         setSegmentationEnhanceEdges(false);
         setSegmentationThreshold(0.5);
         //Segmentation adjustments

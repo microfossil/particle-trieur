@@ -59,13 +59,18 @@ public class KNNPredictionViewModel {
     }
 
     Supervisor supervisor;
+    NetworkViewModel networkViewModel;
     SelectionViewModel selectionViewModel;
     LabelsViewModel labelsViewModel;
     private KNNVectorPredictionService KNNVectorPredictionService;
 
     @Inject
-    public KNNPredictionViewModel(Supervisor supervisor, SelectionViewModel selectionViewModel, LabelsViewModel labelsViewModel)  {
+    public KNNPredictionViewModel(Supervisor supervisor,
+                                  NetworkViewModel networkViewModel,
+                                  SelectionViewModel selectionViewModel,
+                                  LabelsViewModel labelsViewModel)  {
         this.supervisor = supervisor;
+        this.networkViewModel = networkViewModel;
         this.selectionViewModel = selectionViewModel;
         this.labelsViewModel = labelsViewModel;
 
@@ -132,7 +137,7 @@ public class KNNPredictionViewModel {
         AlertEx alert = new AlertEx(Alert.AlertType.CONFIRMATION, "This will reset all feature vectors. Are you sure?", ButtonType.YES, ButtonType.CANCEL);
         alert.showAndWait().ifPresent(buttonType -> {
             if (buttonType == ButtonType.YES) {
-                supervisor.particleInformationManager.recalculateAll();
+                networkViewModel.recalculateAll();
             }
         });
     }

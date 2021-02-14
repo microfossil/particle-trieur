@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane hgap="14.0" minHeight="380.0" minWidth="800.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.ExportViewController">
+<GridPane hgap="14.0" minHeight="380.0" minWidth="800.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordervschaos.particletrieur.app.viewcontrollers.export.ExportViewController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" percentWidth="50.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
