@@ -3,7 +3,7 @@ package ordervschaos.particletrieur.app.models.network.training;
 import java.io.IOException;
 import java.nio.file.Files;
 
-public class MISOTrainingScript {
+public class CNNTrainingScript {
 
     //Name
     public String name = "";

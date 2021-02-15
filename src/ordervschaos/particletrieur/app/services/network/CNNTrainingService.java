@@ -3,17 +3,11 @@ package ordervschaos.particletrieur.app.services.network;
 import ordervschaos.particletrieur.app.AppPreferences;
 import ordervschaos.particletrieur.app.controls.BasicDialogs;
 import ordervschaos.particletrieur.app.models.network.training.GPUStatus;
-import ordervschaos.particletrieur.app.models.network.training.MISOTrainingScript;
-import ordervschaos.particletrieur.app.models.network.training.TrainingLaunchInfo;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
+import ordervschaos.particletrieur.app.models.network.training.CNNTrainingScript;
 import org.apache.commons.lang3.SystemUtils;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.io.*;
-import java.util.ArrayList;
 
 public class CNNTrainingService {
 
@@ -233,7 +227,7 @@ public class CNNTrainingService {
         executeInTerminal(terminalCommand);
     }
 
-    public void launchTraining(MISOTrainingScript info) {
+    public void launchTraining(CNNTrainingScript info) {
         try {
             String script = info.getScript();
             File temp = File.createTempFile("miso_", ".py");

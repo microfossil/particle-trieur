@@ -15,8 +15,8 @@ import ordervschaos.particletrieur.app.controls.AlertEx;
 import ordervschaos.particletrieur.app.controls.BasicDialogs;
 import ordervschaos.particletrieur.app.models.Supervisor;
 import ordervschaos.particletrieur.app.models.network.training.GPUStatus;
-import ordervschaos.particletrieur.app.models.network.training.MISOTrainingScript;
-import ordervschaos.particletrieur.app.models.network.training.TrainingLaunchInfo;
+import ordervschaos.particletrieur.app.models.network.training.CNNTrainingScript;
+import ordervschaos.particletrieur.app.models.network.training.ModelDefaults;
 import ordervschaos.particletrieur.app.services.network.CNNTrainingService;
 import ordervschaos.particletrieur.app.services.network.TrainingNetworkDescriptionService;
 import ordervschaos.particletrieur.app.AbstractDialogController;
@@ -91,7 +91,7 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
     @FXML
     CheckBox checkBoxOutputSaveMislabeled;
     @FXML
-    ComboBox<TrainingLaunchInfo> comboBoxCNNType;
+    ComboBox<ModelDefaults> comboBoxCNNType;
     @FXML
     ComboBox<Integer> comboBoxInputSize;
     @FXML
@@ -123,9 +123,9 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
             vBox.getChildren().addAll(name, description);
             hBox.getChildren().addAll(pane, vBox);
             HBox.setMargin(pane, new Insets(0, 7, 0, 0));
-            ListCell<TrainingLaunchInfo> cell = new ListCell<TrainingLaunchInfo>() {
+            ListCell<ModelDefaults> cell = new ListCell<ModelDefaults>() {
                 @Override
-                protected void updateItem(TrainingLaunchInfo item, boolean empty) {
+                protected void updateItem(ModelDefaults item, boolean empty) {
                     int pos = comboBoxCNNType.getItems().indexOf(item) % 2;
                     super.updateItem(item, empty);
                     if (item == null || empty) {
@@ -146,14 +146,14 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
             };
             return cell;
         });
-        comboBoxCNNType.setConverter(new StringConverter<TrainingLaunchInfo>() {
+        comboBoxCNNType.setConverter(new StringConverter<ModelDefaults>() {
             @Override
-            public String toString(TrainingLaunchInfo object) {
+            public String toString(ModelDefaults object) {
                 return object.name;
             }
 
             @Override
-            public TrainingLaunchInfo fromString(String string) {
+            public ModelDefaults fromString(String string) {
                 return null;
             }
         });
@@ -181,7 +181,7 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
         comboBoxColourMode.getItems().addAll("Greyscale", "Colour (RGB)");
         comboBoxColourMode.getSelectionModel().select(0);
 
-        MISOTrainingScript info = new MISOTrainingScript();
+        CNNTrainingScript info = new CNNTrainingScript();
 
         spinnerAlrEpochs.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, info.trainingAlrEpochs, 5));
         spinnerBatchSize.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(16, 256, info.trainingBatchSize, 16));
@@ -244,10 +244,10 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
         }
     }
 
-    public MISOTrainingScript createTrainingScript() {
+    public CNNTrainingScript createTrainingScript() {
 
-        MISOTrainingScript info = new MISOTrainingScript();
-        TrainingLaunchInfo networkInfo = comboBoxCNNType.getSelectionModel().getSelectedItem();
+        CNNTrainingScript info = new CNNTrainingScript();
+        ModelDefaults networkInfo = comboBoxCNNType.getSelectionModel().getSelectedItem();
 
         //Input
         if (radioButtonInputFolder.isSelected()) {
@@ -399,7 +399,7 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
             BasicDialogs.ShowError("Error", "You must save the project first");
             return;
         }
-        MISOTrainingScript info = createTrainingScript();
+        CNNTrainingScript info = createTrainingScript();
 
         String script = null;
         try {

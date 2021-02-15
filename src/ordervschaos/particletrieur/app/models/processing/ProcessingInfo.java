@@ -179,6 +179,7 @@ public class ProcessingInfo {
     public DoubleProperty segmentationThresholdProperty() {
         return segmentationThreshold;
     }
+
     //
     //
     // Segmentation adjustments
@@ -262,7 +263,6 @@ public class ProcessingInfo {
     public DoubleProperty classificationThresholdProperty() {
         return classificationThreshold;
     }
-
 
     public ProcessingInfo() {
         resetToDefaults();
