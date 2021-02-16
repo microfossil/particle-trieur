@@ -12,6 +12,6 @@ public class DialogEx<T> extends Dialog<T> {
         super();
         Scene scene = this.getDialogPane().getScene();
         ((Stage)scene.getWindow()).getIcons().add(new Image(App.class.getResourceAsStream("resources/icon.png")));
-        scene.getStylesheets().add(App.class.getResource("styles/style.css").toExternalForm());
+        scene.getStylesheets().add(App.class.getResource("resources/styles/style.css").toExternalForm());
     }
 }

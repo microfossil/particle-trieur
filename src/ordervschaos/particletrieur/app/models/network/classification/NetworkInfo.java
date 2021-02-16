@@ -7,7 +7,6 @@ package ordervschaos.particletrieur.app.models.network.classification;
 
 import ordervschaos.particletrieur.app.controls.BasicDialogs;
 import ordervschaos.particletrieur.app.helpers.XMLClonable;
-import ordervschaos.particletrieur.app.models.network.PreprocessingInfo;
 import ordervschaos.particletrieur.app.xml.RelativePathAdapter;
 
 import javax.xml.bind.JAXBContext;
@@ -69,9 +68,6 @@ public class NetworkInfo extends XMLClonable<NetworkInfo> {
     @XmlElement
     public double f1score = 0;
 
-    //Preprocessing
-    @XmlElement
-    public PreprocessingInfo prepro;
 
     //Is Resource
     public boolean isResource = false;

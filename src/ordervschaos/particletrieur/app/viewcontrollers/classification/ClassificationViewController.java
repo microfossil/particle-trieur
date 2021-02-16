@@ -144,6 +144,7 @@ public class ClassificationViewController implements Initializable {
             updateClassificationUI(newValue);
             updateTagUI(newValue);
         });
+        updateValidatedButton(LabelsViewModel.ValidationState.INVALID);
 
         //Network updated
         supervisor.project.networkDefinitionProperty().addListener(listener -> {
@@ -323,7 +324,7 @@ public class ClassificationViewController implements Initializable {
             labelButtons.put(code, button);
         }
         Button buttonAddNewLabel = new Button();
-        buttonAddNewLabel.setMinWidth(80);
+        buttonAddNewLabel.setMinWidth(20);
         buttonAddNewLabel.getStyleClass().add("flat-button");
         buttonAddNewLabel.setGraphic(new SymbolLabel("featherplus", 12));
         buttonAddNewLabel.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
@@ -371,9 +372,8 @@ public class ClassificationViewController implements Initializable {
 
         //Button to add a new tag
         Button buttonAddNewTag = new Button();
-        buttonAddNewTag.setMinWidth(80);
+        buttonAddNewTag.setMinWidth(20);
         buttonAddNewTag.getStyleClass().add("flat-button");
-        buttonAddNewTag.setText("Add");
         buttonAddNewTag.setGraphic(new SymbolLabel("featherplus", 12));
         buttonAddNewTag.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             showEditTagDialog(null);
@@ -543,27 +543,30 @@ public class ClassificationViewController implements Initializable {
             for (Map.Entry<String, ClassificationButton> b : labelButtons.entrySet()) {
                 b.getValue().setIsHighlighted(b.getKey().equals(code));
             }
-            LabelsViewModel.ValidationState state = labelsViewModel.getValidationState();
-            if (state == LabelsViewModel.ValidationState.VALIDATED) {
-                buttonValidate.setText("Validated");
-                buttonValidate.setStyle("-fx-text-fill: green");
-                symbolValidate.setSymbol("feathercheckcircle");
-                symbolValidate.setSymbolColor("green");
-            } else if (state == LabelsViewModel.ValidationState.INDETERMINATE) {
-                buttonValidate.setText("Some validated");
-                buttonValidate.setStyle("-fx-text-fill: darkorange");
-                symbolValidate.setSymbol("featheralerttriangle");
-                symbolValidate.setSymbolColor("darkorange");
-            } else {
-                buttonValidate.setText("Not validated");
-                buttonValidate.setStyle("-fx-text-fill: red");
-                symbolValidate.setSymbol("featherxcircle");
-                symbolValidate.setSymbolColor("red");
-            }
+            updateValidatedButton(labelsViewModel.getValidationState());
         } else {
             for (Map.Entry<String, ClassificationButton> b : labelButtons.entrySet()) {
                 b.getValue().setIsHighlighted(false);
             }
+        }
+    }
+
+    private void updateValidatedButton(LabelsViewModel.ValidationState state) {
+        if (state == LabelsViewModel.ValidationState.VALIDATED) {
+            buttonValidate.setText("Validated");
+            buttonValidate.setStyle("-fx-text-fill: green");
+            symbolValidate.setSymbol("feathercheckcircle");
+            symbolValidate.setSymbolColor("green");
+        } else if (state == LabelsViewModel.ValidationState.INDETERMINATE) {
+            buttonValidate.setText("Some validated");
+            buttonValidate.setStyle("-fx-text-fill: darkorange");
+            symbolValidate.setSymbol("featheralerttriangle");
+            symbolValidate.setSymbolColor("darkorange");
+        } else {
+            buttonValidate.setText("Not validated");
+            buttonValidate.setStyle("-fx-text-fill: red");
+            symbolValidate.setSymbol("featherxcircle");
+            symbolValidate.setSymbolColor("red");
         }
     }
 

@@ -212,6 +212,9 @@ public class StartupViewController extends AbstractController implements Initial
                     controller.startup();
                     stage.close();
                 });
+                task2.setOnFailed(event2 -> {
+                    task2.getException().printStackTrace();
+                });
                 App.getExecutorService().submit(task2);
             } catch (Exception e) {
                 BasicDialogs.ShowException("Error opening ParticleTrieur", e);

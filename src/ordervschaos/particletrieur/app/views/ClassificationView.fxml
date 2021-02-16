@@ -7,7 +7,8 @@
 <?import org.controlsfx.control.SegmentedButton?>
 
 <?import org.controlsfx.control.SegmentedButton?>
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="626.0" prefWidth="836.0" stylesheets="@../resources/styles/style.css"
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="626.0" prefWidth="836.0"
+            stylesheets="@../resources/styles/style.css"
             xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ordervschaos.particletrieur.app.viewcontrollers.classification.ClassificationViewController">
     <children>
@@ -30,44 +31,40 @@
                             <content>
                                 <VBox fx:id="vboxClassButtons" spacing="7.0">
                                     <children>
-                                        <!--                                        <HBox>-->
-                                        <SegmentedButton>
-                                            <buttons>
-                                                <fx:define>
-                                                    <ToggleGroup fx:id="toggleGroupLabelMode"/>
-                                                </fx:define>
-                                                <ToggleButton fx:id="toggleButtonLabelsFlat"
-                                                              mnemonicParsing="false"
-                                                              toggleGroup="$toggleGroupLabelMode"
-                                                              onAction="#handleToggleLabelModeFlat">
-                                                    <graphic>
-                                                        <SymbolLabel symbol="feathergrid"/>
-                                                    </graphic>
-                                                </ToggleButton>
-                                                <ToggleButton fx:id="toggleButtonLabelsCategory"
-                                                              mnemonicParsing="false"
-                                                              selected="true"
-                                                              toggleGroup="$toggleGroupLabelMode"
-                                                              onAction="#handleToggleLabelModeCategory">
-                                                    <graphic>
-                                                        <SymbolLabel symbol="featherlist"/>
-                                                    </graphic>
-                                                </ToggleButton>
-                                            </buttons>
-                                        </SegmentedButton>
-                                        <!--                                        </HBox>-->
                                         <HBox spacing="4">
-                                            <children>
-                                                <Label styleClass="subheader" text="Labels"/>
-                                                <Pane HBox.hgrow="ALWAYS"/>
-                                                <Button fx:id="buttonValidate" text="Validate" minWidth="100">
-                                                    <graphic>
-                                                        <SymbolLabel fx:id="symbolValidate" symbol="feathercheckcircle"
-                                                                     symbolSize="10" symbolColor="green"/>
-                                                    </graphic>
-                                                </Button>
-                                            </children>
+                                            <SegmentedButton>
+                                                <buttons>
+                                                    <fx:define>
+                                                        <ToggleGroup fx:id="toggleGroupLabelMode"/>
+                                                    </fx:define>
+                                                    <ToggleButton fx:id="toggleButtonLabelsFlat"
+                                                                  mnemonicParsing="false"
+                                                                  toggleGroup="$toggleGroupLabelMode"
+                                                                  onAction="#handleToggleLabelModeFlat">
+                                                        <graphic>
+                                                            <SymbolLabel symbol="feathergrid"/>
+                                                        </graphic>
+                                                    </ToggleButton>
+                                                    <ToggleButton fx:id="toggleButtonLabelsCategory"
+                                                                  mnemonicParsing="false"
+                                                                  selected="true"
+                                                                  toggleGroup="$toggleGroupLabelMode"
+                                                                  onAction="#handleToggleLabelModeCategory">
+                                                        <graphic>
+                                                            <SymbolLabel symbol="featherlist"/>
+                                                        </graphic>
+                                                    </ToggleButton>
+                                                </buttons>
+                                            </SegmentedButton>
+                                            <Pane HBox.hgrow="ALWAYS"/>
+                                            <Button fx:id="buttonValidate" text="Validate" minWidth="100">
+                                                <graphic>
+                                                    <SymbolLabel fx:id="symbolValidate" symbol="feathercheckcircle"
+                                                                 symbolSize="10" symbolColor="green"/>
+                                                </graphic>
+                                            </Button>
                                         </HBox>
+                                        <Label styleClass="subheader" text="Labels"/>
                                         <VBox fx:id="vboxClasses" minHeight="20.0" spacing="7.0"/>
                                         <Separator>
                                             <VBox.margin>
@@ -123,7 +120,7 @@
                                 </Spinner>
                             </children>
                         </HBox>
-<!--                        <fx:include source="ParticleInformationProgressView.fxml"/>-->
+                        <!--                        <fx:include source="ParticleInformationProgressView.fxml"/>-->
                         <Separator>
                             <VBox.margin>
                                 <Insets top="14.0"/>
