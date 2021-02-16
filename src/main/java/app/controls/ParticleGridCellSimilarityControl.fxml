@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import main.java.app.controls.ImageViewPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import main.java.app.controls.SymbolLabel?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
+<fx:root stylesheets="@../resources/styles/style.css" type="javafx.scene.layout.BorderPane"
+         xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <HBox>
+            <padding>
+                <Insets topRightBottomLeft="4"/>
+            </padding>
+            <VBox>
+                <Label fx:id="labelId" text="Index"/>
+                <Label fx:id="labelClassification" text="Classification"/>
+                <Label fx:id="labelInfo" text=""/>
+            </VBox>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <StackPane>
+                <Circle radius="10" style="-fx-fill: -fx-background;"/>
+                <Circle fx:id="circleRed" radius="8" style="-fx-fill: red;"/>
+                <Circle fx:id="circleGreen" radius="8" style="-fx-fill: green;"/>
+            </StackPane>
+        </HBox>
+    </top>
+    <center>
+        <ImageViewPane fx:id="imageViewPane">
+            <imageView>
+                <ImageView fx:id="imageView"
+                           pickOnBounds="true"
+                           preserveRatio="true"/>
+            </imageView>
+        </ImageViewPane>
+    </center>
+</fx:root>

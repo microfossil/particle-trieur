@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="ParticleTrieurNoInstaller" />
+      <artifact name="ParticleTrieur" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -27,52 +27,502 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2a2d7e8-5c07-421e-a18f-7e6936f4ce78" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__aopalliance_aopalliance_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__aopalliance_aopalliance_1_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_3_0_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_3_0_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_errorprone_error_prone_annotations_2_1_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_errorprone_error_prone_annotations_2_1_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_25_1_android.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_25_1_android.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_inject_guice_4_2_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_inject_guice_4_2_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_j2objc_j2objc_annotations_1_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_j2objc_j2objc_annotations_1_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_googlecode_json_simple_json_simple_1_1_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_googlecode_json_simple_json_simple_1_1_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_fastinfoset_FastInfoset_1_2_17.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_fastinfoset_FastInfoset_1_2_17.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_common_common_image_3_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_common_common_image_3_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_common_common_io_3_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_common_common_io_3_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_common_common_lang_3_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_common_common_lang_3_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_imageio_imageio_core_3_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_imageio_imageio_core_3_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_imageio_imageio_jpeg_3_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_imageio_imageio_jpeg_3_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_imageio_imageio_metadata_3_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_imageio_imageio_metadata_3_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_imageio_imageio_tiff_3_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_twelvemonkeys_imageio_imageio_tiff_3_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_11.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_11.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_seruco_encoding_base62_0_1_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_seruco_encoding_base62_0_1_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_inject_javax_inject_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_inject_javax_inject_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_javax_servlet_api_4_0_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_javax_servlet_api_4_0_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_10.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_10.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_8_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_8_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_8.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_11.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_11.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpmime_4_5_8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpmime_4_5_8.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_checkerframework_checker_compat_qual_2_0_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_checkerframework_checker_compat_qual_2_0_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_mojo_animal_sniffer_annotations_1_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_mojo_animal_sniffer_annotations_1_14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_controlsfx_controlsfx_8_40_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_controlsfx_controlsfx_8_40_14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_persistence_org_eclipse_persistence_asm_2_7_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_persistence_org_eclipse_persistence_asm_2_7_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_persistence_org_eclipse_persistence_core_2_7_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_persistence_org_eclipse_persistence_core_2_7_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_persistence_org_eclipse_persistence_moxy_2_7_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_persistence_org_eclipse_persistence_moxy_2_7_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_json_json_20200518.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_json_json_20200518.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openpnp_opencv_3_4_2_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openpnp_opencv_3_4_2_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_tensorflow_libtensorflow_1_15_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_tensorflow_libtensorflow_1_15_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_tensorflow_libtensorflow_jni_1_15_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_tensorflow_libtensorflow_jni_1_15_0.xml" afterDir="false" />
+    <list default="true" id="d2a2d7e8-5c07-421e-a18f-7e6936f4ce78" name="Default Changelist" comment="Re-arranged particle information progress">
+      <change afterPath="$PROJECT_DIR$/lib/libtensorflow-1.15.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/AbstractController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/AbstractDialogController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/AppPreferences.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/FxmlLocation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/GuiceFXMLLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/MainModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/AlertEx.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/BasicDialogs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/CheckedRangeControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/ClassificationButton.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/ClassificationButton.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/DialogEx.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/DialogUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/ExpressionBuilderControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/ForamImageControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/ImageCell.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/ImageViewPane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/ParticleGridCellControl.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/ParticleGridCellControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/ParticleGridCellSimilarityControl.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/ParticleGridCellSimilarityControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/ParticleImageControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/ParticleInformationControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/ProgressDialog2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/Status.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/StatusLabel2.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/StatusLabel2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/controls/SymbolLabel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/error.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/helpers/AutoCancellingServiceRunner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/helpers/BeanCopyService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/helpers/CSEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/helpers/ExceptionMonitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/helpers/Metrics.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/helpers/NestedObjectProperty.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/helpers/SimpleExpression.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/helpers/SizedStack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/helpers/TableViewHelpers.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/helpers/WeakAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/helpers/XMLClonable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/ProjectRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/Supervisor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/network/classification/Classification.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/network/classification/ClassificationSet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/network/classification/NetworkEx.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/network/classification/NetworkInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/network/classification/NetworkLabel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/network/classification/Similarity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/network/classification/TensorInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/network/training/CNNTrainingScript.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/network/training/GPUStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/network/training/ModelDefaults.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/processing/ImageType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/processing/Mask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/processing/Morphology.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/processing/ParticleImage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/processing/ProcessingInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/processing/SegmentationType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/processing/processors/BorderRemovalProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/processing/processors/ColourProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/processing/processors/DisplayProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/processing/processors/MatUtilities.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/processing/processors/MorphologyProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/processing/processors/PositionAdjustmentProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/processing/processors/Preprocessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/processing/processors/SegmentationProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/project/Particle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/project/Project.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/project/SchemaResolver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/project/Tag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/project/Taxon.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/tools/ClassificationClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/tools/ClassificationServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/tools/FolderWatch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/models/tools/RunningSeries.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/FontSymbols.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/ExtractMetadataFromFilenamesService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/FindDuplicatesService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/FlowcamCSVService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/FlowcamSegmenterService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/ImageProcessingService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/ParticleSimilarityService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/ProjectService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/ServiceHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/StatisticsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/UpdateCheckService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/export/ExportAbundanceService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/export/ExportImagesService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/export/ExportMorphologyService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/network/CNNPredictionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/network/CNNTrainingService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/network/FCNNSegmenterService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/network/KNNVectorPredictionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/network/ResNet50FeatureVectorService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/services/network/TrainingNetworkDescriptionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/AboutViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/MainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/StartupViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/WhatsNewViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/classification/ClassificationViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/classification/SimilarityViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/export/ExportViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/label/EditLabelViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/label/LabelListViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/morphology/MorphologyViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/morphology/ParametersViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/morphology/ProcessingViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/network/CNNTrainingViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/network/NetworkTrainingProgressViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/network/SelectNetworkViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/network/VectorProgressViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/particle/AddParticleViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/particle/EditParticleMetadataViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/particle/ImageDescriptionPopover.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/particle/ImageDetailViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/particle/ParticleGridViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/particle/ParticleImageViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/particle/ParticleListViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/particle/ParticleViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/stats/StatisticsDialogs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/tag/EditTagViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/tag/TagListViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/tools/FlowcamSegmenterViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewmanagers/UndoManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewmanagers/commands/AddParticlesCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewmanagers/commands/RemoveParticlesCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewmanagers/commands/SetLabelCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewmanagers/commands/SetLabelSetCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewmanagers/commands/UndoableCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewmodels/MainViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewmodels/SelectionViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewmodels/export/ExportViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewmodels/network/CNNPredictionViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewmodels/network/KNNPredictionViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewmodels/network/NetworkViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewmodels/particles/LabelsViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewmodels/particles/ParticlesViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewmodels/particles/TagsViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewmodels/project/ProjectRepositoryViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewmodels/stats/StatisticsChartsViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/viewmodels/tools/ToolsViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/AboutView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/CNNTrainingView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/ClassificationView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/ExportView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/FlowcamSegmenterView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/Main.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/ParticleInformationProgressView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/SimilarityView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/StartupView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/WhatsNewView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/label/EditLabelView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/label/LabelListView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/morphology/MorphologyView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/morphology/ParametersView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/morphology/ProcessingView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/network/NetworkTrainingProgressView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/network/SelectNetworkView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/particle/AddParticleView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/particle/EditParticleMetadataView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/particle/ImageDetailView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/particle/ParticleGridView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/particle/ParticleImageView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/particle/ParticleListView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/particle/ParticleView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/tag/EditTagView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/views/tag/TagListView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/xml/ClassificationMapAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/xml/FloatBufferMapAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/xml/INamedObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/xml/MorphologyDoubleMapAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/xml/ParametersMapAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/xml/RelativePathAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/xml/TagMapAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/xml/TaxonMapAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/other/segmenter/RawSlide.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/other/segmenter/Segmenter.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/other/segmenter/Segmenter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/other/segmenter/Segmenter2.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/other/segmenter/SegmenterController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/other/segmenter/SegmenterController2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_tensorflow_libtensorflow_1_15_0.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ParticleTrieur.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ParticleTrieur.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/DialogEx.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/DialogEx.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/classification/NetworkInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/classification/NetworkInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/StartupViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/StartupViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/classification/ClassificationViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/classification/ClassificationViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/ClassificationView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/ClassificationView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.xml" beforeDir="false" afterPath="$PROJECT_DIR$/archive/build.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inno/innoSetupScript.iss" beforeDir="false" afterPath="$PROJECT_DIR$/inno/innoSetupScript.iss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inno/innoSetupScriptGPU.iss" beforeDir="false" afterPath="$PROJECT_DIR$/inno/innoSetupScriptGPU.iss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inno/innoSetupScriptQUTComputer.iss" beforeDir="false" afterPath="$PROJECT_DIR$/inno/innoSetupScriptQUTComputer.iss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inno/innoSetupScriptWorkComputer.iss" beforeDir="false" afterPath="$PROJECT_DIR$/inno/innoSetupScriptWorkComputer.iss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manifest.mf" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.mf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schema1.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/archive/schema1.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/AbstractController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/AbstractDialogController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/App.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/AppPreferences.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/FxmlLocation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/GuiceFXMLLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/MainModule.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/_README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/_README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/AlertEx.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/BasicDialogs.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/CheckedRangeControl.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controls/CheckedRangeControl.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/CheckedRangeControl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ClassificationButton.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ClassificationButton.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/DialogEx.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/DialogUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ExpressionBuilderControl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ExpressionBuilderView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controls/ExpressionBuilderView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ForamImageControl.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controls/ForamImageControl.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ForamImageControl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ImageCell.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ImageViewPane.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ParticleGridCellControl.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ParticleGridCellControl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ParticleGridCellSimilarityControl.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ParticleGridCellSimilarityControl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ParticleImageControl.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/controls/ParticleImageControl.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ParticleImageControl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ParticleInformationControl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/ProgressDialog2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/Status.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/StatusLabel2.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/StatusLabel2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls/SymbolLabel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/default.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/default.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/error.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/helpers/AutoCancellingServiceRunner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/helpers/BeanCopyService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/helpers/CSEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/helpers/ExceptionMonitor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/helpers/Metrics.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/helpers/NestedObjectProperty.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/helpers/SimpleExpression.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/helpers/SizedStack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/helpers/TableViewHelpers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/helpers/WeakAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/helpers/XMLClonable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/ProjectRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/Supervisor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/jaxb.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/models/jaxb.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/classification/Classification.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/classification/ClassificationSet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/classification/NetworkEx.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/classification/NetworkInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/classification/NetworkLabel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/classification/Similarity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/classification/TensorInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/classification/jaxb.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/models/network/classification/jaxb.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/jaxb.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/models/network/jaxb.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/training/CNNTrainingScript.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/training/GPUStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/training/ModelDefaults.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/processing/ImageType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/processing/Mask.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/processing/Morphology.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/processing/ParticleImage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/processing/ProcessingInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/processing/SegmentationType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/processing/processors/BorderRemovalProcessor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/processing/processors/ColourProcessor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/processing/processors/DisplayProcessor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/processing/processors/MatUtilities.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/processing/processors/MorphologyProcessor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/processing/processors/PositionAdjustmentProcessor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/processing/processors/Preprocessor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/processing/processors/SegmentationProcessor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/project/Particle.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/project/Project.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/project/ProjectV2Schema.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/models/project/ProjectV2Schema.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/project/SchemaResolver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/project/Tag.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/project/Taxon.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/project/jaxb.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/models/project/jaxb.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/tools/ClassificationClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/tools/ClassificationServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/tools/FolderWatch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/tools/RunningSeries.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/about/martin.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/about/martin.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/about/martin.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/about/martin.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/about/ross.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/about/ross.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/about/ross.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/about/ross.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/about/thibault.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/about/thibault.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/cerege.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/cerege.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/cerege_icon2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/cerege_icon2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/icon - Copy (Custom).png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/icon - Copy (Custom).png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/icon - Copy.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/icon - Copy.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/icon-oldf.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/icon-oldf.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/icon-thin.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/icon-thin.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/icon_old.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/icon_old.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/iconsdfg.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/iconsdfg.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/missing-image-128.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/missing-image-128.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/missing-image-512.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/missing-image-512.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Feather.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Feather.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/FontSymbols.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-Black.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-Black.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-Black.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-Black.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-BlackItalic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-BlackItalic.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-BlackItalic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-BlackItalic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-Bold.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-Bold.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-Bold.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-Bold.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-BoldItalic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-BoldItalic.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-BoldItalic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-BoldItalic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-ExtraBold.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-ExtraBold.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-ExtraBold.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-ExtraBold.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-ExtraBoldItalic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-ExtraBoldItalic.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-ExtraBoldItalic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-ExtraBoldItalic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-ExtraLight.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-ExtraLight.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-ExtraLight.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-ExtraLight.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-ExtraLightItalic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-ExtraLightItalic.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-ExtraLightItalic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-ExtraLightItalic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-Italic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-Italic.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-Italic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-Italic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-Light.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-Light.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-Light.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-Light.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-LightItalic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-LightItalic.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-LightItalic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-LightItalic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-Medium.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-Medium.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-Medium.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-Medium.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-MediumItalic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-MediumItalic.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-MediumItalic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-MediumItalic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-Regular.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-Regular.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-Regular.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-Regular.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-SemiBold.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-SemiBold.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-SemiBold.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-SemiBold.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-SemiBoldItalic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-SemiBoldItalic.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-SemiBoldItalic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-SemiBoldItalic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-Thin.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-Thin.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-Thin.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-Thin.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-ThinItalic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-ThinItalic.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/Montserrat-ThinItalic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/Montserrat-ThinItalic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/MontserratAlternates-Black.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/MontserratAlternates-Black.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/MontserratAlternates-BlackItalic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/MontserratAlternates-BlackItalic.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/MontserratAlternates-Bold.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/MontserratAlternates-Bold.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/MontserratAlternates-BoldItalic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/MontserratAlternates-BoldItalic.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/MontserratAlternates-ExtraBold.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/MontserratAlternates-ExtraBold.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/MontserratAlternates-ExtraBoldItalic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/MontserratAlternates-ExtraBoldItalic.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/MontserratAlternates-ExtraLight.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/MontserratAlternates-ExtraLight.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/MontserratAlternates-ExtraLightItalic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/MontserratAlternates-ExtraLightItalic.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/MontserratAlternates-Italic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/MontserratAlternates-Italic.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/MontserratAlternates-Light.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/MontserratAlternates-Light.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/MontserratAlternates-LightItalic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/MontserratAlternates-LightItalic.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/MontserratAlternates-Medium.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/MontserratAlternates-Medium.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/MontserratAlternates-MediumItalic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/MontserratAlternates-MediumItalic.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/MontserratAlternates-Regular.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/MontserratAlternates-Regular.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/MontserratAlternates-SemiBold.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/MontserratAlternates-SemiBold.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/MontserratAlternates-SemiBoldItalic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/MontserratAlternates-SemiBoldItalic.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/MontserratAlternates-Thin.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/MontserratAlternates-Thin.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/MontserratAlternates-ThinItalic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/MontserratAlternates-ThinItalic.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/OFL.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/OFL.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Montserrat/SIL Open Font License.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Montserrat/SIL Open Font License.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Source_Sans_Pro/OFL.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Source_Sans_Pro/SourceSansPro-Black.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Source_Sans_Pro/SourceSansPro-BlackItalic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Source_Sans_Pro/SourceSansPro-BlackItalic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Source_Sans_Pro/SourceSansPro-Bold.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Source_Sans_Pro/SourceSansPro-Bold.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Source_Sans_Pro/SourceSansPro-BoldItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Source_Sans_Pro/SourceSansPro-ExtraLight.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Source_Sans_Pro/SourceSansPro-ExtraLightItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Source_Sans_Pro/SourceSansPro-Light.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Source_Sans_Pro/SourceSansPro-LightItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Source_Sans_Pro/SourceSansPro-Regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Source_Sans_Pro/SourceSansPro-RegularItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Source_Sans_Pro/SourceSansPro-SemiBold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/Source_Sans_Pro/SourceSansPro-SemiBoldItalic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/Source_Sans_Pro/SourceSansPro-SemiBoldItalic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/fonts.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/fonts.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/icomoon.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/icomoon.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/moderna.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/moderna.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/styles/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/trained_networks/UNet-ResNet34-segmenter/accuracy_vs_epoch.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/trained_networks/UNet-ResNet34-segmenter/accuracy_vs_epoch.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/trained_networks/UNet-ResNet34-segmenter/frozen_model.pb" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/trained_networks/UNet-ResNet34-segmenter/frozen_model.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/trained_networks/UNet-ResNet34-segmenter/loss_vs_epoch.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/trained_networks/UNet-ResNet34-segmenter/loss_vs_epoch.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/trained_networks/UNet-ResNet34-segmenter/network_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/trained_networks/UNet-ResNet34-segmenter/network_info.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/trained_networks/feature_vector/frozen_model.pb" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/trained_networks/feature_vector/frozen_model.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/resources/trained_networks/feature_vector/network_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/resources/trained_networks/feature_vector/network_info.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/ExtractMetadataFromFilenamesService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/FindDuplicatesService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/FlowcamCSVService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/FlowcamSegmenterService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/ImageProcessingService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/ParticleSimilarityService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/ProjectService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/ServiceHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/StatisticsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/UpdateCheckService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/export/ExportAbundanceService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/export/ExportImagesService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/export/ExportMorphologyService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/network/CNNPredictionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/network/CNNTrainingService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/network/FCNNSegmenterService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/network/KNNVectorPredictionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/network/ResNet50FeatureVectorService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/network/TrainingNetworkDescriptionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/AboutViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/MainController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/StartupViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/WhatsNewViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/classification/ClassificationViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/classification/SimilarityViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/export/ExportViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/label/EditLabelViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/label/LabelListViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/morphology/MorphologyViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/morphology/ParametersViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/morphology/ProcessingViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/network/CNNTrainingViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/network/NetworkTrainingProgressViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/network/SelectNetworkViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/network/VectorProgressViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/AddParticleViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/EditParticleMetadataViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ImageDescriptionPopover.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ImageDetailViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ParticleGridViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ParticleImageViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ParticleListViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ParticleViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/stats/StatisticsDialogs.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/tag/EditTagViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/tag/TagListViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/tools/FlowcamSegmenterViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmanagers/UndoManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmanagers/commands/AddParticlesCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmanagers/commands/RemoveParticlesCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmanagers/commands/SetLabelCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmanagers/commands/SetLabelSetCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmanagers/commands/UndoableCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/MainViewModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/SelectionViewModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/export/ExportViewModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/network/CNNPredictionViewModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/network/KNNPredictionViewModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/network/NetworkViewModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/particles/LabelsViewModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/particles/ParticlesViewModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/particles/TagsViewModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/project/ProjectRepositoryViewModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/stats/StatisticsChartsViewModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/tools/ToolsViewModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/AboutView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/CNNTrainingView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/ClassificationView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/ExportView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/FlowcamSegmenterView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/Main.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/ParticleInformationProgressView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/SimilarityView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/StartupView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/WhatsNewView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/label/EditLabelView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/label/LabelListView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/morphology/MorphologyView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/morphology/ParametersView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/morphology/ProcessingView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/network/NetworkTrainingProgressView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/network/SelectNetworkView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/particle/AddParticleView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/particle/EditParticleMetadataView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/particle/ImageDetailView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/particle/ParticleGridView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/particle/ParticleImageView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/particle/ParticleListView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/particle/ParticleView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/tag/EditTagView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/tag/TagListView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/xml/ClassificationMapAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/xml/FloatBufferMapAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/xml/INamedObject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/xml/MorphologyDoubleMapAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/xml/ParametersMapAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/xml/RelativePathAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/xml/TagMapAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/xml/TaxonMapAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/xml/jaxb.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/xml/jaxb.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/xml/taxonomy.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/xml/taxonomy.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/bundles/Lang.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bundles/Lang.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/bundles/tbfLang_fr.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bundles/tbfLang_fr.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/other/segmenter/RawSlide.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/other/segmenter/Segmenter.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/other/segmenter/Segmenter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/other/segmenter/Segmenter2.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/other/segmenter/SegmenterController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/other/segmenter/SegmenterController2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/other/segmenter/cerege.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/other/segmenter/cerege.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/other/segmenter/segmenter.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/other/segmenter/segmenter.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/package/macosx/ParticleTrieur.icns" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/package/macosx/ParticleTrieur.icns" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/package/windows/ParticleTrieur.ico" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/package/windows/ParticleTrieur.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/tensorflow/NativeLibrary.java" beforeDir="false" afterPath="$PROJECT_DIR$/archive/org/tensorflow/NativeLibrary.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +562,6 @@
   </component>
   <component name="ProjectId" id="1jIi2XTb26t6t7bxxu65zpvr0xw" />
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -121,9 +570,9 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/target/classes/main/java/app/resources/styles/Source_Sans_Pro" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -131,12 +580,14 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/target/classes/main/java/app/resources/styles/Source_Sans_Pro" />
+      <recent name="$PROJECT_DIR$/lib" />
       <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\controls" />
       <recent name="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/morphology" />
       <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\views\particle" />
-      <recent name="$PROJECT_DIR$/out/artifacts/ParticleTrieur_jar" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/archive" />
       <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\views\particle" />
       <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\views\morphology" />
     </key>
@@ -175,7 +626,7 @@
     <configuration name="App" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="ordervschaos.particletrieur.app.App" />
+      <option name="MAIN_CLASS_NAME" value="main.java.app.App" />
       <module name="ParticleTrieur" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -185,6 +636,17 @@
       <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="ordervschaos.particletrieur.app.App" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -284,7 +746,8 @@
       <workItem from="1612947705892" duration="596000" />
       <workItem from="1613251913642" duration="11006000" />
       <workItem from="1613385478321" duration="689000" />
-      <workItem from="1613432224722" duration="2141000" />
+      <workItem from="1613432224722" duration="2213000" />
+      <workItem from="1613448325387" duration="5080000" />
     </task>
     <task id="LOCAL-00001" summary="Move image type below">
       <created>1603508919405</created>
@@ -391,7 +854,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613306637776</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Fix add button and resource bug">
+      <created>1613435285313</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1613435285313</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -423,13 +893,15 @@
     <MESSAGE value="Clean up classification code" />
     <MESSAGE value="Fix style path" />
     <MESSAGE value="Move with other tools" />
-    <option name="LAST_COMMIT_MESSAGE" value="Move with other tools" />
+    <MESSAGE value="Fix add button and resource bug" />
+    <MESSAGE value="Re-arranged particle information progress" />
+    <option name="LAST_COMMIT_MESSAGE" value="Re-arranged particle information progress" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ParticleListViewController.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/app/viewcontrollers/particle/ParticleListViewController.java</url>
           <line>389</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.StatusBar?>
+<?import org.controlsfx.control.textfield.CustomTextField?>
+<!--<?import org.kordamp.ikonli.javafx.FontIcon?>-->
+
+<?import main.java.app.controls.SymbolLabel?>
+<StackPane fx:id="root" prefHeight="800.0" prefWidth="1284.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.other.segmenter.SegmenterController2">
+   <children>
+      <AnchorPane id="AnchorPane" fx:id="rootMain" prefHeight="600" prefWidth="800" stylesheets="@../resources/styles/style.css">
+          <children>
+            <SplitPane fx:id="splitPaneMain" dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <TableView fx:id="tableViewForams" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
+                          <columns>
+                              <TableColumn fx:id="colFilename" prefWidth="80" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="buttonAdd" mnemonicParsing="false" onAction="#handleAdd" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                           <graphic>
+                               <SymbolLabel symbol="featherplus"/>
+                           </graphic>
+                           <tooltip>
+                              <Tooltip text="Add folder of images" />
+                           </tooltip>
+                        </Button>
+                        <Button fx:id="buttonRemove" mnemonicParsing="false" onAction="#handleRemove" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="36.0">
+                           <graphic>
+                               <SymbolLabel symbol="featherminus"/>
+                           </graphic>
+                           <tooltip>
+                              <Tooltip text="Remove currently selected images" />
+                           </tooltip>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                     </padding>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <GridPane fx:id="gridPaneMain" hgap="7.0" prefHeight="734.0" prefWidth="930.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                                <!--<fx:include fx:id="foramImagePane" source="ForamImagePane.fxml"/>-->
+                              <TabPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 0 0 0 1px; -fx-border-color: derive(-fx-base,-20%);" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1">
+                                <tabs>
+                                  <Tab fx:id="tabProcessing" text="Processing">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+<!--                                                <VBox layoutX="67.0" layoutY="125.0" prefHeight="200.0" prefWidth="213.0" spacing="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <children>
+                                                      <Label styleClass="header-label" text="Settings" />
+                                                      <CheckBox fx:id="checkBoxUseOtsuMethod" mnemonicParsing="false" text="Use Otsu's method for segmentation" />
+                                                      <GridPane hgap="7.0" minHeight="36.0">
+                                                        <columnConstraints>
+                                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="80.0" minWidth="70.0" prefWidth="70.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" prefWidth="243.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <Slider fx:id="sliderOtsuAdjustment" blockIncrement="0.1" majorTickUnit="0.5" max="2.0" minorTickCount="1" onMouseReleased="#handleThresholdChanged" prefWidth="251.0" showTickLabels="true" showTickMarks="true" value="0.5" GridPane.columnIndex="1" />
+                                                            <Label text="Threshold:" />
+                                                         </children>
+                                                      </GridPane>
+                                                      <CheckBox fx:id="checkBoxConvertToGreyscale" mnemonicParsing="false" text="Convert to greyscale" />
+                                                      <Label styleClass="header-label" text="Display">
+                                                         <VBox.margin>
+                                                            <Insets top="7.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <ChoiceBox fx:id="choiceBoxMorphologyImage" prefWidth="150.0">
+                                                         <VBox.margin>
+                                                            <Insets />
+                                                         </VBox.margin>
+                                                      </ChoiceBox>
+                                                      <Button mnemonicParsing="false" onAction="#handleCalculateMorphology" text="Update" />
+                                                      <Label styleClass="header-label" text="Morphology_old">
+                                                         <VBox.margin>
+                                                            <Insets top="7.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <HBox />
+                                                      <TextArea fx:id="textAreaMorphology" prefHeight="467.0" prefWidth="354.0">
+                                                         <VBox.margin>
+                                                            <Insets top="-10.0" />
+                                                         </VBox.margin>
+                                                      </TextArea>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                                   </padding>
+                                                </VBox>-->
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </Tab>
+                                    <Tab fx:id="tabExport" text="Export">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <ScrollPane fitToWidth="true" layoutX="6.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <content>
+                                                      <VBox fx:id="vboxSimilar" prefHeight="200.0" prefWidth="357.0" spacing="7.0">
+                                                         <children>
+                                                            <ComboBox fx:id="comboBoxSimilar" prefWidth="150.0" />
+                                                            <FlowPane fx:id="flowPaneSimilar" hgap="7.0" prefHeight="200.0" vgap="7.0" />
+                                                            <Label minHeight="80.0" text="Click Tools -&gt; Calculate Morphology / CNN Vector to obtain the measurements needed for the similarity estimation, if needed." wrapText="true" />
+                                                         </children>
+                                                         <padding>
+                                                            <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                                         </padding>
+                                                      </VBox>
+                                                   </content>
+                                                </ScrollPane>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </Tab>
+                                </tabs>
+                              </TabPane>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
