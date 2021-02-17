@@ -23,7 +23,7 @@ DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 OutputDir=D:\Development\Microfossil\ParticleTrieur\inno
 OutputBaseFilename=ParticleTrieurSetup
-SetupIconFile=D:\Development\Microfossil\ParticleTrieur\src\ordervschaos\particletrieur\package\windows\ParticleTrieur.ico
+SetupIconFile=D:\Development\Microfossil\ParticleTrieur\src\main\particletrieur\package\windows\ParticleTrieur.ico
 Compression=lzma
 SolidCompression=yes
 

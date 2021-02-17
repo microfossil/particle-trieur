@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import main.java.app.controls.SymbolLabel?>
+<?import org.controlsfx.control.textfield.CustomTextField?>
+
+<?import org.controlsfx.control.GridView?>
+<AnchorPane minHeight="0.0" minWidth="0.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.app.viewcontrollers.particle.ParticleGridViewController">
+    <children>
+        <GridView fx:id="gridViewParticles"
+                  cellHeight="224.0"
+                  cellWidth="160.0"
+                  horizontalCellSpacing="0.0"
+                  verticalCellSpacing="0.0"
+                  BorderPane.alignment="CENTER"
+                AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+        </GridView>
+    </children>
+</AnchorPane>

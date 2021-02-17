@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="ParticleTrieur" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:master" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d2a2d7e8-5c07-421e-a18f-7e6936f4ce78" name="Default Changelist" comment="Re-arranged particle information progress">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="usePluginRegistry" value="true" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1jIi2XTb26t6t7bxxu65zpvr0xw" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/target/classes/main/java/app/resources/styles/Source_Sans_Pro" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="copyright.profiles" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/target/classes/main/java/app/resources/styles/Source_Sans_Pro" />
+      <recent name="$PROJECT_DIR$/lib" />
+      <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\controls" />
+      <recent name="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/morphology" />
+      <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\views\particle" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/archive" />
+      <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\views\particle" />
+      <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\views\morphology" />
+    </key>
+    <key name="MoveInnerDialog.RECENTS_KEY">
+      <recent name="ordervschaos.particletrieur.app.viewmodels.network" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="ordervschaos.particletrieur.app.resources" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ordervschaos.particletrieur.app.controls" />
+      <recent name="ordervschaos.particletrieur.app.viewcontrollers.morphology" />
+      <recent name="ordervschaos.particletrieur.app.viewcontrollers.particle" />
+      <recent name="ordervschaos.particletrieur.app.viewcontrollers" />
+      <recent name="ordervschaos.particletrieur.app.models.network.training" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn package" />
+      <command value="mvn assembly:assembly" />
+      <command value="mvn clean assembly:single" />
+      <command value="mvn compile" />
+      <command value="mvn clean assembly:assembly" />
+      <command value="mvn clean package" />
+      <command value="mnv clean compile" />
+      <command value="mvn clean compile" />
+      <command value="mvn clean" />
+      <command value="mvn clean package shade:shade" />
+      <command value="mvn compiler:compile" />
+      <command value="mvn clean compiler:compile" />
+      <command value="mvn package shade:shade" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.App">
+    <configuration name="App" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="main.java.app.App" />
+      <module name="ParticleTrieur" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="ordervschaos.particletrieur.app.App" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="clean_jar.sh" type="ShConfigurationType" temporary="true">
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/clean_jar.sh" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="/bin/bash" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.App" />
+      <item itemvalue="Shell Script.clean_jar.sh" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Shell Script.clean_jar.sh" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d2a2d7e8-5c07-421e-a18f-7e6936f4ce78" name="Default Changelist" comment="" />
+      <created>1603497799696</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1603497799696</updated>
+      <workItem from="1603497806381" duration="6629000" />
+      <workItem from="1603504571560" duration="2633000" />
+      <workItem from="1603508421193" duration="681000" />
+      <workItem from="1603509115935" duration="58000" />
+      <workItem from="1603509202408" duration="508000" />
+      <workItem from="1603509727999" duration="5931000" />
+      <workItem from="1603517769593" duration="5015000" />
+      <workItem from="1603694464284" duration="1009000" />
+      <workItem from="1603700439655" duration="84000" />
+      <workItem from="1604611342319" duration="373000" />
+      <workItem from="1604624137328" duration="7397000" />
+      <workItem from="1604724582170" duration="8969000" />
+      <workItem from="1604798211198" duration="1676000" />
+      <workItem from="1604818495414" duration="623000" />
+      <workItem from="1605417221376" duration="7016000" />
+      <workItem from="1605781631303" duration="2268000" />
+      <workItem from="1606305724343" duration="1439000" />
+      <workItem from="1606307611176" duration="542000" />
+      <workItem from="1606479227550" duration="2270000" />
+      <workItem from="1606539790836" duration="382000" />
+      <workItem from="1606551879076" duration="1491000" />
+      <workItem from="1606605042526" duration="302000" />
+      <workItem from="1606605589081" duration="358000" />
+      <workItem from="1606605955787" duration="12000" />
+      <workItem from="1606606024724" duration="7000" />
+      <workItem from="1606606267718" duration="54000" />
+      <workItem from="1606606424966" duration="118000" />
+      <workItem from="1606606554673" duration="73000" />
+      <workItem from="1606606639744" duration="80000" />
+      <workItem from="1606606733005" duration="90000" />
+      <workItem from="1606606829866" duration="234000" />
+      <workItem from="1606607192793" duration="283000" />
+      <workItem from="1606607745320" duration="41000" />
+      <workItem from="1606608865440" duration="128000" />
+      <workItem from="1606609049470" duration="357000" />
+      <workItem from="1606609469246" duration="18699000" />
+      <workItem from="1608638657083" duration="2949000" />
+      <workItem from="1609292162122" duration="8595000" />
+      <workItem from="1609364091331" duration="16706000" />
+      <workItem from="1609471935102" duration="5489000" />
+      <workItem from="1609571350233" duration="3886000" />
+      <workItem from="1609632620878" duration="5207000" />
+      <workItem from="1610334502780" duration="3073000" />
+      <workItem from="1610531148310" duration="3372000" />
+      <workItem from="1611049636766" duration="2103000" />
+      <workItem from="1611172838270" duration="1325000" />
+      <workItem from="1611262009879" duration="4526000" />
+      <workItem from="1611350661749" duration="12676000" />
+      <workItem from="1611383466490" duration="3928000" />
+      <workItem from="1611608696129" duration="6759000" />
+      <workItem from="1611700659565" duration="943000" />
+      <workItem from="1611743147458" duration="7090000" />
+      <workItem from="1612174819332" duration="6225000" />
+      <workItem from="1612257705229" duration="4680000" />
+      <workItem from="1612302154098" duration="5000" />
+      <workItem from="1612345557060" duration="12195000" />
+      <workItem from="1612395376305" duration="604000" />
+      <workItem from="1612905730067" duration="11000" />
+      <workItem from="1612947705892" duration="596000" />
+      <workItem from="1613251913642" duration="11006000" />
+      <workItem from="1613385478321" duration="689000" />
+      <workItem from="1613432224722" duration="2213000" />
+      <workItem from="1613448325387" duration="6033000" />
+    </task>
+    <task id="LOCAL-00001" summary="Move image type below">
+      <created>1603508919405</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1603508919405</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Fixed tick always showing regardless of whether pattern was good or not">
+      <created>1609654992734</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1609654992734</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Disable OK button while waiting for images to load">
+      <created>1609655027382</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1609655027382</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Rearrange UI and add extra button for sample/class/image">
+      <created>1609655089844</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1609655089844</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Rearrange UI with extra buttons for presets">
+      <created>1609655114853</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1609655114853</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Increase width">
+      <created>1613253723318</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1613253723318</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Rename and move function from controller into this view model">
+      <created>1613253775427</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1613253775427</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Combined prediction and network view models">
+      <created>1613254293927</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1613254293927</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Moved CNN and KNN predictions into separate view models">
+      <created>1613257614751</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1613257614751</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Moved CNN and KNN predictions into separate view models">
+      <created>1613257793840</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1613257793840</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Huge clean up: deleted unused files, rearranged directory structure, moved vector calculation into NetworkViewModel.">
+      <created>1613305495433</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1613305495433</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Clean up classification code">
+      <created>1613306350217</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1613306350217</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Clean up classification code">
+      <created>1613306449022</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1613306449022</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Fix style path">
+      <created>1613306586740</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1613306586740</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Move with other tools">
+      <created>1613306637776</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1613306637776</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Fix add button and resource bug">
+      <created>1613435285313</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1613435285313</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Re-arranged particle information progress">
+      <created>1613453631302</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1613453631302</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Move image type below" />
+    <MESSAGE value="Fixed tick always showing regardless of whether pattern was good or not" />
+    <MESSAGE value="Disable OK button while waiting for images to load" />
+    <MESSAGE value="Rearrange UI and add extra button for sample/class/image" />
+    <MESSAGE value="Rearrange UI with extra buttons for presets" />
+    <MESSAGE value="Increase width" />
+    <MESSAGE value="Rename and move function from controller into this view model" />
+    <MESSAGE value="Combined prediction and network view models" />
+    <MESSAGE value="Moved CNN and KNN predictions into separate view models" />
+    <MESSAGE value="Huge clean up: deleted unused files, rearranged directory structure, moved vector calculation into NetworkViewModel." />
+    <MESSAGE value="Clean up classification code" />
+    <MESSAGE value="Fix style path" />
+    <MESSAGE value="Move with other tools" />
+    <MESSAGE value="Fix add button and resource bug" />
+    <MESSAGE value="Re-arranged particle information progress" />
+    <option name="LAST_COMMIT_MESSAGE" value="Re-arranged particle information progress" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/app/viewcontrollers/particle/ParticleListViewController.java</url>
+          <line>389</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

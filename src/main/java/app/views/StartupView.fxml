@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import main.java.app.controls.SymbolLabel?>
+
+<AnchorPane stylesheets="@../resources/styles/style.css" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.app.viewcontrollers.StartupViewController">
+    <children>
+        <StackPane layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+            <VBox fx:id="vboxWelcome" spacing="14.0">
+               <children>
+<!--                        <HBox alignment="CENTER_LEFT">-->
+<!--                            <children>-->
+<!--                                <Label styleClass="header" text="Welcome" />-->
+<!--                                <Pane HBox.hgrow="ALWAYS" />-->
+<!--&lt;!&ndash;                                <StackPane alignment="CENTER_RIGHT">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <children>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <Label fx:id="labelUpdate" text="Checking for updates..." textFill="darkgoldenrod">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <graphic>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <SymbolLabel fx:id="symbolLabelChecking" symbol="featherrefreshcw" symbolColor="darkgoldenrod" symbolSize="14" />&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </graphic>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </Label>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <Hyperlink fx:id="hyperlinkUpdate" onAction="#handleUpdate" text="Update available" textFill="darkred" underline="true" visible="false">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <graphic>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <SymbolLabel symbol="featheralerttriangle" symbolSize="14" textFill="darkred" />&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </graphic>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </Hyperlink>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </children>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </StackPane>&ndash;&gt;-->
+<!--                            </children>-->
+<!--                        </HBox>-->
+                  <GridPane>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" />
+                        <ColumnConstraints hgrow="SOMETIMES" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                            <VBox prefHeight="200.0" prefWidth="400.0" spacing="14.0">
+                                <children>
+                                    <Label styleClass="header" text="Welcome" />
+                                    <Button contentDisplay="BOTTOM" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNew">
+                                        <graphic>
+                                            <GridPane hgap="14.0">
+                                                <columnConstraints>
+                                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" />
+                                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                                </columnConstraints>
+                                                <rowConstraints>
+                                                    <RowConstraints vgrow="SOMETIMES" />
+                                                </rowConstraints>
+                                                <SymbolLabel contentDisplay="CENTER" symbol="featherfile" symbolSize="24.0" />
+                                                <GridPane GridPane.columnIndex="1">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints vgrow="SOMETIMES" />
+                                                        <RowConstraints vgrow="SOMETIMES" />
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label styleClass="subheader" text="New Project" />
+                                                        <Label text="Start a new project using the default settings" GridPane.rowIndex="1" />
+                                                    </children>
+                                                </GridPane>
+                                            </GridPane>
+                                        </graphic>
+                                    </Button>
+                                    <Button contentDisplay="BOTTOM" layoutX="10.0" layoutY="39.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNewFromTemplate">
+                                        <graphic>
+                                            <GridPane hgap="14.0">
+                                                <columnConstraints>
+                                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" />
+                                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                                </columnConstraints>
+                                                <rowConstraints>
+                                                    <RowConstraints vgrow="SOMETIMES" />
+                                                </rowConstraints>
+                                                <children>
+                                                    <SymbolLabel symbol="featherfiletext" symbolSize="24.0" text="" />
+                                                    <GridPane GridPane.columnIndex="1">
+                                                        <columnConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                            <RowConstraints vgrow="SOMETIMES" />
+                                                            <RowConstraints vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                        <children>
+                                                            <Label styleClass="subheader" text="New Project From Template" />
+                                                            <Label text="Start a new project using another project as a template" wrapText="true" GridPane.rowIndex="1" />
+                                                        </children>
+                                                    </GridPane>
+                                                </children>
+                                            </GridPane>
+                                        </graphic>
+                                    </Button>
+                                    <Button contentDisplay="BOTTOM" layoutX="10.0" layoutY="39.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleOpen">
+                                        <graphic>
+                                            <GridPane hgap="14.0">
+                                                <columnConstraints>
+                                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" />
+                                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                                </columnConstraints>
+                                                <rowConstraints>
+                                                    <RowConstraints vgrow="SOMETIMES" />
+                                                </rowConstraints>
+                                                <children>
+                                                    <SymbolLabel symbol="featherfolder" symbolSize="24.0" text="" />
+                                                    <GridPane GridPane.columnIndex="1">
+                                                        <columnConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                            <RowConstraints vgrow="SOMETIMES" />
+                                                            <RowConstraints vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                        <children>
+                                                            <Label styleClass="subheader" text="Open Project" />
+                                                            <Label text="Open an existing project" GridPane.rowIndex="1" />
+                                                        </children>
+                                                    </GridPane>
+                                                </children>
+                                            </GridPane>
+                                        </graphic>
+                                    </Button>
+                                </children>
+                           <padding>
+                              <Insets right="7.0" />
+                           </padding>
+                            </VBox>
+                        <VBox prefHeight="200.0" prefWidth="400.0" spacing="7.0" GridPane.columnIndex="1">
+                           <children>
+                              <Label styleClass="header" text="Recent Projects" />
+                              <VBox fx:id="vboxRecent" />
+<!--                                    <Button fx:id="buttonOpenRecent" contentDisplay="BOTTOM" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleOpenRecent">-->
+<!--                                        <graphic>-->
+<!--                                            <GridPane hgap="14.0">-->
+<!--                                                <columnConstraints>-->
+<!--                                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />-->
+<!--                                                    <ColumnConstraints hgrow="SOMETIMES" />-->
+<!--                                                </columnConstraints>-->
+<!--                                                <rowConstraints>-->
+<!--                                                    <RowConstraints vgrow="SOMETIMES" />-->
+<!--                                                </rowConstraints>-->
+<!--                                                <children>-->
+<!--                                                    <StackPane>-->
+<!--                                                        <children>-->
+<!--                                                            <SymbolLabel symbol="featherfolder" symbolSize="42.0" />-->
+<!--                                                            <SymbolLabel symbol="featherrepeat" symbolSize="16.0">-->
+<!--                                                                <StackPane.margin>-->
+<!--                                                                    <Insets top="5.0" />-->
+<!--                                                                </StackPane.margin>-->
+<!--                                                            </SymbolLabel>-->
+<!--                                                        </children>-->
+<!--                                                    </StackPane>-->
+<!--                                                    <GridPane GridPane.columnIndex="1">-->
+<!--                                                        <columnConstraints>-->
+<!--                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />-->
+<!--                                                        </columnConstraints>-->
+<!--                                                        <rowConstraints>-->
+<!--                                                            <RowConstraints vgrow="SOMETIMES" />-->
+<!--                                                            <RowConstraints vgrow="SOMETIMES" />-->
+<!--                                                        </rowConstraints>-->
+<!--                                                        <children>-->
+<!--                                                            <Label styleClass="subheader" text="Open Recent Project" />-->
+<!--                                                            <Label fx:id="labelRecent" text="Open the most recent project" wrapText="true" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />-->
+<!--                                                        </children>-->
+<!--                                                    </GridPane>-->
+<!--                                                </children>-->
+<!--                                            </GridPane>-->
+<!--                                        </graphic>-->
+<!--                                    </Button>-->
+                           </children>
+                           <GridPane.margin>
+                              <Insets left="7.0" />
+                           </GridPane.margin>
+                        </VBox>
+                     </children>
+                  </GridPane>
+               </children>
+            </VBox>
+                <HBox fx:id="hboxLoading" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" spacing="21.0" visible="false">
+                    <children>
+                        <SymbolLabel fx:id="symbolLoading" symbol="featherdatabase" symbolSize="42.0" />
+                        <Label styleClass="header" text="Loading..." />
+                    </children>
+                </HBox>
+            </children>
+        </StackPane>
+    </children>
+    <padding>
+        <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+    </padding>
+</AnchorPane>

@@ -10,12 +10,6 @@
 
     <build>
         <finalName>${project.artifactId}</finalName>
-<!--        <sourceDirectory>src</sourceDirectory>-->
-<!--        <resources>-->
-<!--            <resource>-->
-<!--                <directory>src/ordervschaos/particletrieur/app/resources/</directory>-->
-<!--            </resource>-->
-<!--        </resources>-->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -47,6 +41,11 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Used to create a single jar -->
+            <!-- 1. rebuild build project in IntelliJ -->
+            <!-- 2. run maven target "mvn package shade:shade": (Ctrl-ctrl in IntelliJ to open run prompt) -->
+            <!-- 3. run clean_jar.sh to remove signing info from some pakages inside the jar -->
+            <!-- 4. built jar is in target -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -60,13 +59,10 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>ordervschaos.particletrieur.app.App
+                                    <mainClass>main.java.app.App
                                     </mainClass>
                                 </transformer>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
-<!--                                <transformer implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">-->
-<!--                                    <resource>src/ordervschaos/particletrieur/app/resources</resource>-->
-<!--                                </transformer>-->
                             </transformers>
                             <minimizeJar>true</minimizeJar>
                             <filters>
@@ -83,75 +79,6 @@
                     </execution>
                 </executions>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-shade-plugin</artifactId>-->
-<!--                <version>3.2.4</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <phase>package</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>shade</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <transformers>-->
-<!--                                <transformer-->
-<!--                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">-->
-<!--                                    <manifestEntries>-->
-<!--                                        <Main-Class>ordervschaos.particletrieur.app.App</Main-Class>-->
-<!--                                    </manifestEntries>-->
-<!--                                </transformer>-->
-<!--                            </transformers>-->
-<!--                            <minimizeJar>true</minimizeJar>-->
-<!--                            <filters>-->
-<!--                                <filter>-->
-<!--                                    <artifact>*:*</artifact>-->
-<!--                                    <excludes>-->
-<!--                                        <exclude>META-INF/*.SF</exclude>-->
-<!--                                        <exclude>META-INF/*.DSA</exclude>-->
-<!--                                        <exclude>META-INF/*.RSA</exclude>-->
-<!--                                    </excludes>-->
-<!--                                </filter>-->
-<!--                            </filters>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-shade-plugin</artifactId>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>shade</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <shadedArtifactAttached>true</shadedArtifactAttached>-->
-<!--                            <transformers>-->
-<!--                                <transformer-->
-<!--                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">-->
-<!--                                    <mainClass>${ordervschaos.particletrieur.app.App}</mainClass>-->
-<!--                                </transformer>-->
-<!--                            </transformers>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-assembly-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <archive>-->
-<!--                        <manifest>-->
-<!--                            <mainClass>ordervschaos.particletrieur.app.App</mainClass>-->
-<!--                        </manifest>-->
-<!--                    </archive>-->
-<!--                    <descriptorRefs>-->
-<!--                        <descriptorRef>jar-with-dependencies</descriptorRef>-->
-<!--                    </descriptorRefs>-->
-<!--                    <appendAssemblyId>false</appendAssemblyId>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
         </plugins>
     </build>
 
@@ -162,52 +89,17 @@
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
         </dependency>
-        <!-- OpenCV -->
-<!--        <dependency>-->
-<!--            <groupId>org.bytedeco</groupId>-->
-<!--            <artifactId>opencv</artifactId>-->
-<!--            <version>4.1.0-1.5.1</version>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>org.openpnp</groupId>
             <artifactId>opencv</artifactId>
             <version>3.4.2-1</version>
         </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-csv -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-csv</artifactId>
             <version>1.8</version>
         </dependency>
-
-
-        <!--        <dependency>-->
-<!--            <groupId>org.bytedeco</groupId>-->
-<!--            <artifactId>javacv-platform</artifactId>-->
-<!--            <version>1.5.1</version>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>org.bytedeco</groupId>-->
-<!--            <artifactId>cuda</artifactId>-->
-<!--            <version>10.1-7.6-1.5.1</version>-->
-<!--            <classifier>linux-x86_64-redist</classifier>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.bytedeco</groupId>-->
-<!--            <artifactId>cuda</artifactId>-->
-<!--            <version>10.1-7.6-1.5.1</version>-->
-<!--            <classifier>macosx-x86_64-redist</classifier>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.bytedeco</groupId>-->
-<!--            <artifactId>cuda</artifactId>-->
-<!--            <version>10.1-7.6-1.5.1</version>-->
-<!--            <classifier>windows-x86_64-redist</classifier>-->
-<!--        </dependency>-->
-
         <!-- https://mvnrepository.com/artifact/com.sun.xml.fastinfoset/FastInfoset -->
         <!-- For creating compressed project files -->
         <dependency>
@@ -215,7 +107,6 @@
             <artifactId>FastInfoset</artifactId>
             <version>1.2.17</version>
         </dependency>
-
         <!-- Base 62 encoding for reading / creating GUIDs -->
         <dependency>
             <groupId>io.seruco.encoding</groupId>
@@ -227,31 +118,12 @@
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
         </dependency>
-
-        <!-- Icons -->
-<!--        <dependency>-->
-<!--            <groupId>org.kordamp.ikonli</groupId>-->
-<!--            <artifactId>ikonli-javafx</artifactId>-->
-<!--            <version>2.4.0</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.kordamp.ikonli</groupId>-->
-<!--            <artifactId>ikonli-feather-pack</artifactId>-->
-<!--            <version>2.4.0</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.kordamp.ikonli</groupId>-->
-<!--            <artifactId>ikonli-fontawesome5-pack</artifactId>-->
-<!--            <version>2.1.1</version>-->
-<!--        </dependency>-->
-
         <!-- https://mvnrepository.com/artifact/org.json/json -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20200518</version>
         </dependency>
-
         <!-- Better XML serialisation with paths etc -->
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
@@ -259,11 +131,12 @@
             <version>2.7.4</version>
         </dependency>
         <!-- Tensorflow -->
-        <dependency>
-            <groupId>org.tensorflow</groupId>
-            <artifactId>libtensorflow</artifactId>
-            <version>1.15.0</version>
-        </dependency>
+        <!-- NOT INCLUDED due to fixed version in /lib directory -->
+<!--        <dependency>-->
+<!--            <groupId>org.tensorflow</groupId>-->
+<!--            <artifactId>libtensorflow</artifactId>-->
+<!--            <version>1.15.0</version>-->
+<!--        </dependency>-->
         <!-- Tensorflow normal -->
         <dependency>
             <groupId>org.tensorflow</groupId>
@@ -276,25 +149,21 @@
 <!--            <artifactId>libtensorflow_jni_gpu</artifactId>-->
 <!--            <version>1.14.0</version>-->
 <!--        </dependency>-->
-
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
             <version>1.4</version>
         </dependency>
-
         <dependency>
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
             <version>8.40.14</version>
         </dependency>
-
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
             <version>4.2.2</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -310,7 +179,6 @@
             <artifactId>httpmime</artifactId>
             <version>4.5.8</version>
         </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>

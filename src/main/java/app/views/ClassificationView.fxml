@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import main.java.app.controls.*?>
+<?import org.controlsfx.control.SegmentedButton?>
+
+<?import org.controlsfx.control.SegmentedButton?>
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="626.0" prefWidth="836.0"
+            stylesheets="@../resources/styles/style.css"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="main.java.app.viewcontrollers.classification.ClassificationViewController">
+    <children>
+        <GridPane hgap="14.0" vgap="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columnConstraints>
+                <!--                <ColumnConstraints hgrow="SOMETIMES" />-->
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="240"/>
+                <ColumnConstraints hgrow="NEVER" minWidth="240.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" vgrow="ALWAYS"/>
+            </rowConstraints>
+            <children>
+
+                <VBox GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                    <children>
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;"
+                                    VBox.vgrow="ALWAYS">
+                            <content>
+                                <VBox fx:id="vboxClassButtons" spacing="7.0">
+                                    <children>
+                                        <HBox spacing="4">
+                                            <SegmentedButton>
+                                                <buttons>
+                                                    <fx:define>
+                                                        <ToggleGroup fx:id="toggleGroupLabelMode"/>
+                                                    </fx:define>
+                                                    <ToggleButton fx:id="toggleButtonLabelsFlat"
+                                                                  mnemonicParsing="false"
+                                                                  toggleGroup="$toggleGroupLabelMode"
+                                                                  onAction="#handleToggleLabelModeFlat">
+                                                        <graphic>
+                                                            <SymbolLabel symbol="feathergrid"/>
+                                                        </graphic>
+                                                    </ToggleButton>
+                                                    <ToggleButton fx:id="toggleButtonLabelsCategory"
+                                                                  mnemonicParsing="false"
+                                                                  selected="true"
+                                                                  toggleGroup="$toggleGroupLabelMode"
+                                                                  onAction="#handleToggleLabelModeCategory">
+                                                        <graphic>
+                                                            <SymbolLabel symbol="featherlist"/>
+                                                        </graphic>
+                                                    </ToggleButton>
+                                                </buttons>
+                                            </SegmentedButton>
+                                            <Pane HBox.hgrow="ALWAYS"/>
+                                            <Button fx:id="buttonValidate" text="Validate" minWidth="100">
+                                                <graphic>
+                                                    <SymbolLabel fx:id="symbolValidate" symbol="feathercheckcircle"
+                                                                 symbolSize="10" symbolColor="green"/>
+                                                </graphic>
+                                            </Button>
+                                        </HBox>
+                                        <Label styleClass="subheader" text="Labels"/>
+                                        <VBox fx:id="vboxClasses" minHeight="20.0" spacing="7.0"/>
+                                        <Separator>
+                                            <VBox.margin>
+                                                <Insets top="14.0"/>
+                                            </VBox.margin>
+                                        </Separator>
+                                        <Label styleClass="subheader" text="Tags">
+                                            <VBox.margin>
+                                                <Insets/>
+                                            </VBox.margin>
+                                        </Label>
+                                        <FlowPane fx:id="flowPaneTags" hgap="7.0" prefHeight="19.0" prefWidth="311.0"
+                                                  vgap="7.0"/>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="7.0" left="7.0" right="14.0" top="7.0"/>
+                                    </padding>
+                                </VBox>
+                            </content>
+                        </ScrollPane>
+                    </children>
+                </VBox>
+                <VBox prefHeight="200.0" prefWidth="120.0" spacing="7.0" GridPane.columnIndex="1">
+                    <GridPane.margin>
+                        <Insets right="14.0"/>
+                    </GridPane.margin>
+                    <children>
+                        <HBox alignment="CENTER_LEFT" spacing="7.0">
+                            <VBox.margin>
+                                <Insets top="7.0"/>
+                            </VBox.margin>
+                            <children>
+                                <SymbolLabel symbol="feathergrid" symbolSize="16.0"/>
+                                <Label styleClass="subheader" text="k-NN"/>
+                                <Pane HBox.hgrow="ALWAYS"/>
+                                <fx:include source="ParticleInformationProgressView.fxml"/>
+                            </children>
+                        </HBox>
+                        <GridPane fx:id="gridPaneKNN" hgap="7" vgap="3">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="60.0"/>
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="100.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES"/>
+                            </columnConstraints>
+                        </GridPane>
+                        <HBox alignment="CENTER_LEFT" spacing="7.0">
+                            <children>
+                                <Label minWidth="-Infinity" text="Threshold:"/>
+                                <Spinner fx:id="spinnerKNNThreshold" editable="true" prefWidth="80">
+                                    <valueFactory>
+                                        <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.05"
+                                                                                       initialValue="0.8" max="1.0"
+                                                                                       min="0.0"/>
+                                    </valueFactory>
+                                </Spinner>
+                            </children>
+                        </HBox>
+                        <Separator>
+                            <VBox.margin>
+                                <Insets top="14.0"/>
+                            </VBox.margin>
+                        </Separator>
+                        <VBox fx:id="gridPaneCnn" spacing="7.0">
+
+                            <HBox fx:id="hboxCNN" alignment="CENTER_LEFT" spacing="7.0">
+                                <VBox.margin>
+                                    <Insets/>
+                                </VBox.margin>
+                                <children>
+                                    <SymbolLabel symbol="feathercpu" symbolSize="16.0"/>
+                                    <Label styleClass="subheader" text="Deep CNN"/>
+                                    <Pane HBox.hgrow="ALWAYS"/>
+                                    <SymbolLabel fx:id="symbolLabelDeepCNNRefresh" symbol="featherrefreshcw"
+                                                 symbolSize="16.0" visible="false"/>
+                                </children>
+                            </HBox>
+                            <GridPane fx:id="gridPaneCNN" hgap="7" vgap="3">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="60.0"/>
+                                    <ColumnConstraints hgrow="ALWAYS" minWidth="100.0"/>
+                                    <ColumnConstraints hgrow="SOMETIMES"/>
+                                </columnConstraints>
+                            </GridPane>
+                            <HBox alignment="CENTER_LEFT" spacing="7.0">
+                                <children>
+                                    <Label minWidth="-Infinity" text="Threshold:"/>
+                                    <Spinner fx:id="spinnerCNNThreshold" editable="true" HBox.hgrow="ALWAYS">
+                                        <valueFactory>
+                                            <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.05"
+                                                                                           initialValue="0.8" max="1.0"
+                                                                                           min="0.0"/>
+                                        </valueFactory>
+                                    </Spinner>
+                                </children>
+                            </HBox>
+                            <CheckBox fx:id="checkBoxPreprocessBeforeClassification" mnemonicParsing="false"
+                                      text="Pre-process"/>
+                            <!--                        <GridPane fx:id="gridPaneCnn" hgap="14.0" vgap="7.0">-->
+                            <!--                            <Label text="Label:" />-->
+                            <!--                            <Label text="Score:" GridPane.columnIndex="2" />-->
+                            <!--                            <ProgressBar fx:id="progressBarCNNScore" maxHeight="1.7976931348623157E308" minWidth="120.0" progress="0.0" GridPane.columnIndex="3" />-->
+                            <!--                            <Button fx:id="buttonCNNLabel" minWidth="120.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleSetClassFromCNNPrediction" text="unlabeled" GridPane.columnIndex="1">-->
+                            <!--                                <font>-->
+                            <!--                                    <Font name="System Bold" size="12.0" />-->
+                            <!--                                </font>-->
+                            <!--                            </Button>-->
+                            <!--                            <columnConstraints>-->
+                            <!--                                <ColumnConstraints />-->
+                            <!--                                <ColumnConstraints />-->
+                            <!--                                <ColumnConstraints />-->
+                            <!--                                <ColumnConstraints />-->
+                            <!--                            </columnConstraints>-->
+                            <!--                            <rowConstraints>-->
+                            <!--                                <RowConstraints vgrow="SOMETIMES" />-->
+                            <!--                            </rowConstraints>-->
+                            <!--                        </GridPane>-->
+                        </VBox>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                                onAction="#handleChangeCNNPredictionNetwork" text="Select network...">
+                            <graphic>
+                                <SymbolLabel symbol="featherexternallink"/>
+                            </graphic>
+                        </Button>
+                        <Label fx:id="labelNetwork" text="No network" wrapText="true"/>
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="7.0" left="7.0" right="7.0"/>
+                    </VBox.margin>
+                </VBox>
+                <!--                <fx:include fx:id="imageDetailView" source="particle/ImageDetailView.fxml" />-->
+            </children>
+        </GridPane>
+    </children>
+</AnchorPane>
