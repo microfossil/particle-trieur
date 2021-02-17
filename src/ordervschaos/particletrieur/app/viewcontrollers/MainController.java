@@ -799,6 +799,16 @@ public class MainController extends AbstractController implements Initializable 
     }
 
     @FXML
+    private void handleStatsIndex1Count(ActionEvent event) {
+        statisticsChartsViewModel.showIndex1Counts();
+    }
+
+    @FXML
+    private void handleStatsIndex2Count(ActionEvent event) {
+        statisticsChartsViewModel.showIndex2Counts();
+    }
+
+    @FXML
     private void handleStatsIndex1Frequency(ActionEvent event) {
         statisticsChartsViewModel.showRelativeAbundance(1);
     }

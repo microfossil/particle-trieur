@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 public class SimpleExpression {
     
     public final String skippable = "[\\p{L}0-9,;\\[\\\\\\^\\$\\.\\|\\?\\*\\+\\(\\)\\{\\}\\_\\-\\~\\ ]";
+    public final String skippableSans = "[\\p{L}0-9,;\\[\\\\\\^\\$\\.\\|\\?\\*\\+\\(\\)\\{\\}\\~\\ ]";
     
     private String simpleRegex;
     public String getSimpleRegex() {
@@ -80,9 +81,14 @@ public class SimpleExpression {
             if (paramParts.length < 2) {
                 if (parts[i].equals("skip")) {
                     sb.append("(");
+                    sb.append(skippableSans);
+                    sb.append("+)");
+                }
+                else if (parts[i].equals("skip_")) {
+                    sb.append("(");
                     sb.append(skippable);
                     sb.append("+)");
-                } 
+                }
                 else if (parts[i].equals("end")) {
                     sb.append("(");
                     sb.append(skippable);
@@ -99,11 +105,18 @@ public class SimpleExpression {
             else {
                 if (parts[i].equals("skip")) {
                     sb.append("(");
+                    sb.append(skippableSans);
+                    sb.append("{");
+                    sb.append(paramParts[1]);
+                    sb.append("})");
+                }
+                else if (parts[i].equals("skip_")) {
+                    sb.append("(");
                     sb.append(skippable);
                     sb.append("{");
                     sb.append(paramParts[1]);
                     sb.append("})");
-                } 
+                }
                 else {
                     sb.append("(?<");
                     sb.append(paramParts[0]);

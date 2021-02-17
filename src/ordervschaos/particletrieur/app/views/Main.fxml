@@ -244,6 +244,10 @@
                                                                   onAction="#handleStatsLabelCount" text="Label"/>
                                                         <MenuItem mnemonicParsing="false"
                                                                   onAction="#handleStatsSampleCount" text="Sample"/>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handleStatsIndex1Count" text="Index 1"/>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handleStatsIndex2Count" text="Index 2"/>
                                                     </items>
                                                 </Menu>
                                                 <Menu mnemonicParsing="false" text="Label frequency by">

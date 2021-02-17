@@ -38,6 +38,30 @@ public class StatisticsChartsViewModel {
         dialog.showAndWait();
     }
 
+    public void showIndex1Counts() {
+        StatisticsService stats = new StatisticsService(supervisor.project);
+        LinkedHashMap counts = stats.index1Counts();
+        Dialog dialog = StatisticsDialogs.IndexCountDialog(
+                "Count per index 1 value",
+                "Number of images for each index 1 value",
+                "Index 1",
+                "Count",
+                counts);
+        dialog.showAndWait();
+    }
+
+    public void showIndex2Counts() {
+        StatisticsService stats = new StatisticsService(supervisor.project);
+        LinkedHashMap counts = stats.index2Counts();
+        Dialog dialog = StatisticsDialogs.IndexCountDialog(
+                "Count per index 2 value",
+                "Number of images for each index 2 value",
+                "Sample",
+                "Index 2",
+                counts);
+        dialog.showAndWait();
+    }
+
     public void showRelativeAbundance(int index) {
         StatisticsService stats = new StatisticsService(supervisor.project);
         LinkedHashMap types = stats.labelByIndex(index, true);

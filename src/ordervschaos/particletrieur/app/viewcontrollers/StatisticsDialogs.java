@@ -65,7 +65,45 @@ public class StatisticsDialogs {
 
         // Set the controls        
         dialog.getDialogPane().setContent(bc);
+        return dialog;
+    }
 
+    public static Dialog IndexCountDialog(
+            String title,
+            String description,
+            String xlabel,
+            String ylabel,
+            LinkedHashMap<Double, Integer> values) {
+
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        final BarChart<String, Number> bc = new BarChart<String, Number>(xAxis, yAxis);
+        bc.setTitle(title);
+        xAxis.setLabel(xlabel);
+        yAxis.setLabel(ylabel);
+        XYChart.Series series1 = new XYChart.Series();
+        for (Entry entry : values.entrySet()) {
+            series1.getData().add(new XYChart.Data(entry.getKey().toString(), entry.getValue()));
+        }
+        bc.getData().add(series1);
+        bc.setLegendVisible(false);
+        bc.setCategoryGap(2);
+        bc.setBarGap(0);
+
+        //Create the custom dialog.
+        Dialog dialog = new Dialog();
+        ((Stage) dialog.getDialogPane().getScene().getWindow()).getIcons().add(App.iconImage);
+        dialog.setTitle(title);
+        dialog.setHeaderText(description);
+        bc.setPrefWidth(1000);
+        bc.setPrefHeight(600);
+        dialog.setResizable(true);
+
+        //Set the buttons
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+
+        //Set the controls
+        dialog.getDialogPane().setContent(bc);
         return dialog;
     }
 

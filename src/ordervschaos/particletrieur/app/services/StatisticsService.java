@@ -144,6 +144,22 @@ public class StatisticsService {
         return table;
     }
 
+    public LinkedHashMap<Double,Double> index1Counts() {
+        LinkedHashMap<Double,Double> table = fillTable(
+                uniqueIndexValues(1),
+                project.particles,
+                Particle::getIndex1);
+        return table;
+    }
+
+    public LinkedHashMap<Double,Double> index2Counts() {
+        LinkedHashMap<Double,Double> table = fillTable(
+                uniqueIndexValues(2),
+                project.particles,
+                Particle::getIndex2);
+        return table;
+    }
+
     public LinkedHashMap<Double,LinkedHashMap<String,Double>> indexByLabel(int indexType, boolean calculateRelative) {
         LinkedHashMap<Double,LinkedHashMap<String,Double>> table = fillTable(
                 uniqueIndexValues(indexType),
