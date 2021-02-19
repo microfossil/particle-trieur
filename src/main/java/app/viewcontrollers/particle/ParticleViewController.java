@@ -7,6 +7,7 @@ package main.java.app.viewcontrollers.particle;
 
 import com.google.inject.Inject;
 import javafx.beans.property.*;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,6 +33,8 @@ import java.util.ResourceBundle;
  */
 public class ParticleViewController implements Initializable {
 
+    @FXML
+    public Label labelImageCount;
     @FXML
     TabPane tabPane;
     @FXML
@@ -82,8 +85,17 @@ public class ParticleViewController implements Initializable {
             selectionViewModel.filteredList.setPredicate(particle -> filterParticle(particle, newValue));
         });
 
+        //Update selected tab index
         tabPane.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             selectionViewModel.selectedTabIndex = (int) newValue;
+        });
+
+        //Update size of images
+        selectionViewModel.filteredList.addListener(new ListChangeListener<Particle>() {
+            @Override
+            public void onChanged(Change<? extends Particle> c) {
+                labelImageCount.setText(String.format("%d images", selectionViewModel.filteredList.size()));
+            }
         });
     }
 
@@ -102,7 +114,7 @@ public class ParticleViewController implements Initializable {
 //        }
 
         for (String part : parts) {
-            String[] params = part.split("((?<====)|(?====)|(?<=:)|(?=:)|(?<===)|(?===)|(?=!=)|(?=!=))");
+            String[] params = part.split("((?<====)|(?====)|(?<=:)|(?=:)|(?<===)|(?===)|(?=!=)|(?<=!=))");
             if (params.length != 3) {
                 return false;
             }

@@ -14,6 +14,7 @@
 <?import org.controlsfx.control.textfield.CustomTextField?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.Label?>
 <AnchorPane minHeight="0.0" minWidth="0.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.app.viewcontrollers.particle.ParticleViewController">
     <children>
         <BorderPane layoutX="7.0" layoutY="41.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -48,7 +49,7 @@
                 </TabPane>
             </center>
             <top>
-                <HBox spacing="7.0" BorderPane.alignment="CENTER">
+                <HBox spacing="7.0" BorderPane.alignment="CENTER" alignment="CENTER_LEFT">
                     <padding>
                         <Insets topRightBottomLeft="7"/>
                     </padding>
@@ -74,6 +75,7 @@
                                 <Tooltip text="Filter list by label code.&#10;Use the prefix &quot;tag:&quot; to filter by tag, or &quot;file:&quot; to filter by filename." wrapText="true" />
                             </tooltip>
                         </CustomTextField>
+                        <Label fx:id="labelImageCount" text="0 images"/>
 <!--                        <Button mnemonicParsing="false" onAction="#handleExpandList" prefHeight="25.0">-->
 <!--                            <graphic>-->
 <!--                                <SymbolLabel fx:id="fontIconExpander" symbol="featherfastforward" />-->
