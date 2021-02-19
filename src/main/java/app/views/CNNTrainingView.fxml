@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import main.java.app.controls.SymbolLabel?>
+<?import org.controlsfx.control.textfield.CustomTextField?>
+
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<BorderPane prefHeight="640.0" prefWidth="800.0" stylesheets="@../resources/styles/style.css"
+            xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="main.java.app.viewcontrollers.network.CNNTrainingViewController">
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Input">
+                    <content>
+                        <VBox spacing="7.0">
+                            <padding>
+                                <Insets left="7.0" right="7.0" top="7.0" bottom="7.0"/>
+                            </padding>
+                            <children>
+                                <!-- Source Data -->
+                                <Label styleClass="subheader" text="Source Data"/>
+                                <RadioButton fx:id="radioButtonInputThisProject" mnemonicParsing="false" selected="true"
+                                             text="This project (save first!)">
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="mode"/>
+                                    </toggleGroup>
+                                </RadioButton>
+                                <Label styleClass="caption"
+                                       text="Use the images and labels from this project. Make sure to save the project first."/>
+                                <RadioButton fx:id="radioButtonInputFolder" mnemonicParsing="false"
+                                             text="Folder on this computer" toggleGroup="$mode">
+                                </RadioButton>
+                                <HBox fx:id="hboxInputFolder" spacing="7.0">
+                                    <children>
+                                        <CustomTextField fx:id="textFieldInputFolder" promptText="Input folder"
+                                                         HBox.hgrow="ALWAYS"/>
+                                        <Button mnemonicParsing="false" onAction="#handleSelectInputFolder"
+                                                text="Select...">
+                                            <graphic>
+                                                <SymbolLabel symbol="featherexternallink"/>
+                                            </graphic>
+                                        </Button>
+                                    </children>
+                                </HBox>
+                                <Label styleClass="caption"
+                                       text="A folder containing images sorted into sub-folders by label. Sub-folders starting with '~' will be skipped."/>
+                                <RadioButton fx:id="radioButtonInputCloudZipFile" mnemonicParsing="false"
+                                             text="Zip file in the cloud" toggleGroup="$mode"/>
+                                <CustomTextField fx:id="textFieldCloudZipFile"
+                                                 promptText="Paste direct download link here"/>
+                                <Label styleClass="caption"
+                                       text="URL to a zip file containing a folder with images sorted into sub-folders by label. Sub-folders starting with '~' will be skipped."/>
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab text="Training Set">
+                    <content>
+                        <VBox spacing="7.0">
+                            <padding>
+                                <Insets left="7.0" right="7.0" top="7.0" bottom="7.0"/>
+                            </padding>
+                            <children>
+                                <!-- Training set -->
+                                <Label styleClass="subheader" text="Minimum Class Size"/>
+                                <GridPane hgap="7" vgap="7">
+                                    <columnConstraints>
+                                        <ColumnConstraints minWidth="-Infinity"/>
+                                        <ColumnConstraints/>
+                                        <ColumnConstraints/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Min. images per class:" GridPane.columnIndex="0"
+                                               GridPane.rowIndex="0"/>
+                                        <Spinner fx:id="spinnerMinImagesPerClass" editable="true"
+                                                 GridPane.columnIndex="2"/>
+                                    </children>
+                                </GridPane>
+                                <Label styleClass="caption"
+                                       text="Classes with very few examples may give poor classification accuracy. Select the minimum number of images for a class to be included. (At least 5 recommended)"/>
+                                <CheckBox fx:id="checkBoxUseOther" mnemonicParsing="false"
+                                          text="Place images with less than this into 'other' class"/>
+                                <Label styleClass="caption"
+                                       text="Select this options to collate classes with very few examples into a single 'other' class"/>
+                                <!-- Training set -->
+                                <Label styleClass="subheader" text="Train / validation split"/>
+                                <CheckBox fx:id="checkBoxUseSplit" mnemonicParsing="false" selected="true"
+                                          text="Split into training and validation sets to calculate accuracy"/>
+                                <GridPane fx:id="gridPaneSplit" hgap="7" layoutX="10.0" layoutY="220.0" vgap="7">
+                                    <columnConstraints>
+                                        <ColumnConstraints minWidth="-Infinity"/>
+                                        <ColumnConstraints/>
+                                        <ColumnConstraints/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Test split fraction:" GridPane.columnIndex="0"/>
+                                        <Spinner fx:id="spinnerTestSplitFraction" editable="true"
+                                                 GridPane.columnIndex="2"/>
+                                    </children>
+                                </GridPane>
+                                <Label styleClass="caption"
+                                       text="Some images must be set aside from training to provide unseen images for evaluating the model accuracy. A fraction of 0.1 for large datasets, or 0.2 for smaller ones, is recommended."/>
+                                <!-- Memory -->
+                                <Label styleClass="subheader" text="Memory Management"/>
+                                <CheckBox fx:id="checkBoxUseMemoryMapping" mnemonicParsing="false"
+                                          text="Create training set on disk instead of memory"/>
+                                <Label styleClass="caption"
+                                       text="Large training datsets may not all fit into RAM memory. Select this option to use disk to store the training set instead of RAM. Best performance if the disk is an SSD."/>
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab text="CNN Model">
+                    <content>
+                        <VBox spacing="7.0">
+                            <padding>
+                                <Insets left="7.0" right="7.0" top="7.0" bottom="7.0"/>
+                            </padding>
+                            <children>
+                                <Label styleClass="subheader" text="Name"/>
+                                <CustomTextField fx:id="textFieldName" promptText="Name to identify the network"/>
+                                <Label styleClass="caption"
+                                       text="Enter a custom name for this network (default is name of model)."/>
+                                <Label styleClass="subheader" text="Type"/>
+                                <ComboBox fx:id="comboBoxCNNType" maxWidth="1.7976931348623157E308"/>
+                                <Label fx:id="labelNetworkDescription" wrapText="true"/>
+                                <Label styleClass="caption"
+                                       wrapText="true"
+                                       text="Select the type of model to train. Transfer learning networks (green) are faster to train, but lower accuracy. Custom networks (orange) have been designed for particle classification and require a GPU to train. Standard networks (red) are those available as part of the Tensorflow library and require a GPU to train."/>
+                                <Label styleClass="subheader" text="Image Size"/>
+<!--                                <GridPane hgap="14.0" vgap="7">-->
+                                    <Label text="Image size:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                    <ComboBox fx:id="comboBoxInputSize" editable="true"
+                                              maxWidth="200" GridPane.columnIndex="1"
+                                              GridPane.hgrow="ALWAYS" GridPane.rowIndex="0"/>
+                                    <Label styleClass="caption"
+                                           text="Size of the images to input into the network. Smaller sizes are faster to train but may have less accuracy."/>
+                                    <Label text="Colour mode:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                    <ComboBox fx:id="comboBoxColourMode" maxWidth="200"
+                                              GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"/>
+                                    <Label styleClass="caption"
+                                           wrapText="true"
+                                           text="Type of images to input into the network. Use greyscale images where colour is not a discriminating feature between classes. Transfer learning networks will use colour images regardless of this setting."/>
+<!--                                    <columnConstraints>-->
+<!--                                        <ColumnConstraints minWidth="-Infinity"/>-->
+<!--                                        <ColumnConstraints maxWidth="160.0"/>-->
+<!--                                    </columnConstraints>-->
+<!--                                    <rowConstraints>-->
+<!--                                        <RowConstraints/>-->
+<!--                                        <RowConstraints/>-->
+<!--                                    </rowConstraints>-->
+<!--                                </GridPane>-->
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab text="Training">
+                    <content>
+                        <VBox spacing="7.0">
+                            <padding>
+                                <Insets left="7.0" right="7.0" top="7.0" bottom="7.0"/>
+                            </padding>
+                            <children>
+                                <Label styleClass="subheader" text="Augmentation"/>
+                                <CheckBox fx:id="checkBoxApplyAugmentation" selected="true"
+                                          text="Apply augmentation"/>
+                                <Label styleClass="caption"
+                                       wrapText="true"
+                                       text="Augment the images during training with rotation, brightness, gamma and zoom transforms. Not used for transfer learning."/>
+                                <Label styleClass="subheader" text="Class balancing"/>
+                                <CheckBox fx:id="checkBoxBalanceClassWeights" mnemonicParsing="false"
+                                          selected="true" text="Balance classes by weighting"/>
+                                <Label styleClass="caption"
+                                       wrapText="true"
+                                       text="Try to balance the training for each class by inversely weighting by the number of images per class. This stops the network over-fitting on very large classes."/>
+                                <Label styleClass="subheader" text="Training"/>
+                                <GridPane hgap="7" vgap="7">
+                                    <columnConstraints>
+                                        <ColumnConstraints minWidth="-Infinity"/>
+                                        <ColumnConstraints/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="ALRS epochs:" GridPane.columnIndex="0" />
+                                        <Spinner fx:id="spinnerAlrEpochs" editable="true" GridPane.columnIndex="1"/>
+                                    </children>
+                                </GridPane>
+                                <Label styleClass="caption"
+                                       wrapText="true"
+                                       text="Training loss (accuracy) is monitored over the most recent this many epochs (complete runs through the training set). If it has not improved, the learning rate will be dropped by half. After four drops, training is ended. Recommended 10 epochs for large training sets. Increasing the number of epochs may increase accuracy but also training time."/>
+                                <GridPane hgap="7" vgap="7">
+                                    <columnConstraints>
+                                        <ColumnConstraints minWidth="-Infinity"/>
+                                        <ColumnConstraints/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Batch size:" GridPane.columnIndex="0" />
+                                        <Spinner fx:id="spinnerBatchSize" editable="true" GridPane.columnIndex="1" />
+                                    </children>
+                                </GridPane>
+                                <Label styleClass="caption"
+                                       wrapText="true"
+                                       text="Number of images to input into the network at each training step. Recommended 32 or 64. If experiencing out-of-memory (OOM) errors allocating Tensors, try reduce this value."/>
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab text="Output">
+                    <content>
+                        <VBox spacing="7.0">
+                            <padding>
+                                <Insets left="7.0" right="7.0" top="7.0" bottom="7.0"/>
+                            </padding>
+                            <children>
+                                <Label styleClass="subheader" text="Output Directory"/>
+                                <HBox spacing="7.0">
+                                    <children>
+                                        <CustomTextField fx:id="textFieldOutputFolder"
+                                                         promptText="Output folder name" HBox.hgrow="ALWAYS"/>
+                                        <Button mnemonicParsing="false" onAction="#handleSelectOutputFolder"
+                                                text="Select...">
+                                            <graphic>
+                                                <SymbolLabel symbol="featherexternallink"/>
+                                            </graphic>
+                                        </Button>
+                                    </children>
+                                </HBox>
+                                <Label styleClass="caption"
+                                       wrapText="true"
+                                       text="Folder to save the output of training."/>
+                                <Label styleClass="subheader" text="Saving"/>
+                                <CheckBox fx:id="checkBoxOutputSaveModel" mnemonicParsing="false" selected="true"
+                                          text="Save frozen model"/>
+                                <Label styleClass="caption"
+                                       wrapText="true"
+                                       text="Save the model in frozen format so it can be used for inference."/>
+                                <CheckBox fx:id="checkBoxOutputSaveMislabeled" mnemonicParsing="false"
+                                          selected="true" text="Estimate mislabeled images"/>
+                                <Label styleClass="caption"
+                                       wrapText="true"
+                                       text="Compare the results of k-NN classification with that of the model to identify images that may have been mislabeled. This will increase running time."/>
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+<!--                <Tab text="Training Set">-->
+<!--                    <content>-->
+<!--                        <VBox spacing="7.0">-->
+<!--                            <padding>-->
+<!--                                <Insets left="7.0" right="7.0" top="7.0" bottom="7.0"/>-->
+<!--                            </padding>-->
+<!--                            <children>-->
+
+<!--                            </children>-->
+<!--                        </VBox>-->
+<!--                    </content>-->
+<!--                </Tab>-->
+<!--                </Tab>-->
+            </tabs>
+        </TabPane>
+    </center>
+    <top>
+        <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <items>
+                <Button maxWidth="1.7976931348623157E308" onAction="#handleLaunch" text="Launch">
+                    <graphic>
+                        <SymbolLabel symbol="featheractivity"/>
+                    </graphic>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#handleCreateScript" text="Copy script">
+                    <graphic>
+                        <SymbolLabel symbol="featherfiletext"/>
+                    </graphic>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#handleShowFolder" text="Show output">
+                    <graphic>
+                        <SymbolLabel symbol="featherexternallink"/>
+                    </graphic>
+                </Button>
+                <Pane HBox.hgrow="ALWAYS"/>
+                <Button mnemonicParsing="false" onAction="#handleUpdateMISO" text="Update library">
+                    <graphic>
+                        <SymbolLabel symbol="featherdownloadcloud"/>
+                    </graphic>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#handleUpdatePythonLocation" text="Python location">
+                    <graphic>
+                        <SymbolLabel symbol="feathertarget"/>
+                    </graphic>
+                </Button>
+            </items>
+        </ToolBar>
+    </top>
+    <bottom>
+        <VBox spacing="7.0">
+            <padding>
+                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0"/>
+            </padding>
+            <children>
+                <Label fx:id="labelPythonLocation" text="Python location:"/>
+<!--                <Label fx:id="labelGPUMemory" text="GPU memory: "/>-->
+<!--                <Label fx:id="labelGPUUsage" text="GPU usage: "/>-->
+            </children>
+        </VBox>
+    </bottom>
+</BorderPane>

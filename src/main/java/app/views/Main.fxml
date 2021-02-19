@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import main.java.app.controls.SymbolLabel?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.CheckBox?>
+<StackPane fx:id="root" prefHeight="1024" prefWidth="1400" stylesheets="@../resources/styles/style.css"
+           xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="main.java.app.viewcontrollers.MainController">
+    <children>
+        <AnchorPane id="AnchorPane" fx:id="rootMain" prefHeight="800.0" prefWidth="1284.0">
+            <children>
+                <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <top>
+                        <VBox BorderPane.alignment="CENTER">
+                            <children>
+                                <MenuBar fx:id="mainMenuBar" useSystemMenuBar="false">
+                                    <menus>
+                                        <Menu mnemonicParsing="false" text="File">
+                                            <items>
+                                                <MenuItem mnemonicParsing="false" onAction="#handleNewProject"
+                                                          text="New">
+                                                    <accelerator>
+                                                        <KeyCodeCombination alt="UP" code="N" control="UP" meta="UP"
+                                                                            shift="UP" shortcut="DOWN"/>
+                                                    </accelerator>
+                                                </MenuItem>
+                                                <MenuItem disable="false" mnemonicParsing="false"
+                                                          onAction="#handleNewFromExistingProject"
+                                                          text="New from existing..."/>
+                                                <SeparatorMenuItem mnemonicParsing="false"/>
+                                                <MenuItem mnemonicParsing="false" onAction="#handleOpenProject"
+                                                          text="Open...">
+                                                    <accelerator>
+                                                        <KeyCodeCombination alt="UP" code="O" control="UP" meta="UP"
+                                                                            shift="UP" shortcut="DOWN"/>
+                                                    </accelerator>
+                                                </MenuItem>
+                                                <Menu fx:id="menuRecent" mnemonicParsing="false" text="Open recent">
+                                                    <items>
+                                                        <!--                                                        <MenuItem mnemonicParsing="false" text="Clear Items" />-->
+                                                    </items>
+                                                </Menu>
+                                                <SeparatorMenuItem mnemonicParsing="false"/>
+                                                <MenuItem mnemonicParsing="false" onAction="#handleSaveProject"
+                                                          text="Save">
+                                                    <accelerator>
+                                                        <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP"
+                                                                            shift="UP" shortcut="DOWN"/>
+                                                    </accelerator>
+                                                </MenuItem>
+                                                <MenuItem mnemonicParsing="false" onAction="#handleSaveAsProject"
+                                                          text="Save as...">
+                                                    <accelerator>
+                                                        <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP"
+                                                                            shift="DOWN" shortcut="DOWN"/>
+                                                    </accelerator>
+                                                </MenuItem>
+                                                <SeparatorMenuItem mnemonicParsing="false"/>
+                                                <Menu mnemonicParsing="false" text="Export">
+                                                    <items>
+                                                        <MenuItem mnemonicParsing="false" onAction="#handleExport"
+                                                                  text="Images..."/>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handleExportProjectToCSV"
+                                                                  text="Project to CSV..."/>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handleExportMorphologyToCSV"
+                                                                  text="Morphology to CSV..."/>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handleExportAbundanceToCSV"
+                                                                  text="Abundance (index 1) to CSV..."/>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handleExportSampleCountsToCSV"
+                                                                  text="Sample counts to CSV..."/>
+                                                    </items>
+                                                </Menu>
+                                            </items>
+                                        </Menu>
+                                        <Menu mnemonicParsing="false" text="Edit">
+                                            <items>
+                                                <MenuItem fx:id="menuItemUndo" disable="true" mnemonicParsing="false"
+                                                          onAction="#handleUndo" text="Undo"/>
+                                                <SeparatorMenuItem mnemonicParsing="false" visible="true"/>
+                                                <!--                                                <MenuItem mnemonicParsing="false" text="Redo" visible="false"/>-->
+                                                <!--                                                <SeparatorMenuItem mnemonicParsing="false" visible="false"/>-->
+                                                <MenuItem mnemonicParsing="false" onAction="#handleAddWithOptions"
+                                                          text="Add images..."/>
+                                                <MenuItem mnemonicParsing="false" onAction="#handleImportFromProject"
+                                                          text="Add images from project..."/>
+                                                <!--                                                <MenuItem mnemonicParsing="false" onAction="#handleRemove"-->
+                                                <!--                                                          text="Remove Images"/>-->
+                                                <!--                                                <Menu fx:id="menuItemRemoveByClass" mnemonicParsing="false"-->
+                                                <!--                                                      text="Remove Images by Class" visible="false"/>-->
+                                                <SeparatorMenuItem mnemonicParsing="false"/>
+                                                <!--                                                <Menu mnemonicParsing="false" text="Metadata">-->
+                                                <!--                                                    <items>-->
+                                                <MenuItem mnemonicParsing="false" onAction="#handleEditForam"
+                                                          text="Edit metadata"/>
+                                                <!--                                                    </items>-->
+                                                <!--                                                </Menu>-->
+
+
+                                                <SeparatorMenuItem mnemonicParsing="false"/>
+                                                <MenuItem mnemonicParsing="false" onAction="#handleAddLabel"
+                                                          text="Edit labels..."/>
+                                                <MenuItem mnemonicParsing="false" onAction="#handleAddTag"
+                                                          text="Edit tags..."/>
+                                            </items>
+                                        </Menu>
+                                        <Menu mnemonicParsing="false" text="Tools">
+                                            <items>
+                                                <Menu mnemonicParsing="false" text="Predict label using CNN">
+                                                    <items>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handlePredictUsingCNN" text="Selected"/>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handlePredictUsingCNNAll" text="All"/>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handlePredictUsingCNNUnlabeled"
+                                                                  text="Unlabeled"/>
+                                                    </items>
+                                                </Menu>
+                                                <Menu mnemonicParsing="false" text="Predict label using k-NN">
+                                                    <items>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handlePredictUsingKNN" text="Selected"/>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handlePredictUsingKNNAll" text="All"/>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handlePredictUsingKNNUnlabeled"
+                                                                  text="Unlabeled"/>
+                                                    </items>
+                                                </Menu>
+                                                <!--                                                <Menu mnemonicParsing="false" text="Calculate Morphology_old">-->
+                                                <!--                                                    <items>-->
+                                                <!--                                                        <MenuItem mnemonicParsing="false"-->
+                                                <!--                                                                  onAction="#handleCalculateMorphology"-->
+                                                <!--                                                                  text="Selected"/>-->
+                                                <!--                                                        <MenuItem mnemonicParsing="false"-->
+                                                <!--                                                                  onAction="#handleCalculateAllMorphology" text="All"/>-->
+                                                <!--                                                        <MenuItem mnemonicParsing="false"-->
+                                                <!--                                                                  onAction="#handleCalculateMissingMorphology"-->
+                                                <!--                                                                  text="Missing"/>-->
+                                                <!--                                                    </items>-->
+                                                <!--                                                </Menu>-->
+                                                <MenuItem mnemonicParsing="false" onAction="#handleCalculateCNNVectors"
+                                                          text="Recalculate feature vectors"/>
+                                                <!--                                                <Menu fx:id="menuItemCalculateCNNVector" mnemonicParsing="false"-->
+                                                <!--                                                      text="Calculate CNN Vector">-->
+                                                <!--                                                    <items>-->
+                                                <!--                                                        -->
+                                                <!--                                                        <MenuItem mnemonicParsing="false"-->
+                                                <!--                                                                  onAction="#handleCalculateAllCNNVectors" text="All"/>-->
+                                                <!--                                                        <MenuItem mnemonicParsing="false"-->
+                                                <!--                                                                  onAction="#handleCalculateMissingCNNVectors"-->
+                                                <!--                                                                  text="Missing"/>-->
+                                                <!--                                                    </items>-->
+                                                <!--                                                </Menu>-->
+
+                                                <!--                                                <SeparatorMenuItem mnemonicParsing="false"/>-->
+                                                <!--                                                <MenuItem mnemonicParsing="false"-->
+                                                <!--                                                          onAction="#handleSortBySimilarityNeuralNetwork"-->
+                                                <!--                                                          text="Sort by Similarity"/>-->
+
+                                                <!--                                                <Menu mnemonicParsing="false" text="Sort by Similarity">-->
+                                                <!--                                                    <items>-->
+                                                <!--                                                        <MenuItem mnemonicParsing="false"-->
+                                                <!--                                                                  onAction="#handleSortBySimilarityMorphology"-->
+                                                <!--                                                                  text="Morphology_old"/>-->
+                                                <!--                                                        -->
+                                                <!--                                                    </items>-->
+                                                <!--                                                </Menu>-->
+                                                <!--                                                <Menu mnemonicParsing="false" text="Sort by Morphology_old">-->
+                                                <!--                                                    <items>-->
+                                                <!--                                                        <MenuItem mnemonicParsing="false" onAction="#handleSortByArea"-->
+                                                <!--                                                                  text="Area"/>-->
+                                                <!--                                                        <MenuItem mnemonicParsing="false"-->
+                                                <!--                                                                  onAction="#handleSortByEccentricity"-->
+                                                <!--                                                                  text="Eccentricity"/>-->
+                                                <!--                                                        <MenuItem mnemonicParsing="false"-->
+                                                <!--                                                                  onAction="#handleSortBySolidity" text="Solidity"/>-->
+                                                <!--                                                        <MenuItem mnemonicParsing="false"-->
+                                                <!--                                                                  onAction="#handleSortByCircularity"-->
+                                                <!--                                                                  text="Circularity"/>-->
+                                                <!--                                                        <MenuItem mnemonicParsing="false"-->
+                                                <!--                                                                  onAction="#handleSortByRoundness" text="Roundness"/>-->
+                                                <!--                                                    </items>-->
+                                                <!--                                                </Menu>-->
+                                                <SeparatorMenuItem mnemonicParsing="false"/>
+                                                <!--                                                <MenuItem mnemonicParsing="false" text="Tag Missing Files"/>-->
+                                                <!--                                                <MenuItem disable="true" mnemonicParsing="false"-->
+                                                <!--                                                          onAction="#handleRemoveTruncated" text="Tag Truncated"/>-->
+                                                <Menu mnemonicParsing="false" text="Tag duplicates by">
+                                                    <items>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handleTagDuplicatesUsingFileHash"
+                                                                  text="File matching"/>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handleTagDuplicatesByCNNVector"
+                                                                  text="Feature vector"/>
+                                                    </items>
+                                                </Menu>
+                                                <MenuItem mnemonicParsing="false" onAction="#handleTagMissing"
+                                                          text="Tag missing files"/>
+                                                <SeparatorMenuItem mnemonicParsing="false"/>
+                                                <MenuItem mnemonicParsing="false" onAction="#handleFlowcamSegmenter"
+                                                          text="Start Flowcam segmenter"/>
+                                                <MenuItem fx:id="menuItemServer" mnemonicParsing="false"
+                                                          onAction="#handleStartStopServer" text="Start server"/>
+                                                <MenuItem fx:id="menuItemFolderWatch" mnemonicParsing="false"
+                                                          onAction="#handleFolderWatch" text="Start folder watch"/>
+                                                <!--                                                <MenuItem mnemonicParsing="false" text="Enable server"/>-->
+                                            </items>
+                                        </Menu>
+                                        <Menu mnemonicParsing="false" text="Statistics">
+                                            <items>
+                                                <Menu mnemonicParsing="false" text="Counts by">
+                                                    <items>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handleStatsLabelCount" text="Label"/>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handleStatsSampleCount" text="Sample"/>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handleStatsIndex1Count" text="Index 1"/>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handleStatsIndex2Count" text="Index 2"/>
+                                                    </items>
+                                                </Menu>
+                                                <Menu mnemonicParsing="false" text="Label frequency by">
+                                                    <items>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handleStatsSampleFrequency" text="Sample"/>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handleStatsIndex1Frequency"
+                                                                  text="Index 1"/>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handleStatsIndex2Frequency"
+                                                                  text="Index 2"/>
+                                                    </items>
+                                                </Menu>
+                                            </items>
+                                        </Menu>
+                                        <Menu mnemonicParsing="false" text="Help">
+                                            <items>
+                                                <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About"/>
+                                                <MenuItem mnemonicParsing="false" onAction="#handleWhatsNew" text="What's new"/>
+                                                <MenuItem fx:id="menuItemExceptionLog" mnemonicParsing="false"
+                                                          onAction="#handleShowExceptionLog" text="Exception Log"/>
+                                            </items>
+                                        </Menu>
+                                    </menus>
+                                </MenuBar>
+                                <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                    <items>
+                                        <Button fx:id="buttonNew" mnemonicParsing="false" onAction="#handleNewProject"
+                                                styleClass="vertical-button" text="New">
+                                            <graphic>
+                                                <SymbolLabel symbol="featherfiletext"/>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip text="Create a new project"/>
+                                            </tooltip>
+                                        </Button>
+                                        <Button fx:id="buttonOpen" contentDisplay="TOP" mnemonicParsing="false"
+                                                onAction="#handleOpenProject" styleClass="vertical-button" text="Open">
+                                            <graphic>
+                                                <SymbolLabel symbol="featherfolder"/>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip text="Open an existing project"/>
+                                            </tooltip>
+                                        </Button>
+                                        <Button fx:id="buttonSave" mnemonicParsing="false" onAction="#handleSaveProject"
+                                                styleClass="vertical-button" text="Save">
+                                            <graphic>
+                                                <SymbolLabel symbol="feathersave"/>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip text="Save the current project"/>
+                                            </tooltip>
+                                        </Button>
+                                        <Button fx:id="buttonShowFolder" mnemonicParsing="false"
+                                                onAction="#handleShowFolder" styleClass="vertical-button" text="Show">
+                                            <graphic>
+                                                <SymbolLabel symbol="featherexternallink"/>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip text="Open the project folder in explorer / finder"/>
+                                            </tooltip>
+                                        </Button>
+                                        <Separator orientation="VERTICAL"/>
+                                        <Button fx:id="buttonAdd" mnemonicParsing="false"
+                                                onAction="#handleAddWithOptions" styleClass="vertical-button"
+                                                text="Add">
+                                            <graphic>
+                                                <SymbolLabel symbol="featherplus"/>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip text="Add images"/>
+                                            </tooltip>
+                                        </Button>
+                                        <Button fx:id="buttonRemove" mnemonicParsing="false" onAction="#handleRemove"
+                                                styleClass="vertical-button" text="Remove">
+                                            <graphic>
+                                                <SymbolLabel symbol="featherminus"/>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip text="Remove selected images"/>
+                                            </tooltip>
+                                        </Button>
+                                        <Button fx:id="buttonEditMetadata" mnemonicParsing="false"
+                                                onAction="#handleEditForam" styleClass="vertical-button" text="Edit">
+                                            <graphic>
+                                                <SymbolLabel symbol="featheredit3"/>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip text="Edit metadata of selected images"/>
+                                            </tooltip>
+                                        </Button>
+                                        <Separator/>
+                                        <Button fx:id="buttonPredictKNN" mnemonicParsing="false"
+                                                onAction="#handlePredictUsingKNN" styleClass="vertical-button"
+                                                text="k-NN">
+                                            <graphic>
+                                                <SymbolLabel symbol="feathergrid"/>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip
+                                                        text="Predict label of the selected images using k-NN of the feature vectors"/>
+                                            </tooltip>
+                                        </Button>
+                                        <Button fx:id="buttonPredictCNN" mnemonicParsing="false"
+                                                onAction="#handlePredictUsingCNN" styleClass="vertical-button"
+                                                text="CNN">
+                                            <graphic>
+                                                <SymbolLabel symbol="feathercpu"/>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip text="Predict label of the selected images using the CNN"/>
+                                            </tooltip>
+                                        </Button>
+                                        <!--<VBox>-->
+                                        <!--<Button fx:id="buttonSelectAll" mnemonicParsing="false"-->
+                                        <!--onAction="#handleSelectAll"-->
+                                        <!--text="Select All">-->
+                                        <!--<graphic>-->
+                                        <!--<SymbolLabel symbol="feathercpu"/>-->
+                                        <!--</graphic>-->
+                                        <!--<tooltip>-->
+                                        <!--<Tooltip text="Save the current app"/>-->
+                                        <!--</tooltip>-->
+                                        <!--</Button>-->
+                                        <!--</VBox>-->
+                                        <!--<SplitMenuButton mnemonicParsing="false" onAction="#handlePredictUsingCNN"-->
+                                        <!--styleClass="flat-split-menu-button" text="Classify">-->
+                                        <!--<items>-->
+                                        <!--<MenuItem mnemonicParsing="false"-->
+                                        <!--onAction="#handlePredictUsingCNNAll" text="All"/>-->
+                                        <!--<MenuItem mnemonicParsing="false"-->
+                                        <!--onAction="#handlePredictUsingCNNUnlabeled"-->
+                                        <!--text="Unlabeled"/>-->
+                                        <!--</items>-->
+                                        <!--<graphic>-->
+                                        <!--<SymbolLabel symbol="feathercpu"/>-->
+                                        <!--</graphic>-->
+                                        <!--</SplitMenuButton>-->
+                                        <Separator orientation="VERTICAL"/>
+                                        <Button fx:id="buttonExport" mnemonicParsing="false" onAction="#handleExport"
+                                                styleClass="vertical-button" text="Export">
+                                            <graphic>
+                                                <SymbolLabel symbol="featherupload"/>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip text="Export images from the project"/>
+                                            </tooltip>
+                                        </Button>
+                                        <Button fx:id="buttonTrain" mnemonicParsing="false" onAction="#handleTrain"
+                                                styleClass="vertical-button" text="Train">
+                                            <graphic>
+                                                <SymbolLabel symbol="featheractivity"/>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip text="Train a CNN"/>
+                                            </tooltip>
+                                        </Button>
+                                        <Separator layoutX="1072.0" layoutY="10.0" orientation="VERTICAL"/>
+                                        <VBox spacing="3">
+                                            <children>
+                                                <Label text="Username:"/>
+                                                <TextField fx:id="textFieldUser" promptText="Enter user name"
+                                                           prefWidth="120"/>
+                                            </children>
+                                        </VBox>
+                                        <Separator layoutX="1072.0" layoutY="10.0" orientation="VERTICAL"/>
+                                        <VBox spacing="3">
+                                            <children>
+                                                <CheckBox fx:id="checkBoxAutoAdvance" text="Auto-advance"/>
+                                                <Pane VBox.vgrow="ALWAYS"/>
+                                                <CheckBox fx:id="checkBoxAutoValidate" text="Auto-validate"/>
+                                            </children>
+                                        </VBox>
+                                        <Pane HBox.hgrow="ALWAYS" minWidth="0"/>
+                                        <VBox alignment="CENTER_RIGHT" spacing="7.0" minWidth="120">
+                                            <children>
+                                                <Label fx:id="labelServer" styleClass="green-text" text="Server">
+                                                    <graphic>
+                                                        <SymbolLabel styleClass="green-text" symbol="featherserver"/>
+                                                    </graphic>
+                                                </Label>
+                                                <Label fx:id="labelFolderWatch" styleClass="green-text"
+                                                       text="Folder Watch">
+                                                    <graphic>
+                                                        <SymbolLabel styleClass="green-text" symbol="feathersearch"/>
+                                                    </graphic>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+<!--                                        <Separator layoutX="410.0" layoutY="10.0" orientation="VERTICAL"/>-->
+<!--                                        <fx:include source="ParticleInformationProgressView.fxml"/>-->
+                                        <!--                                            </children>-->
+                                        <!--                                        </HBox>-->
+                                        <!--<HBox fx:id="hboxRightToolBar" alignment="CENTER_RIGHT" prefHeight="30.0"-->
+                                        <!--prefWidth="300.0" spacing="7.0">-->
+                                        <!--<children>-->
+                                        <!--<Button fx:id="buttonServer" mnemonicParsing="false"-->
+                                        <!--onAction="#handleServer" text="Server">-->
+                                        <!--<graphic>-->
+                                        <!--<FontIcon iconLiteral="fas-server"/>-->
+                                        <!--</graphic>-->
+                                        <!--</Button>-->
+                                        <!--<Button fx:id="buttonFolderWatch" mnemonicParsing="false"-->
+                                        <!--onAction="#handleFolderWatch" text="Folder Watch">-->
+                                        <!--<graphic>-->
+                                        <!--<FontIcon iconLiteral="fas-eye"/>-->
+                                        <!--</graphic>-->
+                                        <!--</Button>-->
+                                        <!--<Button fx:id="buttonSegmenter" mnemonicParsing="false"-->
+                                        <!--onAction="#handleStartSegmenter" text="Segmenter">-->
+                                        <!--<graphic>-->
+                                        <!--<FontIcon iconLiteral="fas-object-group"/>-->
+                                        <!--</graphic>-->
+                                        <!--<tooltip>-->
+                                        <!--<Tooltip text="Open raw slide segmenter"/>-->
+                                        <!--</tooltip>-->
+                                        <!--</Button>-->
+                                        <!--</children>-->
+                                        <!--</HBox>-->
+                                    </items>
+                                </ToolBar>
+                            </children>
+                        </VBox>
+                    </top>
+                    <center>
+                        <SplitPane fx:id="splitPaneMain" dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0"
+                                   BorderPane.alignment="CENTER">
+                            <items>
+                                <fx:include fx:id="particleView" source="particle/ParticleView.fxml"/>
+<!--                                <fx:include fx:id="particleGridView" source="ParticleGridView.fxml"/>-->
+                                <!--<fx:include fx:id="foramImagePane" source="ForamImagePane.fxml" />-->
+                                <TabPane prefHeight="200.0" prefWidth="200.0"
+                                         style="-fx-border-width: 0 0 0 1px; -fx-border-color: derive(-fx-base,-20%);"
+                                         tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1">
+                                    <tabs>
+                                        <Tab text="Classification">
+                                            <content>
+                                                <fx:include fx:id="classificationView"
+                                                            source="ClassificationView.fxml"/>
+                                            </content>
+                                            <graphic>
+                                                <SymbolLabel symbol="feathertag"/>
+                                            </graphic>
+                                        </Tab>
+                                        <Tab fx:id="tabSimilar" text="Similarity">
+                                            <content>
+                                                <fx:include fx:id="similarityView" source="SimilarityView.fxml"/>
+                                            </content>
+                                            <graphic>
+                                                <SymbolLabel symbol="feathercopy"/>
+                                            </graphic>
+                                        </Tab>
+                                        <Tab fx:id="tabMorphology" text="Processing">
+                                            <content>
+                                                <fx:include fx:id="processingPane" source="morphology/ProcessingView.fxml"/>
+                                            </content>
+                                            <graphic>
+                                                <SymbolLabel symbol="feathersliders"/>
+                                            </graphic>
+                                        </Tab>
+                                        <Tab text="Morphology">
+                                            <fx:include source="morphology/MorphologyView.fxml" />
+                                            <graphic>
+                                                <SymbolLabel symbol="feathermove"/>
+                                            </graphic>
+                                        </Tab>
+                                        <Tab text="Parameters">
+                                            <fx:include source="morphology/ParametersView.fxml" />
+                                            <graphic>
+                                                <SymbolLabel symbol="featherlist"/>
+                                            </graphic>
+                                        </Tab>
+                                        <!--                                        <Tab fx:id="tabTraining" text="Training">-->
+                                        <!--                                            <content>-->
+                                        <!--                                                <fx:include fx:id="trainingView" source="CNNTrainingView.fxml"/>-->
+                                        <!--                                            </content>-->
+                                        <!--                                            <graphic>-->
+                                        <!--                                                <SymbolLabel symbol="featheractivity"/>-->
+                                        <!--                                            </graphic>-->
+                                        <!--                                        </Tab>-->
+                                    </tabs>
+                                </TabPane>
+                            </items>
+                            <BorderPane.margin>
+                                <Insets top="-1.0"/>
+                            </BorderPane.margin>
+                        </SplitPane>
+                    </center>
+                    <bottom>
+                        <HBox alignment="CENTER_LEFT" spacing="7.0" minWidth="120">
+                            <padding>
+                                <Insets topRightBottomLeft="3.0"/>
+                            </padding>
+                            <children>
+                                <Label fx:id="labelGPUMemory" styleClass="green-text" text="GPU memory:">
+                                    <!--                                                <graphic>-->
+                                    <!--                                                    <SymbolLabel styleClass="green-text" symbol="featherserver" />-->
+                                    <!--                                                </graphic>-->
+                                </Label>
+                                <Separator orientation="VERTICAL"/>
+                                <Label fx:id="labelGPUUsage" styleClass="green-text" text="GPU usage:">
+                                    <!--                                                <graphic>-->
+                                    <!--                                                    <SymbolLabel styleClass="green-text" symbol="feathersearch" />-->
+                                    <!--                                                </graphic>-->
+                                </Label>
+                            </children>
+                        </HBox>
+                    </bottom>
+                </BorderPane>
+            </children>
+        </AnchorPane>
+        <StackPane fx:id="rootDialog" visible="false">
+            <children>
+                <HBox alignment="CENTER"
+                      style="-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: derive(-fx-background, 50%);">
+                    <children>
+                        <VBox alignment="CENTER" fx:id="rootVBox">
+                            <children>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </StackPane>
+        <StackPane fx:id="rootLoading" prefHeight="150.0" prefWidth="200.0" styleClass="control-shadow-0p5"
+                   visible="false">
+            <children>
+                <HBox alignment="CENTER" maxHeight="100.0" maxWidth="200.0" prefHeight="100.0" prefWidth="200.0"
+                      style="-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: derive(-fx-background, 50%);">
+                    <children>
+                        <VBox alignment="CENTER">
+                            <children>
+                                <Label graphicTextGap="14.0" text="Working...">
+                                    <font>
+                                        <Font size="26.0"/>
+                                    </font>
+                                    <graphic>
+                                        <SymbolLabel fx:id="symbolLabelWorking" symbol="featherrefreshcw"/>
+                                    </graphic>
+                                </Label>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </StackPane>
+    </children>
+</StackPane>

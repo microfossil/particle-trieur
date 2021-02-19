@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.RangeSlider?>
+<!--<?import org.kordamp.ikonli.javafx.FontIcon?>-->
+
+<?import main.java.app.controls.SymbolLabel?>
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="539.0" prefWidth="842.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.other.segmenter.SegmenterController">
+    <stylesheets>
+        <URL value="@segmenter.css" />
+    </stylesheets>
+   <children>
+      <ToolBar layoutX="23.0" layoutY="7.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <items>
+            <Button mnemonicParsing="false" onAction="#handleLoadImages" text="Load Images">
+               <graphic>
+                   <SymbolLabel symbol="featheropen" />
+<!--                  <FontIcon iconLiteral="fth-open" />-->
+               </graphic>
+            </Button>
+         </items>
+      </ToolBar>
+      <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="572.0" prefWidth="360.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="426.0" AnchorPane.topAnchor="54.0">
+         <children>
+            <VBox fx:id="vboxImagePre" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fx:id="imageViewPre" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@resources/cerege.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <Button layoutX="14.0" layoutY="368.0" mnemonicParsing="false" onAction="#handlePrevious" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+               <graphic>
+<!--                  <FontIcon iconLiteral="fth-skip-back" />-->
+                   <SymbolLabel symbol="featherskipback" />
+               </graphic>
+            </Button>
+            <Button layoutX="32.0" layoutY="64,1.0" mnemonicParsing="false" onAction="#handleNext" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0">
+               <graphic>
+                   <SymbolLabel symbol="featherskipforward" />
+<!--                  <FontIcon iconLiteral="fth-skip-forward" />-->
+               </graphic>
+            </Button>
+            <ToggleButton fx:id="toggleButtonShowThreshold" layoutX="62.0" layoutY="64,4.0" mnemonicParsing="false" text="Show threshold" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <TitledPane collapsible="false" layoutX="661.0" layoutY="54.0" text="Settings" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="54.0">
+         <content>
+            <AnchorPane prefHeight="396.0" prefWidth="403.0">
+               <children>
+                  <GridPane layoutX="18.6" layoutY="19.6" prefHeight="452.0" prefWidth="384.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="118.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.0" minWidth="10.0" prefWidth="246.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Binary Threshold (%):" />
+                        <Label text="Border Space (%):" GridPane.rowIndex="3" />
+                        <Slider fx:id="sliderBorder" blockIncrement="5.0" majorTickUnit="10.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="30.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <CheckBox fx:id="checkBoxDiscardEdge" mnemonicParsing="false" selected="true" text="Discard edge particles" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label text="Size Threshold (px):" GridPane.rowIndex="1" />
+                        <CheckBox fx:id="checkBoxSegmentAlongBoundary" mnemonicParsing="false" selected="true" text="Segment along boundary" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Button mnemonicParsing="false" onAction="#handleExport" prefHeight="26.0" prefWidth="128.0" text="Export" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                           <graphic>
+                               <SymbolLabel symbol="featheropen" />
+<!--                              <FontIcon iconLiteral="fth-open" />-->
+                           </graphic>
+                        </Button>
+                        <Slider fx:id="sliderErosion" majorTickUnit="1.0" max="10.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Erosion (px):" GridPane.rowIndex="2" />
+                        <RangeSlider fx:id="rangeSliderSize" highValue="1000.0" lowValue="10.0" majorTickUnit="50.0" max="1000.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <RangeSlider fx:id="rangeSliderBinary" highValue="80.0" lowValue="10.0" majorTickUnit="10.0" max="100.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+         </content>
+      </TitledPane>
+   </children>
+</AnchorPane>

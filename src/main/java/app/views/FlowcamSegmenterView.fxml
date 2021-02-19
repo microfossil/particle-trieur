@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane stylesheets="@../resources/styles/style.css" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="main.java.app.viewcontrollers.tools.FlowcamSegmenterViewController">
+    <children>
+        <VBox layoutX="152.0" layoutY="59.0" minWidth="600.0" spacing="7.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label text="Campaign name" wrapText="true"/>
+                <TextField fx:id="textFieldCampaign" HBox.hgrow="ALWAYS"/>
+                <Label text="Name of this set of sample images." styleClass="caption" wrapText="true"/>
+                <Label text="Flowcam images directory" wrapText="true"/>
+                <HBox spacing="7.0">
+                    <children>
+                        <TextField fx:id="textFieldInputDirectory" HBox.hgrow="ALWAYS"/>
+                        <Button mnemonicParsing="false" onAction="#handleSelectInputDirectory" text="Select..."/>
+                    </children>
+                </HBox>
+                <Label text="Root directory containing sample sub-directories of Flowcam images. Directories may be nested as they will be searched recursively." styleClass="caption" wrapText="true"/>
+                <Label layoutX="10.0" layoutY="66.0" text="Output directory" wrapText="true"/>
+                <HBox layoutX="10.0" layoutY="90.0" spacing="7.0">
+                    <children>
+                        <TextField fx:id="textFieldOutputDirectory" HBox.hgrow="ALWAYS"/>
+                        <Button mnemonicParsing="false" onAction="#handleSelectOutputDirectory" text="Select..."/>
+                    </children>
+                </HBox>
+                <Label text="Directory to save segmented images." styleClass="caption" wrapText="true"/>
+                <Label layoutX="10.0" layoutY="10.0" text="Species map XLSX file" wrapText="true"/>
+                <HBox layoutX="10.0" layoutY="34.0" spacing="7.0">
+                    <children>
+                        <TextField fx:id="textFieldSpeciesXLSX" HBox.hgrow="ALWAYS"/>
+                        <Button mnemonicParsing="false" onAction="#handleSelectSpeciesXLSX" text="Select..."/>
+                    </children>
+                </HBox>
+                <Label text="XLSX file containing the mapping between erroneous class names and the corresponding correct class names." styleClass="caption" wrapText="true"/>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

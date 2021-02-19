@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import main.java.app.controls.*?>
+
+<AnchorPane fx:id="root" minHeight="0.0" minWidth="0.0" prefHeight="688.0" prefWidth="763.0" stylesheets="@../../resources/styles/style.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.app.viewcontrollers.morphology.ProcessingViewController">
+    <children>
+        <GridPane fx:id="gridPaneRoot" hgap="21.0" vgap="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="10.0" prefWidth="320.0" />
+<!--                <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />-->
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <VBox prefHeight="200.0" prefWidth="316.0" spacing="7.0" GridPane.columnIndex="1">
+                    <children>
+                  <HBox alignment="CENTER_LEFT" spacing="14.0">
+                     <children>
+                              <Label styleClass="header" text="Processing" />
+                         <SymbolLabel fx:id="symbolLabelIsUpdating" symbol="featherrefreshcw" symbolSize="18" visible="false" />
+                     </children>
+                  </HBox>
+                          <Label prefWidth="80.0" text="Image type:" />
+                          <ChoiceBox fx:id="choiceBoxImageType" maxWidth="1.7976931348623157E308" />
+                        <Label styleClass="subheader" text="Shape" />
+                        <CheckBox fx:id="checkBoxRemoveWhiteBorder" mnemonicParsing="false" text="Remove white border" />
+                        <CheckBox fx:id="checkBoxRemoveBlackBorder" mnemonicParsing="false" text="Remove black border" />
+                        <CheckBox fx:id="checkBoxMakeSquare" mnemonicParsing="false" text="Make square" />
+                        <Label styleClass="subheader" text="Colour">
+                            <VBox.margin>
+                                <Insets top="7.0" />
+                            </VBox.margin>
+                        </Label>
+                        <CheckBox fx:id="checkBoxConvertToGreyscale" mnemonicParsing="false" text="Convert to greyscale" />
+                        <HBox alignment="CENTER_LEFT" spacing="14.0">
+                            <children>
+                                <CheckBox fx:id="checkBoxNormalise" mnemonicParsing="false" text="Normalise:" />
+                                <Spinner fx:id="spinnerNormalisationParameter" />
+                            </children>
+                        </HBox>
+                        <Separator prefWidth="200.0" />
+                        <Label styleClass="subheader" text="Outline Detection">
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT">
+                            <children>
+                                <Label prefWidth="80.0" text="Method:" />
+                                <ChoiceBox fx:id="choiceBoxSegmentationMethod" prefWidth="150.0" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT">
+                            <children>
+                                <Label prefWidth="80.0" text="Threshold:" />
+                                <Spinner fx:id="spinnerSegmentationThreshold" editable="true" prefWidth="150.0" />
+                            </children>
+                        </HBox>
+                        <CheckBox fx:id="checkBoxEnhanceEdges" mnemonicParsing="false" text="Enhance edges" />
+                        <CheckBox fx:id="checkBoxRescaleIntensity" mnemonicParsing="false" text="Rescale intensity (min/max)" />
+                        <Label styleClass="subheader" text="Outline Adjustments" />
+                        <CheckBox fx:id="checkBoxCentreImage" mnemonicParsing="false" text="Centre particle using outline" />
+                        <CheckBox fx:id="checkBoxRotateImage" mnemonicParsing="false" text="Rotate particle to major axis">
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </CheckBox>
+                        <HBox alignment="CENTER_LEFT" spacing="7.0">
+                            <children>
+                                <CheckBox fx:id="checkBoxRemoveBackground" mnemonicParsing="false" text="Mask background with margin" />
+                                <Spinner fx:id="spinnerBackgroundRemovalMargin" prefWidth="80.0" />
+                            </children>
+                        </HBox>
+                        <Separator prefWidth="200.0">
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </Separator>
+                        <Button maxWidth="1.7976931348623157E308" minHeight="40.0" mnemonicParsing="false" onAction="#handleUpdate" style="-fx-font-size: 16;" styleClass="green-button" text="Update">
+                                <graphic>
+                                    <SymbolLabel symbol="featherimage" />
+                                </graphic>
+                        </Button>
+<!--                        <Label styleClass="subheader" text="Presets" />-->
+<!--                        <HBox spacing="7.0">-->
+<!--                            <children>-->
+<!--                                <Button mnemonicParsing="false" text="None" />-->
+<!--                                <Button mnemonicParsing="false" text="Foraminifera" />-->
+<!--                            </children>-->
+<!--                        </HBox>-->
+<!--                        <HBox spacing="7.0">-->
+<!--                            <VBox.margin>-->
+<!--                                <Insets />-->
+<!--                            </VBox.margin>-->
+<!--                        </HBox>-->
+                    </children>
+                </VBox>
+                <GridPane fx:id="gridPaneImages" vgap="7.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <!--<StackPane>-->
+                        <!--<children>-->
+                        <!--<ImageView fx:id="imageViewOriginal" pickOnBounds="true" preserveRatio="true" />-->
+                        <!--</children>-->
+                        <!--</StackPane>-->
+                        <!--<StackPane>-->
+                        <!--<children>-->
+                        <!--<ImageView fx:id="imageViewEdge" pickOnBounds="true" preserveRatio="true" />-->
+                        <!--</children>-->
+                        <!--</StackPane>-->
+                        <!--<StackPane>-->
+                        <!--<children>-->
+                        <!--<ImageView fx:id="imageViewProcessed" pickOnBounds="true" preserveRatio="true" />-->
+                        <!---->
+                        <!--</children>-->
+                        <!--</StackPane>-->
+                        <Label fx:id="labelOriginalImage" styleClass="subheader" text="Original" />
+                        <ImageCell fx:id="imageCellOriginal" styleClass="control-shadow-0p5" GridPane.rowIndex="1" />
+                        <Label styleClass="subheader" text="Outline" GridPane.rowIndex="2" />
+                        <ImageCell fx:id="imageCellEdge" styleClass="control-shadow-0p5" GridPane.rowIndex="3" />
+                        <Label styleClass="subheader" text="Processed" GridPane.rowIndex="4" />
+                        <ImageCell fx:id="imageCellProcessed" styleClass="control-shadow-0p5" GridPane.rowIndex="5" />
+                  <Label fx:id="labelNoOutline" alignment="CENTER" styleClass="red-button" text="No outline" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                     <padding>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </padding>
+                  </Label>
+                    </children>
+                </GridPane>
+            </children>
+            <padding>
+                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+            </padding>
+        </GridPane>
+    </children>
+</AnchorPane>

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="ParticleTrieurNoInstaller" />
+      <artifact name="ParticleTrieur" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -27,15 +27,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2a2d7e8-5c07-421e-a18f-7e6936f4ce78" name="Default Changelist" comment="">
+    <list default="true" id="d2a2d7e8-5c07-421e-a18f-7e6936f4ce78" name="Default Changelist" comment="Re-arranged particle information progress">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/PreprocessingInfo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/training/MISOTrainingScript.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/training/CNNTrainingScript.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/training/TrainingLaunchInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/network/training/ModelDefaults.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/processing/ProcessingInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/models/processing/ProcessingInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/network/CNNTrainingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/network/CNNTrainingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/network/TrainingNetworkDescriptionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/services/network/TrainingNetworkDescriptionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/network/CNNTrainingViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/network/CNNTrainingViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/particle/ParticleViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/viewcontrollers/particle/ParticleViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/views/particle/ParticleView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/views/particle/ParticleView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +70,6 @@
   </component>
   <component name="ProjectId" id="1jIi2XTb26t6t7bxxu65zpvr0xw" />
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -84,9 +78,9 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/controls" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/target/classes/main/java/app/resources/styles/Source_Sans_Pro" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -94,12 +88,14 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/target/classes/main/java/app/resources/styles/Source_Sans_Pro" />
+      <recent name="$PROJECT_DIR$/lib" />
       <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\controls" />
       <recent name="$PROJECT_DIR$/src/ordervschaos/particletrieur/app/views/morphology" />
       <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\views\particle" />
-      <recent name="$PROJECT_DIR$/out/artifacts/ParticleTrieur_jar" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/archive" />
       <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\views\particle" />
       <recent name="C:\Users\rossm\Documents\Development\Microfossil\particle-trieur\src\ordervschaos\particletrieur\app\views\morphology" />
     </key>
@@ -138,7 +134,7 @@
     <configuration name="App" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="ordervschaos.particletrieur.app.App" />
+      <option name="MAIN_CLASS_NAME" value="main.java.app.App" />
       <module name="ParticleTrieur" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -148,6 +144,19 @@
       <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="ordervschaos.particletrieur.app.App" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -247,6 +256,8 @@
       <workItem from="1612947705892" duration="596000" />
       <workItem from="1613251913642" duration="11006000" />
       <workItem from="1613385478321" duration="689000" />
+      <workItem from="1613432224722" duration="2213000" />
+      <workItem from="1613448325387" duration="6033000" />
     </task>
     <task id="LOCAL-00001" summary="Move image type below">
       <created>1603508919405</created>
@@ -353,7 +364,21 @@
       <option name="project" value="LOCAL" />
       <updated>1613306637776</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Fix add button and resource bug">
+      <created>1613435285313</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1613435285313</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Re-arranged particle information progress">
+      <created>1613453631302</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1613453631302</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -385,20 +410,17 @@
     <MESSAGE value="Clean up classification code" />
     <MESSAGE value="Fix style path" />
     <MESSAGE value="Move with other tools" />
-    <option name="LAST_COMMIT_MESSAGE" value="Move with other tools" />
+    <MESSAGE value="Fix add button and resource bug" />
+    <MESSAGE value="Re-arranged particle information progress" />
+    <option name="LAST_COMMIT_MESSAGE" value="Re-arranged particle information progress" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewcontrollers/particle/ParticleListViewController.java</url>
-          <line>381</line>
+          <url>file://$PROJECT_DIR$/src/main/java/app/viewcontrollers/particle/ParticleListViewController.java</url>
+          <line>389</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/ordervschaos/particletrieur/app/viewmodels/network/CNNPredictionViewModel.java</url>
-          <line>80</line>
-          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

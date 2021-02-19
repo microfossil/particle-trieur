@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <xsd:complexType name="project">
+      <xsd:sequence>
+         <xsd:element name="taxons" type="taxonAdaptedMap" minOccurs="0"/>
+         <xsd:element name="tags" type="tagAdaptedMap" minOccurs="0"/>
+         <xsd:element name="processingInfo" type="processingInfo" minOccurs="0"/>
+         <xsd:element name="network" type="networkInfo" minOccurs="0"/>
+         <xsd:element name="images" minOccurs="0">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:choice maxOccurs="unbounded">
+                     <xsd:element name="image" type="particle" minOccurs="0"/>
+                  </xsd:choice>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:sequence>
+      <xsd:attribute name="version" type="xsd:string"/>
+   </xsd:complexType>
+   <xsd:complexType name="taxonAdaptedMap">
+      <xsd:sequence>
+         <xsd:element name="taxon" type="taxon" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="taxon">
+      <xsd:sequence>
+         <xsd:element name="code" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="description" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="group" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="isClass" type="xsd:boolean"/>
+         <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="tagAdaptedMap">
+      <xsd:sequence>
+         <xsd:element name="tag" type="tag" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="tag">
+      <xsd:sequence>
+         <xsd:element name="code" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="description" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="processingInfo">
+      <xsd:sequence>
+         <xsd:element name="backgroundRemovalMargin" type="xsd:int"/>
+         <xsd:element name="centre" type="xsd:boolean"/>
+         <xsd:element name="classificationThreshold" type="xsd:double"/>
+         <xsd:element name="convertToGreyscale" type="xsd:boolean"/>
+         <xsd:element name="imageType" type="imageType" minOccurs="0"/>
+         <xsd:element name="makeSquare" type="xsd:boolean"/>
+         <xsd:element name="normalisationParameter" type="xsd:double"/>
+         <xsd:element name="normalise" type="xsd:boolean"/>
+         <xsd:element name="processBeforeClassification" type="xsd:boolean"/>
+         <xsd:element name="removeBackground" type="xsd:boolean"/>
+         <xsd:element name="removeBlackBorder" type="xsd:boolean"/>
+         <xsd:element name="removeWhiteBorder" type="xsd:boolean"/>
+         <xsd:element name="rotateToMajorAxis" type="xsd:boolean"/>
+         <xsd:element name="segmentationEnhanceEdges" type="xsd:boolean"/>
+         <xsd:element name="segmentationMethod" type="segmentationMethod" minOccurs="0"/>
+         <xsd:element name="segmentationThreshold" type="xsd:double"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="networkInfo">
+      <xsd:complexContent>
+         <xsd:extension base="xmlClonable">
+            <xsd:sequence>
+               <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+               <xsd:element name="description" type="xsd:string" minOccurs="0"/>
+               <xsd:element name="type" type="xsd:string" minOccurs="0"/>
+               <xsd:element name="date" type="xsd:string" minOccurs="0"/>
+               <xsd:element name="params" minOccurs="0">
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:element name="entry" minOccurs="0" maxOccurs="unbounded">
+                           <xsd:complexType>
+                              <xsd:sequence>
+                                 <xsd:element name="key" type="xsd:string" minOccurs="0"/>
+                                 <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                              </xsd:sequence>
+                           </xsd:complexType>
+                        </xsd:element>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+               <xsd:element name="protobuf" type="xsd:string" minOccurs="0"/>
+               <xsd:element name="source_data" type="xsd:string" minOccurs="0"/>
+               <xsd:element name="inputs" minOccurs="0">
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:choice maxOccurs="unbounded">
+                           <xsd:element name="input" type="tensorInfo" minOccurs="0"/>
+                        </xsd:choice>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+               <xsd:element name="outputs" minOccurs="0">
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:choice maxOccurs="unbounded">
+                           <xsd:element name="output" type="tensorInfo" minOccurs="0"/>
+                        </xsd:choice>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+               <xsd:element name="labels" minOccurs="0">
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:choice maxOccurs="unbounded">
+                           <xsd:element name="label" type="xsd:string" minOccurs="0"/>
+                        </xsd:choice>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+               <xsd:element name="accuracy" type="xsd:double"/>
+               <xsd:element name="precision" type="xsd:double"/>
+               <xsd:element name="recall" type="xsd:double"/>
+               <xsd:element name="f1score" type="xsd:double"/>
+               <xsd:element name="prepro" type="preprocessingInfo" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="xmlClonable" abstract="true"/>
+   <xsd:complexType name="tensorInfo">
+      <xsd:sequence>
+         <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="description" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="operation" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="height" type="xsd:int"/>
+         <xsd:element name="width" type="xsd:int"/>
+         <xsd:element name="channels" type="xsd:int"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="preprocessingInfo">
+      <xsd:sequence>
+         <xsd:element name="type" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="description" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="params" minOccurs="0">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:choice maxOccurs="unbounded">
+                     <xsd:element name="param" type="xsd:anySimpleType" minOccurs="0"/>
+                  </xsd:choice>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="particle">
+      <xsd:sequence>
+         <xsd:element name="classifications" type="classificationSet" minOccurs="0"/>
+         <xsd:element name="tags" minOccurs="0">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="tag" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="cnnVector" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="source" minOccurs="0">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="GUID" type="xsd:string" minOccurs="0"/>
+                  <xsd:element name="coreID" type="xsd:string" minOccurs="0"/>
+                  <xsd:element name="depthMax" type="xsd:double"/>
+                  <xsd:element name="depthMin" type="xsd:double"/>
+                  <xsd:element name="filename" type="xsd:string" minOccurs="0"/>
+                  <xsd:element name="height" type="xsd:int"/>
+                  <xsd:element name="imageQuality" type="xsd:int"/>
+                  <xsd:element name="width" type="xsd:int"/>
+                  <xsd:element name="resolution" type="xsd:int"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="classificationSet">
+      <xsd:sequence>
+         <xsd:element name="classification" type="classification" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="id" type="xsd:string"/>
+   </xsd:complexType>
+   <xsd:complexType name="classificationAdaptedMap">
+      <xsd:sequence>
+         <xsd:element name="classification" type="classification" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="classification">
+      <xsd:sequence>
+         <xsd:element name="code" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="value" type="xsd:double"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="project" type="project"/>
+   <xsd:element name="taxon" type="taxon"/>
+   <xsd:element name="tag" type="tag"/>
+   <xsd:element name="processing" type="processingInfo"/>
+   <xsd:element name="network" type="networkInfo"/>
+   <xsd:element name="tensor" type="tensorInfo"/>
+   <xsd:element name="prepro" type="preprocessingInfo"/>
+   <xsd:element name="image" type="particle"/>
+   <xsd:element name="classifications" type="classificationSet"/>
+   <xsd:simpleType name="imageType">
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="LIGHTONDARK"/>
+         <xsd:enumeration value="DARKONLIGHT"/>
+         <xsd:enumeration value="GREY"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="segmentationMethod">
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="INTENSITY"/>
+         <xsd:enumeration value="OTSU"/>
+         <xsd:enumeration value="CNN"/>
+         <xsd:enumeration value="EXPERIMENTAL"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+</xsd:schema>

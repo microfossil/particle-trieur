@@ -1,3 +1,7 @@
 out/artifacts/
 target
 .idea/libraries/
+
+miso.lock
+
+.idea/workspace.xml
