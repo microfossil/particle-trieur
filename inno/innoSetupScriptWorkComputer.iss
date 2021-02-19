@@ -34,13 +34,13 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\rossm\Documents\Development\ForamTrieur\out\artifacts\ParticleTrieur\bundles\ParticleTrieur\ParticleTrieur.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\rossm\Documents\Development\ForamTrieur\out\artifacts\ParticleTrieur\bundles\ParticleTrieur\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\rossm\Documents\Development\ForamTrieur\out\artifacts\ParticleTrieur\bundles\ParticleTrieur\ParticleTrieur.exe"; DestDir: "{particletrieur}"; Flags: ignoreversion
+Source: "C:\Users\rossm\Documents\Development\ForamTrieur\out\artifacts\ParticleTrieur\bundles\ParticleTrieur\*"; DestDir: "{particletrieur}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{group}\{#MyAppName}"; Filename: "{particletrieur}\{#MyAppExeName}"
+Name: "{commondesktop}\{#MyAppName}"; Filename: "{particletrieur}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+Filename: "{particletrieur}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent

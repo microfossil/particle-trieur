@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- You may freely edit this file. See commented blocks below for --><!-- some examples of how to customize the build. --><!-- (If you delete it and reopen the app it will be recreated.) --><!-- By default, only the Clean and Build commands use this build script. -->
+<?xml version="1.0" encoding="UTF-8"?><!-- You may freely edit this file. See commented blocks below for --><!-- some examples of how to customize the build. --><!-- (If you delete it and reopen the particletrieur it will be recreated.) --><!-- By default, only the Clean and Build commands use this build script. -->
 <project name="ParticleTrieur" default="default" basedir=".." xmlns:fx="javafx:com.sun.javafx.tools.ant">
     <description>Builds, tests, and runs the project ParticleTrieur.</description>
     <import file="nbproject/build-impl.xml"/>
@@ -88,11 +88,11 @@
                     var JFXPARH = "hidden";
                     var JFXCALLB = "javafx.jscallback";
                     var JFXLAZY = "download.mode.lazy.jar";
-                    var withpreloader = new String(project.getProperty("app-with-preloader"));
+                    var withpreloader = new String(project.getProperty("particletrieur-with-preloader"));
                     var fx_ant_api_1_1 = new String(project.getProperty("have-fx-ant-api-1.1"));
                     var fx_ant_api_1_2 = new String(project.getProperty("have-fx-ant-api-1.2"));
                     var have_jdk_pre7u14 = new String(project.getProperty("have-jdk-pre7u14"));
-                    var fx_in_swing_app = new String(project.getProperty("fx-in-swing-app"));
+                    var fx_in_swing_app = new String(project.getProperty("fx-in-swing-particletrieur"));
                     var debug_in_browser = new String(project.getProperty("project.state.debugging.in.browser"));
 
                     // get jars with lazy download mode property set
@@ -186,29 +186,29 @@
                     }
 
                     // fx:application
-                    var app = deploy.createApplication();
-                    app.setProject(project);
+                    var particletrieur = deploy.createApplication();
+                    particletrieur.setProject(project);
                     var title = new String(project.getProperty("application.title"));
                     var mainclass;
                     if(isTrue(fx_in_swing_app) && isTrue(fx_ant_api_1_2)) {
                         mainclass = new String(project.getProperty("main.class"));
-                        app.setToolkit("swing");
+                        particletrieur.setToolkit("swing");
                     } else {
                         mainclass = new String(project.getProperty("javafx.main.class"));
                     }
                     var fallback = new String(project.getProperty("javafx.fallback.class"));
-                    app.setName(title);
-                    app.setMainClass(mainclass);
-                    app.setFallbackClass(fallback);
+                    particletrieur.setName(title);
+                    particletrieur.setMainClass(mainclass);
+                    particletrieur.setFallbackClass(fallback);
                     if(isTrue(withpreloader)) {
                         preloaderclass = new String(project.getProperty("javafx.preloader.class"));
-                        app.setPreloaderClass(preloaderclass);
+                        particletrieur.setPreloaderClass(preloaderclass);
                     }
                     var appversion = new String(project.getProperty("javafx.application.implementation.version"));
                     if(defined(appversion)) {
-                        app.setVersion(appversion);
+                        particletrieur.setVersion(appversion);
                     } else {
-                        app.setVersion("1.0");
+                        particletrieur.setVersion("1.0");
                     }
                     // fx:param, fx:argument
                     var searchHides = project.getProperties().keys();
@@ -234,12 +234,12 @@
                                 var pv = replaceSuffix(pn, JFXPARN, JFXPARV);
                                 var propv = new String(project.getProperty(pv));
                                 if(defined(propv)) {
-                                    var par = app.createParam();
+                                    var par = particletrieur.createParam();
                                     par.setName(propn);
                                     par.setValue(propv);
                                 } else {
                                     if(isTrue(fx_ant_api_1_1)) {
-                                        var arg = app.createArgument();
+                                        var arg = particletrieur.createArgument();
                                         arg.addText(propn);
                                     } else {
                                         print("Warning: Unnamed parameters not supported by this version of JavaFX SDK deployment Ant tasks. Upgrade JavaFX to 2.0.2 or higher.");
@@ -464,10 +464,10 @@
 
     There exist several targets which are by default empty and which can be 
     used for execution of your tasks. These targets are usually executed 
-    before and after some main targets. Those of them relevant for JavaFX app are:
+    before and after some main targets. Those of them relevant for JavaFX particletrieur are:
 
-      -pre-init:                 called before initialization of app properties
-      -post-init:                called after initialization of app properties
+      -pre-init:                 called before initialization of particletrieur properties
+      -post-init:                called after initialization of particletrieur properties
       -pre-compile:              called before javac compilation
       -post-compile:             called after javac compilation
       -pre-compile-test:         called before javac compilation of JUnit tests

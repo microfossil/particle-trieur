@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane hgap="14.0" minHeight="380.0" minWidth="800.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="particletrieur.viewcontrollers.export.ExportViewController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" percentWidth="50.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <VBox spacing="7">
+            <children>
+                <Label styleClass="subheader" text="Labels">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label text="Tick the labels for which the images should be exported:" />
+                <Label text="Taxonomic" underline="true" />
+                <FlowPane fx:id="flowPaneLabels" hgap="7.0" minHeight="20.0" vgap="7.0" />
+                <Label text="Other" underline="true" />
+                <FlowPane fx:id="flowPaneLabelsNonTaxonomic" hgap="7.0" minHeight="20.0" vgap="7.0" />
+                <Separator prefWidth="200.0" />
+                <Label styleClass="subheader" text="Tags" />
+                <Label text="Tick the tags for which the images should be exported:" />
+                <FlowPane fx:id="flowPaneTags" hgap="7.0" minHeight="20.0" vgap="7.0" />
+            </children>
+        </VBox>
+        <VBox prefHeight="200.0" prefWidth="100.0" spacing="7.0" GridPane.columnIndex="1">
+            <children>
+                <Label styleClass="subheader" text="Processing" />
+                <RadioButton mnemonicParsing="false" selected="true" text="Copy without processing">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="process" />
+                    </toggleGroup>
+                </RadioButton>
+                <RadioButton fx:id="radioButtonProcess" mnemonicParsing="false" text="Process using processing tab settings" toggleGroup="$process" />
+            <GridPane hgap="7.0" vgap="7.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                        <ComboBox fx:id="comboBoxConvertMode" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+                  <ComboBox fx:id="comboBoxResize" editable="true" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Convert to:" />
+                  <CheckBox fx:id="checkBoxResize" mnemonicParsing="false" text="Resize to (pixels):" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+                <Separator prefWidth="200.0" />
+                <Label styleClass="subheader" text="Filename">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <HBox alignment="CENTER_LEFT" prefHeight="4.0" prefWidth="586.0" spacing="14.0">
+                    <children>
+                        <CheckBox fx:id="checkBoxPrefix" mnemonicParsing="false" text="Prefix export filename with:" />
+                        <TextField fx:id="prefixTextField" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+                <Label minHeight="-Infinity" text="Construct the export filename using these parameters (image number is automatically used):" wrapText="true" />
+                <CheckBox fx:id="checkBoxLabel" mnemonicParsing="false" text="Label" />
+                <CheckBox fx:id="checkBoxSample" mnemonicParsing="false" text="Sample" />
+                <CheckBox fx:id="checkBoxIndex1" mnemonicParsing="false" text="Index 1" />
+                <CheckBox fx:id="checkBoxIndex2" mnemonicParsing="false" text="Index 2" />
+                <CheckBox fx:id="checkBoxGUID" mnemonicParsing="false" text="GUID" />
+                <Separator prefWidth="200.0" />
+                <Label styleClass="subheader" text="Folder" />
+                <HBox alignment="CENTER_LEFT" prefHeight="4.0" prefWidth="586.0" spacing="14.0">
+                    <children>
+                        <Label text="Sort into folders by:" />
+                        <ComboBox fx:id="folderOrganisationComboBox" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</GridPane>
