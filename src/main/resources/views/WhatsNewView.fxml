@@ -16,6 +16,9 @@
             prefHeight="360.0" prefWidth="480.0">
     <VBox spacing="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <children>
+            <Label text="2.4.1" styleClass="subheader"/>
+            <Label wrapText="true">Fixed opening projects in macOS</Label>
+            <Label wrapText="true">Added image count</Label>
             <Label text="2.4.0" styleClass="subheader"/>
             <Label wrapText="true">Added grid view and grouped classification labels</Label>
             <Label wrapText="true">Changed layout of the similarity tab</Label>
