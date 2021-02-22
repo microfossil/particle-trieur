@@ -18,6 +18,9 @@
                     <include>**/*.properties</include>
                 </includes>
             </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
         </resources>
         <plugins>
             <plugin>
@@ -68,8 +71,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>particletrieur.App
-                                    </mainClass>
+                                    <mainClass>particletrieur.App</mainClass>
                                 </transformer>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                             </transformers>
@@ -158,6 +160,14 @@
 <!--            <artifactId>libtensorflow_jni_gpu</artifactId>-->
 <!--            <version>1.14.0</version>-->
 <!--        </dependency>-->
+        <dependency>
+            <groupId>org.tensorflow</groupId>
+            <artifactId>libtensorflow</artifactId>
+            <version>1.15.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/libtensorflow-1.15.0.jar</systemPath>
+        </dependency>
+
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
