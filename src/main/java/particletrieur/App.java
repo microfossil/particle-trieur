@@ -5,6 +5,7 @@
  */
 package particletrieur;
 
+import org.apache.commons.lang3.SystemUtils;
 import particletrieur.viewcontrollers.MainController;
 import particletrieur.viewcontrollers.StartupViewController;
 import com.google.inject.Guice;
@@ -23,6 +24,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import particletrieur.viewmodels.network.NetworkViewModel;
+
+import javax.swing.*;
 
 /**
  *
@@ -57,6 +60,10 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         instance = this;
         this.stage = stage;
+
+        if (SystemUtils.IS_OS_MAC_OSX) {
+            JFrame frame = new JFrame();
+        }
 
         //ResourceBundle bundle = ResourceBundle.getBundle("ordervschaos.particle.bundles.Lang", new Locale("fr"));
         ResourceBundle bundle = ResourceBundle.getBundle("bundles.Lang");

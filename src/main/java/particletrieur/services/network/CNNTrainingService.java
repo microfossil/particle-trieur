@@ -162,7 +162,7 @@ public class CNNTrainingService {
         String windowsA = System.getProperty("user.home") + "\\Anaconda3\\envs\\" + ENV + "\\python.exe";
         String windowsB = System.getProperty("user.home") + "\\AppData\\Local\\Continuum\\Anaconda3\\envs\\" + ENV + "\\python.exe";
         String macA = System.getProperty("user.home") + "/anaconda3/envs/" + ENV + "/bin/python";
-        String macB = System.getProperty("user.home") + "/opt/anaconda3/envs/\" + ENV + \"/bin/python";
+        String macB = System.getProperty("user.home") + "/opt/anaconda3/envs/" + ENV + "/bin/python";
         String linuxA = System.getProperty("user.home") + "/anaconda3/envs/" + ENV + "/bin/python";
         String linuxB = "/usr/local/anaconda3/envs/" + ENV + "/bin/python";
         String commonA = appPrefs.getPythonPath();
