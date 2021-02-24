@@ -41,6 +41,7 @@ public class VectorProgressViewController extends AbstractController implements 
         networkViewModel.getVectorCalculationService().progressProperty().addListener((observable, oldValue, newValue) -> {
             progressIndicator.setProgress(newValue.doubleValue());
             progressIndicator.setVisible(newValue.doubleValue() != 1.0);
+            labelProgress.setVisible(newValue.doubleValue() != 1.0);
             symbolLabelTick.setVisible(newValue.doubleValue() == 1.0);
             buttonPlayPause.setVisible(newValue.doubleValue() != 1.0);
         });

@@ -41,7 +41,7 @@
     <!--        </VBox>-->
     <!--    </children>-->
     <Label fx:id="labelProgress" text="0%" visible="false"/>
-    <ProgressBar fx:id="progressIndicator" maxWidth="40" progress="0.0" visible="false"/>
+    <ProgressBar fx:id="progressIndicator" maxWidth="60" progress="0.0" visible="false"/>
     <StackPane>
         <Button fx:id="buttonPlayPause" mnemonicParsing="false" visible="false">
             <graphic>
