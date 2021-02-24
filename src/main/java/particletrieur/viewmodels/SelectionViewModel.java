@@ -7,6 +7,10 @@ package particletrieur.viewmodels;
 
 import javafx.beans.property.*;
 import javafx.collections.ListChangeListener;
+import javafx.concurrent.Task;
+import javafx.concurrent.Worker;
+import javafx.scene.image.Image;
+import particletrieur.App;
 import particletrieur.helpers.CSEvent;
 import particletrieur.models.Supervisor;
 import particletrieur.models.project.Particle;
@@ -71,6 +75,8 @@ public class SelectionViewModel {
         return imageProcessingService.runningProperty();
     }
 
+    ObjectProperty<Task<Void>> nullUpdateTask = new SimpleObjectProperty<>();
+
     @Inject
     public SelectionViewModel(Supervisor supervisor) {
         this.supervisor = supervisor;
@@ -81,9 +87,26 @@ public class SelectionViewModel {
 
         currentParticles.addListener((ListChangeListener<? super Particle>) listener -> {
             if (getCurrentParticles().size() > 0) {
+                if (nullUpdateTask.get() != null &&
+                        nullUpdateTask.get().getState() != Worker.State.SUCCEEDED &&
+                        nullUpdateTask.get().getState() != Worker.State.FAILED) {
+                    nullUpdateTask.get().cancel();
+                }
+                nullUpdateTask.set(null);
                 setCurrentParticle(getCurrentParticles().get(0));
             } else {
-                setCurrentParticle(null);
+                Task<Void> task = new Task<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        Thread.sleep(100);
+                        return null;
+                    }
+                };
+                nullUpdateTask.set(task);
+                task.setOnSucceeded(event -> {
+                    setCurrentParticle(null);
+                });
+                App.getExecutorService().submit(task);
             }
         });
 

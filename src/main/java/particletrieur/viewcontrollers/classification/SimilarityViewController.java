@@ -87,7 +87,9 @@ public class SimilarityViewController extends AbstractController implements Init
             if (newValue) updateSimilarUI();
         });
 
-        selectionViewModel.currentParticleImageProperty().addListener((observable, oldValue, newValue) -> updateSimilarUI());
+        selectionViewModel.currentParticleProperty().addListener((observable, oldValue, newValue) -> {
+            updateSimilarUI();
+        });
 
         selectedItems.addListener((ListChangeListener<Similarity>) c -> {
             c.next();
@@ -118,7 +120,7 @@ public class SimilarityViewController extends AbstractController implements Init
         onTaxonsUpdated();
 
         knnPredictionViewModel.kNNPredictedClassificationProperty().addListener((observable, oldValue, newValue) -> {
-            menuButtonCurrentLabels.setText(newValue.getBestCode());
+            if (newValue != null) menuButtonCurrentLabels.setText(newValue.getBestCode());
         });
     }
 

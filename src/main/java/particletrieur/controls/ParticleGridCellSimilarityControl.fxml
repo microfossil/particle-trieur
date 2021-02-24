@@ -20,8 +20,8 @@
                 <Insets topRightBottomLeft="4"/>
             </padding>
             <VBox>
-                <Label fx:id="labelId" text="Index"/>
-                <Label fx:id="labelClassification" text="Classification"/>
+                <Label fx:id="labelId" text=""/>
+                <Label fx:id="labelClassification" text=""/>
                 <Label fx:id="labelInfo" text=""/>
             </VBox>
             <Pane HBox.hgrow="ALWAYS"/>

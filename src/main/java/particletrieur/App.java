@@ -33,7 +33,7 @@ import javax.swing.*;
  */
 public class App extends Application {
 
-    public static String VERSION = "2.4.1";
+    public static String VERSION = "2.4.2";
     
     public static Image iconImage = new Image(App.class.getResourceAsStream("/icons/icon.png"),44, 44,true,true);
     
