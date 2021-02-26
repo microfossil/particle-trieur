@@ -5,9 +5,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ miso2-gridview ]
+    branches: [ nightly ]
   pull_request:
-    branches: [ miso2-gridview ]
+    branches: [ nightly ]
 
 jobs:
   build:
@@ -23,8 +23,10 @@ jobs:
         java-package: jdk+fx
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: Create nightly shaded jar
+      run: mv target/ParticleTrieur.jar target/ParticleTrieur-nightly.jar
     - name: Archive shaded jar
       uses: actions/upload-artifact@v2
       with:
-        name: shaded-jar
+        name: nightly
         path: target/ParticleTrieur.jar
