@@ -23,3 +23,8 @@ jobs:
         java-package: jdk+fx
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: Archive shaded jar
+      uses: actions/upload-artifact@v2
+      with:
+        name: shaded-jar
+        path: target/ParticleTrieur.jar
