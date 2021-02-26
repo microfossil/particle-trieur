@@ -29,4 +29,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: nightly
-        path: target/ParticleTrieur.jar
+        path: target/ParticleTrieur-nightly.jar
