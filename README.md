@@ -1,8 +1,8 @@
-![main](https://github.com/github/docs/actions/workflows/main-release.yml/badge.svg)
+![main](https://github.com/microfossil/particle-trieur/actions/workflows/main-release.yml/badge.svg)
 
-![dev](https://github.com/github/docs/actions/workflows/dev-release.yml/badge.svg)
+![dev](https://github.com/microfossil/particle-trieur/actions/workflows/dev-release.yml/badge.svg)
 
-![nightly](https://github.com/github/docs/actions/workflows/nightly-artifact.yml/badge.svg)
+![nightly](https://github.com/microfossil/particle-trieur/actions/workflows/nightly-artifact.yml/badge.svg)
 
 # ParticleTrieur
 
