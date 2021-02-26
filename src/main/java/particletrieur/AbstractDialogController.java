@@ -1,5 +1,6 @@
 package particletrieur;
 
+import javafx.scene.layout.Pane;
 import particletrieur.controls.SymbolLabel;
 import particletrieur.controls.DialogEx;
 import javafx.scene.control.ButtonType;
@@ -33,6 +34,11 @@ public abstract class AbstractDialogController extends AbstractController{
     @Override
     public void show() {
         asDialog(getHeader(), getSymbol(), getButtonTypes()).show();
+    }
+
+    public void showInPane(Pane pane) {
+        DialogEx dialogEx = asDialog(getHeader(), getSymbol(), getButtonTypes());
+        pane.getChildren().add(dialogEx.getDialogPane());
     }
 
     public DialogEx asDialog(ButtonType... buttonTypes) {

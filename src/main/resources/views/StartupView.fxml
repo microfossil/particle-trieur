@@ -14,32 +14,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import particletrieur.controls.SymbolLabel?>
 
-<AnchorPane stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="particletrieur.viewcontrollers.StartupViewController">
+<AnchorPane fx:id="root" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="particletrieur.viewcontrollers.StartupViewController">
     <children>
         <StackPane layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+                <Insets topRightBottomLeft="14.0"/>
+            </padding>
             <children>
             <VBox fx:id="vboxWelcome" spacing="14.0">
                <children>
-<!--                        <HBox alignment="CENTER_LEFT">-->
-<!--                            <children>-->
-<!--                                <Label styleClass="header" text="Welcome" />-->
-<!--                                <Pane HBox.hgrow="ALWAYS" />-->
-<!--&lt;!&ndash;                                <StackPane alignment="CENTER_RIGHT">&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <children>&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <Label fx:id="labelUpdate" text="Checking for updates..." textFill="darkgoldenrod">&ndash;&gt;-->
-<!--&lt;!&ndash;                                            <graphic>&ndash;&gt;-->
-<!--&lt;!&ndash;                                                <SymbolLabel fx:id="symbolLabelChecking" symbol="featherrefreshcw" symbolColor="darkgoldenrod" symbolSize="14" />&ndash;&gt;-->
-<!--&lt;!&ndash;                                            </graphic>&ndash;&gt;-->
-<!--&lt;!&ndash;                                        </Label>&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <Hyperlink fx:id="hyperlinkUpdate" onAction="#handleUpdate" text="Update available" textFill="darkred" underline="true" visible="false">&ndash;&gt;-->
-<!--&lt;!&ndash;                                            <graphic>&ndash;&gt;-->
-<!--&lt;!&ndash;                                                <SymbolLabel symbol="featheralerttriangle" symbolSize="14" textFill="darkred" />&ndash;&gt;-->
-<!--&lt;!&ndash;                                            </graphic>&ndash;&gt;-->
-<!--&lt;!&ndash;                                        </Hyperlink>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    </children>&ndash;&gt;-->
-<!--&lt;!&ndash;                                </StackPane>&ndash;&gt;-->
-<!--                            </children>-->
-<!--                        </HBox>-->
                   <GridPane>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" />
@@ -202,7 +185,4 @@
             </children>
         </StackPane>
     </children>
-    <padding>
-        <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
-    </padding>
 </AnchorPane>

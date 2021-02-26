@@ -1,6 +1,8 @@
 package particletrieur.viewmodels.particles;
 
+import particletrieur.App;
 import particletrieur.controls.AlertEx;
+import particletrieur.viewcontrollers.MainController;
 import particletrieur.viewmanagers.UndoManager;
 import particletrieur.viewmanagers.commands.RemoveParticlesCommand;
 import particletrieur.models.Supervisor;
@@ -27,7 +29,7 @@ public class ParticlesViewModel {
 
     public void addParticles() {
         try {
-            AbstractDialogController.create(AddParticleViewController.class).showAndWait();
+            AbstractDialogController.create(AddParticleViewController.class).showInPane(MainController.instance.getRootPane());
         } catch (IOException e) {
             e.printStackTrace();
         }

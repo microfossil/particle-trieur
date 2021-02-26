@@ -293,6 +293,7 @@ public class MainController extends AbstractController implements Initializable 
      * @param stage
      */
     public void setupStage(Stage stage) {
+        this.stage = stage;
         stage.setOnCloseRequest(event -> {
             if (!projectRepositoryViewModel.showIfProjectNeedsSave("Choose whether to save before exiting")) {
                 event.consume();

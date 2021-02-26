@@ -4,6 +4,8 @@ import javafx.animation.RotateTransition;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import particletrieur.AbstractController;
 import particletrieur.App;
 import particletrieur.controls.BasicDialogs;
@@ -27,6 +29,8 @@ import java.util.ResourceBundle;
 
 public class StartupViewController extends AbstractController implements Initializable {
 
+    @FXML
+    AnchorPane root;
     @FXML
     VBox vboxRecent;
     @FXML
@@ -195,14 +199,21 @@ public class StartupViewController extends AbstractController implements Initial
 //            Platform.runLater(() -> {
             try {
                 MainController controller = AbstractController.create(MainController.class, ResourceBundle.getBundle("bundles.Lang"));
+                root.getChildren().clear();
+                AnchorPane.setLeftAnchor(controller.root, 0.0);
+                AnchorPane.setTopAnchor(controller.root, 0.0);
+                AnchorPane.setRightAnchor(controller.root, 0.0);
+                AnchorPane.setBottomAnchor(controller.root, 0.0);
+                root.getChildren().add(controller.root);
                 controller.setupAccelerators();
-                controller.setupStage(controller.stage);
-                controller.show();
+                controller.setupStage(this.stage);
+                this.stage.sizeToScene();
+//                controller.show();
                 task2.setOnSucceeded(event1 -> {
                     controller.setStartupParams(path);
                     controller.setStartupMode(mode);
                     controller.startup();
-                    stage.close();
+//                    stage.close();
                 });
                 task2.setOnFailed(event2 -> {
                     task2.getException().printStackTrace();
