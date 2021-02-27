@@ -2,13 +2,11 @@ name: Create development release
 
 on:
   push:
-    branches: [ dev ]
     tags:
-      - 'v*'
+      - 'v*-dev'
   pull_request:
-    branches: [ dev ]
     tags:
-      - 'v*'
+      - 'v*-dev'
 
 jobs:
   build:
