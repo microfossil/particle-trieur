@@ -11,8 +11,8 @@ import javafx.stage.FileChooser;
 import particletrieur.App;
 import particletrieur.AppPreferences;
 import particletrieur.FxmlLocation;
-import particletrieur.controls.AlertEx;
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.AlertEx;
+import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.models.Supervisor;
 import particletrieur.models.network.training.GPUStatus;
 import particletrieur.models.network.training.CNNTrainingScript;
@@ -416,7 +416,7 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
 
         AlertEx alert = new AlertEx(Alert.AlertType.INFORMATION, "Script has been copied to clipboard", ButtonType.OK);
         alert.setHeaderText("Script Generated");
-        alert.showAndWait();
+        alert.showEmbedded();
     }
 
     @Override

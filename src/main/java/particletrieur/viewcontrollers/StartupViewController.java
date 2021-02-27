@@ -12,7 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import particletrieur.AbstractController;
 import particletrieur.App;
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.controls.SymbolLabel;
 
 import java.io.File;

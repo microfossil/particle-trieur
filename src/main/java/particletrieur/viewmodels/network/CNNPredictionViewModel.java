@@ -5,7 +5,7 @@ import javafx.beans.property.*;
 import javafx.concurrent.Service;
 import javafx.stage.FileChooser;
 import particletrieur.App;
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.helpers.AutoCancellingServiceRunner;
 import particletrieur.models.Supervisor;
 import particletrieur.models.network.classification.ClassificationSet;

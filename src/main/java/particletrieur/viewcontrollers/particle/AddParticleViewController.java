@@ -6,8 +6,8 @@
 package particletrieur.viewcontrollers.particle;
 
 import particletrieur.*;
-import particletrieur.controls.BasicDialogs;
-import particletrieur.controls.ProgressDialog2;
+import particletrieur.controls.dialogs.BasicDialogs;
+import particletrieur.controls.dialogs.ProgressDialog2;
 import particletrieur.services.FlowcamCSVService;
 import particletrieur.viewmanagers.UndoManager;
 import particletrieur.viewmanagers.commands.AddParticlesCommand;

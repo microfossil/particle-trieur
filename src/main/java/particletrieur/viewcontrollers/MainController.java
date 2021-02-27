@@ -23,7 +23,7 @@ import particletrieur.AbstractController;
 import particletrieur.viewcontrollers.label.LabelListViewController;
 import particletrieur.AbstractDialogController;
 import particletrieur.viewcontrollers.tag.TagListViewController;
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.models.project.Particle;
 import particletrieur.models.project.Project;
 import particletrieur.viewmodels.SelectionViewModel;
@@ -107,7 +107,7 @@ public class MainController extends AbstractController implements Initializable 
     @FXML
     StackPane root;
     @FXML
-    AnchorPane rootMain;
+    public AnchorPane rootMain;
     @FXML
     StackPane rootLoading;
     @FXML
@@ -833,6 +833,7 @@ public class MainController extends AbstractController implements Initializable 
 
     @FXML
     private void handleStartStopServer(ActionEvent event) {
+        // Convert to dialog
         if (!supervisor.classificationServer.getIsRunning()) {
             TextInputDialog dialog = new TextInputDialog("5555");
             dialog.setHeaderText("Start classification server");
@@ -846,8 +847,7 @@ public class MainController extends AbstractController implements Initializable 
                         BasicDialogs.ShowError("Error", "Port number must be between 1024 and 65353");
                         return;
                     }
-                }
-                catch (NumberFormatException ex) {
+                } catch (NumberFormatException ex) {
                     BasicDialogs.ShowError("Error", "Port number must be between 1024 and 65353");
                     return;
                 }

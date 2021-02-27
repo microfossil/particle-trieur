@@ -6,7 +6,7 @@
 package particletrieur.models.network.classification;
 
 import particletrieur.App;
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.BasicDialogs;
 
 import java.nio.FloatBuffer;
 import java.nio.file.Files;

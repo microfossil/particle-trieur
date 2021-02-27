@@ -5,7 +5,7 @@
  */
 package particletrieur.models.tools;
 
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.BasicDialogs;
 
 import java.io.File;
 import java.io.IOException;

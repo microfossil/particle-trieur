@@ -1,20 +1,19 @@
 package particletrieur;
 
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import particletrieur.controls.SymbolLabel;
 import particletrieur.controls.dialogs.DialogEx;
-import javafx.scene.control.ButtonType;
+import particletrieur.controls.SymbolLabel;
 import particletrieur.viewcontrollers.MainController;
 
-public abstract class AbstractDialogController extends AbstractController{
+public abstract class AbstractJFXDialogController extends AbstractController{
 
     private DialogEx dialog = null;
+    private HBox container = null;
     public DialogEx getDialog() {
         return dialog;
     }
-
-    private HBox container = null;
 
     public abstract void processDialogResult(ButtonType buttonType);
 

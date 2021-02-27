@@ -1,5 +1,6 @@
 package particletrieur.viewmodels.stats;
 
+import particletrieur.controls.dialogs.DialogEx;
 import particletrieur.models.Supervisor;
 import particletrieur.services.StatisticsService;
 import particletrieur.viewcontrollers.stats.StatisticsDialogs;
@@ -16,72 +17,72 @@ public class StatisticsChartsViewModel {
     public void showLabelCounts() {
         StatisticsService stats = new StatisticsService(supervisor.project);
         LinkedHashMap counts = stats.classCounts();
-        Dialog dialog = StatisticsDialogs.CategoryCountDialog(
+        DialogEx dialog = StatisticsDialogs.CategoryCountDialog(
                 "Count per Label",
                 "Number of images for each label (except unlabeled)",
                 "Label",
                 "Count",
                 counts);
-        dialog.showAndWait();
+        dialog.showEmbedded();
     }
 
     public void showSampleCounts() {
         StatisticsService stats = new StatisticsService(supervisor.project);
         LinkedHashMap counts = stats.sampleCounts();
-        Dialog dialog = StatisticsDialogs.CategoryCountDialog(
+        DialogEx dialog = StatisticsDialogs.CategoryCountDialog(
                 "Count per Sample",
                 "Number of images for each sample",
                 "Sample",
                 "Count",
                 counts);
-        dialog.showAndWait();
+        dialog.showEmbedded();
     }
 
     public void showIndex1Counts() {
         StatisticsService stats = new StatisticsService(supervisor.project);
         LinkedHashMap counts = stats.index1Counts();
-        Dialog dialog = StatisticsDialogs.IndexCountDialog(
+        DialogEx dialog = StatisticsDialogs.IndexCountDialog(
                 "Count per index 1 value",
                 "Number of images for each index 1 value",
                 "Index 1",
                 "Count",
                 counts);
-        dialog.showAndWait();
+        dialog.showEmbedded();
     }
 
     public void showIndex2Counts() {
         StatisticsService stats = new StatisticsService(supervisor.project);
         LinkedHashMap counts = stats.index2Counts();
-        Dialog dialog = StatisticsDialogs.IndexCountDialog(
+        DialogEx dialog = StatisticsDialogs.IndexCountDialog(
                 "Count per index 2 value",
                 "Number of images for each index 2 value",
                 "Sample",
                 "Index 2",
                 counts);
-        dialog.showAndWait();
+        dialog.showEmbedded();
     }
 
     public void showRelativeAbundance(int index) {
         StatisticsService stats = new StatisticsService(supervisor.project);
         LinkedHashMap types = stats.labelByIndex(index, true);
-        Dialog dialog = StatisticsDialogs.RelativeAbundanceDialog(
+        DialogEx dialog = StatisticsDialogs.RelativeAbundanceDialog(
                 "Label Frequency",
                 String.format("Fraction of images for each label vs index %d", index),
                 "Index",
                 "Fraction",
                 types);
-        dialog.showAndWait();
+        dialog.showEmbedded();
     }
 
     public void showRelativeAbundanceWithCoreID() {
         StatisticsService stats = new StatisticsService(supervisor.project);
         LinkedHashMap types = stats.labelBySample(false);
-        Dialog dialog = StatisticsDialogs.RelativeAbundanceWithCoreIDDialog(
+        DialogEx dialog = StatisticsDialogs.RelativeAbundanceWithCoreIDDialog(
                 "Label Frequency",
                 "Fraction of images in each class vs sample",
                 "Sample",
                 "Fraction",
                 types);
-        dialog.showAndWait();
+        dialog.showEmbedded();
     }
 }

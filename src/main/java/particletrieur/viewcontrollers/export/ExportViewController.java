@@ -8,7 +8,7 @@ package particletrieur.viewcontrollers.export;
 import javafx.beans.binding.Bindings;
 import javafx.util.StringConverter;
 import particletrieur.App;
-import particletrieur.controls.AlertEx;
+import particletrieur.controls.dialogs.AlertEx;
 import particletrieur.models.project.Project;
 import particletrieur.models.Supervisor;
 import particletrieur.models.project.Tag;
@@ -25,8 +25,9 @@ import java.util.ResourceBundle;
 import particletrieur.services.export.ExportImagesService;
 import particletrieur.AbstractDialogController;
 import particletrieur.FxmlLocation;
+import particletrieur.services.export.ExportMorphologyService;
 import particletrieur.viewmodels.SelectionViewModel;
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.BasicDialogs;
 import com.google.inject.Inject;
 import javafx.concurrent.Service;
 import javafx.fxml.FXML;
@@ -271,21 +272,19 @@ public class ExportViewController extends AbstractDialogController implements In
         alert.setTitle("Export labeled images.");
         alert.setContentText("Exporting files to "  + outputDirectory.getAbsolutePath() + ".\n\n This may take a long time.");
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-        Optional<ButtonType> result = alert.showAndWait();
-        if(!result.isPresent()) {
-            return;
-        }
-        App.getPrefs().setExportPath(outputDirectory.getAbsolutePath());
-
-        //Start and run service if user clicks OK
-        if (result.get() == ButtonType.OK) {
-            Service service = exportImagesService.exportImages();
-            BasicDialogs.ProgressDialogWithCancel2(
-                "Operation",
-                "Exporting images",
-                 App.getRootPane(),
-                 service).start();
-        }
+        alert.showEmbedded();
+        alert.setResultConverter(button -> {
+            if (button == ButtonType.OK) {
+                App.getPrefs().setExportPath(outputDirectory.getAbsolutePath());
+                Service service = exportImagesService.exportImages();
+                BasicDialogs.ProgressDialogWithCancel2(
+                        "Operation",
+                        "Exporting images",
+                        App.getRootPane(),
+                        service).start();
+            }
+            return null;
+        });
     }
 
     @Override

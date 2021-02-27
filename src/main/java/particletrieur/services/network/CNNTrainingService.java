@@ -1,7 +1,7 @@
 package particletrieur.services.network;
 
 import particletrieur.AppPreferences;
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.models.network.training.GPUStatus;
 import particletrieur.models.network.training.CNNTrainingScript;
 import org.apache.commons.lang3.SystemUtils;

@@ -1,6 +1,6 @@
 package particletrieur.services.network;
 
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.models.network.classification.NetworkEx;
 import particletrieur.models.network.classification.NetworkInfo;
 import particletrieur.models.network.classification.TensorInfo;

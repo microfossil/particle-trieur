@@ -205,45 +205,39 @@ public class SegmenterController implements Initializable {
         alert.setTitle("Export labeled images.");
         alert.setContentText("Exporting files to "  + dir.getAbsolutePath() + ".\n\n This will take a long time.");
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-        Optional<ButtonType> result = alert.showAndWait();
-            
-        if (result.get() == ButtonType.OK) {                        
-            Service<Void> service = new Service<Void>() {
-                @Override
-                protected Task<Void> createTask() {
-                    return new Task<Void>() {
-                        @Override
-                        protected Void call() throws InterruptedException {
-                            updateMessage("Exporting...");
-                            int index = 0;
-                            for (RawSlide r : slides) {
-                                segmenter.Export(r,dir,index);
-                                index++;
-                                updateProgress(index, slides.size());
-                                
-                                if (this.isCancelled()) {
-                                    break;
+        alert.showEmbedded();
+        alert.setResultConverter(button -> {
+            if (button == ButtonType.OK) {
+                Service<Void> service = new Service<Void>() {
+                    @Override
+                    protected Task<Void> createTask() {
+                        return new Task<Void>() {
+                            @Override
+                            protected Void call() throws InterruptedException {
+                                updateMessage("Exporting...");
+                                int index = 0;
+                                for (RawSlide r : slides) {
+                                    segmenter.Export(r,dir,index);
+                                    index++;
+                                    updateProgress(index, slides.size());
+
+                                    if (this.isCancelled()) {
+                                        break;
+                                    }
                                 }
+                                updateMessage("Complete");
+                                return null;
                             }
-                            updateMessage("Complete");
-                            return null;
-                        }
-                    };
-                }
-            };            
-//            service.setOnSucceeded(e -> {
-//                BasicDialogs.ShowInfo("Operation Complete", "All images were exported");
-//            });
-//            service.setOnFailed(e -> {
-//                BasicDialogs.ShowException("Error exporting image", new Exception(service.getException()));
-//            });
-//            BasicDialogs.ProgressDialogWithCancel("Image export", "Exporting segmented images to directory:\n" + dir.getAbsolutePath(), root, service);
-//            service.start();
-            BasicDialogs.ProgressDialogWithCancel2(
-                "Operation",
-                "Exporting images",
-                 root, 
-                 service).start();
-        }
+                        };
+                    }
+                };
+                BasicDialogs.ProgressDialogWithCancel2(
+                        "Operation",
+                        "Exporting images",
+                        root,
+                        service).start();
+            }
+            return null;
+        });
     }
 }

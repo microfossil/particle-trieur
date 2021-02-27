@@ -7,7 +7,7 @@ import particletrieur.models.project.Project;
 import particletrieur.models.Supervisor;
 import particletrieur.models.project.Particle;
 import particletrieur.models.project.Taxon;
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.BasicDialogs;
 import com.google.inject.Inject;
 import particletrieur.viewmanagers.UndoManager;
 import particletrieur.viewmanagers.commands.SetLabelCommand;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package particletrieur.controls;
+package particletrieur.controls.dialogs;
 
 /**
  *
@@ -63,9 +63,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import particletrieur.controls.SymbolLabel;
 //import org.kordamp.ikonli.javafx.FontIcon;
 
-public class ProgressDialog2 extends Dialog<Void> {
+public class ProgressDialog2 extends DialogEx<Void> {
     
     public boolean closeOnServiceFinished = false;
     
@@ -337,7 +338,7 @@ public class ProgressDialog2 extends Dialog<Void> {
                 if(!cancelDialogShow) {
                     progressBar.progressProperty().bind(worker.progressProperty());
                     dialogVisible = true;
-                    dialog.showAndWait();
+                    dialog.showEmbedded();
                 }
             });
         }

@@ -6,7 +6,7 @@
 package particletrieur.viewcontrollers.classification;
 
 import particletrieur.AbstractDialogController;
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.controls.ClassificationButton;
 import particletrieur.controls.SymbolLabel;
 import particletrieur.models.project.Project;

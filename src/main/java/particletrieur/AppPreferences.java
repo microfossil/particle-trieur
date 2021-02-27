@@ -5,7 +5,7 @@
  */
 package particletrieur;
 
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.BasicDialogs;
 
 import java.util.ArrayList;
 import java.util.prefs.BackingStoreException;

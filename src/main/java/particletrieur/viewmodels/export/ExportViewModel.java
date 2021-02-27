@@ -8,8 +8,8 @@ import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import particletrieur.AbstractDialogController;
 import particletrieur.App;
-import particletrieur.controls.AlertEx;
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.AlertEx;
+import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.models.Supervisor;
 import particletrieur.services.export.ExportAbundanceService;
 import particletrieur.services.export.ExportMorphologyService;
@@ -56,21 +56,20 @@ public class ExportViewModel {
         alert.setTitle("Export morphology to CSV");
         alert.setContentText("Exporting files to "  + file.getAbsolutePath() + ".\n\n This may take a long time.");
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-        Optional<ButtonType> result = alert.showAndWait();
-        if(!result.isPresent()) {
-            return;
-        }
-        App.getPrefs().setExportPath(file.getParent());
-
-        if (result.get() == ButtonType.OK) {
-            //TODO morphology should export everything as well and option for the same
-            Service service = ExportMorphologyService.exportMorphologyToCSV(supervisor.project.particles, supervisor, file);
-            BasicDialogs.ProgressDialogWithCancel2(
-                    "Operation",
-                    "Exporting morphology to CSV",
-                    App.getRootPane(),
-                    service).start();
-        }
+        alert.showEmbedded();
+        alert.setResultConverter(button -> {
+            if (button == ButtonType.OK) {
+                //TODO morphology should export everything as well and option for the same
+                App.getPrefs().setExportPath(file.getParent());
+                Service service = ExportMorphologyService.exportMorphologyToCSV(supervisor.project.particles, supervisor, file);
+                BasicDialogs.ProgressDialogWithCancel2(
+                        "Operation",
+                        "Exporting morphology to CSV",
+                        App.getRootPane(),
+                        service).start();
+            }
+            return null;
+        });
     }
 
     public void exportProjectToCSV() {
@@ -92,19 +91,19 @@ public class ExportViewModel {
         alert.setTitle("Export project to CSV");
         alert.setContentText("Exporting information to "  + file.getAbsolutePath());
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-        Optional<ButtonType> result = alert.showAndWait();
-        if(!result.isPresent()) {
-            return;
-        }
-        App.getPrefs().setExportPath(file.getParent());
-        if (result.get() == ButtonType.OK) {
-            Service service = ExportMorphologyService.exportInformationToCSV(supervisor.project.particles, supervisor, file);
-            BasicDialogs.ProgressDialogWithCancel2(
-                    "Operation",
-                    "Exporting project to CSV",
-                    App.getRootPane(),
-                    service).start();
-        }
+        alert.showEmbedded();
+        alert.setResultConverter(button -> {
+            if (button == ButtonType.OK) {
+                App.getPrefs().setExportPath(file.getParent());
+                Service service = ExportMorphologyService.exportInformationToCSV(supervisor.project.particles, supervisor, file);
+                BasicDialogs.ProgressDialogWithCancel2(
+                        "Operation",
+                        "Exporting project to CSV",
+                        App.getRootPane(),
+                        service).start();
+            }
+            return null;
+        });
     }
 
     public void exportAbundance() {
@@ -126,20 +125,19 @@ public class ExportViewModel {
         alert.setTitle("Export abundance");
         alert.setContentText("Exporting to "  + file.getAbsolutePath());
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-        Optional<ButtonType> result = alert.showAndWait();
-        if(!result.isPresent()) {
-            return;
-        }
-        App.getPrefs().setExportPath(file.getParent());
-
-        if (result.get() == ButtonType.OK) {
-            Service service = ExportAbundanceService.exportAbundance(supervisor.project, file);
-            BasicDialogs.ProgressDialogWithCancel2(
-                    "Operation",
-                    "Exporting abundance CSV",
-                    App.getRootPane(),
-                    service).start();
-        }
+        alert.showEmbedded();
+        alert.setResultConverter(button -> {
+            if (button == ButtonType.OK) {
+                App.getPrefs().setExportPath(file.getParent());
+                Service service = ExportAbundanceService.exportAbundance(supervisor.project, file);
+                BasicDialogs.ProgressDialogWithCancel2(
+                        "Operation",
+                        "Exporting abundance CSV",
+                        App.getRootPane(),
+                        service).start();
+            }
+            return null;
+        });
     }
 
     public void exportSampleCounts() {
@@ -161,19 +159,18 @@ public class ExportViewModel {
         alert.setTitle("Export sample counts");
         alert.setContentText("Exporting to "  + file.getAbsolutePath());
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-        Optional<ButtonType> result = alert.showAndWait();
-        if(!result.isPresent()) {
-            return;
-        }
-        App.getPrefs().setExportPath(file.getParent());
-
-        if (result.get() == ButtonType.OK) {
-            Service service = ExportAbundanceService.exportCounts(supervisor.project, file);
-            BasicDialogs.ProgressDialogWithCancel2(
-                    "Operation",
-                    "Exporting sample counts CSV",
-                    App.getRootPane(),
-                    service).start();
-        }
+        alert.showEmbedded();
+        alert.setResultConverter(button -> {
+            if (button == ButtonType.OK) {
+                App.getPrefs().setExportPath(file.getParent());
+                Service service = ExportAbundanceService.exportCounts(supervisor.project, file);
+                BasicDialogs.ProgressDialogWithCancel2(
+                        "Operation",
+                        "Exporting sample counts CSV",
+                        App.getRootPane(),
+                        service).start();
+            }
+            return null;
+        });
     }
 }

@@ -1,6 +1,6 @@
 package particletrieur.viewmodels.particles;
 
-import particletrieur.controls.AlertEx;
+import particletrieur.controls.dialogs.AlertEx;
 import particletrieur.viewmanagers.UndoManager;
 import particletrieur.viewmanagers.commands.RemoveParticlesCommand;
 import particletrieur.models.Supervisor;
