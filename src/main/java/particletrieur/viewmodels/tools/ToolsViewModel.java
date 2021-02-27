@@ -1,8 +1,11 @@
 package particletrieur.viewmodels.tools;
 
+import javafx.scene.control.ButtonType;
 import javafx.stage.DirectoryChooser;
 import particletrieur.App;
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.AlertEx;
+import particletrieur.controls.dialogs.BasicDialogs;
+import particletrieur.controls.dialogs.DialogEx;
 import particletrieur.models.project.Project;
 import particletrieur.models.Supervisor;
 import particletrieur.models.project.Particle;
@@ -129,29 +132,33 @@ public class ToolsViewModel {
 
     public void toggleFolderWatch() {
         if (!supervisor.folderWatch.isEnabled()) {
-            BasicDialogs.ShowInfo("Folder Watch", "Select a folder to watch. Images added to this directory will be added to the current project.");
-            DirectoryChooser chooser = new DirectoryChooser();
-            chooser.setTitle("Select folder to watch...");
-            String path = App.getPrefs().getProjectPath();
-            if (path != null && Files.exists(Paths.get(path))) {
-                chooser.setInitialDirectory(new File(path));
-            }
-            File res = chooser.showDialog(App.getWindow());
-            if (res == null) return;
-            try {
-                supervisor.folderWatch.start(res);
-                if (supervisor.folderWatch.isEnabled()) {
-                    BasicDialogs.ShowInfo("Folder Watch",
-                            String.format("The folder\n%s\nis now being watched.",
-                                    res.getAbsolutePath()));
+            AlertEx alertEx = BasicDialogs.ShowInfo("Folder Watch", "Select a folder to watch. Images added to this directory will be added to the current project.");
+            alertEx.setResultConverter(button -> {
+                if (button == ButtonType.OK) {
+                    DirectoryChooser chooser = new DirectoryChooser();
+                    chooser.setTitle("Select folder to watch...");
+                    String path = App.getPrefs().getProjectPath();
+                    if (path != null && Files.exists(Paths.get(path))) {
+                        chooser.setInitialDirectory(new File(path));
+                    }
+                    File res = chooser.showDialog(App.getWindow());
+                    if (res == null) return null;
+                    try {
+                        supervisor.folderWatch.start(res);
+                        if (supervisor.folderWatch.isEnabled()) {
+                            BasicDialogs.ShowInfo("Folder Watch",
+                                    String.format("The folder\n%s\nis now being watched.",
+                                            res.getAbsolutePath()));
+                        }
+                        else {
+                            BasicDialogs.ShowError("Folder Watch", "Unknown error starting folder watch.");
+                        }
+                    } catch (IOException e) {
+                        BasicDialogs.ShowException("Error starting folder watch", e);
+                    }
                 }
-                else {
-                    BasicDialogs.ShowError("Folder Watch", "Unknown error starting folder watch.");
-                }
-            } catch (IOException e) {
-                BasicDialogs.ShowException("Error starting folder watch", e);
-            }
-
+                return null;
+            });
         }
         else {
             supervisor.folderWatch.stop();

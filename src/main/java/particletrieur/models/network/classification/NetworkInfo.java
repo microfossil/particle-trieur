@@ -5,7 +5,7 @@
  */
 package particletrieur.models.network.classification;
 
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.helpers.XMLClonable;
 import particletrieur.xml.RelativePathAdapter;
 

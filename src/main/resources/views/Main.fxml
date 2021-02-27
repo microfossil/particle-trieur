@@ -563,8 +563,7 @@
         </AnchorPane>
         <StackPane fx:id="rootDialog" visible="false">
             <children>
-                <HBox alignment="CENTER"
-                      style="-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: derive(-fx-background, 50%);">
+                <HBox alignment="CENTER">
                     <children>
                         <VBox alignment="CENTER" fx:id="rootVBox">
                             <children>

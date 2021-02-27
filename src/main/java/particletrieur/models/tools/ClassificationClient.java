@@ -5,7 +5,7 @@
  */
 package particletrieur.models.tools;
 
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.models.network.classification.ClassificationSet;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;

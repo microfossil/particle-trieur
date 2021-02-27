@@ -6,7 +6,7 @@
 package particletrieur.models;
 
 import particletrieur.App;
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.helpers.ExceptionMonitor;
 import particletrieur.models.network.classification.NetworkEx;
 import particletrieur.services.network.FCNNSegmenterService;

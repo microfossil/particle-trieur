@@ -1,13 +1,13 @@
 package particletrieur.viewmodels.project;
 
 import particletrieur.App;
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.models.ProjectRepository;
 import particletrieur.models.Supervisor;
 import com.google.inject.Inject;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import particletrieur.controls.AlertEx;
+import particletrieur.controls.dialogs.AlertEx;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;

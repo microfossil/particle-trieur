@@ -22,6 +22,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
+import particletrieur.controls.dialogs.DialogEx;
 
 /**
  *
@@ -29,7 +30,7 @@ import org.controlsfx.control.CheckComboBox;
  */
 public class StatisticsDialogs {
 
-    public static Dialog CategoryCountDialog(
+    public static DialogEx CategoryCountDialog(
             String title,
             String description,
             String xlabel,
@@ -52,7 +53,7 @@ public class StatisticsDialogs {
         bc.setBarGap(0);
 
         // Create the custom dialog.        
-        Dialog dialog = new Dialog();
+        DialogEx dialog = new DialogEx();
         ((Stage) dialog.getDialogPane().getScene().getWindow()).getIcons().add(App.iconImage);
         dialog.setTitle(title);
         dialog.setHeaderText(description);
@@ -68,7 +69,7 @@ public class StatisticsDialogs {
         return dialog;
     }
 
-    public static Dialog IndexCountDialog(
+    public static DialogEx IndexCountDialog(
             String title,
             String description,
             String xlabel,
@@ -91,7 +92,7 @@ public class StatisticsDialogs {
         bc.setBarGap(0);
 
         //Create the custom dialog.
-        Dialog dialog = new Dialog();
+        DialogEx dialog = new DialogEx();
         ((Stage) dialog.getDialogPane().getScene().getWindow()).getIcons().add(App.iconImage);
         dialog.setTitle(title);
         dialog.setHeaderText(description);
@@ -107,7 +108,7 @@ public class StatisticsDialogs {
         return dialog;
     }
 
-    public static Dialog RelativeAbundanceDialog(
+    public static DialogEx RelativeAbundanceDialog(
             String title,
             String description,
             String xlabel,
@@ -152,7 +153,7 @@ public class StatisticsDialogs {
         }
 
         // Create the custom dialog.
-        Dialog dialog = new Dialog();
+        DialogEx dialog = new DialogEx();
         ((Stage) dialog.getDialogPane().getScene().getWindow()).getIcons().add(App.iconImage);
         dialog.setTitle(title);
         dialog.setHeaderText(description);
@@ -172,7 +173,7 @@ public class StatisticsDialogs {
         return dialog;
     }
 
-    public static Dialog RelativeAbundanceWithCoreIDDialog(
+    public static DialogEx RelativeAbundanceWithCoreIDDialog(
             String title,
             String description,
             String xlabel,
@@ -219,7 +220,7 @@ public class StatisticsDialogs {
         }
 
         // Create the custom dialog.
-        Dialog dialog = new Dialog();
+        DialogEx dialog = new DialogEx();
         ((Stage) dialog.getDialogPane().getScene().getWindow()).getIcons().add(App.iconImage);
         dialog.setTitle(title);
         dialog.setHeaderText(description);
@@ -239,7 +240,7 @@ public class StatisticsDialogs {
         return dialog;
     }
 
-    public static Dialog RelativeAbundanceStackedDialog(
+    public static DialogEx RelativeAbundanceStackedDialog(
             String title,
             String description,
             String xlabel,
@@ -265,7 +266,7 @@ public class StatisticsDialogs {
         }
 
         // Create the custom dialog.
-        Dialog dialog = new Dialog();
+        DialogEx dialog = new DialogEx();
         ((Stage) dialog.getDialogPane().getScene().getWindow()).getIcons().add(App.iconImage);
         dialog.setTitle(title);
         dialog.setHeaderText(description);

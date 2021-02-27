@@ -1,6 +1,6 @@
 package particletrieur.services;
 
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.helpers.Metrics;
 import particletrieur.models.project.Particle;
 import javafx.concurrent.Service;

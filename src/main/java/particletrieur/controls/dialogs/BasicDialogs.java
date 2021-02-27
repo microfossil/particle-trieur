@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package particletrieur.controls;
+package particletrieur.controls.dialogs;
 
 import particletrieur.App;
-import particletrieur.viewcontrollers.MainController;
+
 import java.awt.Desktop;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,14 +18,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.concurrent.Service;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import particletrieur.viewmodels.MainViewModel;
 
 /**
  *
@@ -33,21 +30,21 @@ import particletrieur.viewmodels.MainViewModel;
  */
 public class BasicDialogs {
     
-    public static void ShowAbout() {
-        Dialog dialog = new Dialog();
-        dialog.setTitle("About");
-        ImageView imageView = new ImageView(App.iconImage);
-        dialog.setGraphic(imageView);
-        ((Stage)dialog.getDialogPane().getScene().getWindow()).getIcons().add(App.iconImage);
-        dialog.setHeaderText("About Particle Trieur");
-        dialog.setContentText("Authors: Ross Marchant and Thibault de Garidel-Thoron\n"
-                + "Thanks: Martin Tetard\n\n"
-                + "Created as part of the ANR FIRST project.\n" + ""
-                + "(c) 2017-2019\n\n" +
-                "Version: " + MainController.class.getPackage().getImplementationVersion());
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-        dialog.showAndWait();
-    }
+//    public static void ShowAbout() {
+//        Dialog dialog = new Dialog();
+//        dialog.setTitle("About");
+//        ImageView imageView = new ImageView(App.iconImage);
+//        dialog.setGraphic(imageView);
+//        ((Stage)dialog.getDialogPane().getScene().getWindow()).getIcons().add(App.iconImage);
+//        dialog.setHeaderText("About Particle Trieur");
+//        dialog.setContentText("Authors: Ross Marchant and Thibault de Garidel-Thoron\n"
+//                + "Thanks: Martin Tetard\n\n"
+//                + "Created as part of the ANR FIRST project.\n" + ""
+//                + "(c) 2017-2019\n\n" +
+//                "Version: " + MainController.class.getPackage().getImplementationVersion());
+//        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+//        dialog.showAndWait();
+//    }
     
     public static void ShowError(String header, String message) {
         AlertEx alert = new AlertEx(Alert.AlertType.ERROR);
@@ -56,17 +53,18 @@ public class BasicDialogs {
         alert.setContentText(message);
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         ((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(App.iconImage);
-        alert.showAndWait();
+        alert.showEmbedded();
     }
     
-    public static void ShowInfo(String header, String message) {
+    public static AlertEx ShowInfo(String header, String message) {
         AlertEx alert = new AlertEx(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
         alert.setHeaderText(header);
         alert.setContentText(message);
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         ((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(App.iconImage);
-        alert.showAndWait();
+        alert.showEmbedded();
+        return alert;
     }
     
     public static void ShowException(String content, Exception ex) {
@@ -112,7 +110,7 @@ public class BasicDialogs {
         alert.getDialogPane().setPrefWidth(600);
         alert.getDialogPane().setExpandableContent(expContent);
         alert.getDialogPane().setExpanded(true);
-        alert.showAndWait();
+        alert.showEmbedded();
     }
 
     public static void ShowExceptionLog(String content) {
@@ -152,7 +150,7 @@ public class BasicDialogs {
         alert.getDialogPane().setPrefWidth(600);
         alert.getDialogPane().setExpandableContent(expContent);
         alert.getDialogPane().setExpanded(true);
-        alert.showAndWait();
+        alert.showEmbedded();
     }
 
     public static ProgressDialog2 ProgressDialogWithCancel2(
@@ -174,18 +172,18 @@ public class BasicDialogs {
         //pd.setCancelledText(cancelled);
         //pd.setFailedText(failed);
         ((Stage)pd.getDialogPane().getScene().getWindow()).getIcons().add(App.iconImage);
-        pd.initModality(Modality.APPLICATION_MODAL);
-        pd.initOwner(pane.getScene().getWindow());
+//        pd.initModality(Modality.APPLICATION_MODAL);
+//        pd.initOwner(pane.getScene().getWindow());
         pd.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
-        pd.setOnCloseRequest(event -> {
-            pd.end();
-            App.getInstance().injector.getInstance(MainViewModel.class).setOperationInProgress(false);
-//            pane.setDisable(false);
-        });
-        pd.setOnShowing(event -> {
-            App.getInstance().injector.getInstance(MainViewModel.class).setOperationInProgress(true);
-//            pane.setDisable(true);
-        });
+//        pd.setOnCloseRequest(event -> {
+//            pd.end();
+//            App.getInstance().injector.getInstance(MainViewModel.class).setOperationInProgress(false);
+////            pane.setDisable(false);
+//        });
+//        pd.setOnShowing(event -> {
+//            App.getInstance().injector.getInstance(MainViewModel.class).setOperationInProgress(true);
+////            pane.setDisable(true);
+//        });
         return pd;
     }
 }

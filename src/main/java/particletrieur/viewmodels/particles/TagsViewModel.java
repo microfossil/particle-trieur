@@ -4,7 +4,7 @@ import particletrieur.AppPreferences;
 import particletrieur.models.project.Project;
 import particletrieur.models.Supervisor;
 import particletrieur.models.project.Tag;
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.BasicDialogs;
 import com.google.inject.Inject;
 import particletrieur.viewmodels.SelectionViewModel;
 

@@ -8,7 +8,7 @@ package particletrieur.viewcontrollers.particle;
 import particletrieur.*;
 import particletrieur.models.Supervisor;
 import particletrieur.models.project.Particle;
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.controls.ExpressionBuilderControl;
 import particletrieur.services.ExtractMetadataFromFilenamesService;
 

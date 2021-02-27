@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
 import particletrieur.AbstractDialogController;
 import particletrieur.FxmlLocation;
-import particletrieur.controls.BasicDialogs;
+import particletrieur.controls.dialogs.BasicDialogs;
 import javafx.concurrent.Service;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
