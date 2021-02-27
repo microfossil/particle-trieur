@@ -36,7 +36,7 @@ jobs:
           draft: false
           prerelease: false
       - name: Upload Release Asset (main)
-        if: github.ref == 'refs/heads/main'
+        if: contains(github.ref, 'dev') == false
         id: upload-release-asset-main
         uses: actions/upload-release-asset@v1
         env:
@@ -47,7 +47,7 @@ jobs:
           asset_name: ParticleTrieur.zip
           asset_content_type: application/zip
       - name: Upload Release Asset (dev)
-        if: github.ref == 'refs/heads/dev'
+        if: contains(github.ref, 'dev') == true
         id: upload-release-asset-dev
         uses: actions/upload-release-asset@v1
         env:
