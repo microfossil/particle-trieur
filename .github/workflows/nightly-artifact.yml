@@ -5,9 +5,9 @@ name: Nightly artifact
 
 on:
   push:
-    branches: [ nightly ]
+    branches: [ dev ]
   pull_request:
-    branches: [ nightly ]
+    branches: [ dev ]
 
 jobs:
   build:
