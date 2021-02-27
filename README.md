@@ -1,3 +1,9 @@
+![main](https://github.com/microfossil/particle-trieur/actions/workflows/main-release.yml/badge.svg)
+
+![dev](https://github.com/microfossil/particle-trieur/actions/workflows/dev-release.yml/badge.svg)
+
+![nightly](https://github.com/microfossil/particle-trieur/actions/workflows/nightly-artifact.yml/badge.svg)
+
 # ParticleTrieur
 
 ParticleTrieur is a cross-platform java program to help organise, label, process and classify images, particularly for particle samples such as microfossils.
