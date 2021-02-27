@@ -5,3 +5,5 @@ target
 miso.lock
 
 .idea/workspace.xml
+.idea/shelf/
+dependency-reduced-pom.xml
