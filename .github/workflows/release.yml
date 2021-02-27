@@ -22,9 +22,6 @@ jobs:
           java-package: jdk+fx
       - name: Build with Maven
         run: mvn -B package --file pom.xml
-      - name: Copy to dev if on dev branch
-        if: github.ref == 'refs/heads/dev'
-        run: mv target/ParticleTrieur.jar target/ParticleTrieur-dev.jar
       - name: Create release
         id: create_release
         uses: actions/create-release@v1
@@ -36,3 +33,25 @@ jobs:
           body: Development release
           draft: false
           prerelease: false
+      - name: Upload Release Asset (main)
+        if: github.ref == 'refs/heads/main'
+        id: upload-release-asset-main
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: target/ParticleTrieur.zip
+          asset_name: ParticleTrieur.zip
+          asset_content_type: application/zip
+      - name: Upload Release Asset (main)
+        if: github.ref == 'refs/heads/dev'
+        id: upload-release-asse-dev
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: target/ParticleTrieur.zip
+          asset_name: ParticleTrieur-dev.zip
+          asset_content_type: application/zip
