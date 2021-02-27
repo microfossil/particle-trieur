@@ -1,12 +1,10 @@
-name: Create main release
+name: Create release
 
 on:
   push:
-    branches: [ main ]
     tags:
       - 'v*'
   pull_request:
-    branches: [ main ]
     tags:
       - 'v*'
 
@@ -24,7 +22,8 @@ jobs:
           java-package: jdk+fx
       - name: Build with Maven
         run: mvn -B package --file pom.xml
-      - name: Create dev shaded jar
+      - name: Copy to dev if on dev branch
+        if: github.ref == 'refs/heads/dev'
         run: mv target/ParticleTrieur.jar target/ParticleTrieur-dev.jar
       - name: Create release
         id: create_release
