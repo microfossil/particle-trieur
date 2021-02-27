@@ -1,6 +1,4 @@
-![main](https://github.com/microfossil/particle-trieur/actions/workflows/main-release.yml/badge.svg)
-
-![dev](https://github.com/microfossil/particle-trieur/actions/workflows/dev-release.yml/badge.svg)
+![main](https://github.com/microfossil/particle-trieur/actions/workflows/release.yml/badge.svg)
 
 ![nightly](https://github.com/microfossil/particle-trieur/actions/workflows/nightly-artifact.yml/badge.svg)
 
@@ -13,6 +11,20 @@ It works with the MISO CNN training library (https://github.com/microfossil/part
 Please see the documentation and tutorials here:
 
 https://particle-classification.readthedocs.io/en/latest/
+
+## Releases
+
+### Main branch
+
+Stable version, download latest version from the releases page
+
+### Dev branch 
+
+Development version for testing new features, download the latest version ending in 'dev' from the releases page
+
+### Nightly branch
+
+Most up to date commits, may have lots of bugs, download the latest version from https://nightly.link/microfossil/particle-trieur/workflows/nightly-artifact/nightly/nightly.zip
 
 # Compiling
 
