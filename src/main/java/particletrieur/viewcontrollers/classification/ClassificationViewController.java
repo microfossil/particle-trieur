@@ -5,10 +5,20 @@
  */
 package particletrieur.viewcontrollers.classification;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.Node;
+import javafx.scene.image.ImageView;
+import javafx.util.Callback;
 import particletrieur.AbstractDialogController;
 import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.controls.ClassificationButton;
 import particletrieur.controls.SymbolLabel;
+import particletrieur.helpers.FilteredTreeViewSelectionModel;
+import particletrieur.helpers.TreeEventDispatcher;
+import particletrieur.helpers.TreeItemSelectionFilter;
 import particletrieur.models.project.Project;
 import particletrieur.models.Supervisor;
 import particletrieur.models.network.classification.Classification;
@@ -66,10 +76,6 @@ public class ClassificationViewController implements Initializable {
     @FXML
     Button buttonValidate;
     @FXML
-    CheckBox checkBoxAutoValidate;
-    @FXML
-    CheckBox checkBoxAutoAdvance;
-    @FXML
     GridPane gridPaneCNN;
     @FXML
     GridPane gridPaneKNN;
@@ -120,9 +126,13 @@ public class ClassificationViewController implements Initializable {
 
     //Buttons for classification and tagging
     Map<String, ClassificationButton> labelButtons = new HashMap<>();
+    Map<String, TreeItem<String>> labelTreeItems = new HashMap<>();
+    TreeView<String> treeView = new TreeView<>();
     Map<String, Button> tagButtons = new HashMap<>();
     RotateTransition rotateTransitionSymbolLabelDeepCNN;
     public ArrayList<String> taxonCodes = new ArrayList<>();
+
+    private IntegerProperty displayMode = new SimpleIntegerProperty(1);
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -153,7 +163,7 @@ public class ClassificationViewController implements Initializable {
 
         //Updated events
         supervisor.project.taxonsUpdatedEvent.addListener(listener -> {
-            setupClassificationUI(supervisor.project, 1);
+            setupClassificationUI(supervisor.project);
             updateClassificationUI(selectionViewModel.getCurrentParticle());
             cnnPredictionViewModel.refreshPredictions();
             knnPredictionViewModel.refreshPredictions();
@@ -166,8 +176,11 @@ public class ClassificationViewController implements Initializable {
             updateClassificationUI(selectionViewModel.getCurrentParticle());
             updateTagUI(selectionViewModel.getCurrentParticle());
         });
+        displayMode.addListener((observable, oldValue, newValue) -> {
+            setupClassificationUI(supervisor.project);
+        });
 
-        setupClassificationUI(supervisor.project, 1);
+        setupClassificationUI(supervisor.project);
         setupTagUI(supervisor.project);
 
         //kNN classification updated
@@ -233,14 +246,44 @@ public class ClassificationViewController implements Initializable {
         buttonValidate.setOnAction(event -> {
             labelsViewModel.toggleValidated();
         });
+
+        //Disable selection of leaf in tree view
+        MultipleSelectionModel<TreeItem<String>> selectionModel = treeView.getSelectionModel();
+        TreeItemSelectionFilter<String> filter = TreeItem::isLeaf;
+        FilteredTreeViewSelectionModel<String> filteredSelectionModel = new FilteredTreeViewSelectionModel<>(treeView, selectionModel, filter);
+        treeView.setSelectionModel(filteredSelectionModel);
+        //Custom tree view cell with click events
+        treeView.setCellFactory(p -> new ClassificationTreeCell());
+        //Disable right click from selecting cell
+        treeView.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+            if (event.isSecondaryButtonDown()) {
+                Node text = (Node) event.getTarget();
+                TreeCell<String> treeCell = (TreeCell<String>) text.getParent();
+                treeCell.getContextMenu().show(treeCell, 0, 0);
+                event.consume();
+            }
+        });
+        //Fixed cell size
+        treeView.setFixedCellSize(24);
     }
 
-    private void setupClassificationUI(Project project, int mode) {
-        if (mode == 0) {
-            taxonCodes.clear();
-            labelButtons.clear();
-            vboxClasses.getChildren().clear();
+    private List<Taxon> sortedListOfTaxons(Project project, boolean isClass) {
+        ArrayList<Taxon> taxons = new ArrayList<>();
+        for (Map.Entry<String, Taxon> entry : project.taxons.entrySet()) {
+            Taxon taxon = entry.getValue();
+            if (taxon.getIsClass() == isClass) taxons.add(taxon);
+        }
+        List<Taxon> sortedTaxons = taxons.stream().sorted(Comparator.comparing(Taxon::getCode)).collect(Collectors.toList());
+        return sortedTaxons;
+    }
 
+    private void setupClassificationUI(Project project) {
+        int mode = displayMode.get();
+        if (mode == 0) {
+//            taxonCodes.clear();
+            labelButtons.clear();
+            labelTreeItems.clear();
+            vboxClasses.getChildren().clear();
             ArrayList<Taxon> classList = new ArrayList<>();
             ArrayList<Taxon> nonclassList = new ArrayList<>();
             for (Map.Entry<String, Taxon> entry : project.taxons.entrySet()) {
@@ -249,52 +292,85 @@ public class ClassificationViewController implements Initializable {
                 if (taxon.getIsClass()) classList.add(taxon);
                 else nonclassList.add(taxon);
             }
-
             addButtonGroup("Classes", classList);
             addButtonGroup("Non-classes", nonclassList);
         }
         if (mode == 1) {
             //Group the taxons by the start of their code
-            LinkedHashMap<String, ArrayList<Taxon>> rawTaxonMap = new LinkedHashMap<>();
-            ArrayList<Taxon> nonTaxonList = new ArrayList<>();
-            for (Map.Entry<String, Taxon> entry : project.taxons.entrySet()) {
-                Taxon taxon = entry.getValue();
+            LinkedHashMap<String, ArrayList<Taxon>> taxonMap = new LinkedHashMap<>();
+            List<Taxon> taxonList = sortedListOfTaxons(project, true);
+            List<Taxon> nonTaxonList = sortedListOfTaxons(project, false);
+            for (Taxon taxon : taxonList) {
                 final String code = taxon.getCode();
-                if (!taxon.getIsClass()) {
-                    nonTaxonList.add(taxon);
-                    continue;
-                }
                 String[] parts = code.split("[-_ ]+");
-                ArrayList<Taxon> list = rawTaxonMap.getOrDefault(parts[0], new ArrayList<>());
+                ArrayList<Taxon> list = taxonMap.getOrDefault(parts[0], new ArrayList<>());
                 list.add(taxon);
-                rawTaxonMap.putIfAbsent(parts[0], list);
+                taxonMap.putIfAbsent(parts[0], list);
             }
-            // Sort by key
-            LinkedHashMap<String, ArrayList<Taxon>> taxonMap =
-                    rawTaxonMap.entrySet()
-                            .stream()
-                            .sorted(Map.Entry.comparingByKey())
-                            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (x, y) -> y, LinkedHashMap::new));
-
             //Add
-            taxonCodes.clear();
+//            taxonCodes.clear();
             labelButtons.clear();
+            labelTreeItems.clear();
             vboxClasses.getChildren().clear();
             ArrayList<Taxon> otherList = new ArrayList<>();
-
             for (Map.Entry<String, ArrayList<Taxon>> group : taxonMap.entrySet()) {
-
                 if (group.getValue().size() == 1) {
                     otherList.add(group.getValue().get(0));
                     continue;
                 }
-
                 addButtonGroup(group.getKey(), group.getValue());
-
             }
             addButtonGroup("Other", otherList);
             addButtonGroup("Non-classes", nonTaxonList);
         }
+        if (mode == 2) {
+            labelButtons.clear();
+            labelTreeItems.clear();
+            vboxClasses.getChildren().clear();
+            vboxClasses.getChildren().add(new Label("Classes"));
+            //Group the taxons by the start of their code
+            LinkedHashMap<String, ArrayList<Taxon>> taxonMap = new LinkedHashMap<>();
+            List<Taxon> taxonList = sortedListOfTaxons(project, true);
+            List<Taxon> nonTaxonList = sortedListOfTaxons(project, false);
+            for (Taxon taxon : taxonList) {
+                final String code = taxon.getCode();
+                String[] parts = code.split("[-_ ]+");
+                ArrayList<Taxon> list = taxonMap.getOrDefault(parts[0], new ArrayList<>());
+                list.add(taxon);
+                taxonMap.putIfAbsent(parts[0], list);
+            }
+            // Add to tree view
+            if (treeView.getRoot() != null) {
+                treeView.getRoot().getChildren().clear();
+            }
+            else {
+                treeView.setRoot(new TreeItem<>());
+            }
+            treeView.setShowRoot(false);
+            for (Map.Entry<String, ArrayList<Taxon>> entry : taxonMap.entrySet()) {
+                String code = entry.getKey();
+                ArrayList<Taxon> taxons = entry.getValue();
+                if (taxons.size() == 1) {
+                    TreeItem<String> treeItem = new TreeItem<>(taxons.get(0).getCode());
+                    labelTreeItems.put(taxons.get(0).getCode(), treeItem);
+                    treeView.getRoot().getChildren().add(treeItem);
+                }
+                else {
+                    TreeItem<String> treeItem = new TreeItem<>(code);
+                    treeItem.setExpanded(true);
+                    treeView.getRoot().getChildren().add(treeItem);
+                    for (Taxon taxon : taxons) {
+                        TreeItem<String> subTreeItem = new TreeItem<>(taxon.getCode());
+                        labelTreeItems.put(taxon.getCode(), subTreeItem);
+                        treeItem.getChildren().add(subTreeItem);
+                    }
+                }
+            }
+            treeView.setPrefHeight(treeView.getFixedCellSize() * treeView.getExpandedItemCount() + 8);
+            vboxClasses.getChildren().add(treeView);
+            addButtonGroup("Non-classes", nonTaxonList);
+        }
+        updateClassificationUI(selectionViewModel.getCurrentParticle());
     }
 
     private void addButtonGroup(String name, List<Taxon> list) {
@@ -311,9 +387,6 @@ public class ClassificationViewController implements Initializable {
             button.getButton().addEventHandler(MouseEvent.MOUSE_CLICKED, (event -> {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     labelsViewModel.setLabel(code, 1.0, true);
-                    if (checkBoxAutoAdvance.isSelected()) {
-                        selectionViewModel.nextImageRequested.broadcast(true);
-                    }
                 } else if (event.getButton() == MouseButton.SECONDARY) {
                     PopOver popOver = createLabelPopover(taxon);
                     popOver.show(button);
@@ -441,26 +514,49 @@ public class ClassificationViewController implements Initializable {
         infoGridPane.add(new Text(taxon.getCode()), 1, 0);
         infoGridPane.add(new Text(taxon.getName()), 1, 1);
         infoGridPane.add(new Text(taxon.getDescription()), 1, 2);
-        Slider infoSlider = new Slider();
-        infoSlider.setMin(0.0);
-        infoSlider.setMax(1.0);
-        infoSlider.setMajorTickUnit(0.1);
-        infoSlider.setMinorTickCount(0);
-        infoSlider.setShowTickMarks(true);
-        infoSlider.setShowTickLabels(true);
-        infoSlider.setMinWidth(200);
+//        Slider infoSlider = new Slider();
+//        infoSlider.setMin(0.0);
+//        infoSlider.setMax(1.0);
+//        infoSlider.setMajorTickUnit(0.1);
+//        infoSlider.setMinorTickCount(0);
+//        infoSlider.setShowTickMarks(true);
+//        infoSlider.setShowTickLabels(true);
+//        infoSlider.setMinWidth(200);
         infoVBox.getChildren().add(infoGridPane);
-        infoVBox.getChildren().add(infoSlider);
+//        infoVBox.getChildren().add(infoSlider);
+
+        FlowPane flowPaneImages = new FlowPane();
+        flowPaneImages.setHgap(4);
+        flowPaneImages.setVgap(4);
+
+        List<Particle> particles = supervisor.project.getParticles().stream().filter(p -> p.classification.get().equals(taxon.getCode())).collect(Collectors.toList());
+        Collections.shuffle(particles);
+
+        for (int i = 0; i < Math.min(particles.size(), 16); i++) {
+            try {
+                ImageView imageView = new ImageView(particles.get(i).getImage());
+                imageView.setFitWidth(80);
+                imageView.setFitHeight(80);
+                flowPaneImages.getChildren().add(imageView);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        infoVBox.getChildren().add(flowPaneImages);
+
         if (!Arrays.asList(supervisor.project.requiredTaxons).contains(taxon.getCode())) {
             HBox buttons = new HBox();
+            buttons.setSpacing(8);
             Button editButton = new Button("Edit");
             editButton.setGraphic(new SymbolLabel("featheredit2", 13));
             editButton.addEventHandler(ActionEvent.ACTION, (event -> {
+                popOver.hide();
                 showEditLabelDialog(taxon);
             }));
             Button deleteButton = new Button("Delete");
             deleteButton.setGraphic(new SymbolLabel("feathertrash2", 13));
             deleteButton.addEventHandler(ActionEvent.ACTION, (event -> {
+                popOver.hide();
                 labelsViewModel.deleteLabel(taxon);
             }));
             Pane expander = new Pane();
@@ -473,19 +569,19 @@ public class ClassificationViewController implements Initializable {
         popOver.setDetachable(false);
         popOver.setContentNode(infoVBox);
         popOver.setArrowLocation(PopOver.ArrowLocation.TOP_CENTER);
-        infoSlider.setStyle("-fx-base: #ececec;");
+//        infoSlider.setStyle("-fx-base: #ececec;");
 
         //Event for when popup is opened
-        popOver.setOnShowing(event -> {
-            if (selectionViewModel.getCurrentParticle() != null) {
-                infoSlider.setValue(selectionViewModel.getCurrentParticle().getScore(code));
-            }
-        });
+//        popOver.setOnShowing(event -> {
+//            if (selectionViewModel.getCurrentParticle() != null) {
+//                infoSlider.setValue(selectionViewModel.getCurrentParticle().getScore(code));
+//            }
+//        });
 
         //Event for when slider is moved
-        infoSlider.valueProperty().addListener(event -> {
-            labelsViewModel.setLabel(code, infoSlider.getValue(), false);
-        });
+//        infoSlider.valueProperty().addListener(event -> {
+//            labelsViewModel.setLabel(code, infoSlider.getValue(), false);
+//        });
 
         return popOver;
     }
@@ -544,10 +640,12 @@ public class ClassificationViewController implements Initializable {
                 b.getValue().setIsHighlighted(b.getKey().equals(code));
             }
             updateValidatedButton(labelsViewModel.getValidationState());
+            treeView.getSelectionModel().select(labelTreeItems.get(code));
         } else {
             for (Map.Entry<String, ClassificationButton> b : labelButtons.entrySet()) {
                 b.getValue().setIsHighlighted(false);
             }
+            treeView.getSelectionModel().clearSelection();
         }
     }
 
@@ -613,6 +711,17 @@ public class ClassificationViewController implements Initializable {
                     button.setIsKNN(false);
                 }
             }
+            for (Map.Entry<String, TreeItem<String>> b : labelTreeItems.entrySet()) {
+                String key = b.getKey();
+                SymbolLabel symbolLabel = new SymbolLabel("feathergrid", 12);
+                if (cls.getBestCode().equals(key)) {
+                    b.getValue().setGraphic(symbolLabel);
+                }
+                else {
+                    b.getValue().setGraphic(null);
+                }
+            }
+            treeView.refresh();
         } else {
             gridPaneKNN.getChildren().clear();
             gridPaneKNN.addRow(0, new Label("N/A"));
@@ -643,6 +752,18 @@ public class ClassificationViewController implements Initializable {
                     button.setIsCNN(false);
                 }
             }
+            for (Map.Entry<String, TreeItem<String>> b : labelTreeItems.entrySet()) {
+                String key = b.getKey();
+                SymbolLabel symbolLabel = new SymbolLabel("feathercpu", 12);
+                if (cls.getBestCode().equals(key)) {
+                    b.getValue().setGraphic(symbolLabel);
+                }
+                else {
+                    b.getValue().setGraphic(null);
+                }
+
+            }
+            treeView.refresh();
         } else {
             gridPaneCNN.getChildren().clear();
             gridPaneCNN.addRow(0, new Label("N/A"));
@@ -665,6 +786,40 @@ public class ClassificationViewController implements Initializable {
                     BasicDialogs.ShowError("Tag Error",
                             String.format("The tag %s is not in the project.", tag));
                 }
+            }
+        }
+    }
+
+    private final class ClassificationTreeCell extends TreeCell<String> {
+
+        public ClassificationTreeCell() {
+//            setContentDisplay(ContentDisplay.);
+
+            setOnMouseClicked(event -> {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    if (labelTreeItems.containsKey(getItem())) {
+                        labelsViewModel.setLabel(getItem(), 1.0, true);
+                    }
+                }
+                else if (event.getButton() == MouseButton.SECONDARY) {
+                    if (labelTreeItems.containsKey(getItem())) {
+                        PopOver popOver = createLabelPopover(supervisor.project.getTaxons().get(getItem()));
+                        popOver.show(this);
+                    }
+                }
+            });
+        }
+
+        @Override
+        public void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+
+            if (empty) {
+                setText(null);
+                setGraphic(null);
+            } else {
+                setText(item);
+                setGraphic(getTreeItem().getGraphic());
             }
         }
     }
@@ -710,11 +865,16 @@ public class ClassificationViewController implements Initializable {
 
     @FXML
     private void handleToggleLabelModeFlat(ActionEvent event) {
-        setupClassificationUI(supervisor.project, 0);
+        displayMode.set(0);
     }
 
     @FXML
     private void handleToggleLabelModeCategory(ActionEvent event) {
-        setupClassificationUI(supervisor.project, 1);
+        displayMode.set(1);
+    }
+
+    @FXML
+    private void handleToggleLabelModeTree(ActionEvent event) {
+        displayMode.set(2);
     }
 }

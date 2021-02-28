@@ -13,10 +13,9 @@ import java.util.InputMismatchException;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class FlowcamCSVService {
+public class ParametersFromCSVService {
 
-    public static Service<LinkedHashMap<String,LinkedHashMap<String, String>>> getImagesFromFlowcamCSV(Supervisor supervisor,
-                                                                                                       File csvFile) {
+    public static Service<LinkedHashMap<String,LinkedHashMap<String, String>>> getParametersFromCSV(File csvFile) {
         return new Service<LinkedHashMap<String,LinkedHashMap<String, String>>>() {
             @Override
             protected Task<LinkedHashMap<String,LinkedHashMap<String, String>>> createTask() {
@@ -34,7 +33,7 @@ public class FlowcamCSVService {
                         String filenameHeader;
                         if (headerNames.contains("filename")) filenameHeader = "filename";
                         else if (headerNames.contains("file")) filenameHeader = "file";
-                        else if (headerNames.contains("dossier")) filenameHeader = "dossier";
+                        else if (headerNames.contains("fichier")) filenameHeader = "fichier";
                         else throw new InputMismatchException("The CSV file must contain a column named filename, file or dossier.");
 
                         int count = 0;

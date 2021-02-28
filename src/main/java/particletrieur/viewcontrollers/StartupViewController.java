@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -87,6 +88,10 @@ public class StartupViewController extends AbstractController implements Initial
                 MainController controller = AbstractController.create(MainController.class, ResourceBundle.getBundle("bundles.Lang"));
                 controller.setupAccelerators();
                 controller.setupStage(this.stage);
+                AnchorPane.setLeftAnchor(controller.root, 0.0);
+                AnchorPane.setBottomAnchor(controller.root, 0.0);
+                AnchorPane.setRightAnchor(controller.root, 0.0);
+                AnchorPane.setTopAnchor(controller.root, 0.0);
                 ((Pane) root).getChildren().clear();
                 ((Pane) root).getChildren().add(controller.root);
                 this.stage.sizeToScene();

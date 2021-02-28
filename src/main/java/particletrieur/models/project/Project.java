@@ -464,6 +464,32 @@ public class Project implements Serializable {
         setIsDirty(true);
     }
 
+    public void updateParticleParameters(LinkedHashMap<String, LinkedHashMap<String, String>> files) {
+        HashMap<String, Particle> fullFilenameMap = new LinkedHashMap<>();
+        HashMap<String, Particle> shortFilenameMap = new LinkedHashMap<>();
+        getParticles().stream().forEach(p -> fullFilenameMap.put(p.getFilename(), p));
+        getParticles().stream().forEach(p -> shortFilenameMap.put(p.getShortFilename(), p));
+        HashSet<String> taxons = new HashSet<>();
+        for (Map.Entry<String, LinkedHashMap<String, String>> entry : files.entrySet()) {
+            String filename = entry.getKey();
+            if (fullFilenameMap.containsKey(filename)) {
+                Particle particle = fullFilenameMap.get(filename);
+                particle.addParameters(entry.getValue());
+                taxons.add(particle.getClassifications().getBestCode());
+                if (shortFilenameMap.containsKey(particle.getShortFilename())) {
+                    shortFilenameMap.remove(particle.getShortFilename());
+                }
+            }
+            else if (shortFilenameMap.containsKey(filename)) {
+                Particle particle = shortFilenameMap.get(filename);
+                particle.addParameters(entry.getValue());
+                taxons.add(particle.getClassifications().getBestCode());
+            }
+        }
+        addTaxonsIfMissing(new ArrayList<>(taxons));
+        setIsDirty(true);
+    }
+
     public void setParticleCNNVector(Particle particle, float[] vector) {
         particle.setCNNVector(vector);
         //TODO this is a complete hack

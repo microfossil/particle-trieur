@@ -39,7 +39,7 @@ public class AlertEx extends Alert {
         MainController.instance.rootVBox.getChildren().add(container);
         MainController.instance.rootDialog.setVisible(true);
         this.setOnHiding(event -> {
-            MainController.instance.rootVBox.getChildren().remove(container);
+            MainController.instance.rootVBox.getChildren().removeAll(container);
             if (MainController.instance.rootVBox.getChildren().size() == 0) {
                 MainController.instance.rootDialog.setVisible(false);
             }

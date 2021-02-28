@@ -53,7 +53,7 @@ public abstract class AbstractJFXDialogController extends AbstractController{
         dialog.setResultConverter(button -> {
             processDialogResult((ButtonType) button);
 //            MainController.instance.rootMain.setEffect(null);
-            MainController.instance.rootVBox.getChildren().remove(container);
+            MainController.instance.rootVBox.getChildren().removeAll(container);
             MainController.instance.rootDialog.setVisible(false);
             return button;
         });

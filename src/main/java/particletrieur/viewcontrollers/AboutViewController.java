@@ -20,7 +20,7 @@ public class AboutViewController extends AbstractJFXDialogController implements 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        labelTitle.setText("ParticleTrieur " + App.VERSION + ", User: " + System.getProperty("user.name"));
+        labelTitle.setText("ParticleTrieur " + App.VERSION);
     }
 
     @Override

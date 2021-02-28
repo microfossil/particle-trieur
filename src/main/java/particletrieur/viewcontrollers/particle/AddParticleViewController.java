@@ -8,7 +8,7 @@ package particletrieur.viewcontrollers.particle;
 import particletrieur.*;
 import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.controls.dialogs.ProgressDialog2;
-import particletrieur.services.FlowcamCSVService;
+import particletrieur.services.ParametersFromCSVService;
 import particletrieur.viewmanagers.UndoManager;
 import particletrieur.viewmanagers.commands.AddParticlesCommand;
 import particletrieur.models.Supervisor;
@@ -214,7 +214,7 @@ public class AddParticleViewController extends AbstractDialogController implemen
             File file = dc.showOpenDialog(buttonChooseFolder.getScene().getWindow());
 //            files.addAll(dcFiles);
             if (file == null) return;
-            Service<LinkedHashMap<String, LinkedHashMap<String, String>>> service = FlowcamCSVService.getImagesFromFlowcamCSV(supervisor, file);
+            Service<LinkedHashMap<String, LinkedHashMap<String, String>>> service = ParametersFromCSVService.getParametersFromCSV(file);
             service.setOnSucceeded(event1 -> {
                 files.clear();
                 csvData = service.getValue();

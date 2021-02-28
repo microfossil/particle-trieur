@@ -191,7 +191,7 @@ public class ProjectService {
         return service;
     }
 
-    public static Service<ArrayList<Particle>> addImagesToProject(LinkedHashMap<String,LinkedHashMap<String, String>> files, Project project, int selectionSize) {
+    public static Service<ArrayList<Particle>> addImagesToProject(LinkedHashMap<String, LinkedHashMap<String, String>> files, Project project, int selectionSize) {
         Service<ArrayList<Particle>> service = new Service<ArrayList<Particle>>() {
             @Override
             protected Task<ArrayList<Particle>> createTask() {
@@ -220,57 +220,65 @@ public class ProjectService {
                             String classifierID = "from_csv";
                             double score = 1.0;
                             double resolution = 0.0;
-                            ArrayList<String> toRemove = new ArrayList<>();
-                            //Sample
-                            if (data.containsKey("sample")) {
-                                sample = data.get("sample");
-                                toRemove.add("sample");
-                            }
-                            //Class
-                            if (data.containsKey("class")) {
-                                code = data.get("class");
-                                toRemove.add("class");
-                            }
-                            else if (data.containsKey("label")) {
-                                code = data.get("label");
-                                toRemove.add("label");
-                            }
-                            //Classifier
-                            if (data.containsKey("classifier")) {
-                                classifierID = data.get("classifier");
-                                toRemove.add("classifier");
-                            }
-                            //Score
-                            if (data.containsKey("score")) {
-                                try {
-                                    score = Double.parseDouble(data.get("score"));
-                                    toRemove.add("score");
-                                }
-                                catch (NumberFormatException ex) {
-
-                                }
-                            }
-                            //Resolution
-                            if (data.containsKey("resolution")) {
-                                try {
-                                    resolution = Double.parseDouble(data.get("resolution"));
-                                    toRemove.add("resolution");
-                                }
-                                catch (NumberFormatException ex) {
-
-                                }
-                            }
-                            //TODO remove extra fields?
-                            for (String s : toRemove) {
-                                data.remove(s);
-                            }
                             Particle particle = new Particle(new File(key),
                                     code,
                                     classifierID,
                                     score,
                                     sample,
-                                    resolution,
-                                    data);
+                                    resolution);
+                            particle.addParameters(data);
+                            toAdd.add(particle);
+                            idx++;
+                            //if(idx == 200) throw new RuntimeException();
+                            if (idx % 10 == 0 || idx == total) {
+                                updateMessage(String.format("%d/%d images added",idx,total));
+                                updateProgress(idx, total);
+                            }
+                        }
+                        return toAdd;
+                    }
+                };
+            }
+        };
+        return service;
+    }
+
+    public static Service<ArrayList<Particle>> updateParameters(LinkedHashMap<String, LinkedHashMap<String, String>> files, Project project, int selectionSize) {
+        Service<ArrayList<Particle>> service = new Service<ArrayList<Particle>>() {
+            @Override
+            protected Task<ArrayList<Particle>> createTask() {
+                return new Task<ArrayList<Particle>>() {
+                    @Override
+                    protected ArrayList<Particle> call() throws InterruptedException {
+                        int size = selectionSize;
+                        List<String> selection = files.keySet().stream().collect(Collectors.toList());
+//                        selection.addAll(files);
+                        updateMessage("Adding images...");
+                        if (size > 0) {
+                            updateMessage("Randomly selecting images...");
+                            if (size > selection.size()) size = selection.size();
+                            Collections.shuffle(selection);
+                            selection = selection.subList(0, size);
+                        }
+                        ArrayList<Particle> toAdd = new ArrayList<>();
+                        //Parse files
+                        int idx = 0;
+                        int total = selection.size();
+                        for (String key : selection) {
+                            if (this.isCancelled()) return null;
+                            LinkedHashMap<String, String> data = files.get(key);
+                            String sample = Project.UNKNOWN_SAMPLE;
+                            String code = Project.UNLABELED_CODE;
+                            String classifierID = "from_csv";
+                            double score = 1.0;
+                            double resolution = 0.0;
+                            Particle particle = new Particle(new File(key),
+                                    code,
+                                    classifierID,
+                                    score,
+                                    sample,
+                                    resolution);
+                            particle.addParameters(data);
                             toAdd.add(particle);
                             idx++;
                             //if(idx == 200) throw new RuntimeException();

@@ -23,47 +23,57 @@
                 <RowConstraints minHeight="10.0" vgrow="ALWAYS"/>
             </rowConstraints>
             <children>
-
                 <VBox GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                     <children>
+                        <HBox spacing="4">
+                            <padding>
+                                <Insets topRightBottomLeft="8.0"/>
+                            </padding>
+                            <SegmentedButton>
+                                <buttons>
+                                    <fx:define>
+                                        <ToggleGroup fx:id="toggleGroupLabelMode"/>
+                                    </fx:define>
+                                    <ToggleButton fx:id="toggleButtonLabelsFlat"
+                                                  mnemonicParsing="false"
+                                                  toggleGroup="$toggleGroupLabelMode"
+                                                  onAction="#handleToggleLabelModeFlat">
+                                        <graphic>
+                                            <SymbolLabel symbol="feathergrid"/>
+                                        </graphic>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="toggleButtonLabelsCategory"
+                                                  mnemonicParsing="false"
+                                                  selected="true"
+                                                  toggleGroup="$toggleGroupLabelMode"
+                                                  onAction="#handleToggleLabelModeCategory">
+                                        <graphic>
+                                            <SymbolLabel symbol="feathermenu"/>
+                                        </graphic>
+                                    </ToggleButton>
+                                    <ToggleButton mnemonicParsing="false"
+                                                  selected="false"
+                                                  toggleGroup="$toggleGroupLabelMode"
+                                                  onAction="#handleToggleLabelModeTree">
+                                        <graphic>
+                                            <SymbolLabel symbol="featherlist"/>
+                                        </graphic>
+                                    </ToggleButton>
+                                </buttons>
+                            </SegmentedButton>
+                            <Pane HBox.hgrow="ALWAYS"/>
+                            <Button fx:id="buttonValidate" text="Validate" minWidth="100">
+                                <graphic>
+                                    <SymbolLabel fx:id="symbolValidate" symbol="feathercheckcircle"
+                                                 symbolSize="10" symbolColor="green"/>
+                                </graphic>
+                            </Button>
+                        </HBox>
                         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;"
                                     VBox.vgrow="ALWAYS">
                             <content>
                                 <VBox fx:id="vboxClassButtons" spacing="7.0">
                                     <children>
-                                        <HBox spacing="4">
-                                            <SegmentedButton>
-                                                <buttons>
-                                                    <fx:define>
-                                                        <ToggleGroup fx:id="toggleGroupLabelMode"/>
-                                                    </fx:define>
-                                                    <ToggleButton fx:id="toggleButtonLabelsFlat"
-                                                                  mnemonicParsing="false"
-                                                                  toggleGroup="$toggleGroupLabelMode"
-                                                                  onAction="#handleToggleLabelModeFlat">
-                                                        <graphic>
-                                                            <SymbolLabel symbol="feathergrid"/>
-                                                        </graphic>
-                                                    </ToggleButton>
-                                                    <ToggleButton fx:id="toggleButtonLabelsCategory"
-                                                                  mnemonicParsing="false"
-                                                                  selected="true"
-                                                                  toggleGroup="$toggleGroupLabelMode"
-                                                                  onAction="#handleToggleLabelModeCategory">
-                                                        <graphic>
-                                                            <SymbolLabel symbol="featherlist"/>
-                                                        </graphic>
-                                                    </ToggleButton>
-                                                </buttons>
-                                            </SegmentedButton>
-                                            <Pane HBox.hgrow="ALWAYS"/>
-                                            <Button fx:id="buttonValidate" text="Validate" minWidth="100">
-                                                <graphic>
-                                                    <SymbolLabel fx:id="symbolValidate" symbol="feathercheckcircle"
-                                                                 symbolSize="10" symbolColor="green"/>
-                                                </graphic>
-                                            </Button>
-                                        </HBox>
                                         <Label styleClass="subheader" text="Labels"/>
                                         <VBox fx:id="vboxClasses" minHeight="20.0" spacing="7.0"/>
                                         <Separator>

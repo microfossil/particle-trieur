@@ -14,17 +14,23 @@ https://particle-classification.readthedocs.io/en/latest/
 
 ## Releases
 
-### Main branch
+There are three types of releases
 
-Stable version, download latest version from the releases page
+### Main
 
-### Dev branch 
+Stable version from the main branch, download latest version from the releases page
 
-Development version for testing new features, download the latest version ending in 'dev' from the releases page
+### Dev
 
-### Nightly branch
+Development version from the dev branch for testing new features, download the latest version ending in 'dev' from the releases page
 
-Most up to date commits, may have lots of bugs, download the latest version from https://nightly.link/microfossil/particle-trieur/workflows/nightly-artifact/nightly/nightly.zip
+### Nightly
+
+Latest build of the dev branch, may have lots of bugs, download from https://nightly.link/microfossil/particle-trieur/workflows/nightly-artifact/nightly/nightly.zip
+
+# Installation and running
+
+Please see https://particle-classification.readthedocs.io/en/latest/installation.html
 
 # Compiling
 
