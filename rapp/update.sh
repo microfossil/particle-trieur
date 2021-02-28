@@ -21,5 +21,5 @@ cd /opt/particle-trieur
 | wget -N -i -
 
 # Get nightly
-wget -N -O nightly.zip https://nightly.link/microfossil/particle-trieur/workflows/nightly-artifact/nightly/nightly.zip
+wget -N -O nightly.zip https://nightly.link/microfossil/particle-trieur/workflows/nightly-artifact/dev/nightly.zip
 unzip -o nightly.zip
