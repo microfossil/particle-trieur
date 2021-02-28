@@ -26,7 +26,7 @@ Development version from the dev branch for testing new features, download the l
 
 ### Nightly
 
-Latest build of the dev branch, may have lots of bugs, download from https://nightly.link/microfossil/particle-trieur/workflows/nightly-artifact/nightly/nightly.zip
+Latest build of the dev branch, may have lots of bugs, download from https://nightly.link/microfossil/particle-trieur/workflows/nightly-artifact/dev/nightly.zip
 
 # Installation and running
 
