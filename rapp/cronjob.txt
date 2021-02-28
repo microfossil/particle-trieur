@@ -1,0 +1,2 @@
+# Auto update at midnight every day
+0 0 * * * /usr/local/bin/update_particleTrieur.sh > /var/log/particleTrieur.log  2>&1 &
