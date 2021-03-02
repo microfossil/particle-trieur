@@ -5,6 +5,7 @@
  */
 package particletrieur.viewcontrollers.label;
 
+import javafx.scene.control.*;
 import particletrieur.models.project.Particle;
 import particletrieur.AbstractController;
 import particletrieur.AbstractDialogController;
@@ -16,10 +17,8 @@ import com.google.inject.Inject;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.ResourceBundle;
+import java.util.*;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -29,12 +28,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
@@ -50,7 +43,7 @@ import javafx.util.Duration;
  * @author Ross Marchant <ross.g.marchant@gmail.com>
  */
 @FxmlLocation("/views/label/LabelListView.fxml")
-public class LabelListViewController extends AbstractController implements Initializable {
+public class LabelListViewController extends AbstractDialogController implements Initializable {
     
     @FXML private ListView<Taxon> listViewTaxons;
     @FXML private Label labelCode;
@@ -147,11 +140,12 @@ public class LabelListViewController extends AbstractController implements Initi
         });
         
         setupScrolling();
-        
+
         setupList();
     }    
 
     private void setupList() {
+        taxonList.clear();
         for (Taxon taxon : supervisor.project.taxons.values()) {
             taxonList.add(taxon);
         }
@@ -222,41 +216,43 @@ public class LabelListViewController extends AbstractController implements Initi
         Taxon adapter = listViewTaxons.getSelectionModel().getSelectedItem();
         labelsViewModel.deleteLabel(adapter);
         //Remove adapter
-        taxonList.remove(adapter);
-        //Select next 
+//        taxonList.remove(adapter);
+        //Select next
+        setupList();
         listViewTaxons.getSelectionModel().selectPrevious();
     }
     
-    @FXML
-    void handleDone(ActionEvent event) {        
-        //Initialise the taxons (is this necessary?)
-        ArrayList<Taxon> newTaxons = new ArrayList<>();
-        for (Taxon taxon : taxonList) {
-            newTaxons.add(taxon);
-        }
-        labelsViewModel.initialiseLabels(newTaxons);
-        stage.close();
-    }
+//    @FXML
+//    void handleDone(ActionEvent event) {
+//        //Initialise the taxons (is this necessary?)
+//        ArrayList<Taxon> newTaxons = new ArrayList<>();
+//        for (Taxon taxon : taxonList) {
+//            newTaxons.add(taxon);
+//        }
+//        labelsViewModel.initialiseLabels(newTaxons);
+//        stage.close();
+//    }
 
     @FXML
     void handleAdd(ActionEvent event) {
         try {
             EditLabelViewController controller = AbstractDialogController.create(EditLabelViewController.class);
-            controller.showAndWait();
-            Taxon result = controller.getData();
-            if (result != null) taxonList.add(result);
-//            populateFields(listViewTaxons.getSelectionModel().getSelectedItem());
-//            listViewTaxons.refresh();
+            controller.showEmbedded();
+            controller.setOnResultProcessed(buttonType -> {
+                if (buttonType == ButtonType.OK) {
+                    setupList();
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
-        listViewTaxons.refresh();
+//        listViewTaxons.refresh();
         listViewTaxons.getSelectionModel().selectLast();
     }
     
     @FXML
     void handleAlphabeticalOrdering(ActionEvent event) {
-        FXCollections.sort(taxonList, Comparator.comparing(Taxon::getCode));
+//        FXCollections.sort(supervisor.project.getTaxons(), Comparator.comparing(Map.Entry -> e.));
     } 
 
     @FXML
@@ -370,5 +366,31 @@ public class LabelListViewController extends AbstractController implements Initi
             }
         }        
         return result;
+    }
+
+    @Override
+    public void processDialogResult(ButtonType buttonType) {
+        if (buttonType == ButtonType.APPLY) {
+            ArrayList<Taxon> newTaxons = new ArrayList<>();
+            for (Taxon taxon : taxonList) {
+                newTaxons.add(taxon);
+            }
+            labelsViewModel.initialiseLabels(newTaxons);
+        }
+    }
+
+    @Override
+    public String getHeader() {
+        return "Labels";
+    }
+
+    @Override
+    public String getSymbol() {
+        return "feathertag";
+    }
+
+    @Override
+    public ButtonType[] getButtonTypes() {
+        return new ButtonType[] {ButtonType.APPLY, ButtonType.CANCEL};
     }
 }

@@ -18,8 +18,6 @@ import java.util.Optional;
 
 public class DialogEx<T> extends Dialog<T> {
 
-    HBox container;
-
     public DialogEx() {
         super();
         Scene scene = this.getDialogPane().getScene();
@@ -28,18 +26,6 @@ public class DialogEx<T> extends Dialog<T> {
     }
 
     public void showEmbedded() {
-        container = new HBox();
-        VBox vbox = new VBox();
-        container.getChildren().add(vbox);
-        this.getDialogPane().setStyle("-fx-border-color: -fx-accent; -fx-border-width: 1; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 20, 0.0 , 0 , 6 );");
-        vbox.getChildren().add(this.getDialogPane());
-        MainController.instance.rootVBox.getChildren().add(container);
-        MainController.instance.rootDialog.setVisible(true);
-        this.setOnHiding(event -> {
-            MainController.instance.rootVBox.getChildren().remove(container);
-            if (MainController.instance.rootVBox.getChildren().size() == 0) {
-                MainController.instance.rootDialog.setVisible(false);
-            }
-        });
+        MainController.instance.showDialog(this);
     }
 }

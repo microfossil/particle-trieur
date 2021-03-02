@@ -1,11 +1,14 @@
 package particletrieur;
 
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import particletrieur.controls.SymbolLabel;
 import particletrieur.controls.dialogs.DialogEx;
 import javafx.scene.control.ButtonType;
 import particletrieur.viewcontrollers.MainController;
+
+import java.util.function.Consumer;
 
 public abstract class AbstractDialogController extends AbstractController{
 
@@ -13,8 +16,6 @@ public abstract class AbstractDialogController extends AbstractController{
     public DialogEx getDialog() {
         return dialog;
     }
-
-    private HBox container = null;
 
     public abstract void processDialogResult(ButtonType buttonType);
 
@@ -24,8 +25,14 @@ public abstract class AbstractDialogController extends AbstractController{
 
     public abstract ButtonType[] getButtonTypes();
 
+    private Consumer<ButtonType> buttonTypeConsumer;
+
+    public void setOnResultProcessed(Consumer<ButtonType> buttonTypeConsumer) {
+        this.buttonTypeConsumer = buttonTypeConsumer;
+    }
+
     public void showEmbedded() {
-        asDialog(getHeader(), getSymbol(), getButtonTypes()).showAndWait();
+        show();
     }
 
     @Override
@@ -35,15 +42,8 @@ public abstract class AbstractDialogController extends AbstractController{
 
     @Override
     public void show() {
-        container = new HBox();
-        VBox vbox = new VBox();
-        container.getChildren().add(vbox);
         dialog = asDialog(getHeader(), getSymbol(), getButtonTypes());
-        dialog.getDialogPane().setStyle("-fx-border-color: -fx-accent; -fx-border-width: 1; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 20, 0.0 , 0 , 6 );");
-        vbox.getChildren().add(dialog.getDialogPane());
-//        MainController.instance.rootMain.setEffect(new GaussianBlur(10));
-        MainController.instance.rootVBox.getChildren().add(container);
-        MainController.instance.rootDialog.setVisible(true);
+        MainController.instance.showDialog(dialog);
     }
 
     public DialogEx asDialog(ButtonType... buttonTypes) {
@@ -53,9 +53,7 @@ public abstract class AbstractDialogController extends AbstractController{
         dialog.getDialogPane().setContent(stage.getScene().getRoot());
         dialog.setResultConverter(button -> {
             processDialogResult((ButtonType) button);
-//            MainController.instance.rootMain.setEffect(null);
-            MainController.instance.rootVBox.getChildren().removeAll(container);
-            MainController.instance.rootDialog.setVisible(false);
+            if (buttonTypeConsumer != null) buttonTypeConsumer.accept((ButtonType) button);
             return button;
         });
         postDialogSetup();

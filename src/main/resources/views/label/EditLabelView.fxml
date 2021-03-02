@@ -38,7 +38,7 @@
                             <Insets top="3.0" />
                         </GridPane.margin>
                     </Label>
-                    <Label text="Taxonomic?" GridPane.rowIndex="3" />
+                    <Label text="Is class?" GridPane.rowIndex="3" />
                     <TextField fx:id="textFieldCode" promptText="Short name for button" GridPane.columnIndex="1" />
                     <TextField fx:id="textFieldName" promptText="Full name (optional)" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     <TextArea fx:id="textAreaDescription" prefHeight="80.0" promptText="Description (optional)" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">

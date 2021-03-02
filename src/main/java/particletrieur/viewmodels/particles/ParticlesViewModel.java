@@ -54,4 +54,8 @@ public class ParticlesViewModel {
             e.printStackTrace();
         }
     }
+
+    public void randomiseParticles() {
+        supervisor.project.randomiseParticles();
+    }
 }

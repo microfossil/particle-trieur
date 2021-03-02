@@ -270,6 +270,10 @@ public class Project implements Serializable {
         }
     }
 
+    public void randomiseParticles() {
+        Collections.shuffle(this.particles);
+    }
+
 //    public void addImages(File dir) {
 //        Collection<File> fileCollection = FileUtils.listFiles(dir, new String[]{"bmp", "png", "tiff", "tif", "jpg", "jpeg"}, true);
 //        if (fileCollection.size() > 0) {

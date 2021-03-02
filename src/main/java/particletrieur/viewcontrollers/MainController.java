@@ -5,12 +5,14 @@
  */
 package particletrieur.viewcontrollers;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Window;
 import particletrieur.App;
 import particletrieur.FxmlLocation;
 import particletrieur.controls.SymbolLabel;
+import particletrieur.controls.dialogs.DialogEx;
 import particletrieur.viewcontrollers.classification.ClassificationViewController;
 import particletrieur.viewcontrollers.classification.SimilarityViewController;
 import particletrieur.viewcontrollers.morphology.ProcessingViewController;
@@ -41,15 +43,12 @@ import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.CacheHint;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 //import org.bytedeco.javacpp.Loader;
@@ -77,6 +76,7 @@ public class MainController extends AbstractController implements Initializable 
     public static MainController instance;
     public StackPane rootDialog;
     public VBox rootVBox;
+    @FXML StackPane stackPaneDialog;
 
     @FXML AnchorPane particleGridView;
     @FXML Label labelGPUMemory;
@@ -215,6 +215,24 @@ public class MainController extends AbstractController implements Initializable 
 
         menuRecent.setOnShowing(p -> {
             updateRecentMenu();
+        });
+    }
+
+    public void showDialog(Dialog dialog) {
+        HBox hbox = new HBox();
+        hbox.setAlignment(Pos.CENTER);
+        VBox vbox = new VBox();
+        vbox.setAlignment(Pos.CENTER);
+        hbox.getChildren().add(vbox);
+        dialog.getDialogPane().setStyle("-fx-border-color: -fx-accent; -fx-border-width: 1; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 20, 0.0 , 0 , 6 );");
+        vbox.getChildren().add(dialog.getDialogPane());
+        MainController.instance.rootDialog.getChildren().add(hbox);
+        MainController.instance.rootDialog.setVisible(true);
+        dialog.setOnHiding(event -> {
+            rootDialog.getChildren().remove(hbox);
+            if (rootDialog.getChildren().size() == 0) {
+                rootDialog.setVisible(false);
+            }
         });
     }
 
@@ -640,23 +658,23 @@ public class MainController extends AbstractController implements Initializable 
         projectRepositoryViewModel.saveAsProject();
     }
 
-    @FXML
-    private void handleStartSegmenter(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("archive/other/segmenter/Segmenter.fxml"));
-            Parent rooty = loader.load();
-            Stage stage = new Stage();
-            Scene scene = new Scene(rooty);
-            stage.setScene(scene);
-            stage.initOwner(root.getScene().getWindow());
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.centerOnScreen();
-            stage.showAndWait();
-        } catch (IOException ex) {
-            BasicDialogs.ShowException("The segmenter program could not be started.", ex);
-        }
-    }
+//    @FXML
+//    private void handleStartSegmenter(ActionEvent event) {
+//        try {
+//            FXMLLoader loader = new FXMLLoader();
+//            loader.setLocation(getClass().getResource("archive/other/segmenter/Segmenter.fxml"));
+//            Parent rooty = loader.load();
+//            Stage stage = new Stage();
+//            Scene scene = new Scene(rooty);
+//            stage.setScene(scene);
+//            stage.initOwner(root.getScene().getWindow());
+//            stage.initModality(Modality.WINDOW_MODAL);
+//            stage.centerOnScreen();
+//            stage.showAndWait();
+//        } catch (IOException ex) {
+//            BasicDialogs.ShowException("The segmenter program could not be started.", ex);
+//        }
+//    }
 
     @FXML
     private void handleAbout(ActionEvent event) {
@@ -714,8 +732,8 @@ public class MainController extends AbstractController implements Initializable 
     @FXML
     private void handleAddLabel(ActionEvent event) {
         try {
-            LabelListViewController controller = AbstractController.create(LabelListViewController.class);
-            controller.showAndWait(root);
+            LabelListViewController controller = AbstractDialogController.create(LabelListViewController.class);
+            controller.showEmbedded();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -829,6 +847,11 @@ public class MainController extends AbstractController implements Initializable 
     @FXML
     private void handleShowExceptionLog(ActionEvent event) {
         BasicDialogs.ShowExceptionLog(supervisor.exceptionMonitor.getLog());
+    }
+
+    @FXML
+    private void handleRandomiseParticles(ActionEvent event) {
+        particlesViewModel.randomiseParticles();
     }
 
     @FXML

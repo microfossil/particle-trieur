@@ -28,7 +28,7 @@
                         <Label text="Code:" />
                         <Label text="Name:" GridPane.rowIndex="1" />
                         <Label text="Description:" GridPane.rowIndex="2" />
-                        <Label text="Taxonomic?" GridPane.rowIndex="3" />
+                        <Label text="Is class?" GridPane.rowIndex="3" />
                         <Label fx:id="labelCode" text="Label" GridPane.columnIndex="1" />
                         <Label fx:id="labelName" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="labelMorphotype" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -92,11 +92,6 @@
                         <SymbolLabel symbol="featherrefreshcw"/>
                     </graphic>
                 </Button>
-            </children>
-        </HBox>
-        <HBox alignment="CENTER_RIGHT" layoutX="325.0" layoutY="330.0" prefWidth="200.0" spacing="14.0" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="7.0">
-            <children>
-                <Button mnemonicParsing="false" onAction="#handleDone" prefWidth="90.0" text="Done" />
             </children>
         </HBox>
     </children>

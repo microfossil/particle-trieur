@@ -21,9 +21,9 @@
                     </font>
                 </Label>
                 <Label text="Tick the labels for which the images should be exported:" />
-                <Label text="Taxonomic" underline="true" />
+                <Label text="Classes" underline="true" />
                 <FlowPane fx:id="flowPaneLabels" hgap="7.0" minHeight="20.0" vgap="7.0" />
-                <Label text="Other" underline="true" />
+                <Label text="Non-classes" underline="true" />
                 <FlowPane fx:id="flowPaneLabelsNonTaxonomic" hgap="7.0" minHeight="20.0" vgap="7.0" />
                 <Separator prefWidth="200.0" />
                 <Label styleClass="subheader" text="Tags" />

@@ -169,6 +169,8 @@
                                                 <!--                                                </Menu>-->
                                                 <MenuItem mnemonicParsing="false" onAction="#handleCalculateCNNVectors"
                                                           text="Recalculate feature vectors"/>
+<!--                                                <MenuItem mnemonicParsing="false" onAction="#handleRandomiseParticles"-->
+<!--                                                          text="Randomise list"/>-->
                                                 <!--                                                <Menu fx:id="menuItemCalculateCNNVector" mnemonicParsing="false"-->
                                                 <!--                                                      text="Calculate CNN Vector">-->
                                                 <!--                                                    <items>-->
@@ -562,16 +564,17 @@
             </children>
         </AnchorPane>
         <StackPane fx:id="rootDialog" visible="false">
-            <children>
-                <HBox alignment="CENTER">
-                    <children>
-                        <VBox alignment="CENTER" fx:id="rootVBox">
-                            <children>
-                            </children>
-                        </VBox>
-                    </children>
-                </HBox>
-            </children>
+<!--            <children>-->
+<!--                <HBox alignment="CENTER" fx:id="rootDialog" visible="false">-->
+<!--                    <children>-->
+<!--                        <VBox alignment="CENTER" fx:id="rootVBox">-->
+<!--                            <children>-->
+<!--                                <StackPane fx:id="stackPaneDialog"/>-->
+<!--                            </children>-->
+<!--                        </VBox>-->
+<!--                    </children>-->
+<!--                </HBox>-->
+<!--            </children>-->
         </StackPane>
         <StackPane fx:id="rootLoading" prefHeight="150.0" prefWidth="200.0" styleClass="control-shadow-0p5"
                    visible="false">
