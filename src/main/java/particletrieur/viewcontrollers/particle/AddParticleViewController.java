@@ -332,9 +332,9 @@ public class AddParticleViewController extends AbstractDialogController implemen
                 if (value == ButtonType.CLOSE) {
                     if (!twice) {
                         try {
-                            EditParticleMetadataViewController controller = AbstractController.create(EditParticleMetadataViewController.class);
+                            EditParticleMetadataViewController controller = AbstractDialogController.create(EditParticleMetadataViewController.class);
                             controller.setup(service.getValue());
-                            controller.showAndWait();
+                            controller.showEmbedded();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

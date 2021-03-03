@@ -167,14 +167,18 @@ public class LabelsViewModel {
     }
 
     public void deleteLabel(Taxon taxon) {
-        try {
-            supervisor.project.deleteTaxon(taxon);
-            BasicDialogs.ShowInfo("Code changed",
-                    String.format("The label code \"%s\" has been deleted. All particles with this label have been changed to unlabeled.", taxon.getCode()));
-        } catch (Project.TaxonDoesntExistException ex) {
-            BasicDialogs.ShowError("Error",
-                    String.format("The label code \"%s\" does not exist.", taxon.getCode()));
-        }
+        BasicDialogs.ShowConfirmation("Delete label",
+                String.format("Are you sure you wish to delete the label \"%s\"?", taxon.getCode()),
+                () -> {
+                    try {
+                        supervisor.project.deleteTaxon(taxon);
+                        BasicDialogs.ShowInfo("Code changed",
+                                String.format("The label code \"%s\" has been deleted. All particles with this label have been changed to unlabeled.", taxon.getCode()));
+                    } catch (Project.TaxonDoesntExistException ex) {
+                        BasicDialogs.ShowError("Error",
+                                String.format("The label code \"%s\" does not exist.", taxon.getCode()));
+                    }
+                },null);
     }
 
     public void initialiseLabels(List<Taxon> taxons) {

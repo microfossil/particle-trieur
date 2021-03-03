@@ -31,7 +31,7 @@ public class ExportViewModel {
         //Show export option
         try {
             ExportViewController controller = AbstractDialogController.create(ExportViewController.class);
-            controller.showAndWait();
+            controller.showEmbedded();
         } catch (IOException e) {
             e.printStackTrace();
         }

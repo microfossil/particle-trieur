@@ -5,12 +5,14 @@
  */
 package particletrieur.viewcontrollers.tag;
 
+import javafx.scene.control.*;
 import particletrieur.models.project.Particle;
 import particletrieur.AbstractController;
 import particletrieur.AbstractDialogController;
 import particletrieur.FxmlLocation;
 import particletrieur.models.project.Project;
 import particletrieur.models.Supervisor;
+import particletrieur.models.project.Taxon;
 import particletrieur.viewmodels.particles.LabelsViewModel;
 import particletrieur.viewmodels.SelectionViewModel;
 import particletrieur.models.project.Tag;
@@ -19,10 +21,8 @@ import com.google.inject.Inject;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -33,18 +33,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.FlowPane;
 import javafx.util.Duration;
 
@@ -54,7 +46,7 @@ import javafx.util.Duration;
  * @author Ross Marchant <ross.g.marchant@gmail.com>
  */
 @FxmlLocation("/views/tag/TagListView.fxml")
-public class TagListViewController extends AbstractController implements Initializable {
+public class TagListViewController extends AbstractDialogController implements Initializable {
 
     @FXML
     private ListView<Tag> listViewTags;
@@ -107,45 +99,45 @@ public class TagListViewController extends AbstractController implements Initial
                     else setText("");
                 }
             };
-            cell.setOnDragDetected(event -> {
-                if (!cell.isEmpty()) {
-                    Integer index = cell.getIndex();
-                    Dragboard db = cell.startDragAndDrop(TransferMode.MOVE);
-                    db.setDragView(cell.snapshot(null, null));
-                    ClipboardContent cc = new ClipboardContent();
-                    cc.put(TAG_MIME_TYPE, index);
-                    db.setContent(cc);
-                    event.consume();
-                }
-            });
-
-            cell.setOnDragOver(event -> {
-                Dragboard db = event.getDragboard();
-                if (db.hasContent(TAG_MIME_TYPE)) {
-                    if (cell.getIndex() != ((Integer) db.getContent(TAG_MIME_TYPE)).intValue()) {
-                        event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-                        event.consume();
-                    }
-                }
-            });
-
-            cell.setOnDragDropped(event -> {
-                Dragboard db = event.getDragboard();
-                if (db.hasContent(TAG_MIME_TYPE)) {
-                    int draggedIndex = (Integer) db.getContent(TAG_MIME_TYPE);
-                    Tag draggedPerson = (Tag) listViewTags.getItems().remove(draggedIndex);
-                    int dropIndex;
-                    if (cell.isEmpty()) {
-                        dropIndex = listViewTags.getItems().size();
-                    } else {
-                        dropIndex = cell.getIndex();
-                    }
-                    listViewTags.getItems().add(dropIndex, draggedPerson);
-                    event.setDropCompleted(true);
-                    listViewTags.getSelectionModel().select(dropIndex);
-                    event.consume();
-                }
-            });
+//            cell.setOnDragDetected(event -> {
+//                if (!cell.isEmpty()) {
+//                    Integer index = cell.getIndex();
+//                    Dragboard db = cell.startDragAndDrop(TransferMode.MOVE);
+//                    db.setDragView(cell.snapshot(null, null));
+//                    ClipboardContent cc = new ClipboardContent();
+//                    cc.put(TAG_MIME_TYPE, index);
+//                    db.setContent(cc);
+//                    event.consume();
+//                }
+//            });
+//
+//            cell.setOnDragOver(event -> {
+//                Dragboard db = event.getDragboard();
+//                if (db.hasContent(TAG_MIME_TYPE)) {
+//                    if (cell.getIndex() != ((Integer) db.getContent(TAG_MIME_TYPE)).intValue()) {
+//                        event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+//                        event.consume();
+//                    }
+//                }
+//            });
+//
+//            cell.setOnDragDropped(event -> {
+//                Dragboard db = event.getDragboard();
+//                if (db.hasContent(TAG_MIME_TYPE)) {
+//                    int draggedIndex = (Integer) db.getContent(TAG_MIME_TYPE);
+//                    Tag draggedPerson = (Tag) listViewTags.getItems().remove(draggedIndex);
+//                    int dropIndex;
+//                    if (cell.isEmpty()) {
+//                        dropIndex = listViewTags.getItems().size();
+//                    } else {
+//                        dropIndex = cell.getIndex();
+//                    }
+//                    listViewTags.getItems().add(dropIndex, draggedPerson);
+//                    event.setDropCompleted(true);
+//                    listViewTags.getSelectionModel().select(dropIndex);
+//                    event.consume();
+//                }
+//            });
             return cell;
         });
 
@@ -160,18 +152,27 @@ public class TagListViewController extends AbstractController implements Initial
             populateFields(listViewTags.getSelectionModel().getSelectedItem());
         });
 
-        setupScrolling();
-        setupList();
+//        setupScrolling();
+
+        supervisor.project.tagsUpdatedEvent.addListener(event -> {
+            updateList();
+            populateFields(listViewTags.getSelectionModel().getSelectedItem());
+        });
+
+        updateList();
     }
 
 
-    private void setupList() {
-        Project project = supervisor.project;
+    private void updateList() {
+        List<Tag> list = supervisor.project.getTags().values().stream().sorted(Comparator.comparing(Tag::getCode)).collect(Collectors.toList());
+        Tag selected = listViewTags.getSelectionModel().getSelectedItem();
         tagList.clear();
-        for (Tag tag : project.tags.values()) {
-            tagList.add(tag);
+        tagList.addAll(list);
+        if (list.contains(selected)) {
+            listViewTags.getSelectionModel().select(selected);
+        } else {
+            listViewTags.getSelectionModel().selectFirst();
         }
-        listViewTags.getSelectionModel().selectFirst();
     }
 
 
@@ -220,8 +221,8 @@ public class TagListViewController extends AbstractController implements Initial
             EditTagViewController controller = AbstractDialogController.create(EditTagViewController.class);
             controller.setData(listViewTags.getSelectionModel().getSelectedItem());
             controller.showAndWait();
-            populateFields(listViewTags.getSelectionModel().getSelectedItem());
-            listViewTags.refresh();
+//            populateFields(listViewTags.getSelectionModel().getSelectedItem());
+//            listViewTags.refresh();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -233,112 +234,124 @@ public class TagListViewController extends AbstractController implements Initial
         //Get current taxon
         Tag tag = listViewTags.getSelectionModel().getSelectedItem();
         tagsViewModel.deleteTag(tag);
-        //Remove adapter
-        tagList.remove(tag);
-        //Select next 
-        listViewTags.getSelectionModel().selectPrevious();
     }
 
 
-    @FXML
-    void handleDone(ActionEvent event) {
-        //Do the rearrangement
-        ArrayList<Tag> newTags = new ArrayList<>();
-        for (Tag tag : tagList) {
-            newTags.add(tag);
-        }
-        tagsViewModel.initialiseTags(newTags);
-        stage.close();
-    }
+//    @FXML
+//    void handleDone(ActionEvent event) {
+//        //Do the rearrangement
+//        ArrayList<Tag> newTags = new ArrayList<>();
+//        for (Tag tag : tagList) {
+//            newTags.add(tag);
+//        }
+//        tagsViewModel.initialiseTags(newTags);
+//        stage.close();
+//    }
 
 
     @FXML
     void handleAdd(ActionEvent event) {
         try {
             EditTagViewController controller = AbstractDialogController.create(EditTagViewController.class);
-            controller.showAndWait();
-            Tag result = controller.getData();
-            if (result != null) tagList.add(result);
+            controller.showEmbedded();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        listViewTags.refresh();
-        listViewTags.getSelectionModel().selectLast();
+    }
+
+    @Override
+    public void processDialogResult(ButtonType buttonType) {
+
+    }
+
+    @Override
+    public String getHeader() {
+        return null;
+    }
+
+    @Override
+    public String getSymbol() {
+        return null;
+    }
+
+    @Override
+    public ButtonType[] getButtonTypes() {
+        return new ButtonType[]{ButtonType.CLOSE};
     }
 
 
-    @FXML
-    void handleAlphabeticalOrdering(ActionEvent event) {
-        FXCollections.sort(tagList, Comparator.comparing(Tag::getCode));
-    }
-
-
-    @FXML
-    void handleResetOrdering(ActionEvent event) {
-        setupList();
-    }
-
-    private void setupScrolling() {
-        scrolltimeline.setCycleCount(Timeline.INDEFINITE);
-        scrolltimeline.getKeyFrames().add(new KeyFrame(Duration.millis(20), (ActionEvent) -> {
-            dragScroll();
-        }));
-
-        listViewTags.setOnDragExited((DragEvent event) -> {
-            if (event.getY() > 0) {
-                scrollVelocity = 1.0 / scrollSpeed;
-            } else {
-                scrollVelocity = -1.0 / scrollSpeed;
-            }
-            if (!dropped) {
-                scrolltimeline.play();
-            }
-        });
-
-        listViewTags.setOnDragEntered(event -> {
-            scrolltimeline.stop();
-            dropped = false;
-        });
-        listViewTags.setOnDragDone(event -> {
-            scrolltimeline.stop();
-        });
-        listViewTags.setOnDragDropped((DragEvent event) -> {
-            Dragboard db = event.getDragboard();
-            //((VBox) listViewTaxons.getContent()).getChildren().add(new Label(db.getString())); 
-            scrolltimeline.stop();
-            event.setDropCompleted(true);
-            dropped = true;
-        });
-//        listViewTaxons.setOnDragOver((DragEvent event) ->{
-//            event.acceptTransferModes(TransferMode.MOVE);                            
+//    @FXML
+//    void handleAlphabeticalOrdering(ActionEvent event) {
+//        FXCollections.sort(tagList, Comparator.comparing(Tag::getCode));
+//    }
+//
+//
+//    @FXML
+//    void handleResetOrdering(ActionEvent event) {
+//        updateList();
+//    }
+//
+//    private void setupScrolling() {
+//        scrolltimeline.setCycleCount(Timeline.INDEFINITE);
+//        scrolltimeline.getKeyFrames().add(new KeyFrame(Duration.millis(20), (ActionEvent) -> {
+//            dragScroll();
+//        }));
+//
+//        listViewTags.setOnDragExited((DragEvent event) -> {
+//            if (event.getY() > 0) {
+//                scrollVelocity = 1.0 / scrollSpeed;
+//            } else {
+//                scrollVelocity = -1.0 / scrollSpeed;
+//            }
+//            if (!dropped) {
+//                scrolltimeline.play();
+//            }
 //        });
-        listViewTags.setOnScroll(event -> {
-            scrolltimeline.stop();
-        });
-    }
-
-
-    private void dragScroll() {
-        ScrollBar sb = getVerticalScrollbar();
-        if (sb != null) {
-            double newValue = sb.getValue() + scrollVelocity;
-            newValue = Math.min(newValue, 1.0);
-            newValue = Math.max(newValue, 0.0);
-            sb.setValue(newValue);
-        }
-    }
-
-
-    private ScrollBar getVerticalScrollbar() {
-        ScrollBar result = null;
-        for (Node n : listViewTags.lookupAll(".scroll-bar")) {
-            if (n instanceof ScrollBar) {
-                ScrollBar bar = (ScrollBar) n;
-                if (bar.getOrientation().equals(Orientation.VERTICAL)) {
-                    result = bar;
-                }
-            }
-        }
-        return result;
-    }
+//
+//        listViewTags.setOnDragEntered(event -> {
+//            scrolltimeline.stop();
+//            dropped = false;
+//        });
+//        listViewTags.setOnDragDone(event -> {
+//            scrolltimeline.stop();
+//        });
+//        listViewTags.setOnDragDropped((DragEvent event) -> {
+//            Dragboard db = event.getDragboard();
+//            //((VBox) listViewTaxons.getContent()).getChildren().add(new Label(db.getString()));
+//            scrolltimeline.stop();
+//            event.setDropCompleted(true);
+//            dropped = true;
+//        });
+////        listViewTaxons.setOnDragOver((DragEvent event) ->{
+////            event.acceptTransferModes(TransferMode.MOVE);
+////        });
+//        listViewTags.setOnScroll(event -> {
+//            scrolltimeline.stop();
+//        });
+//    }
+//
+//
+//    private void dragScroll() {
+//        ScrollBar sb = getVerticalScrollbar();
+//        if (sb != null) {
+//            double newValue = sb.getValue() + scrollVelocity;
+//            newValue = Math.min(newValue, 1.0);
+//            newValue = Math.max(newValue, 0.0);
+//            sb.setValue(newValue);
+//        }
+//    }
+//
+//
+//    private ScrollBar getVerticalScrollbar() {
+//        ScrollBar result = null;
+//        for (Node n : listViewTags.lookupAll(".scroll-bar")) {
+//            if (n instanceof ScrollBar) {
+//                ScrollBar bar = (ScrollBar) n;
+//                if (bar.getOrientation().equals(Orientation.VERTICAL)) {
+//                    result = bar;
+//                }
+//            }
+//        }
+//        return result;
+//    }
 }

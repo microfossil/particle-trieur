@@ -79,6 +79,13 @@ public class ExportMorphologyService {
                             if (this.isCancelled()) return null;
                             Particle particle = entry.getKey();
                             Morphology morphology = entry.getValue();
+                            String morphologyCSV;
+                            if (morphology == null) {
+                                morphologyCSV = "error";
+                            }
+                            else {
+                                morphologyCSV = morphology.toStringCSV(particle.getResolution());
+                            }
                             writer.write(String.format("%d,%s,%s,%s,%f,%f,%s,%d,%d,",
                                     indices.get(particle),
                                     particle.getFile().getAbsolutePath(),
@@ -89,11 +96,12 @@ public class ExportMorphologyService {
                                     particle.getGUID(),
                                     particle.getImageHeight(),
                                     particle.getImageWidth())
-                                    + morphology.toStringCSV(particle.getResolution()) + '\n');
+                                    + morphologyCSV + '\n');
                             idx2++;
                             updateMessage(String.format("%d/%d records exported", idx2, particles.size()));
                             updateProgress(idx2, particles.size());
                         }
+                        writer.flush();
                         writer.close();
                         return null;
                     }

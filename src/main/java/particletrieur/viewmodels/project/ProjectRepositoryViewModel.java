@@ -38,7 +38,7 @@ public class ProjectRepositoryViewModel {
     //TODO put operation in progress in App
     public void openProject() {
         mainViewModel.setOperationInProgress(true);
-        if (!showIfProjectNeedsSave("Choose whether to save before opening a new app:")) {
+        if (!showIfProjectNeedsSave("Choose whether to save before opening a new project")) {
             mainViewModel.setOperationInProgress(false);
             return;
         }
@@ -251,6 +251,9 @@ public class ProjectRepositoryViewModel {
                     return false;
                 } else if (result.get() == buttonTypeTwo) {
                     return true;
+                }
+                else {
+                    return false;
                 }
             } else {
                 return false;

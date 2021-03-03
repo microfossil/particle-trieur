@@ -86,12 +86,12 @@
                         <SymbolLabel symbol="featherminus"/>
                     </graphic>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#handleAlphabeticalOrdering" prefHeight="25.0" text="a-z" />
-                <Button mnemonicParsing="false" onAction="#handleResetOrdering" prefHeight="25.0" >
-                    <graphic>
-                        <SymbolLabel symbol="featherrefreshcw"/>
-                    </graphic>
-                </Button>
+<!--                <Button mnemonicParsing="false" onAction="#handleAlphabeticalOrdering" prefHeight="25.0" text="a-z" />-->
+<!--                <Button mnemonicParsing="false" onAction="#handleResetOrdering" prefHeight="25.0" >-->
+<!--                    <graphic>-->
+<!--                        <SymbolLabel symbol="featherrefreshcw"/>-->
+<!--                    </graphic>-->
+<!--                </Button>-->
             </children>
         </HBox>
     </children>

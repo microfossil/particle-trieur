@@ -228,7 +228,9 @@ public class MainController extends AbstractController implements Initializable 
         vbox.getChildren().add(dialog.getDialogPane());
         MainController.instance.rootDialog.getChildren().add(hbox);
         MainController.instance.rootDialog.setVisible(true);
+        System.out.println("Dialog opened " + dialog.toString());
         dialog.setOnHiding(event -> {
+            System.out.println("Dialog closed " + dialog.toString());
             rootDialog.getChildren().remove(hbox);
             if (rootDialog.getChildren().size() == 0) {
                 rootDialog.setVisible(false);
@@ -296,7 +298,7 @@ public class MainController extends AbstractController implements Initializable 
 
         if (!App.getPrefs().getLastVersion().equals(App.VERSION)) {
             try {
-                AbstractDialogController.create(WhatsNewViewController.class).showAndWait();
+                AbstractDialogController.create(WhatsNewViewController.class).showEmbedded();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -679,7 +681,7 @@ public class MainController extends AbstractController implements Initializable 
     @FXML
     private void handleAbout(ActionEvent event) {
         try {
-            AbstractDialogController.create(AboutViewController.class).showAndWait();
+            AbstractDialogController.create(AboutViewController.class).showEmbedded();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -688,7 +690,7 @@ public class MainController extends AbstractController implements Initializable 
     @FXML
     private void handleWhatsNew(ActionEvent event) {
         try {
-            AbstractDialogController.create(WhatsNewViewController.class).showAndWait();
+            AbstractDialogController.create(WhatsNewViewController.class).showEmbedded();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -791,7 +793,7 @@ public class MainController extends AbstractController implements Initializable 
 
     @FXML
     private void handleFlowcamSegmenter(ActionEvent event) {
-        mainViewModel.flowcamSegmenterViewController.showAndWait();
+        mainViewModel.flowcamSegmenterViewController.showEmbedded();
     }
 
     @FXML
@@ -841,7 +843,7 @@ public class MainController extends AbstractController implements Initializable 
 
     @FXML
     private void handleTrain(ActionEvent event) {
-        mainViewModel.cnnTrainingViewController.showAndWait();
+        mainViewModel.cnnTrainingViewController.showEmbedded();
     }
 
     @FXML

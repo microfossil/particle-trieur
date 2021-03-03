@@ -70,10 +70,11 @@ public class ParametersViewController implements Initializable {
 
 
     public void update(LinkedHashMap<String, String> parameters) {
-        List<ParameterViewModel> newItems = parameters.entrySet().stream().map(v -> new ParameterViewModel(v.getKey(), v.getValue())).collect(Collectors.toList());
-
         items.clear();
-        items.addAll(newItems);
+        if (parameters != null) {
+            List<ParameterViewModel> newItems = parameters.entrySet().stream().map(v -> new ParameterViewModel(v.getKey(), v.getValue())).collect(Collectors.toList());
+            items.addAll(newItems);
+        }
     }
 
     public void handleAddParametersFromCSV(ActionEvent actionEvent) {

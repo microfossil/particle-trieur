@@ -84,18 +84,18 @@
                         <SymbolLabel symbol="featherminus"/>
                     </graphic>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#handleAlphabeticalOrdering" prefHeight="25.0" text="a-z" />
-                <Button mnemonicParsing="false" onAction="#handleResetOrdering" prefHeight="25.0" >
-                    <graphic>
-                        <SymbolLabel symbol="featherrefreshcw"/>
-                    </graphic>
-                </Button>
+<!--                <Button mnemonicParsing="false" onAction="#handleAlphabeticalOrdering" prefHeight="25.0" text="a-z" />-->
+<!--                <Button mnemonicParsing="false" onAction="#handleResetOrdering" prefHeight="25.0" >-->
+<!--                    <graphic>-->
+<!--                        <SymbolLabel symbol="featherrefreshcw"/>-->
+<!--                    </graphic>-->
+<!--                </Button>-->
             </children>
         </HBox>
-        <HBox alignment="CENTER_RIGHT" layoutX="325.0" layoutY="330.0" prefWidth="200.0" spacing="14.0" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="7.0">
-            <children>
-                <Button mnemonicParsing="false" onAction="#handleDone" prefWidth="90.0" text="Done" />
-            </children>
-        </HBox>
+<!--        <HBox alignment="CENTER_RIGHT" layoutX="325.0" layoutY="330.0" prefWidth="200.0" spacing="14.0" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="7.0">-->
+<!--            <children>-->
+<!--                <Button mnemonicParsing="false" onAction="#handleDone" prefWidth="90.0" text="Done" />-->
+<!--            </children>-->
+<!--        </HBox>-->
     </children>
 </AnchorPane>

@@ -153,7 +153,7 @@ public class CNNTrainingService {
             );
             return status;
         }
-        catch (IOException ex) {
+        catch (IOException | ArrayIndexOutOfBoundsException ex) {
             return null;
         }
     }

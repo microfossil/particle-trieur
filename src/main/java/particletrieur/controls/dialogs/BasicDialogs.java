@@ -14,6 +14,8 @@ import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.concurrent.Callable;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.concurrent.Service;
@@ -147,10 +149,27 @@ public class BasicDialogs {
             }
         });
         expContent.add(mailButton, 0, 2);
-        alert.getDialogPane().setPrefWidth(600);
+        alert.getDialogPane().setPrefWidth(800);
         alert.getDialogPane().setExpandableContent(expContent);
         alert.getDialogPane().setExpanded(true);
         alert.showEmbedded();
+    }
+
+    public static void ShowConfirmation(String header, String content, Runnable onOk, Runnable onCancel) {
+        AlertEx alert = new AlertEx(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(header);
+        alert.setContentText(content);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        alert.showEmbedded();
+        alert.setResultConverter(button -> {
+            if (button == ButtonType.OK && onOk != null) {
+                onOk.run();
+            }
+            else if (button == ButtonType.CANCEL && onCancel != null) {
+                onCancel.run();
+            }
+            return null;
+        });
     }
 
     public static ProgressDialog2 ProgressDialogWithCancel2(

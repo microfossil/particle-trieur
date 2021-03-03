@@ -5,7 +5,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import particletrieur.AbstractDialogController;
-import particletrieur.AbstractJFXDialogController;
 import particletrieur.App;
 import particletrieur.FxmlLocation;
 
@@ -13,7 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @FxmlLocation("/views/AboutView.fxml")
-public class AboutViewController extends AbstractJFXDialogController implements Initializable {
+public class AboutViewController extends AbstractDialogController implements Initializable {
 
     @FXML
     Label labelTitle;

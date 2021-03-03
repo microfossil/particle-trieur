@@ -7,17 +7,13 @@ package particletrieur.viewcontrollers.classification;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
-import javafx.util.Callback;
 import particletrieur.AbstractDialogController;
 import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.controls.ClassificationButton;
 import particletrieur.controls.SymbolLabel;
 import particletrieur.helpers.FilteredTreeViewSelectionModel;
-import particletrieur.helpers.TreeEventDispatcher;
 import particletrieur.helpers.TreeItemSelectionFilter;
 import particletrieur.models.project.Project;
 import particletrieur.models.Supervisor;
@@ -464,8 +460,8 @@ public class ClassificationViewController implements Initializable {
     private void showEditLabelDialog(Taxon taxon) {
         try {
             EditLabelViewController controller = AbstractDialogController.create(EditLabelViewController.class);
-            if (taxon != null) controller.setData(taxon);
-            controller.showAndWait();
+            if (taxon != null) controller.setup(taxon);
+            controller.showEmbedded();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -478,7 +474,7 @@ public class ClassificationViewController implements Initializable {
                 controller.textFieldCode.setText(prefix);
             }
             controller.checkBoxIsClass.setSelected(isClass);
-            controller.showAndWait();
+            controller.showEmbedded();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -488,7 +484,7 @@ public class ClassificationViewController implements Initializable {
         try {
             EditTagViewController controller = AbstractDialogController.create(EditTagViewController.class);
             if (tag != null) controller.setData(tag);
-            controller.showAndWait();
+            controller.showEmbedded();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -828,7 +824,7 @@ public class ClassificationViewController implements Initializable {
     private void handleChangeCNNPredictionNetwork(ActionEvent event) {
         try {
             SelectNetworkViewController controller = AbstractDialogController.create(SelectNetworkViewController.class);
-            controller.showAndWait();
+            controller.showEmbedded();
         } catch (IOException e) {
             e.printStackTrace();
         }

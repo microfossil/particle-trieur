@@ -7,7 +7,6 @@ package particletrieur.viewcontrollers.label;
 
 import javafx.scene.control.*;
 import particletrieur.models.project.Particle;
-import particletrieur.AbstractController;
 import particletrieur.AbstractDialogController;
 import particletrieur.FxmlLocation;
 import particletrieur.models.Supervisor;
@@ -18,24 +17,17 @@ import com.google.inject.Inject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
-import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Orientation;
-import javafx.scene.Node;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.FlowPane;
-import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -44,18 +36,29 @@ import javafx.util.Duration;
  */
 @FxmlLocation("/views/label/LabelListView.fxml")
 public class LabelListViewController extends AbstractDialogController implements Initializable {
-    
-    @FXML private ListView<Taxon> listViewTaxons;
-    @FXML private Label labelCode;
-    @FXML Label labelGroup;
-    @FXML private Label labelName;
-    @FXML private Label labelDescription;
-    @FXML private Label labelMorphotype;
-    @FXML private Label labelRequired;
-    @FXML private FlowPane flowPaneImages;
-    @FXML private CheckBox checkBoxExampleImagesEnabled;
-    @FXML private Button buttonEdit;
-    @FXML private Button buttonRemove;
+
+    @FXML
+    private ListView<Taxon> listViewTaxons;
+    @FXML
+    private Label labelCode;
+    @FXML
+    Label labelGroup;
+    @FXML
+    private Label labelName;
+    @FXML
+    private Label labelDescription;
+    @FXML
+    private Label labelMorphotype;
+    @FXML
+    private Label labelRequired;
+    @FXML
+    private FlowPane flowPaneImages;
+    @FXML
+    private CheckBox checkBoxExampleImagesEnabled;
+    @FXML
+    private Button buttonEdit;
+    @FXML
+    private Button buttonRemove;
 
     @Inject
     private Supervisor supervisor;
@@ -64,12 +67,12 @@ public class LabelListViewController extends AbstractDialogController implements
 
     public ObservableList<Taxon> taxonList = FXCollections.observableArrayList();
     private static DataFormat TAXON_MIME_TYPE = new DataFormat("application/x-java-serialized-object-taxon");
-    
+
     private Timeline scrolltimeline = new Timeline();
     private double scrollVelocity = 0;
     private boolean dropped = false;
     int scrollSpeed = 200;
-        
+
     /**
      * Initializes the controller class.
      */
@@ -85,96 +88,103 @@ public class LabelListViewController extends AbstractDialogController implements
                     else setText("");
                 }
             };
-            cell.setOnDragDetected(event -> {
-                if (!cell.isEmpty()) {
-                    Integer index = cell.getIndex();
-                    Dragboard db = cell.startDragAndDrop(TransferMode.MOVE);
-                    db.setDragView(cell.snapshot(null, null));
-                    ClipboardContent cc = new ClipboardContent();
-                    cc.put(TAXON_MIME_TYPE, index);
-                    db.setContent(cc);
-                    event.consume();
-                }
-            });
+//            cell.setOnDragDetected(event -> {
+//                if (!cell.isEmpty()) {
+//                    Integer index = cell.getIndex();
+//                    Dragboard db = cell.startDragAndDrop(TransferMode.MOVE);
+//                    db.setDragView(cell.snapshot(null, null));
+//                    ClipboardContent cc = new ClipboardContent();
+//                    cc.put(TAXON_MIME_TYPE, index);
+//                    db.setContent(cc);
+//                    event.consume();
+//                }
+//            });
+//
+//            cell.setOnDragOver(event -> {
+//                Dragboard db = event.getDragboard();
+//                if (db.hasContent(TAXON_MIME_TYPE)) {
+//                    if (cell.getIndex() != ((Integer)db.getContent(TAXON_MIME_TYPE)).intValue()) {
+//                        event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+//                        event.consume();
+//                    }
+//                }
+//            });
+//
+//            cell.setOnDragDropped(event -> {
+//                Dragboard db = event.getDragboard();
+//                if (db.hasContent(TAXON_MIME_TYPE)) {
+//                    int draggedIndex = (Integer) db.getContent(TAXON_MIME_TYPE);
+//                    Taxon draggedPerson = (Taxon) listViewTaxons.getItems().remove(draggedIndex);
+//                    int dropIndex ;
+//                    if (cell.isEmpty()) {
+//                        dropIndex = listViewTaxons.getItems().size();
+//                    } else {
+//                        dropIndex = cell.getIndex();
+//                    }
+//                    listViewTaxons.getItems().add(dropIndex, draggedPerson);
+//                    event.setDropCompleted(true);
+//                    listViewTaxons.getSelectionModel().select(dropIndex);
+//                    event.consume();
+//                }
+//            });
 
-            cell.setOnDragOver(event -> {
-                Dragboard db = event.getDragboard();
-                if (db.hasContent(TAXON_MIME_TYPE)) {
-                    if (cell.getIndex() != ((Integer)db.getContent(TAXON_MIME_TYPE)).intValue()) {
-                        event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-                        event.consume();
-                    }
-                }
-            });
-
-            cell.setOnDragDropped(event -> {
-                Dragboard db = event.getDragboard();
-                if (db.hasContent(TAXON_MIME_TYPE)) {
-                    int draggedIndex = (Integer) db.getContent(TAXON_MIME_TYPE);
-                    Taxon draggedPerson = (Taxon) listViewTaxons.getItems().remove(draggedIndex);
-                    int dropIndex ; 
-                    if (cell.isEmpty()) {
-                        dropIndex = listViewTaxons.getItems().size();
-                    } else {
-                        dropIndex = cell.getIndex();
-                    }
-                    listViewTaxons.getItems().add(dropIndex, draggedPerson);
-                    event.setDropCompleted(true);
-                    listViewTaxons.getSelectionModel().select(dropIndex);
-                    event.consume();
-                }
-            });
-            
             return cell;
         });
-        
+
         listViewTaxons.getSelectionModel().selectedItemProperty().addListener((obs, oldv, newv) -> {
             if (newv != null) {
                 populateFields(newv);
             }
         });
         listViewTaxons.setItems(taxonList);
-        
+
         checkBoxExampleImagesEnabled.selectedProperty().addListener((obs, oldv, newv) -> {
             populateFields(listViewTaxons.getSelectionModel().getSelectedItem());
         });
-        
-        setupScrolling();
 
-        setupList();
-    }    
+//        setupScrolling();
 
-    private void setupList() {
-        taxonList.clear();
-        for (Taxon taxon : supervisor.project.taxons.values()) {
-            taxonList.add(taxon);
-        }
-        listViewTaxons.getSelectionModel().selectFirst();
+        supervisor.project.taxonsUpdatedEvent.addListener(event -> {
+            updateList();
+            populateFields(listViewTaxons.getSelectionModel().getSelectedItem());
+        });
+
+        updateList();
     }
-    
+
+    private void updateList() {
+        List<Taxon> list = supervisor.project.getTaxons().values().stream().sorted(Comparator.comparing(Taxon::getCode)).collect(Collectors.toList());
+        Taxon selected = listViewTaxons.getSelectionModel().getSelectedItem();
+        taxonList.clear();
+        taxonList.addAll(list);
+        if (list.contains(selected)) {
+            listViewTaxons.getSelectionModel().select(selected);
+        } else {
+            listViewTaxons.getSelectionModel().selectFirst();
+        }
+    }
+
     private void populateFields(Taxon taxon) {
         labelCode.setText(taxon.getCode());
         labelName.setText(taxon.getName());
         labelDescription.setText(taxon.getDescription());
         if (taxon.getIsClass()) {
             labelMorphotype.setText("Yes");
-        }
-        else {
+        } else {
             labelMorphotype.setText("No");
         }
         if (Arrays.asList(supervisor.project.requiredTaxons).contains(taxon.getCode())) {
             labelRequired.setText("Yes");
             buttonEdit.setDisable(true);
             buttonRemove.setDisable(true);
-        }
-        else {
+        } else {
             labelRequired.setText("No");
             buttonEdit.setDisable(false);
             buttonRemove.setDisable(false);
         }
         // Add example images
         flowPaneImages.getChildren().clear();
-        
+
         if (checkBoxExampleImagesEnabled.isSelected()) {
             int added = 0;
             int index = 0;
@@ -195,188 +205,118 @@ public class LabelListViewController extends AbstractDialogController implements
             }
         }
     }
-        
+
     @FXML
     void handleEdit(ActionEvent event) {
-
         try {
             EditLabelViewController controller = AbstractDialogController.create(EditLabelViewController.class);
-            controller.setData(listViewTaxons.getSelectionModel().getSelectedItem());
-            controller.showAndWait();
-            populateFields(listViewTaxons.getSelectionModel().getSelectedItem());
-            listViewTaxons.refresh();
+            controller.setup(listViewTaxons.getSelectionModel().getSelectedItem());
+            controller.showEmbedded();
+//            populateFields(listViewTaxons.getSelectionModel().getSelectedItem());
+//            listViewTaxons.refresh();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
-    void handleRemove(ActionEvent event) {        
+    void handleRemove(ActionEvent event) {
         //Get current taxon
         Taxon adapter = listViewTaxons.getSelectionModel().getSelectedItem();
         labelsViewModel.deleteLabel(adapter);
-        //Remove adapter
-//        taxonList.remove(adapter);
-        //Select next
-        setupList();
-        listViewTaxons.getSelectionModel().selectPrevious();
     }
-    
-//    @FXML
-//    void handleDone(ActionEvent event) {
-//        //Initialise the taxons (is this necessary?)
-//        ArrayList<Taxon> newTaxons = new ArrayList<>();
-//        for (Taxon taxon : taxonList) {
-//            newTaxons.add(taxon);
-//        }
-//        labelsViewModel.initialiseLabels(newTaxons);
-//        stage.close();
-//    }
+
 
     @FXML
     void handleAdd(ActionEvent event) {
         try {
             EditLabelViewController controller = AbstractDialogController.create(EditLabelViewController.class);
             controller.showEmbedded();
-            controller.setOnResultProcessed(buttonType -> {
-                if (buttonType == ButtonType.OK) {
-                    setupList();
-                }
-            });
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        listViewTaxons.refresh();
-        listViewTaxons.getSelectionModel().selectLast();
     }
-    
-    @FXML
-    void handleAlphabeticalOrdering(ActionEvent event) {
-//        FXCollections.sort(supervisor.project.getTaxons(), Comparator.comparing(Map.Entry -> e.));
-    } 
 
-    @FXML
-    void handleResetOrdering(ActionEvent event) {
-        setupList();
-    }
-    
-//    public class TaxonAdapter {
+//    @FXML
+//    void handleAlphabeticalOrdering(ActionEvent event) {
+//        LinkedHashMap<String, Taxon> result = supervisor.project.getTaxons().entrySet().stream()
+//                .sorted(Map.Entry.comparingByKey())
+//                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+//                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+//        supervisor.project.taxons = result;
+//    }
 //
-//        public Taxon originalTaxon;
+//    @FXML
+//    void handleResetOrdering(ActionEvent event) {
+//        updateList();
+//    }
+
+//    private void setupScrolling() {
+//        scrolltimeline.setCycleCount(Timeline.INDEFINITE);
+//        scrolltimeline.getKeyFrames().add(new KeyFrame(Duration.millis(20), (ActionEvent) -> { dragScroll();}));
 //
-//        public StringProperty code = new SimpleStringProperty();
-//        public StringProperty name = new SimpleStringProperty();
-//        public StringProperty group = new SimpleStringProperty();
-//        public StringProperty description = new SimpleStringProperty();
-//        public BooleanProperty isMorphotype= new SimpleBooleanProperty();
+//        listViewTaxons.setOnDragExited((DragEvent event) -> {
+//            if (event.getY() > 0) {
+//                scrollVelocity = 1.0 / scrollSpeed;
+//            }
+//            else {
+//                scrollVelocity = -1.0 / scrollSpeed;
+//            }
+//            if (!dropped){
+//                scrolltimeline.play();
+//            }
+//        });
 //
-//        private int index = 0;
+//        listViewTaxons.setOnDragEntered(event -> {
+//            scrolltimeline.stop();
+//            dropped = false;
+//        });
+//        listViewTaxons.setOnDragDone(event -> {
+//            scrolltimeline.stop();
+//        });
+//        listViewTaxons.setOnDragDropped((DragEvent event) ->{
+//            Dragboard db = event.getDragboard();
+//            scrolltimeline.stop();
+//            event.setDropCompleted(true);
+//            dropped = true;
+//        });
+//        listViewTaxons.setOnScroll(event -> {
+//            scrolltimeline.stop();
+//        });
+//    }
 //
-//        public TaxonAdapter(Taxon taxon, int i) {
-//            set(taxon);
-//            index = i;
-//        }
-//
-//        public void set(Taxon taxon) {
-//            originalTaxon = taxon;
-//            code.set(taxon.getCode());
-//            name.set(taxon.getName());
-//            group.set(taxon.getGroup());
-//            description.set(taxon.getDescription());
-//            isMorphotype.set(taxon.getIsClass());
-//        }
-//
-//        public void reset() {
-//            set(originalTaxon);
-//        }
-//
-//        public Taxon getResult() {
-//            Taxon taxon = new Taxon(code.get(),
-//                    name.get(),
-//                    description.get(),
-//                    group.get(),
-//                    isMorphotype.get());
-//            return taxon;
-//        }
-//
-//        public int getIndex() {
-//            return index;
-//        }
-//
-//        public String getCode() {
-//            return code.get();
+//    private void dragScroll() {
+//        ScrollBar sb = getVerticalScrollbar();
+//        if (sb != null) {
+//            double newValue = sb.getValue() + scrollVelocity;
+//            newValue = Math.min(newValue, 1.0);
+//            newValue = Math.max(newValue, 0.0);
+//            sb.setValue(newValue);
 //        }
 //    }
-    
-    private void setupScrolling() {
-        scrolltimeline.setCycleCount(Timeline.INDEFINITE);
-        scrolltimeline.getKeyFrames().add(new KeyFrame(Duration.millis(20), (ActionEvent) -> { dragScroll();}));
-
-        listViewTaxons.setOnDragExited((DragEvent event) -> {
-            if (event.getY() > 0) {
-                scrollVelocity = 1.0 / scrollSpeed;
-            }
-            else {
-                scrollVelocity = -1.0 / scrollSpeed;
-            }
-            if (!dropped){
-                scrolltimeline.play();
-            }
-        });
-
-        listViewTaxons.setOnDragEntered(event -> {
-            scrolltimeline.stop();
-            dropped = false;
-        });
-        listViewTaxons.setOnDragDone(event -> {
-            scrolltimeline.stop();
-        });           
-        listViewTaxons.setOnDragDropped((DragEvent event) ->{      
-            Dragboard db = event.getDragboard();
-            //((VBox) listViewTaxons.getContent()).getChildren().add(new Label(db.getString())); 
-            scrolltimeline.stop();
-            event.setDropCompleted(true);
-            dropped = true;
-        });
-//        listViewTaxons.setOnDragOver((DragEvent event) ->{
-//            event.acceptTransferModes(TransferMode.MOVE);                            
-//        });
-        listViewTaxons.setOnScroll(event -> {
-            scrolltimeline.stop();   
-        });
-    }
-    private void dragScroll() {
-        ScrollBar sb = getVerticalScrollbar();
-        if (sb != null) {
-            double newValue = sb.getValue() + scrollVelocity;
-            newValue = Math.min(newValue, 1.0);
-            newValue = Math.max(newValue, 0.0);
-            sb.setValue(newValue);
-        }
-    }
-
-    private ScrollBar getVerticalScrollbar() {
-        ScrollBar result = null;
-        for (Node n : listViewTaxons.lookupAll(".scroll-bar")) {
-            if (n instanceof ScrollBar) {
-                ScrollBar bar = (ScrollBar) n;
-                if (bar.getOrientation().equals(Orientation.VERTICAL)) {
-                    result = bar;
-                }
-            }
-        }        
-        return result;
-    }
+//
+//    private ScrollBar getVerticalScrollbar() {
+//        ScrollBar result = null;
+//        for (Node n : listViewTaxons.lookupAll(".scroll-bar")) {
+//            if (n instanceof ScrollBar) {
+//                ScrollBar bar = (ScrollBar) n;
+//                if (bar.getOrientation().equals(Orientation.VERTICAL)) {
+//                    result = bar;
+//                }
+//            }
+//        }
+//        return result;
+//    }
 
     @Override
     public void processDialogResult(ButtonType buttonType) {
-        if (buttonType == ButtonType.APPLY) {
-            ArrayList<Taxon> newTaxons = new ArrayList<>();
-            for (Taxon taxon : taxonList) {
-                newTaxons.add(taxon);
-            }
-            labelsViewModel.initialiseLabels(newTaxons);
-        }
+//        if (buttonType == ButtonType.APPLY) {
+//            ArrayList<Taxon> newTaxons = new ArrayList<>();
+//            for (Taxon taxon : taxonList) {
+//                newTaxons.add(taxon);
+//            }
+//            labelsViewModel.initialiseLabels(newTaxons);
+//        }
     }
 
     @Override
@@ -391,6 +331,6 @@ public class LabelListViewController extends AbstractDialogController implements
 
     @Override
     public ButtonType[] getButtonTypes() {
-        return new ButtonType[] {ButtonType.APPLY, ButtonType.CANCEL};
+        return new ButtonType[]{ButtonType.CLOSE};
     }
 }

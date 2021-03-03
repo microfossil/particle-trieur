@@ -10,9 +10,10 @@ import particletrieur.viewcontrollers.MainController;
 
 import java.util.function.Consumer;
 
-public abstract class AbstractDialogController extends AbstractController{
 
-    private DialogEx dialog = null;
+public abstract class AbstractDialogController extends AbstractController {
+
+    protected DialogEx dialog = null;
     public DialogEx getDialog() {
         return dialog;
     }
@@ -25,14 +26,9 @@ public abstract class AbstractDialogController extends AbstractController{
 
     public abstract ButtonType[] getButtonTypes();
 
-    private Consumer<ButtonType> buttonTypeConsumer;
-
-    public void setOnResultProcessed(Consumer<ButtonType> buttonTypeConsumer) {
-        this.buttonTypeConsumer = buttonTypeConsumer;
-    }
-
     public void showEmbedded() {
-        show();
+        dialog = asDialog(getHeader(), getSymbol(), getButtonTypes());
+        MainController.instance.showDialog(dialog);
     }
 
     @Override
@@ -42,8 +38,7 @@ public abstract class AbstractDialogController extends AbstractController{
 
     @Override
     public void show() {
-        dialog = asDialog(getHeader(), getSymbol(), getButtonTypes());
-        MainController.instance.showDialog(dialog);
+        showEmbedded();
     }
 
     public DialogEx asDialog(ButtonType... buttonTypes) {
@@ -53,7 +48,6 @@ public abstract class AbstractDialogController extends AbstractController{
         dialog.getDialogPane().setContent(stage.getScene().getRoot());
         dialog.setResultConverter(button -> {
             processDialogResult((ButtonType) button);
-            if (buttonTypeConsumer != null) buttonTypeConsumer.accept((ButtonType) button);
             return button;
         });
         postDialogSetup();

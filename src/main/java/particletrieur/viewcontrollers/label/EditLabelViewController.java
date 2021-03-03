@@ -44,7 +44,7 @@ public class EditLabelViewController extends AbstractDialogController implements
 
     }
     
-    public void setData(Taxon taxon) {
+    public void setup(Taxon taxon) {
         this.taxon = taxon;
         textFieldCode.setText(taxon.getCode());
         textFieldName.setText(taxon.getName());
@@ -52,7 +52,7 @@ public class EditLabelViewController extends AbstractDialogController implements
         checkBoxIsClass.setSelected(taxon.getIsClass());
     }  
     
-    public Taxon getData() {
+    private Taxon create() {
         if (textFieldCode.getText().equals("")) return null;
         Taxon newTaxon = new Taxon(
                 textFieldCode.getText(), 
@@ -66,7 +66,7 @@ public class EditLabelViewController extends AbstractDialogController implements
     @Override
     public void processDialogResult(ButtonType buttonType) {
         if (buttonType == ButtonType.OK) {
-            Taxon newTaxon = getData();
+            Taxon newTaxon = create();
             if (newTaxon != null) {
                 if (this.taxon == null) {
                     labelsViewModel.addLabel(newTaxon);

@@ -27,7 +27,7 @@ public class ParticlesViewModel {
 
     public void addParticles() {
         try {
-            AbstractDialogController.create(AddParticleViewController.class).showAndWait();
+            AbstractDialogController.create(AddParticleViewController.class).showEmbedded();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,7 +49,7 @@ public class ParticlesViewModel {
         try {
             EditParticleMetadataViewController controller = AbstractDialogController.create(EditParticleMetadataViewController.class);
             controller.setup(selectionViewModel.getCurrentParticles());
-            controller.showAndWait();
+            controller.showEmbedded();
         } catch (IOException e) {
             e.printStackTrace();
         }

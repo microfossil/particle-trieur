@@ -26,8 +26,7 @@ public class TagsViewModel {
         try {
             supervisor.project.setParticleTag(selectionViewModel.getCurrentParticles(), code);
             selectionViewModel.currentParticleUpdatedEvent.broadcast(null);
-        }
-        catch (Project.TagDoesntExistException ex) {
+        } catch (Project.TagDoesntExistException ex) {
             BasicDialogs.ShowError("Tag doesn't exist",
                     "The tag referred to by the button doesn't exist in the project's tag list.\n"
                             + "Please contact me regarding this error at ross.g.marchant@gmail.com");
@@ -37,13 +36,12 @@ public class TagsViewModel {
     public boolean updateTag(String code, Tag updated) {
         try {
             supervisor.project.updateTag(code, updated);
-            if(!code.equals(updated.getCode())) {
+            if (!code.equals(updated.getCode())) {
                 BasicDialogs.ShowInfo("Code changed",
                         String.format("The tag code \"%s\" has been changed to \"%s\".\nAll particles with this tag have also been updated.", code, updated.getCode()));
             }
             return true;
-        }
-        catch (Project.TagAlreadyExistsException ex) {
+        } catch (Project.TagAlreadyExistsException ex) {
             BasicDialogs.ShowError("Conflict",
                     String.format("Tried to modify tag code \"%s\" to \"%s\", but the code \"%s\" already exists.\n"
                                     + "Use the tag buttons if you wish to change tags.",
@@ -56,8 +54,7 @@ public class TagsViewModel {
         try {
             supervisor.project.addTag(updated);
             return true;
-        }
-        catch (Project.TagAlreadyExistsException ex) {
+        } catch (Project.TagAlreadyExistsException ex) {
             BasicDialogs.ShowError("Conflict",
                     String.format("Tried to add a new tag with code \"%s\", but that code already exists.",
                             updated.getCode()));
@@ -66,15 +63,18 @@ public class TagsViewModel {
     }
 
     public void deleteTag(Tag tag) {
-        try {
-            supervisor.project.deleteTag(tag);
-            BasicDialogs.ShowInfo("Code changed",
-                    String.format("The tag with code \"%s\" has been deleted.", tag.getCode()));
-        }
-        catch (Project.TaxonDoesntExistException ex) {
-            BasicDialogs.ShowError("Error",
-                    String.format("The tag code \"%s\" does not exist.", tag.getCode()));
-        }
+        BasicDialogs.ShowConfirmation("Delete tag",
+                String.format("Are you sure you wish to delete the tag \"%s\"?", tag.getCode()),
+                () -> {
+                    try {
+                        supervisor.project.deleteTag(tag);
+                        BasicDialogs.ShowInfo("Code changed",
+                                String.format("The tag with code \"%s\" has been deleted.", tag.getCode()));
+                    } catch (Project.TaxonDoesntExistException ex) {
+                        BasicDialogs.ShowError("Error",
+                                String.format("The tag code \"%s\" does not exist.", tag.getCode()));
+                    }
+                }, null);
     }
 
     public void initialiseTags(List<Tag> tags) {
