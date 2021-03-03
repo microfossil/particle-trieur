@@ -10,6 +10,8 @@ import particletrieur.viewcontrollers.MainController;
 import particletrieur.viewcontrollers.StartupViewController;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -64,6 +66,8 @@ public class App extends Application {
         if (SystemUtils.IS_OS_MAC_OSX) {
             JFrame frame = new JFrame();
         }
+
+        Locale.setDefault(new Locale("en", "AU"));
 
         //ResourceBundle bundle = ResourceBundle.getBundle("ordervschaos.particle.bundles.Lang", new Locale("fr"));
         ResourceBundle bundle = ResourceBundle.getBundle("bundles.Lang");
