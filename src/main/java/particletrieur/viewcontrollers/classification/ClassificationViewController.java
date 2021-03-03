@@ -273,6 +273,11 @@ public class ClassificationViewController implements Initializable {
         return sortedTaxons;
     }
 
+    private List<Tag> sortedListOfTags(Project project) {
+        List<Tag> sortedTags = project.tags.values().stream().sorted(Comparator.comparing(Tag::getCode)).collect(Collectors.toList());
+        return sortedTags;
+    }
+
     private void setupClassificationUI(Project project) {
         int mode = displayMode.get();
         if (mode == 0) {
@@ -280,16 +285,16 @@ public class ClassificationViewController implements Initializable {
             labelButtons.clear();
             labelTreeItems.clear();
             vboxClasses.getChildren().clear();
-            ArrayList<Taxon> classList = new ArrayList<>();
-            ArrayList<Taxon> nonclassList = new ArrayList<>();
+            List<Taxon> taxonList = sortedListOfTaxons(project, true);
+            List<Taxon> nonTaxonList = sortedListOfTaxons(project, false);
             for (Map.Entry<String, Taxon> entry : project.taxons.entrySet()) {
                 Taxon taxon = entry.getValue();
                 final String code = taxon.getCode();
-                if (taxon.getIsClass()) classList.add(taxon);
-                else nonclassList.add(taxon);
+                if (taxon.getIsClass()) taxonList.add(taxon);
+                else nonTaxonList.add(taxon);
             }
-            addButtonGroup("Classes", classList);
-            addButtonGroup("Non-classes", nonclassList);
+            addButtonGroup("Classes", taxonList);
+            addButtonGroup("Non-classes", nonTaxonList);
         }
         if (mode == 1) {
             //Group the taxons by the start of their code
@@ -412,10 +417,9 @@ public class ClassificationViewController implements Initializable {
     private void setupTagUI(Project project) {
         flowPaneTags.getChildren().clear();
         tagButtons.clear();
-
+        List<Tag> tags = sortedListOfTags(project);
         //Generate tag buttons
-        for (Map.Entry<String, Tag> entry : project.getTags().entrySet()) {
-            Tag tag = entry.getValue();
+        for (Tag tag : tags) {
             final String code = tag.getCode();
             Button button = new Button(code);
             button.setMnemonicParsing(false);
