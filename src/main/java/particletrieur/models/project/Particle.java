@@ -272,7 +272,6 @@ public class Particle {
     public LinkedHashMap<String, String> getParameters() {
         return parameters;
     }
-
     public void setParameters(LinkedHashMap<String, String> value) {
         parameters = value;
     }

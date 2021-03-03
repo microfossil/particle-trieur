@@ -27,8 +27,10 @@ public class ParametersMapAdapter extends XmlAdapter<ParametersMapAdapter.Parame
     @Override
     public LinkedHashMap<String, String> unmarshal(ParametersAdaptedMap v) throws Exception {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        for (Data d : v.list) {
-            map.put(d.key, d.value);
+        if (v.list != null) {
+            for (Data d : v.list) {
+                map.put(d.key, d.value);
+            }
         }
         return map;
     }

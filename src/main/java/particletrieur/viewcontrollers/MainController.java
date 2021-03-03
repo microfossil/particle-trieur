@@ -228,9 +228,9 @@ public class MainController extends AbstractController implements Initializable 
         vbox.getChildren().add(dialog.getDialogPane());
         MainController.instance.rootDialog.getChildren().add(hbox);
         MainController.instance.rootDialog.setVisible(true);
-        System.out.println("Dialog opened " + dialog.toString());
+//        System.out.println("Dialog opened " + dialog.toString());
         dialog.setOnHiding(event -> {
-            System.out.println("Dialog closed " + dialog.toString());
+//            System.out.println("Dialog closed " + dialog.toString());
             rootDialog.getChildren().remove(hbox);
             if (rootDialog.getChildren().size() == 0) {
                 rootDialog.setVisible(false);
