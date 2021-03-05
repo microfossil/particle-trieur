@@ -13,6 +13,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import particletrieur.AbstractController;
 import particletrieur.App;
+import particletrieur.AppController;
+import particletrieur.FxmlLocation;
 import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.controls.SymbolLabel;
 
@@ -21,6 +23,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+@FxmlLocation("/views/StartupView.fxml")
 public class StartupViewController extends AbstractController implements Initializable {
 
     @FXML
@@ -31,7 +34,6 @@ public class StartupViewController extends AbstractController implements Initial
     HBox hboxLoading;
     @FXML
     SymbolLabel symbolLoading;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -87,21 +89,18 @@ public class StartupViewController extends AbstractController implements Initial
             try {
                 MainController controller = AbstractController.create(MainController.class, ResourceBundle.getBundle("bundles.Lang"));
                 controller.setupAccelerators();
-                controller.setupStage(this.stage);
+                controller.setupStage(AppController.getStage());
                 AnchorPane.setLeftAnchor(controller.root, 0.0);
                 AnchorPane.setBottomAnchor(controller.root, 0.0);
                 AnchorPane.setRightAnchor(controller.root, 0.0);
                 AnchorPane.setTopAnchor(controller.root, 0.0);
-                ((Pane) root).getChildren().clear();
-                ((Pane) root).getChildren().add(controller.root);
-                this.stage.sizeToScene();
-                this.stage.centerOnScreen();
+                AppController.getInstance().setRoot(controller);
                 controller.setStartupParams(path);
                 controller.setStartupMode(mode);
                 controller.startup();
             } catch (Exception e) {
-                BasicDialogs.ShowException("Error opening ParticleTrieur", e);
                 e.printStackTrace();
+                BasicDialogs.ShowException("Error opening ParticleTrieur", e);
             }
         });
         App.getExecutorService().submit(task);

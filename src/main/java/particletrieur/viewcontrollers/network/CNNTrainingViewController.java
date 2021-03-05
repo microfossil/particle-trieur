@@ -8,9 +8,7 @@ package particletrieur.viewcontrollers.network;
 import com.google.inject.Inject;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
-import particletrieur.App;
-import particletrieur.AppPreferences;
-import particletrieur.FxmlLocation;
+import particletrieur.*;
 import particletrieur.controls.dialogs.AlertEx;
 import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.models.Supervisor;
@@ -19,7 +17,6 @@ import particletrieur.models.network.training.CNNTrainingScript;
 import particletrieur.models.network.training.ModelDefaults;
 import particletrieur.services.network.CNNTrainingService;
 import particletrieur.services.network.TrainingNetworkDescriptionService;
-import particletrieur.AbstractDialogController;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -304,7 +301,7 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setInitialDirectory(folder);
         chooser.setTitle("Choose the folder containing the images for training");
-        folder = chooser.showDialog(this.stage);
+        folder = chooser.showDialog(AppController.getStage());
         if (folder != null) {
             textFieldInputFolder.setText(folder.getAbsolutePath());
         }
@@ -330,7 +327,7 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setInitialDirectory(folder);
         chooser.setTitle("Choose the folder to save the trained network to");
-        folder = chooser.showDialog(this.stage);
+        folder = chooser.showDialog(AppController.getStage());
         if (folder != null) {
             textFieldOutputFolder.setText(folder.getAbsolutePath());
         }
@@ -364,7 +361,7 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
         if (python.equals("") || !(new File(python).exists())) python = System.getProperty("user.home");
         FileChooser fc = new FileChooser();
         fc.setInitialDirectory(new File(python).getParentFile());
-        File file = fc.showOpenDialog(this.stage);
+        File file = fc.showOpenDialog(AppController.getStage());
         //Open
         if (file != null) {
             appPrefs.setPythonPath(file.getAbsolutePath());

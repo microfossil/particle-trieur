@@ -250,7 +250,6 @@ public class EditParticleMetadataViewController extends AbstractDialogController
                 BasicDialogs.ProgressDialogWithCancel2(
                         "Operation",
                         "Updating Metadata",
-                        App.getRootPane(),
                         service).start();
             }
             else {

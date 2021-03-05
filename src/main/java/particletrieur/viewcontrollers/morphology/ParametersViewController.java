@@ -14,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
 import particletrieur.App;
+import particletrieur.AppController;
 import particletrieur.controls.dialogs.AlertEx;
 import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.controls.dialogs.DialogEx;
@@ -88,7 +89,7 @@ public class ParametersViewController implements Initializable {
                 }
                 fc.setTitle("Choose parameters CSV file");
                 fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV file (*.csv)", "*.csv"));
-                File file = fc.showOpenDialog(App.getWindow());
+                File file = fc.showOpenDialog(AppController.getWindow());
                 if (file != null) {
                     Service<LinkedHashMap<String, LinkedHashMap<String, String>>> service = ParametersFromCSVService.getParametersFromCSV(file);
                     service.setOnSucceeded(event -> {
@@ -103,7 +104,6 @@ public class ParametersViewController implements Initializable {
                     BasicDialogs.ProgressDialogWithCancel2(
                             "Add Parameters",
                             "Add Parameters",
-                            App.getRootPane(),
                             service).start();
                 }
             }

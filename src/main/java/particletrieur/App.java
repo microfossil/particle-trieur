@@ -36,9 +36,7 @@ import javax.swing.*;
 public class App extends Application {
 
     public static String VERSION = "2.4.4";
-    
-    public static Image iconImage = new Image(App.class.getResourceAsStream("/icons/icon.png"),44, 44,true,true);
-    
+
     private static App instance;
     public static App getInstance() {
         return instance;
@@ -48,15 +46,14 @@ public class App extends Application {
     public static AppPreferences getPrefs() { return prefs; }
 
     private Stage stage;
+    public static Stage getStage() { return getInstance().stage; }
+
     public final Injector injector = Guice.createInjector(new MainModule());
+    
+    public static Image iconImage = new Image(App.class.getResourceAsStream("/icons/icon.png"),44, 44,true,true);
 
     ExecutorService executorService = Executors.newFixedThreadPool(10);
     public static ExecutorService getExecutorService() { return instance.executorService; }
-
-    private Parent root;
-
-    public static Window getWindow() { return MainController.instance.getWindow(); }
-    public static Pane getRootPane() { return MainController.instance.getRootPane(); }
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -71,19 +68,14 @@ public class App extends Application {
 
         //ResourceBundle bundle = ResourceBundle.getBundle("ordervschaos.particle.bundles.Lang", new Locale("fr"));
         ResourceBundle bundle = ResourceBundle.getBundle("bundles.Lang");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/StartupView.fxml"),bundle);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/App.fxml"), bundle);
         loader.setControllerFactory(instantiatedClass -> injector.getInstance(instantiatedClass));
-        root = loader.load();
+        Parent root = loader.load();
         stage.setTitle("Particle Trieur " + App.VERSION);
-        stage.getIcons().add(new Image(App.class.getResourceAsStream("/icons/icon.png"  )));
-        
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("/icons/icon.png")));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/styles/style.css").toExternalForm());
-
-        StartupViewController controller = loader.getController();
-        controller.stage = stage;
-        //controller.setupAccelerators();
-        
+        AppController controller = loader.getController();
         stage.setScene(scene);
         stage.show();
     }

@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import particletrieur.AppController;
 import particletrieur.viewcontrollers.MainController;
 
 import java.util.Optional;
@@ -29,6 +30,6 @@ public class AlertEx extends Alert {
     }
 
     public void showEmbedded() {
-        MainController.instance.showDialog(this);
+        AppController.getInstance().showDialog(this);
     }
 }

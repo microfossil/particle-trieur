@@ -2,6 +2,7 @@ package particletrieur.viewcontrollers.tools;
 
 import javafx.stage.FileChooser;
 import particletrieur.App;
+import particletrieur.AppController;
 import particletrieur.services.FlowcamSegmenterService;
 import particletrieur.AbstractDialogController;
 import particletrieur.FxmlLocation;
@@ -71,7 +72,7 @@ public class FlowcamSegmenterViewController extends AbstractDialogController imp
         else if ((new File(lastPath)).exists()) {
             chooser.setInitialDirectory(new File(lastPath));
         }
-        File directory = chooser.showDialog(this.stage);
+        File directory = chooser.showDialog(AppController.getStage());
         if (directory != null) {
             textFieldInputDirectory.setText(directory.getAbsolutePath());
             App.getPrefs().setFlowcamPath(directory.getAbsolutePath());
@@ -107,7 +108,7 @@ public class FlowcamSegmenterViewController extends AbstractDialogController imp
         else if ((new File(lastPath)).exists()) {
             chooser.setInitialDirectory(new File(lastPath));
         }
-        File file = chooser.showOpenDialog(this.stage);
+        File file = chooser.showOpenDialog(AppController.getStage());
         if (file != null) {
             textFieldSpeciesXLSX.setText(file.getAbsolutePath());
         }
@@ -123,7 +124,7 @@ public class FlowcamSegmenterViewController extends AbstractDialogController imp
         else if ((new File(lastPath)).exists()) {
             chooser.setInitialDirectory(new File(lastPath));
         }
-        File directory = chooser.showDialog(this.stage);
+        File directory = chooser.showDialog(AppController.getStage());
         if (directory != null) {
             textFieldOutputDirectory.setText(directory.getAbsolutePath());
             lastPath = directory.getParent();
@@ -141,7 +142,7 @@ public class FlowcamSegmenterViewController extends AbstractDialogController imp
 //            BasicDialogs.ProgressDialogWithCancel2(
 //                    "Operation",
 //                    "Adding files",
-//                    App.getRootPane(),
+//                    AppController.getRootContainer(),
 //                    service).start();
         }
     }

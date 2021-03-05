@@ -28,7 +28,7 @@ public abstract class AbstractDialogController extends AbstractController {
 
     public void showEmbedded() {
         dialog = asDialog(getHeader(), getSymbol(), getButtonTypes());
-        MainController.instance.showDialog(dialog);
+        AppController.getInstance().showDialog(dialog);
     }
 
     @Override
@@ -45,7 +45,7 @@ public abstract class AbstractDialogController extends AbstractController {
         DialogEx dialog = new DialogEx();
         this.dialog = dialog;
         dialog.getDialogPane().getButtonTypes().addAll(buttonTypes);
-        dialog.getDialogPane().setContent(stage.getScene().getRoot());
+        dialog.getDialogPane().setContent(this.root);
         dialog.setResultConverter(button -> {
             processDialogResult((ButtonType) button);
             return button;

@@ -1,6 +1,7 @@
 package particletrieur.viewmodels.project;
 
 import particletrieur.App;
+import particletrieur.AppController;
 import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.models.ProjectRepository;
 import particletrieur.models.Supervisor;
@@ -50,7 +51,7 @@ public class ProjectRepositoryViewModel {
         }
         fc.setTitle("Choose a project file to open");
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Project file", "*.xml"));
-        File file = fc.showOpenDialog(App.getWindow());
+        File file = fc.showOpenDialog(AppController.getWindow());
         //Open
         if (file != null) {
             try {
@@ -105,7 +106,7 @@ public class ProjectRepositoryViewModel {
         }
         fc.setTitle("Choose a project file as a template");
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Project file", "*.xml"));
-        File file = fc.showOpenDialog(App.getWindow());
+        File file = fc.showOpenDialog(AppController.getWindow());
         //Open
         if (file != null) {
             try {
@@ -173,7 +174,7 @@ public class ProjectRepositoryViewModel {
         }
 
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Project (*.xml)", "*.xml"));
-        File file = fc.showSaveDialog(App.getWindow());
+        File file = fc.showSaveDialog(AppController.getWindow());
         //Save
         if (file != null) {
             if (!file.getName().contains(".")) {
@@ -220,7 +221,7 @@ public class ProjectRepositoryViewModel {
         }
         fc.setTitle("Choose a project to import");
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Project files (*.xml)", "*.xml"));
-        File file = fc.showOpenDialog(App.getWindow());
+        File file = fc.showOpenDialog(AppController.getWindow());
         //Open
         if (file != null) {
             try {

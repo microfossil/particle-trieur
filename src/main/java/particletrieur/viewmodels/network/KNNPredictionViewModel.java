@@ -121,7 +121,6 @@ public class KNNPredictionViewModel {
             BasicDialogs.ProgressDialogWithCancel2(
                     "Operation",
                     "kNN Prediction",
-                    App.getRootPane(),
                     service).start();
         } else {
             service.start();

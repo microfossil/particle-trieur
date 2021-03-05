@@ -3,6 +3,7 @@ package particletrieur.viewmodels.tools;
 import javafx.scene.control.ButtonType;
 import javafx.stage.DirectoryChooser;
 import particletrieur.App;
+import particletrieur.AppController;
 import particletrieur.controls.dialogs.AlertEx;
 import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.controls.dialogs.DialogEx;
@@ -53,7 +54,6 @@ public class ToolsViewModel {
         BasicDialogs.ProgressDialogWithCancel2(
                 "Operation",
                 "Tagging duplicates by file match",
-                App.getRootPane(),
                 service).start();
     }
 
@@ -82,7 +82,6 @@ public class ToolsViewModel {
         BasicDialogs.ProgressDialogWithCancel2(
                 "Operation",
                 "Tagging duplicates by file matching (hash code)",
-                App.getRootPane(),
                 service).start();
     }
 
@@ -126,7 +125,6 @@ public class ToolsViewModel {
         BasicDialogs.ProgressDialogWithCancel2(
                 "Operation",
                 "Tagging duplicates by feature vector",
-                App.getRootPane(),
                 service).start();
     }
 
@@ -141,7 +139,7 @@ public class ToolsViewModel {
                     if (path != null && Files.exists(Paths.get(path))) {
                         chooser.setInitialDirectory(new File(path));
                     }
-                    File res = chooser.showDialog(App.getWindow());
+                    File res = chooser.showDialog(AppController.getWindow());
                     if (res == null) return null;
                     try {
                         supervisor.folderWatch.start(res);

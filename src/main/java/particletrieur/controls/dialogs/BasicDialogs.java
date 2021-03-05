@@ -175,10 +175,6 @@ public class BasicDialogs {
     public static ProgressDialog2 ProgressDialogWithCancel2(
             String title, 
             String header,
-            //String success,
-            //String failed,
-            //String cancelled,
-            Pane pane, 
             Service service) {       
         ProgressDialog2 pd = new ProgressDialog2(service);
         //pd.closeOnServiceFinished = false;

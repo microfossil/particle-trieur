@@ -326,7 +326,6 @@ public class AddParticleViewController extends AbstractDialogController implemen
             ProgressDialog2 dialog = BasicDialogs.ProgressDialogWithCancel2(
                     "Operation",
                     "Adding files",
-                    App.getRootPane(),
                     service);
             dialog.setResultConverter(value -> {
                 if (value == ButtonType.CLOSE) {

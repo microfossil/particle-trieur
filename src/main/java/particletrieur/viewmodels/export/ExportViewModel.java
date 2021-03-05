@@ -8,6 +8,7 @@ import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import particletrieur.AbstractDialogController;
 import particletrieur.App;
+import particletrieur.AppController;
 import particletrieur.controls.dialogs.AlertEx;
 import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.models.Supervisor;
@@ -47,7 +48,7 @@ public class ExportViewModel {
         if(path != null && Files.exists(Paths.get(path))) {
             fc.setInitialDirectory(new File(path));
         }
-        File file = fc.showSaveDialog(App.getWindow());
+        File file = fc.showSaveDialog(AppController.getWindow());
 
         if (file == null) return;
 
@@ -65,7 +66,6 @@ public class ExportViewModel {
                 BasicDialogs.ProgressDialogWithCancel2(
                         "Operation",
                         "Exporting morphology to CSV",
-                        App.getRootPane(),
                         service).start();
             }
             return null;
@@ -82,7 +82,7 @@ public class ExportViewModel {
         if(path != null && Files.exists(Paths.get(path))) {
             fc.setInitialDirectory(new File(path));
         }
-        File file = fc.showSaveDialog(App.getWindow());
+        File file = fc.showSaveDialog(AppController.getWindow());
 
         if (file == null) return;
 
@@ -99,7 +99,6 @@ public class ExportViewModel {
                 BasicDialogs.ProgressDialogWithCancel2(
                         "Operation",
                         "Exporting project to CSV",
-                        App.getRootPane(),
                         service).start();
             }
             return null;
@@ -116,7 +115,7 @@ public class ExportViewModel {
         if(path != null && Files.exists(Paths.get(path))) {
             fc.setInitialDirectory(new File(path));
         }
-        File file = fc.showSaveDialog(App.getWindow());
+        File file = fc.showSaveDialog(AppController.getWindow());
 
         if (file == null) return;
 
@@ -133,7 +132,6 @@ public class ExportViewModel {
                 BasicDialogs.ProgressDialogWithCancel2(
                         "Operation",
                         "Exporting abundance CSV",
-                        App.getRootPane(),
                         service).start();
             }
             return null;
@@ -150,7 +148,7 @@ public class ExportViewModel {
         if(path != null && Files.exists(Paths.get(path))) {
             fc.setInitialDirectory(new File(path));
         }
-        File file = fc.showSaveDialog(App.getWindow());
+        File file = fc.showSaveDialog(AppController.getWindow());
 
         if (file == null) return;
 
@@ -167,7 +165,6 @@ public class ExportViewModel {
                 BasicDialogs.ProgressDialogWithCancel2(
                         "Operation",
                         "Exporting sample counts CSV",
-                        App.getRootPane(),
                         service).start();
             }
             return null;

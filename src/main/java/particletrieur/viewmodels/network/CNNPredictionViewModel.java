@@ -5,6 +5,7 @@ import javafx.beans.property.*;
 import javafx.concurrent.Service;
 import javafx.stage.FileChooser;
 import particletrieur.App;
+import particletrieur.AppController;
 import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.helpers.AutoCancellingServiceRunner;
 import particletrieur.models.Supervisor;
@@ -149,7 +150,6 @@ public class CNNPredictionViewModel {
             BasicDialogs.ProgressDialogWithCancel2(
                     "Operation",
                     "CNN Prediction",
-                    App.getRootPane(),
                     service).start();
         } else {
             service.start();
@@ -168,7 +168,7 @@ public class CNNPredictionViewModel {
             dc.setInitialDirectory(new File(path));
         }
         dc.setTitle("Select network definition");
-        File file = dc.showOpenDialog(App.getWindow());
+        File file = dc.showOpenDialog(AppController.getWindow());
         if (file == null) return null;
         NetworkInfo def = null;
         try {

@@ -9,8 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Window;
-import particletrieur.App;
-import particletrieur.FxmlLocation;
+import particletrieur.*;
 import particletrieur.controls.SymbolLabel;
 import particletrieur.controls.dialogs.DialogEx;
 import particletrieur.viewcontrollers.classification.ClassificationViewController;
@@ -21,9 +20,7 @@ import particletrieur.viewmanagers.UndoManager;
 import particletrieur.viewmanagers.commands.UndoableCommand;
 import particletrieur.viewmodels.*;
 import particletrieur.models.Supervisor;
-import particletrieur.AbstractController;
 import particletrieur.viewcontrollers.label.LabelListViewController;
-import particletrieur.AbstractDialogController;
 import particletrieur.viewcontrollers.tag.TagListViewController;
 import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.models.project.Particle;
@@ -205,36 +202,11 @@ public class MainController extends AbstractController implements Initializable 
         System.out.println(String.format("Tensorflow version: %s", TensorFlow.version()));
         setupBindings();
 
-        rt = new RotateTransition(Duration.millis(3000), symbolLabelWorking);
-        rt.setByAngle(360);
-        rt.setInterpolator(Interpolator.LINEAR);
-        rt.setCycleCount(Animation.INDEFINITE);
-        symbolLabelWorking.setCache(true);
-        symbolLabelWorking.setCacheHint(CacheHint.SPEED);
+
         updateRecentMenu();
 
         menuRecent.setOnShowing(p -> {
             updateRecentMenu();
-        });
-    }
-
-    public void showDialog(Dialog dialog) {
-        HBox hbox = new HBox();
-        hbox.setAlignment(Pos.CENTER);
-        VBox vbox = new VBox();
-        vbox.setAlignment(Pos.CENTER);
-        hbox.getChildren().add(vbox);
-        dialog.getDialogPane().setStyle("-fx-border-color: -fx-accent; -fx-border-width: 1; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 20, 0.0 , 0 , 6 );");
-        vbox.getChildren().add(dialog.getDialogPane());
-        MainController.instance.rootDialog.getChildren().add(hbox);
-        MainController.instance.rootDialog.setVisible(true);
-//        System.out.println("Dialog opened " + dialog.toString());
-        dialog.setOnHiding(event -> {
-//            System.out.println("Dialog closed " + dialog.toString());
-            rootDialog.getChildren().remove(hbox);
-            if (rootDialog.getChildren().size() == 0) {
-                rootDialog.setVisible(false);
-            }
         });
     }
 
@@ -326,7 +298,7 @@ public class MainController extends AbstractController implements Initializable 
                 App.getExecutorService().shutdown();
             }
         });
-        this.stage.setTitle("Particle Trieur " + App.VERSION);
+        AppController.getStage().setTitle("Particle Trieur " + App.VERSION);
     }
 
     /**
@@ -338,7 +310,7 @@ public class MainController extends AbstractController implements Initializable 
         supervisor.project.fileProperty().addListener((observable, oldValue, newValue) -> {
             String title = "New project, not saved yet";
             if (newValue != null) title = newValue.getAbsolutePath();
-            this.stage.setTitle("Particle Trieur " + App.VERSION + " - "  + title);
+            AppController.getStage().setTitle("Particle Trieur " + App.VERSION + " - "  + title);
         });
 
         //Username
@@ -367,15 +339,7 @@ public class MainController extends AbstractController implements Initializable 
         mainViewModel.operationInProgressProperty().addListener((obs, oldv, newv) -> {
             //System.out.println(newv);
 //            rootMain.setDisable(newv);
-            rootLoading.setVisible(newv);
-            if (newv) {
-                rootMain.setEffect(new GaussianBlur(10));
-                rt.play();
-            }
-            else {
-                rootMain.setEffect(null);
-                rt.stop();
-            }
+            AppController.getInstance().showLoading(newv);
         });
 
         //Particle changed
@@ -481,7 +445,7 @@ public class MainController extends AbstractController implements Initializable 
      * Setup the keyboard accelerators
      */
     public void setupAccelerators() {
-        Scene scene = root.getScene();
+        Scene scene = AppController.getRootContainer().getScene();
         scene.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent ke) -> {
             //if (ke.getCode() == KeyCode.LEFT) { previousForam(); ke.consume(); }
             // if (ke.getCode() == KeyCode.RIGHT) { nextForam(); ke.consume(); }

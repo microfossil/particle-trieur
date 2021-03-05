@@ -8,6 +8,7 @@ package particletrieur.viewcontrollers.export;
 import javafx.beans.binding.Bindings;
 import javafx.util.StringConverter;
 import particletrieur.App;
+import particletrieur.AppController;
 import particletrieur.controls.dialogs.AlertEx;
 import particletrieur.models.project.Project;
 import particletrieur.models.Supervisor;
@@ -262,7 +263,7 @@ public class ExportViewController extends AbstractDialogController implements In
         if(path != null && Files.exists(Paths.get(path))) {
             chooser.setInitialDirectory(new File(path));
         }
-        File res = chooser.showDialog(this.stage);
+        File res = chooser.showDialog(AppController.getStage());
         if (res == null) return;
         File outputDirectory = new File(res.getAbsolutePath());
         exportImagesService.outputDirectory = outputDirectory;
@@ -280,7 +281,6 @@ public class ExportViewController extends AbstractDialogController implements In
                 BasicDialogs.ProgressDialogWithCancel2(
                         "Operation",
                         "Exporting images",
-                        App.getRootPane(),
                         service).start();
             }
             return null;

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import particletrieur.controls.SymbolLabel?>
+<?import javafx.scene.text.Font?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="particletrieur.AppController">
+        <StackPane fx:id="rootContainer" />
+        <StackPane fx:id="rootDialog" visible="false"/>
+        <StackPane fx:id="rootLoading" prefHeight="150.0" prefWidth="200.0" styleClass="control-shadow-0p5"
+                   visible="false">
+            <children>
+                <HBox alignment="CENTER" maxHeight="100.0" maxWidth="200.0" prefHeight="100.0" prefWidth="200.0"
+                      style="-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: derive(-fx-background, 50%);">
+                    <children>
+                        <VBox alignment="CENTER">
+                            <children>
+                                <Label graphicTextGap="14.0" text="Working...">
+                                    <font>
+                                        <Font size="26.0"/>
+                                    </font>
+                                    <graphic>
+                                        <SymbolLabel fx:id="symbolLabelWorking" symbol="featherrefreshcw"/>
+                                    </graphic>
+                                </Label>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </StackPane>
+</StackPane>

@@ -30,6 +30,7 @@ public class ExceptionMonitor implements Thread.UncaughtExceptionHandler {
         sb.append("\n");
         pw.close();
         setErrorCount(getErrorCount()+1);
+        e.printStackTrace();
     }
 
     public String getLog() {

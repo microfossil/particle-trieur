@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import particletrieur.AppController;
 import particletrieur.viewcontrollers.MainController;
 
 import javax.swing.text.html.Option;
@@ -26,6 +27,6 @@ public class DialogEx<T> extends Dialog<T> {
     }
 
     public void showEmbedded() {
-        MainController.instance.showDialog(this);
+        AppController.getInstance().showDialog(this);
     }
 }

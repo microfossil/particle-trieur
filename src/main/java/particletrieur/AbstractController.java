@@ -14,24 +14,34 @@ import java.util.ResourceBundle;
 
 public abstract class AbstractController {
 
-    public Stage stage;
+    private Stage stage;
 
     @FXML
     public Parent root;
 
+    private void createStage() {
+        Scene scene = new Scene(root);
+        stage = new Stage();
+        stage.setScene(scene);
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("/icons/icon.png")));
+    }
+
     public void show() {
+        createStage();
         stage.initModality(Modality.NONE);
         stage.centerOnScreen();
         stage.show();
     }
 
     public void showAndWait() {
+        createStage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.centerOnScreen();
         stage.showAndWait();
     }
 
     public void showAndWait(Pane root) {
+        createStage();
         stage.initOwner(root.getScene().getWindow());
         stage.initModality(Modality.WINDOW_MODAL);
         stage.centerOnScreen();
@@ -45,10 +55,6 @@ public abstract class AbstractController {
         Parent root = loader.load();
         T controller = loader.getController();
         controller.root = root;
-        Scene scene = new Scene(root);
-        controller.stage = new Stage();
-        controller.stage.setScene(scene);
-        controller.stage.getIcons().add(new Image(App.class.getResourceAsStream("/icons/icon.png"  )));
         return controller;
     }
 
@@ -59,10 +65,6 @@ public abstract class AbstractController {
         Parent root = loader.load();
         T controller = loader.getController();
         controller.root = root;
-        Scene scene = new Scene(root);
-        controller.stage = new Stage();
-        controller.stage.setScene(scene);
-        controller.stage.getIcons().add(new Image(App.class.getResourceAsStream("/icons/icon.png"  )));
         return controller;
     }
 }
