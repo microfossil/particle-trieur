@@ -119,20 +119,19 @@ public class Project implements Serializable {
 
     //Status
     private final BooleanProperty isDirty = new SimpleBooleanProperty(false);
-
     public BooleanProperty isDirtyProperty() {
         return isDirty;
     }
-
     public void setIsDirty(Boolean value) {
         isDirty.set(value);
     }
-
     public Boolean getIsDirty() {
         return isDirty.get();
     }
 
     //Events
+    public CSEvent particleValidatedEvent = new CSEvent();
+    public CSEvent particleLabeledEvent = new CSEvent();
     public CSEvent taxonsUpdatedEvent = new CSEvent();
     public CSEvent tagsUpdatedEvent = new CSEvent();
     public CSEvent<Particle> particleAddedEvent = new CSEvent<>();
@@ -186,11 +185,6 @@ public class Project implements Serializable {
         tags.put(DUPLICATE_CODE, new Tag(DUPLICATE_CODE, "Duplicate", "The image is a duplicate of another in the set."));
         tags.put(AUTO_CODE, new Tag(AUTO_CODE, "Automatically classified", "The image was automatically classified."));
     }
-        
-    
-    /*
-    LOADING AND SAVING TO XML
-    */
 
 
     /*
@@ -274,68 +268,6 @@ public class Project implements Serializable {
         Collections.shuffle(this.particles);
     }
 
-//    public void addImages(File dir) {
-//        Collection<File> fileCollection = FileUtils.listFiles(dir, new String[]{"bmp", "png", "tiff", "tif", "jpg", "jpeg"}, true);
-//        if (fileCollection.size() > 0) {
-//            ArrayList<Particle> toAdd = new ArrayList<>();
-//            for (File file : fileCollection) {
-//                toAdd.add(new Particle(file, UNLABELED_CODE, ""));
-//            }
-//            addParticles(toAdd);
-//        }
-//    }
-//
-//    public void addImages(List<File> files, Particle template) {
-//        if (files.size() > 0) {
-//            ArrayList<Particle> toAdd = new ArrayList<>();
-//            for (File file : files) {
-//                Particle particle = new Particle(file);
-//                particle.clearAndAddClassification(UNLABELED_CODE, 1.0, "");
-//                particle.setSampleID(template.getSampleID());
-//                particle.setIndex1(template.getIndex1());
-//                particle.setIndex2(template.getIndex2());
-//                toAdd.add(particle);
-//            }
-//            addParticles(toAdd);
-//        }
-//    }
-//
-//    public void addImages(List<File> files) {
-//        if (files.size() > 0) {
-//            ArrayList<Particle> toAdd = new ArrayList<>();
-//            for (File file : files) {
-//                toAdd.add(new Particle(file, UNLABELED_CODE, ""));
-//            }
-//            addParticles(toAdd);
-//        }
-//    }
-//
-//    public void importImages(List<File> files) {
-//        if (files.size() > 0) {
-//            if (file != null) {
-//                File parentDirectory = getFile().getParentFile();
-//                File imagesDirectory = Paths.get(parentDirectory.getAbsolutePath(), "images").toFile();
-//                try {
-//                    FileUtils.forceMkdir(imagesDirectory);
-//                    for (File fileitem : files) {
-//                        File outputFile = Paths.get(imagesDirectory.getAbsolutePath(), fileitem.getName()).toFile();
-//                        Files.copy(getFile().toPath(), outputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-//                        particles.add(new Particle(getFile(), UNLABELED_CODE, ""));
-//                    }
-//                } catch (IOException ex) {
-//                    Logger.getLogger(Project.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//            ArrayList<Particle> toAdd = new ArrayList<>();
-//            for (File file : files) {
-//                toAdd.add(new Particle(file, UNLABELED_CODE, ""));
-//            }
-//            addParticles(toAdd);
-//        }
-//    }
-//
-
-
 
     /*
     FORAMS
@@ -354,6 +286,7 @@ public class Project implements Serializable {
                 }
             }
             setIsDirty(true);
+            particleLabeledEvent.broadcast();
         } else {
             throw new TaxonDoesntExistException("Taxon doesn't exist");
         }
@@ -371,6 +304,7 @@ public class Project implements Serializable {
                 }
             }
             setIsDirty(true);
+            particleLabeledEvent.broadcast();
         } else {
             throw new TaxonDoesntExistException("Taxon doesn't exist");
         }
@@ -384,6 +318,7 @@ public class Project implements Serializable {
         addTaxonsIfMissing(taxonsToAdd);
         particle.setClassifications(classificationSet, 0, false);
         setIsDirty(true);
+        particleLabeledEvent.broadcast();
     }
 
     public void setParticleLabelSet(Particle particle, ClassificationSet classificationSet, double threshold, boolean wasAuto) {
@@ -394,6 +329,7 @@ public class Project implements Serializable {
         addTaxonsIfMissing(taxonsToAdd);
         particle.setClassifications(classificationSet, threshold, wasAuto);
         setIsDirty(true);
+        particleLabeledEvent.broadcast();
     }
 
     public void setParticleTag(List<Particle> particles, String code) throws TagDoesntExistException {
@@ -466,6 +402,7 @@ public class Project implements Serializable {
             if (payload.guid != null) payload.particle.setGUID(payload.guid);
         }
         setIsDirty(true);
+        particleLabeledEvent.broadcast();
     }
 
     public void updateParticleParameters(LinkedHashMap<String, LinkedHashMap<String, String>> files) {
@@ -492,6 +429,7 @@ public class Project implements Serializable {
         }
         addTaxonsIfMissing(new ArrayList<>(taxons));
         setIsDirty(true);
+        particleLabeledEvent.broadcast();
     }
 
     public void setParticleCNNVector(Particle particle, float[] vector) {
@@ -523,6 +461,7 @@ public class Project implements Serializable {
         if (validator != null) {
             particle.validate(validator);
             setIsDirty(true);
+            particleValidatedEvent.broadcast();
         }
     }
 
@@ -532,6 +471,7 @@ public class Project implements Serializable {
                 particle.validate(validator);
             }
             setIsDirty(true);
+            particleValidatedEvent.broadcast();
         }
     }
 

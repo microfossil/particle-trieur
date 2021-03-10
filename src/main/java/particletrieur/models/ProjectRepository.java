@@ -172,6 +172,8 @@ public class ProjectRepository {
         if (project.particles.size() > 0) project.particleAddedEvent.broadcast(project.particles.get(0));
 
         project.setIsDirty(false);
+        project.particleLabeledEvent.broadcast();
+        project.particleValidatedEvent.broadcast();
     }
 
     public void open(File file) throws JAXBException, IOException, XMLStreamException, IllegalAccessException, IntrospectionException, InvocationTargetException {

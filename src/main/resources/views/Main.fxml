@@ -103,7 +103,12 @@
                                         <Menu mnemonicParsing="false" text="Edit">
                                             <items>
                                                 <MenuItem fx:id="menuItemUndo" disable="true" mnemonicParsing="false"
-                                                          onAction="#handleUndo" text="Undo"/>
+                                                          onAction="#handleUndo" text="Undo">
+                                                    <accelerator>
+                                                        <KeyCodeCombination alt="UP" code="Z" control="UP" meta="UP"
+                                                                            shift="UP" shortcut="DOWN"/>
+                                                    </accelerator>
+                                                </MenuItem>
                                                 <SeparatorMenuItem mnemonicParsing="false" visible="true"/>
                                                 <!--                                                <MenuItem mnemonicParsing="false" text="Redo" visible="false"/>-->
                                                 <!--                                                <SeparatorMenuItem mnemonicParsing="false" visible="false"/>-->
@@ -553,6 +558,19 @@
                                 </Label>
                                 <Separator orientation="VERTICAL"/>
                                 <Label fx:id="labelGPUUsage" styleClass="green-text" text="GPU usage:">
+                                    <!--                                                <graphic>-->
+                                    <!--                                                    <SymbolLabel styleClass="green-text" symbol="feathersearch" />-->
+                                    <!--                                                </graphic>-->
+                                </Label>
+                                <Separator orientation="VERTICAL"/>
+
+                                <Label fx:id="labelLabeled" text="Labeled: 0%">
+                                    <!--                                                <graphic>-->
+                                    <!--                                                    <SymbolLabel styleClass="green-text" symbol="feathersearch" />-->
+                                    <!--                                                </graphic>-->
+                                </Label>
+                                <Separator orientation="VERTICAL"/>
+                                <Label fx:id="labelValidated" text="Validated 0%">
                                     <!--                                                <graphic>-->
                                     <!--                                                    <SymbolLabel styleClass="green-text" symbol="feathersearch" />-->
                                     <!--                                                </graphic>-->

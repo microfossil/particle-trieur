@@ -13,9 +13,6 @@ import java.io.IOException;
 
 public class MainViewModel {
 
-    public CSEvent addImageRequested = new CSEvent();
-    public CSEvent removeImageRequested = new CSEvent();
-
     public CNNTrainingViewController cnnTrainingViewController;
     public FlowcamSegmenterViewController flowcamSegmenterViewController;
 

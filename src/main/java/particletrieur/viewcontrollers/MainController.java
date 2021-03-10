@@ -73,11 +73,14 @@ public class MainController extends AbstractController implements Initializable 
     public static MainController instance;
     public StackPane rootDialog;
     public VBox rootVBox;
+
     @FXML StackPane stackPaneDialog;
 
     @FXML AnchorPane particleGridView;
     @FXML Label labelGPUMemory;
     @FXML Label labelGPUUsage;
+    @FXML Label labelLabeled;
+    @FXML Label labelValidated;
     @FXML CheckBox checkBoxAutoAdvance;
     @FXML CheckBox checkBoxAutoValidate;
 
@@ -320,14 +323,6 @@ public class MainController extends AbstractController implements Initializable 
         checkBoxAutoAdvance.selectedProperty().bindBidirectional(labelsViewModel.autoAdvanceProperty());
         checkBoxAutoValidate.selectedProperty().bindBidirectional(labelsViewModel.autoValidateProperty());
 
-        //Events
-        mainViewModel.addImageRequested.addListener(val -> {
-            handleAddWithOptions(null);
-        });
-        mainViewModel.removeImageRequested.addListener(val -> {
-            handleRemove(null);
-        });
-
         //Disable the similarity view when not shown - prevents unnecessary calculation of similarity values
         //TODO combine with knn prediction?
         tabSimilar.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -438,6 +433,14 @@ public class MainController extends AbstractController implements Initializable 
                 labelGPUUsage.getStyleClass().add("green-text");
             }
 
+        });
+
+        particlesViewModel.labeledPercentageProperty().addListener((observable, oldValue, newValue) -> {
+            labelLabeled.setText(String.format("Labeled: %.2f%%", (double) newValue * 100));
+        });
+
+        particlesViewModel.validatedPercentageProperty().addListener((observable, oldValue, newValue) -> {
+            labelValidated.setText(String.format("Validated: %.2f%%", (double) newValue * 100));
         });
     }
 
