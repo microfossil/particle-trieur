@@ -42,7 +42,7 @@ public class ParticleImageControl extends AnchorPane {
 
     public ParticleImageControl(Supervisor supervisor) {
 
-        missingImage = new Image(App.class.getResourceAsStream("/missing-image-128.png"), 128, 128, true, true);
+        missingImage = new Image(App.class.getResourceAsStream("/icons/missing-image-128.png"), 128, 128, true, true);
         this.supervisor =  supervisor;
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ParticleImageControl.fxml"));

@@ -6,6 +6,10 @@
 package particletrieur.viewcontrollers.particle;
 
 import com.google.inject.Inject;
+import com.sun.javafx.scene.control.skin.TableViewSkin;
+import com.sun.javafx.scene.control.skin.VirtualFlow;
+import impl.org.controlsfx.skin.GridViewSkin;
+import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -54,6 +58,8 @@ public class ParticleGridViewController implements Initializable {
     private double cellWidth = 160;
     private double cellRatio = 1.25;
 
+    private VirtualFlow<?> virtualFlow;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setupGridView();
@@ -75,6 +81,8 @@ public class ParticleGridViewController implements Initializable {
                     itr.remove();
                 }
             }
+//            if (selectionViewModel.getCurrentParticles().size() > 0)
+//                scrollToSelectedForam();
         });
         gridViewParticles.setCellFactory(param -> new ParticleCell());
         gridViewParticles.setItems(selectionViewModel.sortedList);
@@ -96,6 +104,34 @@ public class ParticleGridViewController implements Initializable {
             gridViewParticles.setCellWidth(cellWidth);
             gridViewParticles.setCellHeight(cellRatio * cellWidth);
         });
+
+        Platform.runLater(() -> {
+            virtualFlow = (VirtualFlow<?>) ((GridViewSkin<?>) gridViewParticles.getSkin()).getChildren().get(0);
+            virtualFlow.setOnScroll(event -> {
+//                System.out.println(event.getDeltaY());
+                int index = virtualFlow.getFirstVisibleCellWithinViewPort().getIndex();
+                if (event.getDeltaY() < 0)
+                    virtualFlow.scrollTo(index+1);
+                else
+                    virtualFlow.scrollTo(index-1);
+//                System.out.println(index);
+            });
+        });
+    }
+
+    private void scrollToSelectedForam() {
+        int index = selectionViewModel.getParticleIndex(selectionViewModel.getCurrentParticles().get(selectionViewModel.getCurrentParticles().size()-1));
+        int first = virtualFlow.getFirstVisibleCellWithinViewPort().getIndex();
+        int last = virtualFlow.getLastVisibleCellWithinViewPort().getIndex();
+        if (index <= first) {
+            while (index <= first && virtualFlow.adjustPixels(-1) < 0) {
+                first = virtualFlow.getFirstVisibleCellWithinViewPort().getIndex();
+            }
+        } else {
+            while (index >= last && virtualFlow.adjustPixels(1) > 0) {
+                last = virtualFlow.getLastVisibleCellWithinViewPort().getIndex();
+            }
+        }
     }
 
     public class ParticleCell extends GridCell<Particle> {

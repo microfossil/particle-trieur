@@ -17,6 +17,7 @@ import particletrieur.models.project.Particle;
 import particletrieur.services.ImageProcessingService;
 import particletrieur.models.processing.ParticleImage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.inject.Inject;

@@ -94,7 +94,7 @@ public class ParticleGridCellSimilarityControl extends BorderPane {
             imageView.setImage(image);
         }
         else {
-            Image missingImage = new Image(App.class.getResourceAsStream("/missing-image-128.png"), 128, 128, true, true);
+            Image missingImage = new Image(App.class.getResourceAsStream("/icons/missing-image-128.png"), 128, 128, true, true);
             imageView.setImage(missingImage);
         }
     }
