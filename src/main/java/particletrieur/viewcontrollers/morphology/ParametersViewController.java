@@ -20,6 +20,7 @@ import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.controls.dialogs.DialogEx;
 import particletrieur.models.Supervisor;
 import particletrieur.services.ParametersFromCSVService;
+import particletrieur.services.ParametersFromTXTService;
 import particletrieur.services.ProjectService;
 import particletrieur.viewmodels.SelectionViewModel;
 
@@ -105,6 +106,52 @@ public class ParametersViewController implements Initializable {
                             "Add Parameters",
                             "Add Parameters",
                             service).start();
+                }
+            }
+            return null;
+        });
+    }
+
+    /* Thang DQ LE
+     * add parameters (in text files) for Zooscan images
+     */
+    public void handleAddParametersFromTXTFile(ActionEvent actionEvent) {
+        AlertEx alertEx = BasicDialogs.ShowInfo("Add Parameters", "Select one or many TXT files from which to add parameters values to the particles.\n\n This function is only applied for Zooscan images with the parameters are stored in the TXT files such as f102_inf_1000_1_meas.txt, f102_sup_1000_1_meas.txt");
+        alertEx.setResultConverter(button -> {
+            if (button == ButtonType.OK) {
+                FileChooser fc = new FileChooser();
+                String path = App.getPrefs().getProjectPath();
+                if (path != null && Files.exists(Paths.get(path))) {
+                    fc.setInitialDirectory(new File(path));
+                }
+                fc.setTitle("Choose parameters txt file");
+                fc.getExtensionFilters().add
+                        (
+                                new FileChooser.ExtensionFilter("Text file (*.txt)", "*.txt")
+                        );
+
+                List<File> files = fc.showOpenMultipleDialog(AppController.getWindow());
+                if (files != null)
+                {
+                    for (File file : files)
+                    {
+                        Service<LinkedHashMap<String, LinkedHashMap<String, String>>> service = ParametersFromTXTService.getParametersFromTextFile(file);
+                        service.setOnSucceeded(event -> {
+                            supervisor.project.updateParticleParameters(service.getValue());
+                            update(selectionViewModel.getCurrentParticle().getParameters());
+                        });
+
+                        service.setOnFailed(event -> {
+                            Exception ex = new Exception(service.getException());
+                            ex.printStackTrace();
+                            BasicDialogs.ShowException("Error", ex);
+                        });
+
+                        BasicDialogs.ProgressDialogWithCancel2(
+                                "Add Parameters",
+                                "Add Parameters",
+                                service).start();
+                    }
                 }
             }
             return null;
