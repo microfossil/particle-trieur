@@ -24,6 +24,8 @@
             <Pane HBox.hgrow="ALWAYS"/>
             <Button text="Add parameters from CSV..."
                     onAction="#handleAddParametersFromCSV"/>
+            <Button text="Add parameters from TXT file (ZooScan)..."
+                    onAction="#handleAddParametersFromTXTFile"/>
         </HBox>
     </top>
     <padding>
