@@ -17,7 +17,7 @@
     <VBox spacing="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <children>
             <Label text="2.4.7" styleClass="subheader"/>
-            <Label wrapText="true">Add parameters from Zooscan file</Label>
+            <Label wrapText="true">Add parameters from Zooscan file; fix bugs</Label>
             <Label text="2.4.6" styleClass="subheader"/>
             <Label wrapText="true">Grid view align to cells when scrolling</Label>
             <Label text="2.4.5" styleClass="subheader"/>
