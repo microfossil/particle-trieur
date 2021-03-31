@@ -16,6 +16,8 @@
             prefHeight="360.0" prefWidth="480.0">
     <VBox spacing="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <children>
+            <Label text="2.4.7" styleClass="subheader"/>
+            <Label wrapText="true">Add parameters from Zooscan file</Label>
             <Label text="2.4.6" styleClass="subheader"/>
             <Label wrapText="true">Grid view align to cells when scrolling</Label>
             <Label text="2.4.5" styleClass="subheader"/>
@@ -26,8 +28,6 @@
             <Label text="2.4.3" styleClass="subheader"/>
             <Label wrapText="true">Added tree view for labels</Label>
             <Label wrapText="true">Added option to add parameters from CSV</Label>
-            <Label text="2.4.2" styleClass="subheader"/>
-            <Label wrapText="true">Bug fixes</Label>
         </children>
     </VBox>
 </AnchorPane>

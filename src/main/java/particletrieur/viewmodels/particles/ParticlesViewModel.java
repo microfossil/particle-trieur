@@ -91,8 +91,8 @@ public class ParticlesViewModel {
             Pair<Double, Double> result = t.getValue();
             setValidatedPercentage(result.getKey());
             setLabeledPercentage(result.getValue());
-            System.out.println(getValidatedPercentage());
-            System.out.println(getLabeledPercentage());
+//            System.out.println(getValidatedPercentage());
+//            System.out.println(getLabeledPercentage());
         });
         validatedCountRunner.runTask(t);
     }
