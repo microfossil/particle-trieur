@@ -23,8 +23,8 @@
                 <RowConstraints minHeight="10.0" vgrow="ALWAYS"/>
             </rowConstraints>
             <children>
-                <VBox GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-                    <children>
+                <BorderPane>
+                    <top>
                         <HBox spacing="4">
                             <padding>
                                 <Insets topRightBottomLeft="8.0"/>
@@ -69,7 +69,9 @@
                                 </graphic>
                             </Button>
                         </HBox>
-                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;"
+                    </top>
+                    <center>
+                        <ScrollPane fx:id="scrollPaneClassButtons" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;"
                                     VBox.vgrow="ALWAYS">
                             <content>
                                 <VBox fx:id="vboxClassButtons" spacing="7.0">
@@ -95,8 +97,8 @@
                                 </VBox>
                             </content>
                         </ScrollPane>
-                    </children>
-                </VBox>
+                    </center>
+                </BorderPane>
                 <VBox prefHeight="200.0" prefWidth="120.0" spacing="7.0" GridPane.columnIndex="1">
                     <GridPane.margin>
                         <Insets right="14.0"/>
@@ -204,7 +206,6 @@
                         <Insets bottom="7.0" left="7.0" right="7.0"/>
                     </VBox.margin>
                 </VBox>
-                <!--                <fx:include fx:id="imageDetailView" source="particle/ImageDetailView.fxml" />-->
             </children>
         </GridPane>
     </children>

@@ -62,6 +62,8 @@ import java.util.stream.Collectors;
 public class ClassificationViewController implements Initializable {
 
     @FXML
+    ScrollPane scrollPaneClassButtons;
+    @FXML
     ToggleButton toggleButtonLabelsCategory;
     @FXML
     ToggleGroup toggleGroupLabelMode;
@@ -259,8 +261,21 @@ public class ClassificationViewController implements Initializable {
                 event.consume();
             }
         });
+
         //Fixed cell size
         treeView.setFixedCellSize(24);
+
+        //Fix scroll pane slow scrolling
+        scrollPaneClassButtons.getContent().setOnScroll(scrollEvent -> {
+            double deltaY = scrollEvent.getDeltaY();
+            double contentHeight = scrollPaneClassButtons.getContent().getBoundsInLocal().getHeight();
+            double scrollPaneHeight = scrollPaneClassButtons.getHeight();
+            double diff = contentHeight - scrollPaneHeight;
+            if (diff < 1) diff = 1;
+            double vvalue = scrollPaneClassButtons.getVvalue();
+            System.out.println(vvalue);
+            scrollPaneClassButtons.setVvalue(vvalue + -deltaY/diff);
+        });
     }
 
     private List<Taxon> sortedListOfTaxons(Project project, boolean isClass) {

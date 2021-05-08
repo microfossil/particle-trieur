@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package particletrieur.viewcontrollers.particle;
 
 import com.google.inject.Inject;
-import com.sun.javafx.scene.control.skin.TableViewSkin;
 import com.sun.javafx.scene.control.skin.VirtualFlow;
 import impl.org.controlsfx.skin.GridViewSkin;
 import javafx.application.Platform;
@@ -35,18 +29,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
-/**
- * FXML Controller class
- *
- * @author Ross Marchant <ross.g.marchant@gmail.com>
- */
+
 public class ParticleGridViewController implements Initializable {
 
     @FXML
     GridView<Particle> gridViewParticles;
 
-    @Inject
-    private Supervisor supervisor;
     @Inject
     private SelectionViewModel selectionViewModel;
 
