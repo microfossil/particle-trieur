@@ -62,6 +62,16 @@ import java.util.stream.Collectors;
 public class ClassificationViewController implements Initializable {
 
     @FXML
+    GridPane gridPaneContainer;
+    @FXML
+    StackPane stackPanePredictions;
+    @FXML
+    BorderPane borderPanePredictions;
+    @FXML
+    VBox vboxPredictions;
+    @FXML
+    Button buttonCollapsePredictions;
+    @FXML
     ScrollPane scrollPaneClassButtons;
     @FXML
     ToggleButton toggleButtonLabelsCategory;
@@ -81,16 +91,12 @@ public class ClassificationViewController implements Initializable {
     HBox hboxCNN;
     @FXML
     SymbolLabel symbolLabelDeepCNNRefresh;
-    //    @FXML
-//    ToggleSwitch toggleSwitchAutoAdvance;
     @FXML
     CheckBox checkBoxPreprocessBeforeClassification;
     @FXML
     Spinner spinnerCNNThreshold;
     @FXML
     Spinner spinnerKNNThreshold;
-    //    @FXML
-//    Rating ratingImage;
     @FXML
     FlowPane flowPaneTags;
     @FXML
@@ -131,6 +137,7 @@ public class ClassificationViewController implements Initializable {
     public ArrayList<String> taxonCodes = new ArrayList<>();
 
     private IntegerProperty displayMode = new SimpleIntegerProperty(1);
+    private boolean sidePaneToggled = true;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -274,6 +281,23 @@ public class ClassificationViewController implements Initializable {
             if (diff < 1) diff = 1;
             double vvalue = scrollPaneClassButtons.getVvalue();
             scrollPaneClassButtons.setVvalue(vvalue + -deltaY/diff);
+        });
+
+        //Collapse predictions
+        buttonCollapsePredictions.setOnAction(event -> {
+            if (sidePaneToggled) {
+                gridPaneContainer.getColumnConstraints().get(1).setPrefWidth(40);
+                gridPaneContainer.getColumnConstraints().get(1).setMinWidth(40);
+                buttonCollapsePredictions.setText("<<");
+                stackPanePredictions.setVisible(false);
+            }
+            else {
+                gridPaneContainer.getColumnConstraints().get(1).setPrefWidth(240);
+                gridPaneContainer.getColumnConstraints().get(1).setMinWidth(240);
+                buttonCollapsePredictions.setText(">>");
+                stackPanePredictions.setVisible(true);
+            }
+            sidePaneToggled = !sidePaneToggled;
         });
     }
 

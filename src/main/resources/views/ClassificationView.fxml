@@ -12,7 +12,7 @@
             xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="particletrieur.viewcontrollers.classification.ClassificationViewController">
     <children>
-        <GridPane hgap="14.0" vgap="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+        <GridPane fx:id="gridPaneContainer" hgap="14.0" vgap="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <!--                <ColumnConstraints hgrow="SOMETIMES" />-->
@@ -22,88 +22,93 @@
             <rowConstraints>
                 <RowConstraints minHeight="10.0" vgrow="ALWAYS"/>
             </rowConstraints>
-            <children>
-                <BorderPane>
-                    <top>
-                        <HBox spacing="4">
-                            <padding>
-                                <Insets topRightBottomLeft="8.0"/>
-                            </padding>
-                            <SegmentedButton>
-                                <buttons>
-                                    <fx:define>
-                                        <ToggleGroup fx:id="toggleGroupLabelMode"/>
-                                    </fx:define>
-                                    <ToggleButton fx:id="toggleButtonLabelsFlat"
-                                                  mnemonicParsing="false"
-                                                  toggleGroup="$toggleGroupLabelMode"
-                                                  onAction="#handleToggleLabelModeFlat">
-                                        <graphic>
-                                            <SymbolLabel symbol="feathergrid"/>
-                                        </graphic>
-                                    </ToggleButton>
-                                    <ToggleButton fx:id="toggleButtonLabelsCategory"
-                                                  mnemonicParsing="false"
-                                                  selected="true"
-                                                  toggleGroup="$toggleGroupLabelMode"
-                                                  onAction="#handleToggleLabelModeCategory">
-                                        <graphic>
-                                            <SymbolLabel symbol="feathermenu"/>
-                                        </graphic>
-                                    </ToggleButton>
-                                    <ToggleButton mnemonicParsing="false"
-                                                  selected="false"
-                                                  toggleGroup="$toggleGroupLabelMode"
-                                                  onAction="#handleToggleLabelModeTree">
-                                        <graphic>
-                                            <SymbolLabel symbol="featherlist"/>
-                                        </graphic>
-                                    </ToggleButton>
-                                </buttons>
-                            </SegmentedButton>
-                            <Pane HBox.hgrow="ALWAYS"/>
-                            <Button fx:id="buttonValidate" text="Validate" minWidth="100">
-                                <graphic>
-                                    <SymbolLabel fx:id="symbolValidate" symbol="feathercheckcircle"
-                                                 symbolSize="10" symbolColor="green"/>
-                                </graphic>
-                            </Button>
-                        </HBox>
-                    </top>
-                    <center>
-                        <ScrollPane fx:id="scrollPaneClassButtons" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;"
-                                    VBox.vgrow="ALWAYS">
-                            <content>
-                                <VBox fx:id="vboxClassButtons" spacing="7.0">
-                                    <children>
-                                        <Label styleClass="subheader" text="Labels"/>
-                                        <VBox fx:id="vboxClasses" minHeight="20.0" spacing="7.0"/>
-                                        <Separator>
-                                            <VBox.margin>
-                                                <Insets top="14.0"/>
-                                            </VBox.margin>
-                                        </Separator>
-                                        <Label styleClass="subheader" text="Tags">
-                                            <VBox.margin>
-                                                <Insets/>
-                                            </VBox.margin>
-                                        </Label>
-                                        <FlowPane fx:id="flowPaneTags" hgap="7.0" prefHeight="19.0" prefWidth="311.0"
-                                                  vgap="7.0"/>
-                                    </children>
-                                    <padding>
-                                        <Insets bottom="7.0" left="7.0" right="14.0" top="7.0"/>
-                                    </padding>
-                                </VBox>
-                            </content>
-                        </ScrollPane>
-                    </center>
-                </BorderPane>
-                <VBox prefHeight="200.0" prefWidth="120.0" spacing="7.0" GridPane.columnIndex="1">
-                    <GridPane.margin>
-                        <Insets right="14.0"/>
-                    </GridPane.margin>
-                    <children>
+            <BorderPane>
+                <top>
+                    <HBox spacing="4">
+                        <padding>
+                            <Insets topRightBottomLeft="8.0"/>
+                        </padding>
+                        <SegmentedButton>
+                            <buttons>
+                                <fx:define>
+                                    <ToggleGroup fx:id="toggleGroupLabelMode"/>
+                                </fx:define>
+                                <ToggleButton fx:id="toggleButtonLabelsFlat"
+                                              mnemonicParsing="false"
+                                              toggleGroup="$toggleGroupLabelMode"
+                                              onAction="#handleToggleLabelModeFlat">
+                                    <graphic>
+                                        <SymbolLabel symbol="feathergrid"/>
+                                    </graphic>
+                                </ToggleButton>
+                                <ToggleButton fx:id="toggleButtonLabelsCategory"
+                                              mnemonicParsing="false"
+                                              selected="true"
+                                              toggleGroup="$toggleGroupLabelMode"
+                                              onAction="#handleToggleLabelModeCategory">
+                                    <graphic>
+                                        <SymbolLabel symbol="feathermenu"/>
+                                    </graphic>
+                                </ToggleButton>
+                                <ToggleButton mnemonicParsing="false"
+                                              selected="false"
+                                              toggleGroup="$toggleGroupLabelMode"
+                                              onAction="#handleToggleLabelModeTree">
+                                    <graphic>
+                                        <SymbolLabel symbol="featherlist"/>
+                                    </graphic>
+                                </ToggleButton>
+                            </buttons>
+                        </SegmentedButton>
+                        <Pane HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="buttonValidate" text="Validate" minWidth="100">
+                            <graphic>
+                                <SymbolLabel fx:id="symbolValidate" symbol="feathercheckcircle"
+                                             symbolSize="10" symbolColor="green"/>
+                            </graphic>
+                        </Button>
+                    </HBox>
+                </top>
+                <center>
+                    <ScrollPane fx:id="scrollPaneClassButtons" fitToWidth="true" hbarPolicy="NEVER"
+                                style="-fx-background-color: transparent;"
+                                VBox.vgrow="ALWAYS">
+                        <content>
+                            <VBox fx:id="vboxClassButtons" spacing="7.0">
+                                <children>
+                                    <Label styleClass="subheader" text="Labels"/>
+                                    <VBox fx:id="vboxClasses" minHeight="20.0" spacing="7.0"/>
+                                    <Separator>
+                                        <VBox.margin>
+                                            <Insets top="14.0"/>
+                                        </VBox.margin>
+                                    </Separator>
+                                    <Label styleClass="subheader" text="Tags">
+                                        <VBox.margin>
+                                            <Insets/>
+                                        </VBox.margin>
+                                    </Label>
+                                    <FlowPane fx:id="flowPaneTags" hgap="7.0" prefHeight="19.0" prefWidth="311.0"
+                                              vgap="7.0"/>
+                                </children>
+                                <padding>
+                                    <Insets bottom="7.0" left="7.0" right="14.0" top="7.0"/>
+                                </padding>
+                            </VBox>
+                        </content>
+                    </ScrollPane>
+                </center>
+            </BorderPane>
+            <BorderPane fx:id="borderPanePredictions" prefHeight="200.0" prefWidth="120.0" GridPane.columnIndex="1">
+                <padding>
+                    <Insets topRightBottomLeft="7"/>
+                </padding>
+                <top>
+                    <Button fx:id="buttonCollapsePredictions" text=">>"/>
+                </top>
+                <center>
+                    <StackPane fx:id="stackPanePredictions">
+                    <VBox fx:id="vboxPredictions" spacing="7">
                         <HBox alignment="CENTER_LEFT" spacing="7.0">
                             <VBox.margin>
                                 <Insets top="7.0"/>
@@ -117,8 +122,8 @@
                         </HBox>
                         <GridPane fx:id="gridPaneKNN" hgap="7" vgap="3">
                             <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="60.0"/>
-                                <ColumnConstraints hgrow="ALWAYS" minWidth="100.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" prefWidth="60.0"/>
+                                <ColumnConstraints hgrow="ALWAYS" prefWidth="100.0"/>
                                 <ColumnConstraints hgrow="SOMETIMES"/>
                             </columnConstraints>
                         </GridPane>
@@ -140,7 +145,6 @@
                             </VBox.margin>
                         </Separator>
                         <VBox fx:id="gridPaneCnn" spacing="7.0">
-
                             <HBox fx:id="hboxCNN" alignment="CENTER_LEFT" spacing="7.0">
                                 <VBox.margin>
                                     <Insets/>
@@ -155,8 +159,8 @@
                             </HBox>
                             <GridPane fx:id="gridPaneCNN" hgap="7" vgap="3">
                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="60.0"/>
-                                    <ColumnConstraints hgrow="ALWAYS" minWidth="100.0"/>
+                                    <ColumnConstraints hgrow="SOMETIMES" prefWidth="60.0"/>
+                                    <ColumnConstraints hgrow="ALWAYS" prefWidth="100.0"/>
                                     <ColumnConstraints hgrow="SOMETIMES"/>
                                 </columnConstraints>
                             </GridPane>
@@ -174,25 +178,6 @@
                             </HBox>
                             <CheckBox fx:id="checkBoxPreprocessBeforeClassification" mnemonicParsing="false"
                                       text="Pre-process"/>
-                            <!--                        <GridPane fx:id="gridPaneCnn" hgap="14.0" vgap="7.0">-->
-                            <!--                            <Label text="Label:" />-->
-                            <!--                            <Label text="Score:" GridPane.columnIndex="2" />-->
-                            <!--                            <ProgressBar fx:id="progressBarCNNScore" maxHeight="1.7976931348623157E308" minWidth="120.0" progress="0.0" GridPane.columnIndex="3" />-->
-                            <!--                            <Button fx:id="buttonCNNLabel" minWidth="120.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleSetClassFromCNNPrediction" text="unlabeled" GridPane.columnIndex="1">-->
-                            <!--                                <font>-->
-                            <!--                                    <Font name="System Bold" size="12.0" />-->
-                            <!--                                </font>-->
-                            <!--                            </Button>-->
-                            <!--                            <columnConstraints>-->
-                            <!--                                <ColumnConstraints />-->
-                            <!--                                <ColumnConstraints />-->
-                            <!--                                <ColumnConstraints />-->
-                            <!--                                <ColumnConstraints />-->
-                            <!--                            </columnConstraints>-->
-                            <!--                            <rowConstraints>-->
-                            <!--                                <RowConstraints vgrow="SOMETIMES" />-->
-                            <!--                            </rowConstraints>-->
-                            <!--                        </GridPane>-->
                         </VBox>
                         <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false"
                                 onAction="#handleChangeCNNPredictionNetwork" text="Select network...">
@@ -201,12 +186,13 @@
                             </graphic>
                         </Button>
                         <Label fx:id="labelNetwork" text="No network" wrapText="true"/>
-                    </children>
-                    <VBox.margin>
-                        <Insets bottom="7.0" left="7.0" right="7.0"/>
-                    </VBox.margin>
-                </VBox>
-            </children>
+                    </VBox>
+                    </StackPane>
+                </center>
+                <!--            <VBox.margin>-->
+                <!--                <Insets bottom="7.0" left="7.0" right="7.0"/>-->
+                <!--            </VBox.margin>-->
+            </BorderPane>
         </GridPane>
     </children>
 </AnchorPane>
