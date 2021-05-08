@@ -233,7 +233,7 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
             textFieldOutputFolder.setText(savedOutput.getAbsolutePath());
         }
         else {
-            if (supervisor.project.getFile().exists()) {
+            if (supervisor.project.getFile() != null) {
                 textFieldOutputFolder.setText(supervisor.project.getFile().getParent() + File.separator + "training");
             } else {
                 textFieldOutputFolder.setText(System.getProperty("user.home"));
