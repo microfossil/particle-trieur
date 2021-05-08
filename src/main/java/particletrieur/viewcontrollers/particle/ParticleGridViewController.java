@@ -81,8 +81,6 @@ public class ParticleGridViewController implements Initializable {
                     itr.remove();
                 }
             }
-//            if (selectionViewModel.getCurrentParticles().size() > 0)
-//                scrollToSelectedForam();
         });
         gridViewParticles.setCellFactory(param -> new ParticleCell());
         gridViewParticles.setItems(selectionViewModel.sortedList);
@@ -108,13 +106,11 @@ public class ParticleGridViewController implements Initializable {
         Platform.runLater(() -> {
             virtualFlow = (VirtualFlow<?>) ((GridViewSkin<?>) gridViewParticles.getSkin()).getChildren().get(0);
             virtualFlow.setOnScroll(event -> {
-//                System.out.println(event.getDeltaY());
                 int index = virtualFlow.getFirstVisibleCellWithinViewPort().getIndex();
                 if (event.getDeltaY() < 0)
                     virtualFlow.scrollTo(index+1);
                 else
                     virtualFlow.scrollTo(index-1);
-//                System.out.println(index);
             });
         });
     }
@@ -140,8 +136,6 @@ public class ParticleGridViewController implements Initializable {
 
         public ParticleCell() {
             super();
-//            this.setStyle("-fx-border-color: #eeeeee; -fx-background-color: transparent; -fx-text-fill: -fx-text-base-color;");
-//            im.setSize(currentSize);
             currentCells.add(new WeakReference<>(this));
             setOnMouseClicked(event ->
             {
@@ -151,14 +145,6 @@ public class ParticleGridViewController implements Initializable {
                     return;
                 }
                 if (event.isMetaDown() || event.isControlDown()) {
-//                    if (selectedItems.contains(getItem())) {
-//                        selectionViewModel.getCurrentParticles().remove(getItem());
-////                        selectedItems.remove(getItem());
-//                    } else {
-//                        selectionViewModel.getCurrentParticles().add(getItem());
-////                        selectedItems.add(getItem());
-//                    }
-//                    selectionViewModel.getCurrentParticles().add(getItem());
                     selectedIndex = super.getIndex();
                     shiftSelectedIndex = selectedIndex;
                     selectionViewModel.controlSelectIndex.broadcast(selectedIndex);
@@ -167,27 +153,10 @@ public class ParticleGridViewController implements Initializable {
                     int currentIdx = getIndex();
                     int startIdx = Math.min(currentIdx, selectedIndex);
                     int endIdx = Math.max(currentIdx, selectedIndex);
-//                    int startIdxOld = Math.min(shiftSelectedIndex, currentIdx);
-//                    int endIdxOld = Math.max(shiftSelectedIndex, currentIdx);
-//
-//                    ArrayList<Particle> toRemove = new ArrayList<>();
-//                    ArrayList<Particle> toAdd= new ArrayList<>();
-//
-//                    for (int i = startIdxOld; i <= endIdxOld; i++) {
-//                        toRemove.add(selectionViewModel.sortedList.get(i));
-//                    }
-//
-//                    for (int i = startIdx; i <= endIdx; i++) {
-//                        toAdd.add(selectionViewModel.sortedList.get(i));
-//                    }
-//                    selectionViewModel.getCurrentParticles().removeAll(toRemove);
-//                    selectionViewModel.getCurrentParticles().addAll(toAdd);
-//                    shiftSelectedIndex = currentIdx;
                     selectionViewModel.shiftSelectIndices.broadcast(new int[] {startIdx, endIdx});
                 }
                 else {
                     selectedIndex = super.getIndex();
-//                    shiftSelectedIndex = selectedIndex;
                     selectionViewModel.selectIndex.broadcast(selectedIndex);
                 }
             });
