@@ -46,6 +46,8 @@ import javafx.stage.DirectoryChooser;
 public class ExportViewController extends AbstractDialogController implements Initializable {
 
     @FXML
+    RadioButton radioButtonOriginalFilenames;
+    @FXML
     CheckBox checkBoxResize;
     @FXML
     ComboBox<Integer> comboBoxResize;
@@ -88,14 +90,6 @@ public class ExportViewController extends AbstractDialogController implements In
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        checkComboBoxFilename.getItems().addAll(FILE_NAMING_OPTIONS);
-//        checkComboBoxFilename.getCheckModel().check(0);
-//        checkComboBoxFilename.getCheckModel().check(1);
-//        checkComboBoxFilename.getCheckModel().check(2);
-//        checkComboBoxFilename.getCheckModel().check(3);
-//        checkComboBoxFilename.getCheckModel().check(4);
-
-//        folderOrganisationComboBox.getItems().setAll((Object[]) FolderMode.values());
         folderOrganisationComboBox.getItems().setAll(ExportImagesService.FolderMode.values());
         folderOrganisationComboBox.getSelectionModel().select(1);
 
@@ -165,71 +159,6 @@ public class ExportViewController extends AbstractDialogController implements In
         }
     }
 
-    public void setData(Project project) {
-//        checkComboBoxCodes.getItems().clear();
-//        ArrayList<Integer> index = new ArrayList<>();
-//        int currentIndex = 0;
-//        for (Taxon taxon : app.taxons.values()) {
-//            checkComboBoxCodes.getItems().add(taxon.getCode());
-//            System.out.println(taxon.getCode());
-//            if (taxon.getCode().compareTo(Project.UNLABELED_CODE) != 0) {
-//                index.add(currentIndex);
-//                System.out.println(currentIndex);
-//            }
-//            currentIndex++;
-//        }
-//        for (int i : index) {
-//            checkComboBoxCodes.getCheckModel().check(i);
-//            System.out.println(i);
-//        }
-//
-//        checkComboBoxTags.getItems().clear();
-//        index.clear();
-//        currentIndex = 0;
-//        for (Tag tag : app.getTags().values()) {
-//            checkComboBoxTags.getItems().add(tag.getCode());
-//            System.out.println(tag.getCode());
-//            if (tag.getCode().compareTo(Project.DUPLICATE_CODE) == 0) {
-//                index.add(currentIndex);
-//                System.out.println(currentIndex);
-//            }
-//            currentIndex++;
-//        }
-//        for (int i : index) {
-//            checkComboBoxTags.getCheckModel().check(i);
-//            System.out.println(i);
-//        }
-    }
-    
-//    public ExportViewController.Options getOptions() {
-//        options.performPreprocessing = preprocessingCheckBox.isSelected();
-//        options.includePrefix = prefixCheckBox.isSelected();
-//        options.prefix = prefixTextField.getText();
-//        options.includeClassification = checkComboBoxFilename.getCheckModel().isChecked(1);
-//        options.includeIndex1 = checkComboBoxFilename.getCheckModel().isChecked(2);
-//        options.includeIndex2 = checkComboBoxFilename.getCheckModel().isChecked(3);
-//        options.includeGUID = checkComboBoxFilename.getCheckModel().isChecked(4);
-//        options.includeSample = checkComboBoxFilename.getCheckModel().isChecked(0);
-//        options.folderMode = (FolderMode) folderOrganisationComboBox.getSelectionModel().getSelectedItem();
-////        options.taxonCodes = checkComboBoxCodes.getCheckModel().getCheckedItems();
-////        options.tagCodes = checkComboBoxTags.getCheckModel().getCheckedItems();
-//        return options;
-//    }
-//
-//    public class Options {
-//        public boolean performPreprocessing = false;
-//        public boolean includePrefix = false;
-//        public String prefix = "";
-//        public boolean includeClassification = false;
-//        public boolean includeIndex1 = false;
-//        public boolean includeIndex2 = false;
-//        public boolean includeSample = false;
-//        public boolean includeGUID = false;
-//        public FolderMode folderMode = FolderMode.NONE;
-//        public List<String> taxonCodes;
-//        public List<String> tagCodes;
-//    }
-
     private void launchExport() {
         //Processing
         exportImagesService.performPreprocessing = radioButtonProcess.isSelected();
@@ -245,6 +174,7 @@ public class ExportViewController extends AbstractDialogController implements In
 
         //Organisation
         // - file parts
+        exportImagesService.useOriginalFilenames = radioButtonOriginalFilenames.isSelected();
         exportImagesService.includeClassification = checkBoxLabel.isSelected();
         exportImagesService.includeSample = checkBoxSample.isSelected();
         exportImagesService.includeIndex1 = checkBoxIndex1.isSelected();

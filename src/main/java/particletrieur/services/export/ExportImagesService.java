@@ -19,6 +19,8 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -37,6 +39,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 public class ExportImagesService {
 
     public boolean performPreprocessing = false;
+    public boolean useOriginalFilenames = true;
     public boolean includePrefix = false;
     public String prefix = "";
     public boolean includeClassification = false;
@@ -148,8 +151,8 @@ public class ExportImagesService {
                         //
                         // Main loop to save images
                         //
+                        HashMap<String, Integer> filenames = new LinkedHashMap<>();
                         exportProject.particles.stream().forEach(particle -> {
-
                             //Exit the loop if the service has been cancelled
                             if (!this.isCancelled()) {
                                 //The index of the image
@@ -167,10 +170,8 @@ public class ExportImagesService {
                                     toRemove.add(particle);
                                     notInTaxonTagListCount.incrementAndGet();
                                 }
-
                                 //Process each file
                                 else {
-
                                     //Create the output directory
                                     File currentOutputDirectory = new File(imagesDirectory.getAbsolutePath());
                                     if (folderMode != FolderMode.NONE) {
@@ -196,31 +197,45 @@ public class ExportImagesService {
                                     //Build filename
                                     StringBuilder sb = new StringBuilder(currentOutputDirectory.getAbsolutePath());
                                     sb.append(File.separator);
-                                    //Prefix
-                                    if (includePrefix) {
-                                        sb.append(prefix);
-                                        sb.append("-");
+                                    if (useOriginalFilenames) {
+                                        String filename = FilenameUtils.removeExtension(particle.getShortFilename());
+                                        if (filenames.containsKey(filename)) {
+                                            int index = filenames.get(filename) + 1;
+                                            filenames.put(filename, index);
+                                            sb.append(String.format("%s_%03d", filename, index));
+                                        }
+                                        else {
+                                            filenames.put(filename, 0);
+                                            sb.append(filename);
+                                        }
                                     }
-                                    sb.append(String.format(numberFormat, idx.get()));
-                                    if (includeClassification) {
-                                        sb.append("-");
-                                        sb.append(particle.classification.get());
-                                    }
-                                    if (includeSample && particle.getSampleID() != null) {
-                                        sb.append("-");
-                                        sb.append(particle.getSampleID());
-                                    }
-                                    if (includeIndex1) {
-                                        sb.append("-");
-                                        sb.append(String.format("%f", particle.getIndex1()).replace('.', 'p'));
-                                    }
-                                    if (includeIndex2) {
-                                        sb.append("-");
-                                        sb.append(String.format("%f", particle.getIndex2()).replace('.', 'p'));
-                                    }
-                                    if (includeGUID && particle.getGUID() != null && !particle.getGUID().equalsIgnoreCase("")) {
-                                        sb.append("-");
-                                        sb.append(particle.getGUID());
+                                    else {
+                                        //Prefix
+                                        if (includePrefix) {
+                                            sb.append(prefix);
+                                            sb.append("-");
+                                        }
+                                        sb.append(String.format(numberFormat, idx.get()));
+                                        if (includeClassification) {
+                                            sb.append("-");
+                                            sb.append(particle.classification.get());
+                                        }
+                                        if (includeSample && particle.getSampleID() != null) {
+                                            sb.append("-");
+                                            sb.append(particle.getSampleID());
+                                        }
+                                        if (includeIndex1) {
+                                            sb.append("-");
+                                            sb.append(String.format("%f", particle.getIndex1()).replace('.', 'p'));
+                                        }
+                                        if (includeIndex2) {
+                                            sb.append("-");
+                                            sb.append(String.format("%f", particle.getIndex2()).replace('.', 'p'));
+                                        }
+                                        if (includeGUID && particle.getGUID() != null && !particle.getGUID().equalsIgnoreCase("")) {
+                                            sb.append("-");
+                                            sb.append(particle.getGUID());
+                                        }
                                     }
 
                                     //Conversion?
@@ -299,7 +314,7 @@ public class ExportImagesService {
                                 }
                                 updateMessage(String.format(
                                         "%d/%d images exported\n%d skipped because of label\n%d file not found\n%d errors",
-                                        idx.get(),
+                                        idx.get() - notInTaxonTagListCount.get() - fileNotFoundCount.get() - processingErrorCount.get(),
                                         project.particles.size(),
                                         notInTaxonTagListCount.get(),
                                         fileNotFoundCount.get(),
