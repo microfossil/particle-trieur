@@ -288,17 +288,18 @@ public class ClassificationViewController implements Initializable {
             if (sidePaneToggled) {
                 gridPaneContainer.getColumnConstraints().get(1).setPrefWidth(40);
                 gridPaneContainer.getColumnConstraints().get(1).setMinWidth(40);
-                buttonCollapsePredictions.setText("<<");
+                buttonCollapsePredictions.setGraphic(new SymbolLabel("featherchevronsleft", 12));
                 stackPanePredictions.setVisible(false);
             }
             else {
                 gridPaneContainer.getColumnConstraints().get(1).setPrefWidth(240);
                 gridPaneContainer.getColumnConstraints().get(1).setMinWidth(240);
-                buttonCollapsePredictions.setText(">>");
+                buttonCollapsePredictions.setGraphic(new SymbolLabel("featherchevronsright", 12));
                 stackPanePredictions.setVisible(true);
             }
             sidePaneToggled = !sidePaneToggled;
         });
+        buttonCollapsePredictions.setGraphic(new SymbolLabel("featherchevronsright", 12));
     }
 
     private List<Taxon> sortedListOfTaxons(Project project, boolean isClass) {

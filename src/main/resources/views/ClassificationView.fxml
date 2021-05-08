@@ -99,12 +99,12 @@
                     </ScrollPane>
                 </center>
             </BorderPane>
-            <BorderPane fx:id="borderPanePredictions" prefHeight="200.0" prefWidth="120.0" GridPane.columnIndex="1">
+            <BorderPane fx:id="borderPanePredictions" prefHeight="200.0" prefWidth="120.0" GridPane.columnIndex="1" styleClass="side-panel">
                 <padding>
                     <Insets topRightBottomLeft="7"/>
                 </padding>
                 <top>
-                    <Button fx:id="buttonCollapsePredictions" text=">>"/>
+                    <Button fx:id="buttonCollapsePredictions"/>
                 </top>
                 <center>
                     <StackPane fx:id="stackPanePredictions">
@@ -167,7 +167,7 @@
                             <HBox alignment="CENTER_LEFT" spacing="7.0">
                                 <children>
                                     <Label minWidth="-Infinity" text="Threshold:"/>
-                                    <Spinner fx:id="spinnerCNNThreshold" editable="true" HBox.hgrow="ALWAYS">
+                                    <Spinner fx:id="spinnerCNNThreshold" editable="true" prefWidth="80">
                                         <valueFactory>
                                             <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.05"
                                                                                            initialValue="0.8" max="1.0"

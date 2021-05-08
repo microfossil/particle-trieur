@@ -271,6 +271,13 @@
     -fx-table-cell-border-color: derive(-fx-selection-bar, 20%);
 }
 
+.side-panel {
+    -fx-background-color:
+            -fx-outer-border,
+            -fx-text-box-border,
+            linear-gradient(from 0px 0px to 5px 0px, derive(-fx-text-box-border, 10%), derive(-fx-text-box-border, 50%));
+}
+
 
 /*.header-label {*/
     /*-fx-font-size: 1.166667em;*/
