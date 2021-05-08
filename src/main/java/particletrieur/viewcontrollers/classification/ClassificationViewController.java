@@ -273,7 +273,6 @@ public class ClassificationViewController implements Initializable {
             double diff = contentHeight - scrollPaneHeight;
             if (diff < 1) diff = 1;
             double vvalue = scrollPaneClassButtons.getVvalue();
-            System.out.println(vvalue);
             scrollPaneClassButtons.setVvalue(vvalue + -deltaY/diff);
         });
     }

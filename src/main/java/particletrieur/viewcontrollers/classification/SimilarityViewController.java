@@ -3,6 +3,8 @@ package particletrieur.viewcontrollers.classification;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
+import org.controlsfx.control.PopOver;
 import particletrieur.App;
 import particletrieur.controls.ParticleGridCellSimilarityControl;
 import particletrieur.helpers.AutoCancellingServiceRunner;
@@ -10,6 +12,7 @@ import particletrieur.models.network.classification.Similarity;
 import particletrieur.models.Supervisor;
 import particletrieur.models.project.Particle;
 import particletrieur.models.project.Taxon;
+import particletrieur.viewcontrollers.particle.ImageDescriptionPopover;
 import particletrieur.viewmodels.network.KNNPredictionViewModel;
 import particletrieur.viewmodels.particles.LabelsViewModel;
 import particletrieur.viewmodels.particles.ParticlesViewModel;
@@ -187,6 +190,11 @@ public class SimilarityViewController extends AbstractController implements Init
             currentCells.add(new WeakReference<>(this));
             setOnMouseClicked(event ->
             {
+                if (event.getButton() == MouseButton.SECONDARY) {
+                    ImageDescriptionPopover popover = new ImageDescriptionPopover(supervisor.project.particles.get(getItem().index), PopOver.ArrowLocation.LEFT_CENTER);
+                    popover.show(this);
+                    return;
+                }
                 if (getItem().isOriginal) return;
                 if (event.isMetaDown() || event.isControlDown()) {
                     if (selectedItems.contains(getItem())) {
