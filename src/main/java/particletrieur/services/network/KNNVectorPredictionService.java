@@ -70,8 +70,6 @@ public class KNNVectorPredictionService {
     public ClassificationSet predictUsingKNN(Particle currentParticle, List<Particle> particles, int k, Supplier<Boolean> wasCancelled) {
         ArrayList<Double> scores = new ArrayList<>(particles.size());
 
-//        double minScore = 1.0;
-
         for (Particle particle : particles) {
             //Check if cancelled
             if (wasCancelled.get()) {
@@ -85,7 +83,6 @@ public class KNNVectorPredictionService {
             if (particle.getCNNVector() != null && currentParticle.getCNNVector() != null) {
                 double score = Metrics.vectorCosineSimilarity(particle.getCNNVector(), currentParticle.getCNNVector());
                 scores.add(score);
-//                if (score < minScore) minScore = score;
             } else {
                 scores.add(0.0);
             }
@@ -120,25 +117,25 @@ public class KNNVectorPredictionService {
             Taxon taxon = supervisor.project.getTaxons().get(code);
             double score = scores.get(idx);
 
-//            try {
-                if (taxon.getIsClass()) {
-                    //Add the score
-                    double totalScore = freq.containsKey(code) ? freq.get(code) : 0;
-                    freq.put(code, totalScore + score);
-                    size++;
-                    //Exit if we have enough
-                    if (size >= k) break;
-                }
-//            }
-//            catch (NullPointerException ex) {
-//                System.out.print(code);
-//                ex.printStackTrace();
-//            }
+            if (taxon.getIsClass()) {
+                //Add the score
+                double totalScore = freq.containsKey(code) ? freq.get(code) : 0;
+                freq.put(code, totalScore + score);
+                size++;
+                //Exit if we have enough
+                if (size >= k) break;
+            }
+        }
+        //Get sum of scores
+        double totalScore = 0;
+        for(Map.Entry<String, Double> entry : freq.entrySet()) {
+            totalScore += entry.getValue();
         }
         //Add to classification set
         ClassificationSet classificationSet = new ClassificationSet();
         for(Map.Entry<String, Double> entry : freq.entrySet()) {
-            classificationSet.add(entry.getKey(), entry.getValue() / k, "kNN");
+            classificationSet.add(entry.getKey(), entry.getValue() / totalScore, "kNN");
+            System.out.println(entry.getValue() / totalScore);
         }
         return classificationSet;
     }
