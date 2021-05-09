@@ -20,6 +20,8 @@ import javax.xml.stream.XMLStreamWriter;
 import java.beans.IntrospectionException;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 public class ProjectRepository {
@@ -44,32 +46,12 @@ public class ProjectRepository {
         unmarshaller = context.createUnmarshaller();
     }
 
-//    private void saveAsFastInfoSet(File file) throws JAXBException, FileNotFoundException, XMLStreamException {
-//        marshaller.setAdapter(new RelativePathAdapter(file.getParent()));
-//
-//        BufferedOutputStream fos = new BufferedOutputStream(new FileOutputStream(file));
-//
-//
-//        Platform.runLater(() -> {
-//            project.setFile(file);
-//            App.getPrefs().setRecentProject(project.getFile().getAbsolutePath());
-//            project.setIsDirty(false);
-//        });
-//    }
+    public void createNew() {
+        project.resetToDefaults();
+        project.newProjectEvent.broadcast();
+    }
 
     public void saveAs(File file) throws JAXBException, IOException, XMLStreamException, RepositoryException {
-//        if (file.exists()) {
-//            file.delete();
-//        }
-//        OutputStream stream;
-//        if (FilenameUtils.getExtension(file.getAbsolutePath()).equals("miso")) {
-//            stream = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
-//            ZipEntry zipFile = new ZipEntry("project.xml");
-//            ((ZipOutputStream)stream).putNextEntry(zipFile);
-//        }
-//        else {
-//            stream = new FileOutputStream(file);
-//        }
         String tempFilename = FilenameUtils.removeExtension(file.getAbsolutePath()) + ".temp";
         File temporaryNewFile = new File(tempFilename);
         if (temporaryNewFile.exists()) temporaryNewFile.delete();
@@ -146,6 +128,24 @@ public class ProjectRepository {
             fis.close();
         }
 
+        //Fix paths
+        String root = loaded.root;
+        String currentParent = file.getParent();
+        if (root != null) {
+            for (Particle particle : loaded.particles) {
+                if (!particle.getFile().exists()) {
+                    String particleFilename = particle.getFilename();
+                    if (particleFilename.contains(currentParent)) {
+                        particleFilename = particleFilename.replace(currentParent, root);
+                        if (Files.exists(Paths.get(particleFilename))) {
+                            System.out.printf("%s - %s\n%s - %s\n",currentParent, root, particle.getFilename(), particleFilename);
+                            particle.setFilename(particleFilename);
+                        }
+                    }
+                }
+            }
+        }
+
         //Remove all
         project.resetToDefaults();
 
@@ -164,6 +164,7 @@ public class ProjectRepository {
         project.tagsUpdatedEvent.broadcast(null);
 
         project.particles.addAll(loaded.particles);
+
         //Update ui properties
         for (Particle particle : project.particles) {
             particle.initUIProperties();
@@ -174,6 +175,7 @@ public class ProjectRepository {
         project.setIsDirty(false);
         project.particleLabeledEvent.broadcast();
         project.particleValidatedEvent.broadcast();
+        project.newProjectEvent.broadcast();
     }
 
     public void open(File file) throws JAXBException, IOException, XMLStreamException, IllegalAccessException, IntrospectionException, InvocationTargetException {

@@ -125,7 +125,6 @@ public class ProjectRepositoryViewModel {
         }
         undoManager.clear();
         supervisor.project.resetToDefaults();
-
     }
 
     public void saveProject() {

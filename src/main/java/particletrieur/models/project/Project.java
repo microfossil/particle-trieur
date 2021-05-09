@@ -21,6 +21,7 @@ import javafx.collections.ObservableList;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import particletrieur.models.settings.ProjectSettings;
 import particletrieur.services.ExtractMetadataFromFilenamesService;
 import particletrieur.xml.TagMapAdapter;
 import particletrieur.xml.TaxonMapAdapter;
@@ -40,8 +41,30 @@ import org.apache.commons.lang3.ObjectUtils;
 @XmlRootElement(name = "project")
 @XmlAccessorType(XmlAccessType.NONE)
 public class Project implements Serializable {
+
     @XmlAttribute(name = "version")
     public String version = ObjectUtils.firstNonNull(App.class.getPackage().getImplementationVersion(), "dev");
+
+    //The project file
+    private final ObjectProperty<File> file = new SimpleObjectProperty<>();
+    public File getFile() {
+        return file.get();
+    }
+    public void setFile(File value) {
+        file.set(value);
+        if (value != null) {
+            root = value.getParent();
+        }
+        else {
+            root = null;
+        }
+    }
+    public ObjectProperty<File> fileProperty() {
+        return file;
+    }
+
+    @XmlAttribute(name = "root")
+    public String root = null;
 
     //Taxons
     @XmlElement(name = "taxons")
@@ -94,17 +117,9 @@ public class Project implements Serializable {
     @XmlElement
     public ProcessingInfo processingInfo;
 
-    //The project file
-    private final ObjectProperty<File> file = new SimpleObjectProperty<>();
-    public File getFile() {
-        return file.get();
-    }
-    public void setFile(File value) {
-        file.set(value);
-    }
-    public ObjectProperty<File> fileProperty() {
-        return file;
-    }
+    //Settings
+    @XmlElement(name = "settings")
+    public ProjectSettings settings;
 
     //Constants
     public static final String UNKNOWN_SAMPLE = "unknown";
@@ -147,6 +162,7 @@ public class Project implements Serializable {
         tags = new LinkedHashMap<>();
         setNetworkDefinition(null);
         processingInfo = new ProcessingInfo();
+        settings = new ProjectSettings();
         addDefaultTags();
         addRequiredTaxons();
         addRequiredTags();

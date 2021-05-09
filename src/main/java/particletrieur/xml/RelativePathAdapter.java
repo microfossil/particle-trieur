@@ -37,6 +37,10 @@ public class RelativePathAdapter extends XmlAdapter<String, String> {
 
     @Override
     public String marshal(String v) throws Exception {
+        return convert(rootPath, v);
+    }
+
+    public static String convert(String rootPath, String v) {
         //Network share (windows) - return absolute path
         if (v.startsWith("\\")) return v;
         //Different volume (windows) - return absolute path

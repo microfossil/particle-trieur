@@ -67,7 +67,7 @@ public class Particle {
     public String getFilename() {
         return filename.get();
     }
-    protected void setFilename(String value) {
+    public void setFilename(String value) {
         filename.set(value);
         File file = new File(value);
         setFile(file);

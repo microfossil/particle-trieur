@@ -720,12 +720,18 @@ public class MainController extends AbstractController implements Initializable 
 
     @FXML
     private void handlePredictUsingCNN(ActionEvent event) {
-        cnnPredictionViewModel.predictUsingCNN(selectionViewModel.getCurrentParticles(), supervisor.project.processingInfo.getProcessBeforeClassification());
+        cnnPredictionViewModel.predictUsingCNN(
+                selectionViewModel.getCurrentParticles(),
+                supervisor.project.processingInfo.getProcessBeforeClassification(),
+                supervisor.project.processingInfo.getCnnThreshold());
     }
 
     @FXML
     private void handlePredictUsingCNNAll(ActionEvent event) {
-        cnnPredictionViewModel.predictUsingCNN(supervisor.project.getParticles(), supervisor.project.processingInfo.getProcessBeforeClassification());
+        cnnPredictionViewModel.predictUsingCNN(
+                supervisor.project.getParticles(),
+                supervisor.project.processingInfo.getProcessBeforeClassification(),
+                supervisor.project.processingInfo.getCnnThreshold());
     }
 
     //TODO move into viewmodel
@@ -735,17 +741,24 @@ public class MainController extends AbstractController implements Initializable 
                 .stream()
                 .filter(foram -> foram.classification.get().equalsIgnoreCase(Project.UNLABELED_CODE))
                 .collect(Collectors.toList());
-        cnnPredictionViewModel.predictUsingCNN(unlabeledParticles, supervisor.project.processingInfo.getProcessBeforeClassification());
+        cnnPredictionViewModel.predictUsingCNN(
+                unlabeledParticles,
+                supervisor.project.processingInfo.getProcessBeforeClassification(),
+                supervisor.project.processingInfo.getCnnThreshold());
     }
 
     @FXML
     private void handlePredictUsingKNN(ActionEvent event) {
-        knnPredictionViewModel.predictUsingkNN(selectionViewModel.getCurrentParticles());
+        knnPredictionViewModel.predictUsingkNN(
+                selectionViewModel.getCurrentParticles(),
+                supervisor.project.processingInfo.getKnnThreshold());
     }
 
     @FXML
     private void handlePredictUsingKNNAll(ActionEvent event) {
-        knnPredictionViewModel.predictUsingkNN(supervisor.project.getParticles());
+        knnPredictionViewModel.predictUsingkNN(
+                supervisor.project.getParticles(),
+                supervisor.project.processingInfo.getKnnThreshold());
     }
 
     //TODO move into viewmodel
@@ -755,7 +768,9 @@ public class MainController extends AbstractController implements Initializable 
                 .stream()
                 .filter(foram -> foram.classification.get().equalsIgnoreCase(Project.UNLABELED_CODE))
                 .collect(Collectors.toList());
-        knnPredictionViewModel.predictUsingkNN(unlabeledParticles);
+        knnPredictionViewModel.predictUsingkNN(
+                unlabeledParticles,
+                supervisor.project.processingInfo.getKnnThreshold());
     }
 
     @FXML
