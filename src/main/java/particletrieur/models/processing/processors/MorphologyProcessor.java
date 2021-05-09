@@ -16,13 +16,13 @@ public class MorphologyProcessor {
 
         Mask mask = image.mask;
         Mat greyscale;
-        if (image.workingImage.channels() == 3) {
-            greyscale = new Mat();
-            Imgproc.cvtColor(image.workingImage, greyscale, Imgproc.COLOR_BGR2GRAY);
-        }
-        else {
-            greyscale = image.workingImage.clone();
-        }
+//        if (image.workingImage.channels() == 3) {
+//            greyscale = new Mat();
+//            Imgproc.cvtColor(image.workingImage, greyscale, Imgproc.COLOR_BGR2GRAY);
+//        }
+//        else {
+            greyscale = image.greyscaleImage.clone();
+//        }
         Mat binary = mask.binary;
         Mat binaryF = mask.binaryF;
         MatOfPoint contour = mask.contour;
