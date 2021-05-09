@@ -135,7 +135,6 @@ public class KNNVectorPredictionService {
         ClassificationSet classificationSet = new ClassificationSet();
         for(Map.Entry<String, Double> entry : freq.entrySet()) {
             classificationSet.add(entry.getKey(), entry.getValue() / totalScore, "kNN");
-            System.out.println(entry.getValue() / totalScore);
         }
         return classificationSet;
     }

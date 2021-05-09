@@ -35,7 +35,7 @@ import javax.swing.*;
  */
 public class App extends Application {
 
-    public static String VERSION = "2.4.7";
+    public static String VERSION = "2.4.8";
 
     private static App instance;
     public static App getInstance() {

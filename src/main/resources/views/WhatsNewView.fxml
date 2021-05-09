@@ -10,12 +10,15 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.image.Image?>
+<?import org.controlsfx.control.HyperlinkLabel?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="particletrieur.viewcontrollers.WhatsNewViewController"
             prefHeight="360.0" prefWidth="480.0">
     <VBox spacing="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <children>
+            <Label text="2.4.8" styleClass="subheader"/>
+            <Label wrapText="true">UI improvements (scrolling, layout); project file can be moved; bug fixes</Label>
             <Label text="2.4.7" styleClass="subheader"/>
             <Label wrapText="true">Add parameters from Zooscan file; fix bugs</Label>
             <Label text="2.4.6" styleClass="subheader"/>
@@ -25,9 +28,9 @@
             <Label wrapText="true">Percentage labeled and validated shown on bottom status bar</Label>
             <Label text="2.4.4" styleClass="subheader"/>
             <Label wrapText="true">Fixed label and tag edit dialogs</Label>
-            <Label text="2.4.3" styleClass="subheader"/>
-            <Label wrapText="true">Added tree view for labels</Label>
-            <Label wrapText="true">Added option to add parameters from CSV</Label>
+            <Separator/>
+            <Label>Raise and issue (bugs / enhancements) here:</Label>
+            <Hyperlink onAction="#handleClickLink">https://github.com/microfossil/particle-trieur/issues</Hyperlink>
         </children>
     </VBox>
 </AnchorPane>
