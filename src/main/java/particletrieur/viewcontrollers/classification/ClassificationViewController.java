@@ -104,15 +104,6 @@ public class ClassificationViewController implements Initializable {
     @FXML
     public Label labelNetwork;
 
-    @FXML
-    Button buttonkNNLabel;
-    @FXML
-    ProgressBar progressBarkNNScore;
-    @FXML
-    Button buttonCNNLabel;
-    @FXML
-    ProgressBar progressBarCNNScore;
-
     @Inject
     MainViewModel mainViewModel;
     @Inject
@@ -151,8 +142,8 @@ public class ClassificationViewController implements Initializable {
 
         //Controls
         checkBoxPreprocessBeforeClassification.selectedProperty().bindBidirectional(supervisor.project.processingInfo.processBeforeClassificationProperty());
-        spinnerCNNThreshold.getValueFactory().valueProperty().bindBidirectional(cnnPredictionViewModel.cnnThresholdProperty());
-        spinnerKNNThreshold.getValueFactory().valueProperty().bindBidirectional(knnPredictionViewModel.knnThresholdProperty());
+        spinnerCNNThreshold.getValueFactory().valueProperty().bindBidirectional(supervisor.project.processingInfo.cnnThresholdProperty());
+        spinnerKNNThreshold.getValueFactory().valueProperty().bindBidirectional(supervisor.project.processingInfo.knnThresholdProperty());
 
         //Current particle updated
         selectionViewModel.currentParticleProperty().addListener((observable, oldValue, newValue) -> {
@@ -877,7 +868,8 @@ public class ClassificationViewController implements Initializable {
     private void handlePredictUsingCNN(ActionEvent event) {
         cnnPredictionViewModel.predictUsingCNN(
                 selectionViewModel.getCurrentParticles(),
-                supervisor.project.processingInfo.getProcessBeforeClassification());
+                supervisor.project.processingInfo.getProcessBeforeClassification(),
+                supervisor.project.processingInfo.getCnnThreshold());
     }
 
     @FXML
@@ -899,7 +891,9 @@ public class ClassificationViewController implements Initializable {
 
     @FXML
     private void handlePredictUsingkNN(ActionEvent event) {
-        knnPredictionViewModel.predictUsingkNN(selectionViewModel.getCurrentParticles());
+        knnPredictionViewModel.predictUsingkNN(
+                selectionViewModel.getCurrentParticles(),
+                supervisor.project.processingInfo.getKnnThreshold());
     }
 
     @FXML

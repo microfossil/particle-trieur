@@ -241,7 +241,7 @@ public class ProcessingInfo {
     //
     //Process before classification
     private final BooleanProperty processBeforeClassification = new SimpleBooleanProperty(true);
-    @XmlElement(name = "processBeforeClassification")
+    @XmlElement(name = "processBeforeCnn")
     public boolean getProcessBeforeClassification() {
         return processBeforeClassification.get();
     }
@@ -251,17 +251,29 @@ public class ProcessingInfo {
     public BooleanProperty processBeforeClassificationProperty() {
         return processBeforeClassification;
     }
-    //Threshold
-    private final DoubleProperty classificationThreshold = new SimpleDoubleProperty(0.8);
-    @XmlElement(name = "classificationThreshold")
-    public double getClassificationThreshold() {
-        return classificationThreshold.get();
+    //Threshold - CNN
+    private final DoubleProperty cnnThreshold = new SimpleDoubleProperty(0.8);
+    @XmlElement(name = "cnnThreshold")
+    public double getCnnThreshold() {
+        return cnnThreshold.get();
     }
-    public void setClassificationThreshold(double value) {
-        classificationThreshold.set(value);
+    public void setCnnThreshold(double value) {
+        cnnThreshold.set(value);
     }
-    public DoubleProperty classificationThresholdProperty() {
-        return classificationThreshold;
+    public DoubleProperty cnnThresholdProperty() {
+        return cnnThreshold;
+    }
+    //Threshold - kNN
+    private final DoubleProperty knnThreshold = new SimpleDoubleProperty(0.8);
+    @XmlElement(name = "knnThreshold")
+    public double getKnnThreshold() {
+        return knnThreshold.get();
+    }
+    public void setKnnThreshold(double value) {
+        knnThreshold.set(value);
+    }
+    public DoubleProperty knnThresholdProperty() {
+        return knnThreshold;
     }
 
     public ProcessingInfo() {
@@ -290,6 +302,7 @@ public class ProcessingInfo {
         setBackgroundRemovalMargin(16);
         //Classification settings
         setProcessBeforeClassification(false);
-        setClassificationThreshold(0.8);
+        setCnnThreshold(0.8);
+        setKnnThreshold(0.8);
     }
 }

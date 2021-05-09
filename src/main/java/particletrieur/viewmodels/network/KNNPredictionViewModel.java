@@ -47,17 +47,6 @@ public class KNNPredictionViewModel {
         this.running.set(running);
     }
 
-    DoubleProperty knnThreshold = new SimpleDoubleProperty(0.8);
-    public double getKnnThreshold() {
-        return knnThreshold.get();
-    }
-    public DoubleProperty knnThresholdProperty() {
-        return knnThreshold;
-    }
-    public void setKnnThreshold(double knnThreshold) {
-        this.knnThreshold.set(knnThreshold);
-    }
-
     Supervisor supervisor;
     NetworkViewModel networkViewModel;
     SelectionViewModel selectionViewModel;
@@ -104,7 +93,7 @@ public class KNNPredictionViewModel {
         kNNPredictionServiceRunner.run(service);
     }
 
-    public void predictUsingkNN(List<Particle> particles) {
+    public void predictUsingkNN(List<Particle> particles, double threshold) {
         //Check if any images are selected
         if (particles.size() == 0) {
             BasicDialogs.ShowError("Error", "No images selected.");
@@ -114,7 +103,7 @@ public class KNNPredictionViewModel {
         Service<HashMap<Particle, ClassificationSet>> service = KNNVectorPredictionService.predictUsingKNNService(particles, supervisor.project.particles, 10);
         service.setOnSucceeded(event -> {
             HashMap<Particle, ClassificationSet> classifications = service.getValue();
-            labelsViewModel.setLabelSet(classifications, getKnnThreshold(), true);
+            labelsViewModel.setLabelSet(classifications, threshold, true);
             selectionViewModel.currentParticleUpdatedEvent.broadcast();
         });
         if (particles.size() > 1) {

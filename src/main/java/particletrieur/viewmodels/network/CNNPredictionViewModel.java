@@ -55,18 +55,6 @@ public class CNNPredictionViewModel {
         this.running.set(running);
     }
 
-    DoubleProperty cnnThreshold = new SimpleDoubleProperty(0.8);
-    public double getCnnThreshold() {
-        return cnnThreshold.get();
-    }
-    public DoubleProperty cnnThresholdProperty() {
-        return cnnThreshold;
-    }
-    public void setCnnThreshold(double cnnThreshold) {
-        this.cnnThreshold.set(cnnThreshold);
-    }
-
-
     Supervisor supervisor;
     SelectionViewModel selectionViewModel;
     LabelsViewModel labelsViewModel;
@@ -114,7 +102,7 @@ public class CNNPredictionViewModel {
 
     //TODO preprocess before classification should be in here as a setting or there should be some kind of global settings
     //Maybe project prefs?
-    public void predictUsingCNN(List<Particle> particles, boolean processBeforeClassification) {
+    public void predictUsingCNN(List<Particle> particles, boolean processBeforeClassification, double threshold) {
         //Check if network is enabled
         if (!supervisor.network.isEnabled()) {
             BasicDialogs.ShowError("Error", "Please configure a CNN to classify images.");
@@ -140,7 +128,7 @@ public class CNNPredictionViewModel {
         Service<HashMap<Particle,ClassificationSet>> service = cnnPredictionService.predictService(particles, processBeforeClassification);
         service.setOnSucceeded(event -> {
             HashMap<Particle,ClassificationSet> classifications = service.getValue();
-            labelsViewModel.setLabelSet(classifications, getCnnThreshold(), true);
+            labelsViewModel.setLabelSet(classifications, threshold, true);
             selectionViewModel.currentParticleUpdatedEvent.broadcast();
         });
         service.setOnFailed(event -> {
