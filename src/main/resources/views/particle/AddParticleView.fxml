@@ -13,6 +13,7 @@
 <?import org.controlsfx.control.GridView?>
 
 <?import org.controlsfx.control.CheckTreeView?>
+<?import javafx.scene.control.TreeView?>
 <VBox prefHeight="428.0" prefWidth="600.0" spacing="7" stylesheets="@../../styles/style.css"
       xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="particletrieur.viewcontrollers.particle.AddParticleViewController">
@@ -43,5 +44,6 @@
         <Label styleClass="subheader" text="Images"/>
         <GridView fx:id="gridViewImages" horizontalCellSpacing="3.0" style="-fx-border-color: lightgrey;"
                   verticalCellSpacing="3.0" VBox.vgrow="ALWAYS"/>
+        <TreeView fx:id="treeView" />
     </children>
 </VBox>

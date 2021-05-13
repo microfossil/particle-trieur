@@ -5,6 +5,7 @@
  */
 package particletrieur.viewcontrollers.particle;
 
+import javafx.scene.control.cell.CheckBoxTreeCell;
 import org.controlsfx.control.CheckTreeView;
 import particletrieur.*;
 import particletrieur.controls.dialogs.BasicDialogs;
@@ -46,6 +47,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
 /**
@@ -54,6 +56,8 @@ import java.util.stream.Collectors;
 @FxmlLocation("/views/particle/AddParticleView.fxml")
 public class AddParticleViewController extends AbstractDialogController implements Initializable {
 
+    @FXML
+    TreeView<String> treeView;
     @FXML
     RadioButton radioButtonFiles;
     @FXML
@@ -111,6 +115,8 @@ public class AddParticleViewController extends AbstractDialogController implemen
             if (files == null || files.isEmpty()) return;
             App.getPrefs().setImagePath(files.get(0).getParent());
             App.getPrefs().save();
+
+
         }
         else if (addType.getSelectedToggle() == radioButtonFolder) {
             DirectoryChooser dc = new DirectoryChooser();
@@ -155,6 +161,16 @@ public class AddParticleViewController extends AbstractDialogController implemen
                 csvData.clear();
                 files.addAll(service.getValue());
                 this.getDialog().getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
+
+                LinkedHashMap<String, Object> list = new LinkedHashMap<>();
+                for (File file : files) {
+                    String [] parts = file.getAbsolutePath().split(Matcher.quoteReplacement(System.getProperty("file.separator")));
+                    ProjectService.createDirectoryTree(file.getAbsolutePath(), parts, 0, list);
+                }
+                CheckBoxTreeItem<String> root = new CheckBoxTreeItem<>("");
+                ProjectService.createTreeView(list, root);
+                treeView.setRoot(root);
+                treeView.setCellFactory(CheckBoxTreeCell.<String>forTreeView());
             });
             service.setOnFailed(event1 -> {
                 BasicDialogs.ShowException("Error loading files", new Exception(service.getException()));
