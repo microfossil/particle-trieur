@@ -15,6 +15,7 @@ import particletrieur.models.project.Project;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -106,6 +107,12 @@ public class ExportImagesService {
         this.supervisor = supervisor;
     }
 
+    public String removeIllegalCharacters(String str) {
+        str = str.replaceAll("[\\\\/:\"*?<>|]+", "#");
+        str = str.trim();
+        return str;
+    }
+
     public Service exportImages() {
         Project project = supervisor.project;
         ProcessingInfo proDef = project.processingInfo;
@@ -188,6 +195,7 @@ public class ExportImagesService {
                                         else if (folderMode == FolderMode.SAMPLE) {
                                             folder = particle.getSampleID();
                                         }
+                                        folder = removeIllegalCharacters(folder);
                                         currentOutputDirectory = Paths.get(imagesDirectory.getAbsolutePath(), folder).toFile();
                                         if (!currentOutputDirectory.exists()) {
                                             currentOutputDirectory.mkdir();
@@ -212,17 +220,17 @@ public class ExportImagesService {
                                     else {
                                         //Prefix
                                         if (includePrefix) {
-                                            sb.append(prefix);
+                                            sb.append(removeIllegalCharacters(prefix));
                                             sb.append("-");
                                         }
                                         sb.append(String.format(numberFormat, idx.get()));
                                         if (includeClassification) {
                                             sb.append("-");
-                                            sb.append(particle.classification.get());
+                                            sb.append(removeIllegalCharacters(particle.classification.get()));
                                         }
                                         if (includeSample && particle.getSampleID() != null) {
                                             sb.append("-");
-                                            sb.append(particle.getSampleID());
+                                            sb.append(removeIllegalCharacters(particle.getSampleID()));
                                         }
                                         if (includeIndex1) {
                                             sb.append("-");
