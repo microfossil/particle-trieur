@@ -5,6 +5,8 @@
  */
 package particletrieur.viewcontrollers.particle;
 
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableSet;
 import javafx.scene.control.cell.CheckBoxTreeCell;
 import org.controlsfx.control.CheckTreeView;
 import particletrieur.*;
@@ -57,7 +59,7 @@ import java.util.stream.Collectors;
 public class AddParticleViewController extends AbstractDialogController implements Initializable {
 
     @FXML
-    TreeView<String> treeView;
+    CheckTreeView<ProjectService.DisplayPath> treeView;
     @FXML
     RadioButton radioButtonFiles;
     @FXML
@@ -80,6 +82,8 @@ public class AddParticleViewController extends AbstractDialogController implemen
     ObservableList<File> files = FXCollections.observableArrayList();
     LinkedHashMap<String, LinkedHashMap<String, String>> csvData = new LinkedHashMap<>();
 
+    private boolean withFiles = false;
+
     @Inject
     Supervisor supervisor;
     @Inject
@@ -92,8 +96,67 @@ public class AddParticleViewController extends AbstractDialogController implemen
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         radioButtonFolder.setSelected(true);
-        gridViewImages.setCellFactory(param -> new ParticleCell());
-        gridViewImages.setItems(files);
+
+        treeView.setCellFactory(tv -> {
+            CheckBoxTreeCell<ProjectService.DisplayPath> cell = new CheckBoxTreeCell<ProjectService.DisplayPath>() {
+                @Override
+                public void updateItem(ProjectService.DisplayPath item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || empty) {
+                        setText(null);
+                    } else {
+                        setText(item.displayPath);
+                    }
+                }
+            };
+            return cell ;
+        });
+
+        files.addListener((ListChangeListener<? super File>) listener -> {
+            LinkedHashMap<String, Object> list = new LinkedHashMap<>();
+            int i = 0;
+            for (File file : files) {
+                String [] parts = file.getAbsolutePath().split(Matcher.quoteReplacement(System.getProperty("file.separator")));
+                System.out.println(i);
+                ProjectService.createDirectoryTree(file.getAbsolutePath(), parts, 0, list);
+                i++;
+            }
+            CheckBoxTreeItem<ProjectService.DisplayPath> root = new CheckBoxTreeItem<>(new ProjectService.DisplayPath("" ,""));
+            ProjectService.createTreeView(list, root, withFiles);
+            root.setSelected(true);
+            treeView.setRoot(root);
+            treeView.getRoot().setExpanded(true);
+        });
+    }
+
+    private void updateFromFileSelection(List<File> selection) {
+        files.clear();
+        files.addAll(selection);
+        this.getDialog().getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
+    }
+
+    private void findCheckedItems(CheckBoxTreeItem<ProjectService.DisplayPath> item, List<CheckBoxTreeItem<ProjectService.DisplayPath>> checkedItems) {
+        if (item.getChildren().size() == 0 && item.isSelected()) {
+            checkedItems.add(item);
+        }
+        for (TreeItem<?> child : item.getChildren()) {
+            findCheckedItems((CheckBoxTreeItem<ProjectService.DisplayPath>) child, checkedItems);
+        }
+    }
+
+    private List<File> getSelectedFiles() {
+        if (withFiles) {
+            ArrayList<CheckBoxTreeItem<ProjectService.DisplayPath>> checkedItems = new ArrayList<>();
+            findCheckedItems((CheckBoxTreeItem<ProjectService.DisplayPath>) treeView.getRoot(), checkedItems);
+            checkedItems.stream().filter(c -> !c.getValue().path.equals("")).map(c -> new File(c.getValue().path)).forEach(c -> System.out.println(c));
+            return checkedItems.stream().filter(c -> !c.getValue().path.equals("")).map(c -> new File(c.getValue().path)).collect(Collectors.toList());
+        }
+        else {
+            ArrayList<CheckBoxTreeItem<ProjectService.DisplayPath>> checkedItems = new ArrayList<>();
+            findCheckedItems((CheckBoxTreeItem<ProjectService.DisplayPath>) treeView.getRoot(), checkedItems);
+            Set<String> parents = checkedItems.stream().map(c -> c.getValue().path).collect(Collectors.toSet());
+            return files.stream().filter(f -> parents.contains(f.getParent())).collect(Collectors.toList());
+        }
     }
 
     @FXML
@@ -110,13 +173,12 @@ public class AddParticleViewController extends AbstractDialogController implemen
             dc.setTitle("Select images to add");
             files.clear();
             csvData.clear();
+            withFiles = true;
             List<File> dcFiles = dc.showOpenMultipleDialog(buttonChooseFolder.getScene().getWindow());
-            files.addAll(dcFiles);
+            updateFromFileSelection(dcFiles);
             if (files == null || files.isEmpty()) return;
             App.getPrefs().setImagePath(files.get(0).getParent());
             App.getPrefs().save();
-
-
         }
         else if (addType.getSelectedToggle() == radioButtonFolder) {
             DirectoryChooser dc = new DirectoryChooser();
@@ -157,20 +219,8 @@ public class AddParticleViewController extends AbstractDialogController implemen
                 }
             };
             service.setOnSucceeded(event1 -> {
-                files.clear();
-                csvData.clear();
-                files.addAll(service.getValue());
-                this.getDialog().getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
-
-                LinkedHashMap<String, Object> list = new LinkedHashMap<>();
-                for (File file : files) {
-                    String [] parts = file.getAbsolutePath().split(Matcher.quoteReplacement(System.getProperty("file.separator")));
-                    ProjectService.createDirectoryTree(file.getAbsolutePath(), parts, 0, list);
-                }
-                CheckBoxTreeItem<String> root = new CheckBoxTreeItem<>("");
-                ProjectService.createTreeView(list, root);
-                treeView.setRoot(root);
-                treeView.setCellFactory(CheckBoxTreeCell.<String>forTreeView());
+                withFiles = false;
+                updateFromFileSelection(service.getValue());
             });
             service.setOnFailed(event1 -> {
                 BasicDialogs.ShowException("Error loading files", new Exception(service.getException()));
@@ -194,11 +244,10 @@ public class AddParticleViewController extends AbstractDialogController implemen
             if (file == null) return;
             Service<LinkedHashMap<String, LinkedHashMap<String, String>>> service = ParametersFromCSVService.getParametersFromCSV(file);
             service.setOnSucceeded(event1 -> {
-                files.clear();
+                withFiles = false;
                 csvData = service.getValue();
                 List<File> toAdd = csvData.keySet().stream().map(File::new).collect(Collectors.toList());
-                files.addAll(toAdd);
-                this.getDialog().getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
+                updateFromFileSelection(toAdd);
             });
             service.setOnFailed(event1 -> {
                 BasicDialogs.ShowException("Error loading CSV", new Exception(service.getException()));
@@ -288,10 +337,10 @@ public class AddParticleViewController extends AbstractDialogController implemen
             }
             Service<ArrayList<Particle>> service;
             if (radioButtonCSV.isSelected()) {
-                service = ProjectService.addImagesToProject(csvData, supervisor.project, selectionSize);
+                service = ProjectService.addImagesToProject(getSelectedFiles(), csvData, supervisor.project, selectionSize);
             }
             else {
-                service = ProjectService.addImagesToProject(files, supervisor.project, selectionSize);
+                service = ProjectService.addImagesToProject(getSelectedFiles(), supervisor.project, selectionSize);
             }
             service.setOnSucceeded(succeeded -> {
                 AddParticlesCommand command = new AddParticlesCommand(supervisor.project, service.getValue());

@@ -26,6 +26,16 @@ import javafx.concurrent.Task;
  */
 public class ProjectService {
 
+    public static class DisplayPath {
+        public String path;
+        public String displayPath;
+
+        public DisplayPath(String path, String displayPath) {
+            this.path = path;
+            this.displayPath = displayPath;
+        }
+    }
+
     public static void createDirectoryTree(String filename, String[ ] parts, int idx, LinkedHashMap<String, Object> list) {
         // Still at directory level
         if (parts.length > idx + 1) {
@@ -35,31 +45,36 @@ public class ProjectService {
                 LinkedHashMap<String, Object> newlist = new LinkedHashMap<>();
                 list.put(parts[idx], newlist);
                 createDirectoryTree(filename, parts, idx + 1, newlist);
-                System.out.println(parts[idx]);
             }
         }
         else {
             list.put(parts[idx], filename);
+            System.out.println(filename);
         }
     }
 
-    public static void createTreeView(LinkedHashMap<String, Object> list, CheckBoxTreeItem<String> treeItem) {
+    public static void createTreeView(LinkedHashMap<String, Object> list, CheckBoxTreeItem<DisplayPath> treeItem, boolean withFiles) {
         for(Map.Entry<String, Object> entry : list.entrySet()) {
             if (entry.getKey() == null) {
-                createTreeView((LinkedHashMap<String, Object>) entry.getValue(), treeItem);
+                createTreeView((LinkedHashMap<String, Object>) entry.getValue(), treeItem, withFiles);
             }
-            else if (list.size() == 1) {
-                treeItem.setValue(treeItem.getValue() + "/" + entry.getKey());
-                createTreeView((LinkedHashMap<String, Object>) entry.getValue(), treeItem);
+            else if (entry.getValue() instanceof LinkedHashMap && list.size() == 1) {
+                treeItem.setValue(new DisplayPath("",treeItem.getValue().displayPath + "/" + entry.getKey()));
+                createTreeView((LinkedHashMap<String, Object>) entry.getValue(), treeItem, withFiles);
             }
             else if (entry.getValue() instanceof LinkedHashMap) {
-                CheckBoxTreeItem<String> newTreeItem = new CheckBoxTreeItem<>(entry.getKey());
-                createTreeView((LinkedHashMap<String, Object>) entry.getValue(), newTreeItem);
+                CheckBoxTreeItem<DisplayPath> newTreeItem = new CheckBoxTreeItem<>(new DisplayPath("", entry.getKey()));
+                createTreeView((LinkedHashMap<String, Object>) entry.getValue(), newTreeItem, withFiles);
                 treeItem.getChildren().add(newTreeItem);
             }
             else {
-                CheckBoxTreeItem<String> newTreeItem = new CheckBoxTreeItem<>((String) entry.getValue());
-                treeItem.getChildren().add(newTreeItem);
+                if (withFiles) {
+                    CheckBoxTreeItem<DisplayPath> newTreeItem = new CheckBoxTreeItem<>(new DisplayPath((String) entry.getValue(), (String) entry.getKey()));
+                    treeItem.getChildren().add(newTreeItem);
+                }
+                treeItem.getValue().path = (new File((String) entry.getValue())).getParent();
+                System.out.println(treeItem.getValue().path);
+                System.out.println((String) entry.getValue());
             }
         }
     }
@@ -104,7 +119,10 @@ public class ProjectService {
         return service;
     }
 
-    public static Service<ArrayList<Particle>> addImagesToProject(LinkedHashMap<String, LinkedHashMap<String, String>> files, Project project, int selectionSize) {
+    public static Service<ArrayList<Particle>> addImagesToProject(List<File> validFiles,
+                                                                  LinkedHashMap<String, LinkedHashMap<String, String>> files,
+                                                                  Project project,
+                                                                  int selectionSize) {
         Service<ArrayList<Particle>> service = new Service<ArrayList<Particle>>() {
             @Override
             protected Task<ArrayList<Particle>> createTask() {
@@ -112,7 +130,8 @@ public class ProjectService {
                     @Override
                     protected ArrayList<Particle> call() throws InterruptedException {
                         int size = selectionSize;
-                        List<String> selection = files.keySet().stream().collect(Collectors.toList());
+                        Set<String> validFileKeys = validFiles.stream().map(File::getAbsolutePath).collect(Collectors.toSet());
+                        List<String> selection = files.keySet().stream().filter(validFileKeys::contains).collect(Collectors.toList());
                         updateMessage("Adding images...");
                         if (size > 0) {
                             updateMessage("Randomly selecting images...");

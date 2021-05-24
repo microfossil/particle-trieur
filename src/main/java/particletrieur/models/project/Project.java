@@ -237,6 +237,7 @@ public class Project implements Serializable {
     }
 
     public void addParticles(List<Particle> particles) {
+        if (particles.size() == 0) return;
         boolean updateTaxons = false;
         boolean updateTags = false;
         for (Particle particle : particles) {

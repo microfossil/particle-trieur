@@ -42,8 +42,8 @@
         <Label fx:id="labelFileCount" text="0 files found"/>
         <Separator prefWidth="200.0"/>
         <Label styleClass="subheader" text="Images"/>
-        <GridView fx:id="gridViewImages" horizontalCellSpacing="3.0" style="-fx-border-color: lightgrey;"
-                  verticalCellSpacing="3.0" VBox.vgrow="ALWAYS"/>
-        <TreeView fx:id="treeView" />
+<!--        <GridView fx:id="gridViewImages" horizontalCellSpacing="3.0" style="-fx-border-color: lightgrey;"-->
+<!--                  verticalCellSpacing="3.0" VBox.vgrow="ALWAYS"/>-->
+        <CheckTreeView fx:id="treeView" />
     </children>
 </VBox>

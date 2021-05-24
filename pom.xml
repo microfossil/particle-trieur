@@ -226,5 +226,10 @@
             <artifactId>imageio-core</artifactId>
             <version>3.6</version>
         </dependency>
+        <dependency>
+            <groupId>org.javatuples</groupId>
+            <artifactId>javatuples</artifactId>
+            <version>1.2</version>
+        </dependency>
     </dependencies>
 </project>
