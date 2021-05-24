@@ -242,6 +242,8 @@ public class AddParticleViewController extends AbstractDialogController implemen
             dc.setTitle("Select CSV file with image data");
             File file = dc.showOpenDialog(buttonChooseFolder.getScene().getWindow());
             if (file == null) return;
+            App.getPrefs().setImagePath(file.getParent());
+            App.getPrefs().save();
             Service<LinkedHashMap<String, LinkedHashMap<String, String>>> service = ParametersFromCSVService.getParametersFromCSV(file);
             service.setOnSucceeded(event1 -> {
                 withFiles = false;
@@ -258,8 +260,6 @@ public class AddParticleViewController extends AbstractDialogController implemen
             });
             this.getDialog().getDialogPane().lookupButton(ButtonType.OK).setDisable(true);
             service.start();
-            App.getPrefs().setImagePath(files.get(0).getParent());
-            App.getPrefs().save();
         }
 
         if (files.size() == 0) {
