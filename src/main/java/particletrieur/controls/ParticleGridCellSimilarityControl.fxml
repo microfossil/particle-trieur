@@ -21,7 +21,7 @@
             </padding>
             <VBox>
                 <Label fx:id="labelId" text=""/>
-                <Label fx:id="labelClassification" text=""/>
+                <Label fx:id="labelClassification" text="" wrapText="true"/>
                 <Label fx:id="labelInfo" text=""/>
             </VBox>
             <Pane HBox.hgrow="ALWAYS"/>

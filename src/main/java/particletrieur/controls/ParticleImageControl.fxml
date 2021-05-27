@@ -11,7 +11,7 @@
         <VBox spacing="3.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
             <children>
                 <Label fx:id="labelId" text="Index" />
-                <Label fx:id="labelClassification" text="Classification" />
+                <Label fx:id="labelClassification" text="Classification" wrapText="true"/>
                 <Label fx:id="labelScore" text="Score" />
             <StackPane>
                <children>

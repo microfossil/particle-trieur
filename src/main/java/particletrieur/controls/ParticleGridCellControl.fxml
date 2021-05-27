@@ -20,7 +20,7 @@
             </padding>
             <VBox>
                 <Label fx:id="labelId" text="Index"/>
-                <Label fx:id="labelClassification" text="Classification"/>
+                <Label fx:id="labelClassification" text="Classification" wrapText="true"/>
             </VBox>
             <Pane HBox.hgrow="ALWAYS"/>
             <StackPane fx:id="validated" >
