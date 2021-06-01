@@ -34,7 +34,7 @@ public class ParametersFromCSVService {
                         if (headerNames.contains("filename")) filenameHeader = "filename";
                         else if (headerNames.contains("file")) filenameHeader = "file";
                         else if (headerNames.contains("fichier")) filenameHeader = "fichier";
-                        else throw new InputMismatchException("The CSV file must contain a column named filename, file or dossier.");
+                        else throw new InputMismatchException("The CSV file must contain a column named filename, file or fichier.");
 
                         int count = 0;
                         for (CSVRecord record : parser) {

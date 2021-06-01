@@ -422,7 +422,7 @@ public class Project implements Serializable {
         particleLabeledEvent.broadcast();
     }
 
-    public void updateParticleParameters(LinkedHashMap<String, LinkedHashMap<String, String>> files) {
+    public void updateParticleParameters(LinkedHashMap<String, LinkedHashMap<String, String>> files, boolean overwriteExisting) {
         HashMap<String, Particle> fullFilenameMap = new LinkedHashMap<>();
         HashMap<String, Particle> shortFilenameMap = new LinkedHashMap<>();
         getParticles().stream().forEach(p -> fullFilenameMap.put(p.getFilename(), p));
@@ -432,7 +432,7 @@ public class Project implements Serializable {
             String filename = entry.getKey();
             if (fullFilenameMap.containsKey(filename)) {
                 Particle particle = fullFilenameMap.get(filename);
-                particle.addParameters(entry.getValue());
+                particle.addParameters(entry.getValue(), overwriteExisting);
                 taxons.add(particle.getClassifications().getBestCode());
                 if (shortFilenameMap.containsKey(particle.getShortFilename())) {
                     shortFilenameMap.remove(particle.getShortFilename());
@@ -440,7 +440,7 @@ public class Project implements Serializable {
             }
             else if (shortFilenameMap.containsKey(filename)) {
                 Particle particle = shortFilenameMap.get(filename);
-                particle.addParameters(entry.getValue());
+                particle.addParameters(entry.getValue(), overwriteExisting);
                 taxons.add(particle.getClassifications().getBestCode());
             }
         }

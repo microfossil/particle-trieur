@@ -43,7 +43,7 @@ public class MorphologyViewController implements Initializable {
         tableView.getColumns().addAll(tableColumnParameterName, tableColumnParameterValue, tableColumnParameterValueMM);
 
         selectionViewModel.currentParticleImageProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null && newValue.morphology != null) {
+            if (newValue != null && newValue.morphology != null && selectionViewModel.getCurrentParticle() != null) {
                 update(newValue.morphology, newValue.morphology.convertToMM(selectionViewModel.getCurrentParticle().getResolution()));
             }
             else {

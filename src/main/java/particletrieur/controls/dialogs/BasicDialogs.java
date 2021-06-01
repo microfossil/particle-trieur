@@ -172,6 +172,26 @@ public class BasicDialogs {
         });
     }
 
+    public static void ShowYesNo(String header, String content, Runnable onYes, Runnable onNo) {
+        AlertEx alert = new AlertEx(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(header);
+        alert.setContentText(content);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        alert.getButtonTypes().clear();
+        alert.getButtonTypes().add(ButtonType.YES);
+        alert.getButtonTypes().add(ButtonType.NO);
+        alert.showEmbedded();
+        alert.setResultConverter(button -> {
+            if (button == ButtonType.YES && onYes != null) {
+                onYes.run();
+            }
+            else if (button == ButtonType.NO && onNo != null) {
+                onNo.run();
+            }
+            return null;
+        });
+    }
+
     public static ProgressDialog2 ProgressDialogWithCancel2(
             String title, 
             String header,

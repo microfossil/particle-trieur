@@ -138,7 +138,7 @@ public class ProjectRepository {
                     if (particleFilename.contains(currentParent)) {
                         particleFilename = particleFilename.replace(currentParent, root);
                         if (Files.exists(Paths.get(particleFilename))) {
-                            System.out.printf("%s - %s\n%s - %s\n",currentParent, root, particle.getFilename(), particleFilename);
+//                            System.out.printf("%s - %s\n%s - %s\n",currentParent, root, particle.getFilename(), particleFilename);
                             particle.setFilename(particleFilename);
                         }
                     }

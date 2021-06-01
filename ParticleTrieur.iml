@@ -50,5 +50,6 @@
     <orderEntry type="library" name="Maven: com.twelvemonkeys.common:common-image:3.6" level="project" />
     <orderEntry type="library" name="Maven: com.twelvemonkeys.imageio:imageio-tiff:3.6" level="project" />
     <orderEntry type="library" name="Maven: com.twelvemonkeys.imageio:imageio-core:3.6" level="project" />
+    <orderEntry type="library" name="Maven: org.javatuples:javatuples:1.2" level="project" />
   </component>
 </module>

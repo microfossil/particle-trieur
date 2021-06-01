@@ -125,25 +125,24 @@ public class ExportMorphologyService {
                     protected Void call() throws InterruptedException, IOException {
                         updateMessage("Exporting...");
 
-                        final AtomicInteger skippedBecauseOfErrors = new AtomicInteger(0);
-                        final AtomicInteger idx = new AtomicInteger(0);
-
-                        LinkedHashMap<Particle, Morphology> morphologies = new LinkedHashMap<>();
-                        LinkedHashMap<Particle, Integer> indices = new LinkedHashMap<>();
+//                        final AtomicInteger skippedBecauseOfErrors = new AtomicInteger(0);
+//                        final AtomicInteger idx = new AtomicInteger(0);
+//
+//                        LinkedHashMap<Particle, Morphology> morphologies = new LinkedHashMap<>();
+//                        LinkedHashMap<Particle, Integer> indices = new LinkedHashMap<>();
 
                         //Get headers
-                        HashSet<String> headerSet = new HashSet<>();
+                        LinkedHashSet<String> headers = new LinkedHashSet<>();
                         particles.forEach(particle -> {
                             for (Map.Entry<String, String> entry : particle.parameters.entrySet()) {
-                                headerSet.add(entry.getKey());
+                                headers.add(entry.getKey());
                             }
                         });
-                        List<String> headers = headerSet.stream().sorted().collect(Collectors.toList());
 
                         //Output to file
                         String headerString = "id,filename,label,sample,index1,index2,resolution,GUID,labeled_by,validated_by";
                         for (String header : headers) {
-                            headerString += "," + header;
+                            headerString += ",p_" + header;
                         }
                         headerString += "\n";
                         BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));

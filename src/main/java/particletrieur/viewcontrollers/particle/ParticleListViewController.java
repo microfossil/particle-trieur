@@ -205,6 +205,7 @@ public class ParticleListViewController implements Initializable {
             //VBox
             final VBox vBox = new VBox();
             final Label labelClass = new Label();
+//            labelClass.setWrapText(true);
             final Label labelTags = new Label();
             labelClass.setStyle("-fx-font-weight: bold");
             final SymbolLabel symbolLabel = new SymbolLabel("feathercheckcircle", 16);

@@ -325,12 +325,17 @@ public class Particle {
         setResolution(resolution);
     }
 
-    public void addParameters(LinkedHashMap<String, String> data) {
-        ArrayList<String> toRemove = new ArrayList<>();
+    public void addParameters(LinkedHashMap<String, String> data, boolean overwriteExisting) {
+
+        parameters = data;
+
+        if (!overwriteExisting) return;
+
+//        ArrayList<String> toRemove = new ArrayList<>();
         //Sample
         if (data.containsKey("sample")) {
             setSampleID(data.get("sample"));
-            toRemove.add("sample");
+//            toRemove.add("sample");
         }
         //Class
         String code = classifications.getBestCode();
@@ -339,25 +344,25 @@ public class Particle {
         boolean wasUpdate = false;
         if (data.containsKey("class")) {
             code = data.get("class");
-            toRemove.add("class");
+//            toRemove.add("class");
             wasUpdate = true;
         }
         else if (data.containsKey("label")) {
             code = data.get("label");
-            toRemove.add("label");
+//            toRemove.add("label");
             wasUpdate = true;
         }
         //Classifier
         if (data.containsKey("classifier")) {
             classifierID = data.get("classifier");
-            toRemove.add("classifier");
+//            toRemove.add("classifier");
             wasUpdate = true;
         }
         //Score
         if (data.containsKey("score")) {
             try {
                 score = Double.parseDouble(data.get("score"));
-                toRemove.add("score");
+//                toRemove.add("score");
                 wasUpdate = true;
             }
             catch (NumberFormatException ex) {
@@ -369,7 +374,7 @@ public class Particle {
         if (data.containsKey("index1")) {
             try {
                 setIndex1(Double.parseDouble(data.get("index1")));
-                toRemove.add("index1");
+//                toRemove.add("index1");
             }
             catch (NumberFormatException ex) {
 
@@ -379,7 +384,7 @@ public class Particle {
         if (data.containsKey("index2")) {
             try {
                 setIndex2(Double.parseDouble(data.get("index2")));
-                toRemove.add("index2");
+//                toRemove.add("index2");
             }
             catch (NumberFormatException ex) {
 
@@ -388,23 +393,23 @@ public class Particle {
         //GUID
         if (data.containsKey("guid")) {
             setGUID(data.get("guid"));
-            toRemove.add("guid");
+//            toRemove.add("guid");
         }
         //Resolution
         if (data.containsKey("resolution")) {
             try {
                 setResolution(Double.parseDouble(data.get("resolution")));
-                toRemove.add("resolution");
+//                toRemove.add("resolution");
             }
             catch (NumberFormatException ex) {
 
             }
         }
         //TODO remove extra fields?
-        for (String s : toRemove) {
-            data.remove(s);
-        }
-        parameters = data;
+//        for (String s : toRemove) {
+//            data.remove(s);
+//        }
+
     }
 
     /*

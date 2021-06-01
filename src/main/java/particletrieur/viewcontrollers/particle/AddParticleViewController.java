@@ -148,7 +148,7 @@ public class AddParticleViewController extends AbstractDialogController implemen
         if (withFiles) {
             ArrayList<CheckBoxTreeItem<ProjectService.DisplayPath>> checkedItems = new ArrayList<>();
             findCheckedItems((CheckBoxTreeItem<ProjectService.DisplayPath>) treeView.getRoot(), checkedItems);
-            checkedItems.stream().filter(c -> !c.getValue().path.equals("")).map(c -> new File(c.getValue().path)).forEach(c -> System.out.println(c));
+//            checkedItems.stream().filter(c -> !c.getValue().path.equals("")).map(c -> new File(c.getValue().path)).forEach(c -> System.out.println(c));
             return checkedItems.stream().filter(c -> !c.getValue().path.equals("")).map(c -> new File(c.getValue().path)).collect(Collectors.toList());
         }
         else {
@@ -337,7 +337,7 @@ public class AddParticleViewController extends AbstractDialogController implemen
             }
             Service<ArrayList<Particle>> service;
             if (radioButtonCSV.isSelected()) {
-                service = ProjectService.addImagesToProject(getSelectedFiles(), csvData, supervisor.project, selectionSize);
+                service = ProjectService.addImagesToProject(getSelectedFiles(), csvData, supervisor.project, selectionSize, true);
             }
             else {
                 service = ProjectService.addImagesToProject(getSelectedFiles(), supervisor.project, selectionSize);

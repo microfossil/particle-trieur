@@ -17,11 +17,9 @@ import particletrieur.App;
 import particletrieur.AppController;
 import particletrieur.controls.dialogs.AlertEx;
 import particletrieur.controls.dialogs.BasicDialogs;
-import particletrieur.controls.dialogs.DialogEx;
 import particletrieur.models.Supervisor;
 import particletrieur.services.ParametersFromCSVService;
 import particletrieur.services.ParametersFromTXTService;
-import particletrieur.services.ProjectService;
 import particletrieur.viewmodels.SelectionViewModel;
 
 import java.io.File;
@@ -94,8 +92,17 @@ public class ParametersViewController implements Initializable {
                 if (file != null) {
                     Service<LinkedHashMap<String, LinkedHashMap<String, String>>> service = ParametersFromCSVService.getParametersFromCSV(file);
                     service.setOnSucceeded(event -> {
-                        supervisor.project.updateParticleParameters(service.getValue());
-                        update(selectionViewModel.getCurrentParticle().getParameters());
+                        BasicDialogs.ShowYesNo(
+                                "Overwrite?",
+                                "Do you wish to overwrite the existing particle settings (label, sample, etc.) with the CSV values?",
+                                () -> {
+                                    supervisor.project.updateParticleParameters(service.getValue(), true);
+                                    update(selectionViewModel.getCurrentParticle().getParameters());
+                                },
+                                () -> {
+                                    supervisor.project.updateParticleParameters(service.getValue(), false);
+                                    update(selectionViewModel.getCurrentParticle().getParameters());
+                                });
                     });
                     service.setOnFailed(event -> {
                         Exception ex = new Exception(service.getException());
@@ -137,7 +144,17 @@ public class ParametersViewController implements Initializable {
                     {
                         Service<LinkedHashMap<String, LinkedHashMap<String, String>>> service = ParametersFromTXTService.getParametersFromTextFile(file);
                         service.setOnSucceeded(event -> {
-                            supervisor.project.updateParticleParameters(service.getValue());
+                            BasicDialogs.ShowYesNo(
+                                    "Overwrite?",
+                                    "Do you wish to overwrite the existing particle settings (label, sample, etc.) with the TXT values?",
+                                    () -> {
+                                        supervisor.project.updateParticleParameters(service.getValue(), true);
+                                        update(selectionViewModel.getCurrentParticle().getParameters());
+                                    },
+                                    () -> {
+                                        supervisor.project.updateParticleParameters(service.getValue(), false);
+                                        update(selectionViewModel.getCurrentParticle().getParameters());
+                                    });
                             update(selectionViewModel.getCurrentParticle().getParameters());
                         });
 

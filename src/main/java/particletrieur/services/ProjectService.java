@@ -73,8 +73,8 @@ public class ProjectService {
                     treeItem.getChildren().add(newTreeItem);
                 }
                 treeItem.getValue().path = (new File((String) entry.getValue())).getParent();
-                System.out.println(treeItem.getValue().path);
-                System.out.println((String) entry.getValue());
+//                System.out.println(treeItem.getValue().path);
+//                System.out.println((String) entry.getValue());
             }
         }
     }
@@ -122,7 +122,8 @@ public class ProjectService {
     public static Service<ArrayList<Particle>> addImagesToProject(List<File> validFiles,
                                                                   LinkedHashMap<String, LinkedHashMap<String, String>> files,
                                                                   Project project,
-                                                                  int selectionSize) {
+                                                                  int selectionSize,
+                                                                  boolean overwriteExisting) {
         Service<ArrayList<Particle>> service = new Service<ArrayList<Particle>>() {
             @Override
             protected Task<ArrayList<Particle>> createTask() {
@@ -157,58 +158,7 @@ public class ProjectService {
                                     score,
                                     sample,
                                     resolution);
-                            particle.addParameters(data);
-                            toAdd.add(particle);
-                            idx++;
-                            //if(idx == 200) throw new RuntimeException();
-                            if (idx % 10 == 0 || idx == total) {
-                                updateMessage(String.format("%d/%d images added", idx, total));
-                                updateProgress(idx, total);
-                            }
-                        }
-                        return toAdd;
-                    }
-                };
-            }
-        };
-        return service;
-    }
-
-    public static Service<ArrayList<Particle>> updateParameters(LinkedHashMap<String, LinkedHashMap<String, String>> files, Project project, int selectionSize) {
-        Service<ArrayList<Particle>> service = new Service<ArrayList<Particle>>() {
-            @Override
-            protected Task<ArrayList<Particle>> createTask() {
-                return new Task<ArrayList<Particle>>() {
-                    @Override
-                    protected ArrayList<Particle> call() throws InterruptedException {
-                        int size = selectionSize;
-                        List<String> selection = files.keySet().stream().collect(Collectors.toList());
-                        updateMessage("Adding images...");
-                        if (size > 0) {
-                            updateMessage("Randomly selecting images...");
-                            if (size > selection.size()) size = selection.size();
-                            Collections.shuffle(selection);
-                            selection = selection.subList(0, size);
-                        }
-                        ArrayList<Particle> toAdd = new ArrayList<>();
-                        //Parse files
-                        int idx = 0;
-                        int total = selection.size();
-                        for (String key : selection) {
-                            if (this.isCancelled()) return null;
-                            LinkedHashMap<String, String> data = files.get(key);
-                            String sample = Project.UNKNOWN_SAMPLE;
-                            String code = Project.UNLABELED_CODE;
-                            String classifierID = "from_csv";
-                            double score = 1.0;
-                            double resolution = 0.0;
-                            Particle particle = new Particle(new File(key),
-                                    code,
-                                    classifierID,
-                                    score,
-                                    sample,
-                                    resolution);
-                            particle.addParameters(data);
+                            particle.addParameters(data, overwriteExisting);
                             toAdd.add(particle);
                             idx++;
                             //if(idx == 200) throw new RuntimeException();
