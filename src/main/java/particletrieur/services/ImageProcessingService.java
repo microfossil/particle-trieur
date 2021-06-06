@@ -1,8 +1,9 @@
 package particletrieur.services;
 
+import particletrieur.App;
 import particletrieur.models.network.classification.NetworkInfo;
 import particletrieur.models.network.classification.TensorInfo;
-import particletrieur.services.network.FCNNSegmenterService;
+import particletrieur.services.network.ForaminiferaSegmenterService;
 import particletrieur.helpers.AutoCancellingServiceRunner;
 import particletrieur.models.processing.*;
 import particletrieur.models.processing.processors.MorphologyProcessor;
@@ -12,13 +13,15 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import org.opencv.core.Mat;
+import particletrieur.services.network.PlanktonSegmenterService;
 
 public class ImageProcessingService {
 
     //TODO this is not a service??
     //TODO the process stuff should be in another class
     //TODO the processAsync should be in a manager
-    private FCNNSegmenterService fcnnSegmenterService;
+    private ForaminiferaSegmenterService foraminiferaSegmenterService;
+    private PlanktonSegmenterService planktonSegmenterService;
     private AutoCancellingServiceRunner<ParticleImage> processingServiceRunner;
 
     private BooleanProperty running = new SimpleBooleanProperty(false);
@@ -32,8 +35,9 @@ public class ImageProcessingService {
         this.running.set(running);
     }
 
-    public ImageProcessingService(FCNNSegmenterService fcnnSegmenterService) {
-        this.fcnnSegmenterService = fcnnSegmenterService;
+    public ImageProcessingService() {
+        this.foraminiferaSegmenterService = App.getInstance().injector.getInstance(ForaminiferaSegmenterService.class);
+        this.planktonSegmenterService = App.getInstance().injector.getInstance(PlanktonSegmenterService.class);
     }
 
     public ParticleImage process(Mat mat, ProcessingInfo def) {
@@ -57,7 +61,10 @@ public class ImageProcessingService {
                 mask.segmentOtsuIntensity(def.getSegmentationThreshold());
                 break;
             case CNN:
-                mask.segmentCNN(def.getSegmentationThreshold(), fcnnSegmenterService);
+                mask.segmentCNN(def.getSegmentationThreshold(), foraminiferaSegmenterService);
+                break;
+            case PLANKTON:
+                mask.segmentCNN(def.getSegmentationThreshold(), planktonSegmenterService);
         }
         mask.largestRegion().calculateParameters();
         mask.forDisplay();

@@ -12,7 +12,8 @@ package particletrieur.models.processing;
 public enum SegmentationType {
     INTENSITY("Intensity"),
     OTSU("Adaptive (Otsu)"),
-    CNN("Segmentation CNN");
+    CNN("Segmentation CNN"),
+    PLANKTON("Plankton CNN");
 
     private final String value;
 

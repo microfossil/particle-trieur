@@ -84,7 +84,7 @@ public class SelectionViewModel {
         filteredList = new FilteredList<>(supervisor.project.particles, p -> true);
         sortedList = new SortedList<>(filteredList);
 
-        imageProcessingService = new ImageProcessingService(supervisor.FCNNSegmenterService);
+        imageProcessingService = new ImageProcessingService();
 
         currentParticles.addListener((ListChangeListener<? super Particle>) listener -> {
             if (getCurrentParticles().size() > 0) {

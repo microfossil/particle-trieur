@@ -1,5 +1,7 @@
 package particletrieur;
 
+import particletrieur.services.network.ForaminiferaSegmenterService;
+import particletrieur.services.network.PlanktonSegmenterService;
 import particletrieur.viewmanagers.UndoManager;
 import particletrieur.models.Supervisor;
 import particletrieur.viewmodels.*;
@@ -47,5 +49,9 @@ public class MainModule extends AbstractModule {
 
         //Undo
         bind(UndoManager.class).in(Singleton.class);
+
+        //Services
+        bind(ForaminiferaSegmenterService.class).in(Singleton.class);
+        bind(PlanktonSegmenterService.class).in(Singleton.class);
     }
 }

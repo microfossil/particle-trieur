@@ -5,11 +5,15 @@
  */
 package particletrieur.viewcontrollers.morphology;
 
+import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 import particletrieur.controls.SymbolLabel;
 import particletrieur.models.Supervisor;
 import particletrieur.models.processing.*;
 import particletrieur.models.processing.processors.MatUtilities;
 import particletrieur.AbstractController;
+import particletrieur.models.processing.processors.Preprocessor;
 import particletrieur.viewmodels.SelectionViewModel;
 import particletrieur.controls.ImageCell;
 import com.google.inject.Inject;
@@ -187,6 +191,7 @@ public class ProcessingViewController extends AbstractController implements Init
                     labelNoOutline.setVisible(true);
                 }
                 imageCellProcessed.setImage(MatUtilities.mat2Image(newValue.workingImage, 255));
+//                Imgcodecs.imwrite("D:\\binaryF2.png", newValue.mask.binaryF);
             }
         });
 

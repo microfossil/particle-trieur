@@ -1,6 +1,6 @@
 package particletrieur.models.processing;
 
-import particletrieur.services.network.FCNNSegmenterService;
+import particletrieur.services.network.ForaminiferaSegmenterService;
 import particletrieur.models.processing.processors.DisplayProcessor;
 import particletrieur.models.processing.processors.SegmentationProcessor;
 import org.opencv.core.Mat;
@@ -9,6 +9,7 @@ import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.imgproc.Moments;
+import particletrieur.services.network.ISegmenterService;
 
 public class Mask {
 
@@ -64,7 +65,7 @@ public class Mask {
         return this;
     }
 
-    public Mask segmentCNN(double threshold, FCNNSegmenterService predictionService) {
+    public Mask segmentCNN(double threshold, ISegmenterService predictionService) {
         SegmentationProcessor.segmentCNN(this, this.type, threshold, predictionService);
         return this;
     }

@@ -1,10 +1,13 @@
 package particletrieur.models.processing.processors;
 
-import particletrieur.services.network.FCNNSegmenterService;
+import org.opencv.highgui.HighGui;
+import org.opencv.imgcodecs.Imgcodecs;
+import particletrieur.services.network.ForaminiferaSegmenterService;
 import particletrieur.models.processing.ImageType;
 import particletrieur.models.processing.Mask;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
+import particletrieur.services.network.ISegmenterService;
 
 import java.util.ArrayList;
 
@@ -116,12 +119,12 @@ public class SegmentationProcessor {
         image.release();
     }
 
-    public static void segmentCNN(Mask mask, ImageType imageType, double threshold, FCNNSegmenterService predictionService) {
+    public static void segmentCNN(Mask mask, ImageType imageType, double threshold, ISegmenterService predictionService) {
         //Get image
-        Mat input = new Mat();
-        mask.image.convertTo(input, CvType.CV_32F);
+        Mat input = mask.image.clone();
         //Convert to greyscale if necessary
-        if (input.channels() == 3) Imgproc.cvtColor(input, input, Imgproc.COLOR_BGR2GRAY);
+        if (input.channels() == 3) Imgproc.cvtColor(input, input, Imgproc.COLOR_RGB2GRAY);
+        mask.image.convertTo(input, CvType.CV_32F);
         //Adjust for background
         if (imageType == ImageType.DARKONLIGHT) {
             Core.multiply(input, Scalar.all(-1), input);
@@ -130,6 +133,7 @@ public class SegmentationProcessor {
         //Predict
         if (mask.binaryF != null) mask.binaryF.release();
         mask.binaryF = predictionService.predict(input);
+//        HighGui.imshow("im", mask.binaryF);
         //Threshold
         //TODO make private and do release in setter
         if (mask.binary != null) mask.release();
@@ -137,10 +141,14 @@ public class SegmentationProcessor {
         Core.multiply(mask.binary, Scalar.all(255), mask.binary);
         mask.binary.convertTo(mask.binary, CvType.CV_8U);
         Imgproc.threshold(mask.binary, mask.binary, threshold * 255, 255, Imgproc.THRESH_BINARY);
-        if (mask.binaryF != null) mask.binaryF.release();
-        mask.binaryF = new Mat();
-        mask.binary.convertTo(mask.binaryF, CvType.CV_8UC1);
-        Core.divide(mask.binaryF, Scalar.all(255), mask.binaryF);
+
+//        Mat test = mask.binaryF.clone();
+//        Imgcodecs.imwrite("D:\\binaryF.png", test);
+//        test.release();
+//        if (mask.binaryF != null) mask.binaryF.release();
+//        mask.binaryF = new Mat();
+//        mask.binary.convertTo(mask.binaryF, CvType.CV_8UC1);
+//        Core.divide(mask.binaryF, Scalar.all(255), mask.binaryF);
         input.release();
     }
 
@@ -176,9 +184,9 @@ public class SegmentationProcessor {
         MatOfPoint contour = contours.get(maxIdx);
         MatOfPoint2f contour2f = new MatOfPoint2f(contour.toArray());
 
-        if (mask.binaryF != null) mask.binaryF.release();
-        mask.binaryF = new Mat();
-        binaryF.convertTo(mask.binaryF, CvType.CV_32F);
+//        if (mask.binaryF != null) mask.binaryF.release();
+//        mask.binaryF = new Mat();
+//        binaryF.convertTo(mask.binaryF, CvType.CV_32F);
         binaryF.release();
         mask.contour = contour;
         mask.contour2f = contour2f;

@@ -90,9 +90,10 @@ public class NetworkEx {
             //Start a session
             sess = new Session(graph);
 
-            //Get the tensor dimensions directory from the graph
+            //Get the tensor dimensions directly from the graph
             graph.operations().forEachRemaining(operation -> {
                 String opName = operation.output(0).op().name();
+                System.out.println(opName);
                 for (TensorInfo tensorInfo : networkInfo.inputs) {
                     if (opName.equals(tensorInfo.operation)) {
                         Shape shape = operation.output(0).shape();
@@ -121,11 +122,11 @@ public class NetworkEx {
         return true;
     }
 
-    private Tensor predict(float[] patch, String input, String output, int batchSize) {
+    private Tensor predict(float[] patch, int[] shape, String input, String output) {
         //Create input
         FloatBuffer buffer = FloatBuffer.wrap(patch);
         TensorInfo inputInfo = getTensorInfoByName(networkInfo.inputs, input);
-        Tensor inputTensor = createTensorFromInfo(inputInfo, batchSize, buffer);
+        Tensor inputTensor = createTensorFromInfo(inputInfo, shape, buffer);
         TensorInfo outputInfo = getTensorInfoByName(networkInfo.outputs, output);
         //Calculate output
         Tensor outputTensor = sess.runner()
@@ -142,13 +143,13 @@ public class NetworkEx {
     private Tensor predict(Mat mat, String input, String output) {
         //Create input
         float[] patch = matToFloatArray(mat);
-        return predict(patch, input, output, 1);
+        return predict(patch, new int[] {1, mat.rows(), mat.cols(), mat.channels()}, input, output);
     }
 
     private Tensor predict(List<Mat> mats, String input, String output) {
         //Create input
         float[] patch = matToFloatArray(mats);
-        return predict(patch, input, output, mats.size());
+        return predict(patch, new int[] {mats.size(), mats.get(0).rows(), mats.get(0).cols(), mats.get(0).channels()}, input, output);
     }
 
     public float[][] tensorToFloat(Tensor outputTensor) {
@@ -280,16 +281,19 @@ public class NetworkEx {
         return  null;
     }
 
-    private Tensor createTensorFromInfo(TensorInfo tensorInfo, int batchSize, FloatBuffer buffer) {
+    private Tensor createTensorFromInfo(TensorInfo tensorInfo, int[] shape, FloatBuffer buffer) {
+        int height = tensorInfo.height == -1 ? shape[1] : tensorInfo.height;
         if (tensorInfo.width == 0) {
-            return Tensor.create(new long[] {batchSize, tensorInfo.height}, buffer);
+            return Tensor.create(new long[] {shape[0], height}, buffer);
         }
-        else if(tensorInfo.channels == 0) {
-            return Tensor.create(new long[] {batchSize, tensorInfo.height, tensorInfo.width}, buffer);
+
+        int width = tensorInfo.width == -1 ? shape[2] : tensorInfo.width;
+        if(tensorInfo.channels == 0) {
+            return Tensor.create(new long[] {shape[0], height, width}, buffer);
         }
-        else {
-            return Tensor.create(new long[] {batchSize, tensorInfo.height, tensorInfo.width, tensorInfo.channels}, buffer);
-        }
+
+        int channels = tensorInfo.channels == -1 ? shape[3] : tensorInfo.channels;
+        return Tensor.create(new long[] {shape[0], height, width, channels}, buffer);
     }
 
     /*

@@ -402,7 +402,7 @@ public class ClassificationServer {
     }
 
     public Morphology calculateMorphology(Particle particle) {
-        ImageProcessingService imageProcessingService = new ImageProcessingService(supervisor.FCNNSegmenterService);
+        ImageProcessingService imageProcessingService = new ImageProcessingService();
         Mat mat = particle.getMat();
         if (mat != null) {
             ParticleImage image = imageProcessingService.process(mat, supervisor.project.processingInfo);

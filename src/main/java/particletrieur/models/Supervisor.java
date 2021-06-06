@@ -9,12 +9,13 @@ import particletrieur.App;
 import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.helpers.ExceptionMonitor;
 import particletrieur.models.network.classification.NetworkEx;
-import particletrieur.services.network.FCNNSegmenterService;
+import particletrieur.services.network.ForaminiferaSegmenterService;
 import particletrieur.models.project.Project;
 import particletrieur.models.tools.ClassificationServer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import particletrieur.models.tools.FolderWatch;
+import particletrieur.services.network.PlanktonSegmenterService;
 
 /**
  *
@@ -27,7 +28,6 @@ public class Supervisor {
     public final NetworkEx network = new NetworkEx();
     public final ClassificationServer classificationServer;
     public final FolderWatch folderWatch;
-    public final FCNNSegmenterService FCNNSegmenterService = new FCNNSegmenterService();
     public final ProjectRepository projectRepository = new ProjectRepository(project);
 
     //Current user

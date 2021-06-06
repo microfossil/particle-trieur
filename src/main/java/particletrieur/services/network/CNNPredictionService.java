@@ -62,7 +62,7 @@ public class CNNPredictionService {
                         AtomicInteger idx = new AtomicInteger(0);
                         AtomicInteger skippedBecauseOfErrors = new AtomicInteger(0);
 
-                        ImageProcessingService imageProcessingService = new ImageProcessingService(supervisor.FCNNSegmenterService);
+                        ImageProcessingService imageProcessingService = new ImageProcessingService();
 
                         //Break into batches
                         int BATCH = 16;
@@ -123,7 +123,7 @@ public class CNNPredictionService {
 
     public ClassificationSet predict(Particle particle, boolean processBeforeClassification) {
         if (particle != null && supervisor.network.isEnabled()) {
-            ImageProcessingService imageProcessingService = new ImageProcessingService(supervisor.FCNNSegmenterService);
+            ImageProcessingService imageProcessingService = new ImageProcessingService();
             Mat mat = particle.getMat();
             if (mat != null) {
                 ParticleImage image;

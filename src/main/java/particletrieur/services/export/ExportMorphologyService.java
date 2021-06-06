@@ -27,7 +27,7 @@ public class ExportMorphologyService {
             Supervisor supervisor,
             File file) {
 
-        ImageProcessingService imageProcessingService = new ImageProcessingService(supervisor.FCNNSegmenterService);
+        ImageProcessingService imageProcessingService = new ImageProcessingService();
         Project project = supervisor.project;
         ProcessingInfo proDef = project.processingInfo;
 

@@ -1,11 +1,9 @@
 package particletrieur.models.processing;
 
-import particletrieur.models.processing.processors.BorderRemovalProcessor;
-import particletrieur.models.processing.processors.ColourProcessor;
-import particletrieur.models.processing.processors.PositionAdjustmentProcessor;
-import particletrieur.models.processing.processors.Preprocessor;
+import particletrieur.models.processing.processors.*;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
+import particletrieur.services.network.ISegmenterService;
 
 public class ParticleImage {
 

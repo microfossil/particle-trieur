@@ -39,8 +39,8 @@ public class BorderRemovalProcessor {
             mask.release();
 
             //Crop images
-//            image.colourImage = (new Mat(image.colourImage, rect)).clone();
-//            image.greyscaleImage = (new Mat(image.greyscaleImage, rect)).clone();
+            image.colourImage = (new Mat(image.colourImage, rect)).clone();
+            image.greyscaleImage = (new Mat(image.greyscaleImage, rect)).clone();
             image.workingImage = (new Mat(image.workingImage, rect)).clone();
         }
     }
@@ -99,8 +99,8 @@ public class BorderRemovalProcessor {
 
     public static void makeSquareUsingMedianOfBorder(ParticleImage image) {
 
-//        Scalar colourBorder = getMedianOfBorder8U(image.colourImage);
-//        Scalar greyscaleBorder = getMedianOfBorder8U(image.greyscaleImage);
+        Scalar colourBorder = getMedianOfBorder8U(image.colourImage);
+        Scalar greyscaleBorder = getMedianOfBorder8U(image.greyscaleImage);
         Scalar workingBorder = getMedianOfBorder32F(image.workingImage);
 
 //        System.out.println(String.format("Colour border is: %.0f %.0f %.0f", colourBorder.val[0], colourBorder.val[1], colourBorder.val[2]));
@@ -121,8 +121,8 @@ public class BorderRemovalProcessor {
             right = (height - width + 1) / 2;
         }
         if (width != height) {
-//            Core.copyMakeBorder(image.colourImage, image.colourImage, top, bottom, left, right, Core.BORDER_CONSTANT, colourBorder);
-//            Core.copyMakeBorder(image.greyscaleImage, image.greyscaleImage, top, bottom, left, right, Core.BORDER_CONSTANT, greyscaleBorder);
+            Core.copyMakeBorder(image.colourImage, image.colourImage, top, bottom, left, right, Core.BORDER_CONSTANT, colourBorder);
+            Core.copyMakeBorder(image.greyscaleImage, image.greyscaleImage, top, bottom, left, right, Core.BORDER_CONSTANT, greyscaleBorder);
             Core.copyMakeBorder(image.workingImage, image.workingImage, top, bottom, left, right, Core.BORDER_CONSTANT, workingBorder);
         }
     }
