@@ -51,13 +51,15 @@ public class ImageProcessingService {
         image.rescale(255);
 
         Mask mask = Mask.create(image.workingImage, image.type);
-        if (def.isSegmentationEnhanceEdges()) mask.enhanceEdges();
-        if (def.isSegmentationRescale()) mask.rescale();
         switch (def.getSegmentationMethod()) {
             case INTENSITY:
+                if (def.isSegmentationEnhanceEdges()) mask.enhanceEdges();
+                if (def.isSegmentationRescale()) mask.rescale();
                 mask.segmentFixedIntensity(def.getSegmentationThreshold());
                 break;
             case OTSU:
+                if (def.isSegmentationEnhanceEdges()) mask.enhanceEdges();
+                if (def.isSegmentationRescale()) mask.rescale();
                 mask.segmentOtsuIntensity(def.getSegmentationThreshold());
                 break;
             case CNN:

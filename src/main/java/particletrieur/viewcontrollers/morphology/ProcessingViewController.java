@@ -156,12 +156,18 @@ public class ProcessingViewController extends AbstractController implements Init
 
         //Colour adjustments
         checkBoxConvertToGreyscale.selectedProperty().bindBidirectional(def.convertToGreyscaleProperty());
-        checkBoxNormalise.selectedProperty().bindBidirectional(def.normaliseProperty());
-        spinnerNormalisationParameter.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.05, 1, 0.5, 0.05));
-        spinnerNormalisationParameter.getValueFactory().valueProperty().bindBidirectional(def.normalisationParameterProperty());
+//        checkBoxNormalise.selectedProperty().bindBidirectional(def.normaliseProperty());
+//        spinnerNormalisationParameter.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.05, 1, 0.5, 0.05));
+//        spinnerNormalisationParameter.getValueFactory().valueProperty().bindBidirectional(def.normalisationParameterProperty());
 
         //Segmentation
         choiceBoxSegmentationMethod.valueProperty().bindBidirectional(def.segmentationMethodProperty());
+        choiceBoxSegmentationMethod.valueProperty().addListener(((observable, oldValue, newValue) -> {
+            boolean disabled = (newValue == SegmentationType.PLANKTON || newValue == SegmentationType.CNN);
+            checkBoxEnhanceEdges.setDisable(disabled);
+            checkBoxRescaleIntensity.setDisable(disabled);
+            choiceBoxImageType.setDisable(disabled);
+        }));
         spinnerSegmentationThreshold.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.5, 0.05));
         spinnerSegmentationThreshold.getValueFactory().valueProperty().bindBidirectional(def.segmentationThresholdProperty());
         checkBoxEnhanceEdges.selectedProperty().bindBidirectional(def.segmentationEnhanceEdgesProperty());

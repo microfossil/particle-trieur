@@ -112,7 +112,7 @@ public class BasicDialogs {
         alert.getDialogPane().setPrefWidth(600);
         alert.getDialogPane().setExpandableContent(expContent);
         alert.getDialogPane().setExpanded(true);
-        alert.showEmbedded();
+        alert.showAndWait();
     }
 
     public static void ShowExceptionLog(String content) {

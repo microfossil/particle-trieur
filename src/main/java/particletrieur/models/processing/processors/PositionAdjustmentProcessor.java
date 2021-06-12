@@ -5,6 +5,8 @@ import particletrieur.models.processing.ParticleImage;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 
+import static particletrieur.models.processing.processors.BorderRemovalProcessor.getMedianOfBorder32F;
+
 public class PositionAdjustmentProcessor {
 
     public static final double CROP_BUFFER = 1.1;
@@ -21,7 +23,7 @@ public class PositionAdjustmentProcessor {
         } else {
             transform = getTranslationRotationScaleMatrix(new Point(halfWidth - 1, halfWidth - 1), image.mask.centreOfMass, 0, 1);
         }
-        Scalar borderValue = BorderRemovalProcessor.getMedianOfBorder32F(image.workingImage);
+        Scalar borderValue = getMedianOfBorder32F(image.workingImage);
         Imgproc.warpAffine(image.workingImage, image.workingImage, transform, finalSize, Imgproc.INTER_LINEAR, Core.BORDER_CONSTANT, borderValue);
 
 //        System.out.println(MessageFormat.format("- size changed from {0},{1} to {2},{3}",
@@ -44,30 +46,38 @@ public class PositionAdjustmentProcessor {
         Imgproc.GaussianBlur(maskSmoothed, maskSmoothed, new Size(0, 0), gaussianSigma);
 
         //Apply mask to image
+        Scalar border= getMedianOfBorder32F(image.workingImage);
         if (image.workingImage.channels() == 3) {
             Mat temp = new Mat();
             Imgproc.cvtColor(maskSmoothed, temp, Imgproc.COLOR_GRAY2BGR);
             Core.multiply(image.workingImage, temp, image.workingImage);
-            if (image.type == ImageType.DARKONLIGHT) {
+//            if (image.type == ImageType.DARKONLIGHT) {
                 Mat white = temp.clone();
-                white.setTo(new Scalar(1.0, 1.0, 1.0));
+                white.setTo(border);
                 Core.subtract(white, temp, white);
                 Core.multiply(white, new Scalar(255.0, 255.0, 255.0), white);
                 Core.add(image.workingImage, white, image.workingImage);
                 white.release();
-            }
+//            }
             temp.release();
         } else {
             Core.multiply(image.workingImage, maskSmoothed, image.workingImage);
-            if (image.type == ImageType.DARKONLIGHT) {
+//            Mat white = maskSmoothed.clone();
+//            Mat maskClone = maskSmoothed.clone();
+//            white.setTo(border);
+//            Core.subtract(white, temp, white);
+//            Core.multiply(white, new Scalar(255.0, 255.0, 255.0), white);
+//            Core.add(image.workingImage, white, image.workingImage);
+//            white.release();
+//            if (image.type == ImageType.DARKONLIGHT) {
                 Mat maskClone = maskSmoothed.clone();
                 Mat white = Mat.ones(maskClone.size(), CvType.CV_32FC(1));
                 Core.subtract(white, maskClone, white);
-                Core.multiply(white, new Scalar(255), white);
+                Core.multiply(white, border, white);
                 Core.add(image.workingImage, white, image.workingImage);
                 white.release();
                 maskClone.release();
-            }
+//            }
         }
     }
 

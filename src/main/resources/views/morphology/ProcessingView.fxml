@@ -5,28 +5,45 @@
 <?import javafx.scene.layout.*?>
 <?import particletrieur.controls.*?>
 
-<AnchorPane fx:id="root" minHeight="0.0" minWidth="0.0" prefHeight="688.0" prefWidth="763.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="particletrieur.viewcontrollers.morphology.ProcessingViewController">
-    <children>
+<BorderPane fx:id="root" minHeight="0.0" minWidth="0.0" prefHeight="688.0" prefWidth="763.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="particletrieur.viewcontrollers.morphology.ProcessingViewController">
+    <padding>
+        <Insets topRightBottomLeft="7.0" />
+    </padding>
+        <top>
+
+        </top>
+    <center>
         <GridPane fx:id="gridPaneRoot" hgap="21.0" vgap="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
-                <ColumnConstraints />
                 <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="10.0" prefWidth="320.0" />
+                <ColumnConstraints />
+
 <!--                <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />-->
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <VBox prefHeight="200.0" prefWidth="316.0" spacing="7.0" GridPane.columnIndex="1">
+                <VBox prefHeight="200.0" spacing="7.0" GridPane.columnIndex="1">
                     <children>
-                  <HBox alignment="CENTER_LEFT" spacing="14.0">
-                     <children>
-                              <Label styleClass="header" text="Processing" />
-                         <SymbolLabel fx:id="symbolLabelIsUpdating" symbol="featherrefreshcw" symbolSize="18" visible="false" />
-                     </children>
-                  </HBox>
-                          <Label prefWidth="80.0" text="Image type:" />
-                          <ChoiceBox fx:id="choiceBoxImageType" maxWidth="1.7976931348623157E308" />
+                        <HBox spacing="8" alignment="CENTER_LEFT">
+                            <Label styleClass="header" text="Processing" BorderPane.alignment="CENTER_LEFT"/>
+                            <Pane HBox.hgrow="ALWAYS"/>
+                            <SymbolLabel fx:id="symbolLabelIsUpdating" symbol="featherrefreshcw" symbolSize="18" visible="false" />
+                            <Button maxWidth="1.7976931348623157E308"  mnemonicParsing="false" onAction="#handleUpdate"  styleClass="green-button" text="Update">
+                                <graphic>
+                                    <SymbolLabel symbol="featherimage" />
+                                </graphic>
+                            </Button>
+                        </HBox>
+                        <Label styleClass="caption" text="Processing settings are optionally applied when exporting images" wrapText="true"/>
+<!--                  <HBox alignment="CENTER_LEFT" spacing="14.0">-->
+<!--                     <children>-->
+<!--                              <Label styleClass="header" text="Processing" />-->
+<!--                         <SymbolLabel fx:id="symbolLabelIsUpdating" symbol="featherrefreshcw" symbolSize="18" visible="false" />-->
+<!--                     </children>-->
+<!--                  </HBox>-->
+
                         <Label styleClass="subheader" text="Shape" />
                         <CheckBox fx:id="checkBoxRemoveWhiteBorder" mnemonicParsing="false" text="Remove white border" />
                         <CheckBox fx:id="checkBoxRemoveBlackBorder" mnemonicParsing="false" text="Remove black border" />
@@ -37,33 +54,13 @@
                             </VBox.margin>
                         </Label>
                         <CheckBox fx:id="checkBoxConvertToGreyscale" mnemonicParsing="false" text="Convert to greyscale" />
-                        <HBox alignment="CENTER_LEFT" spacing="14.0">
-                            <children>
-                                <CheckBox fx:id="checkBoxNormalise" mnemonicParsing="false" text="Normalise:" />
-                                <Spinner fx:id="spinnerNormalisationParameter" />
-                            </children>
-                        </HBox>
-                        <Separator prefWidth="200.0" />
-                        <Label styleClass="subheader" text="Outline Detection">
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                        </Label>
-                        <HBox alignment="CENTER_LEFT">
-                            <children>
-                                <Label prefWidth="80.0" text="Method:" />
-                                <ChoiceBox fx:id="choiceBoxSegmentationMethod" prefWidth="150.0" />
-                            </children>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT">
-                            <children>
-                                <Label prefWidth="80.0" text="Threshold:" />
-                                <Spinner fx:id="spinnerSegmentationThreshold" editable="true" prefWidth="150.0" />
-                            </children>
-                        </HBox>
-                        <CheckBox fx:id="checkBoxEnhanceEdges" mnemonicParsing="false" text="Enhance edges" />
-                        <CheckBox fx:id="checkBoxRescaleIntensity" mnemonicParsing="false" text="Rescale intensity (min/max)" />
-                        <Label styleClass="subheader" text="Outline Adjustments" />
+<!--                        <HBox alignment="CENTER_LEFT" spacing="14.0">-->
+<!--                            <children>-->
+<!--                                <CheckBox fx:id="checkBoxNormalise" mnemonicParsing="false" text="Normalise:" />-->
+<!--                                <Spinner fx:id="spinnerNormalisationParameter" />-->
+<!--                            </children>-->
+<!--                        </HBox>-->
+                        <Label styleClass="subheader" text="Outline" />
                         <CheckBox fx:id="checkBoxCentreImage" mnemonicParsing="false" text="Centre particle using outline" />
                         <CheckBox fx:id="checkBoxRotateImage" mnemonicParsing="false" text="Rotate particle to major axis">
                             <VBox.margin>
@@ -76,16 +73,35 @@
                                 <Spinner fx:id="spinnerBackgroundRemovalMargin" prefWidth="80.0" />
                             </children>
                         </HBox>
-                        <Separator prefWidth="200.0">
+<!--                        <Separator prefWidth="200.0">-->
+<!--                            <VBox.margin>-->
+<!--                                <Insets />-->
+<!--                            </VBox.margin>-->
+<!--                        </Separator>-->
+<!--                        <Separator prefWidth="200.0" />-->
+                        <Label styleClass="header" text="Outline">
                             <VBox.margin>
                                 <Insets />
                             </VBox.margin>
-                        </Separator>
-                        <Button maxWidth="1.7976931348623157E308" minHeight="40.0" mnemonicParsing="false" onAction="#handleUpdate" style="-fx-font-size: 16;" styleClass="green-button" text="Update">
-                                <graphic>
-                                    <SymbolLabel symbol="featherimage" />
-                                </graphic>
-                        </Button>
+                        </Label>
+                        <Label styleClass="caption" text="The outline of the particle here is used for calculating morphology" wrapText="true"/>
+                        <HBox alignment="CENTER_LEFT">
+                            <children>
+                                <Label prefWidth="80.0" text="Method:" />
+                                <ChoiceBox fx:id="choiceBoxSegmentationMethod" prefWidth="150.0" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT">
+                            <children>
+                                <Label prefWidth="80.0" text="Threshold:" />
+                                <Spinner fx:id="spinnerSegmentationThreshold" editable="true" prefWidth="150.0" />
+                            </children>
+                        </HBox>
+<!--                        <Label prefWidth="80.0" text="Image type:" />-->
+                        <ChoiceBox fx:id="choiceBoxImageType" maxWidth="1.7976931348623157E308" />
+                        <CheckBox fx:id="checkBoxEnhanceEdges" mnemonicParsing="false" text="Enhance edges" />
+                        <CheckBox fx:id="checkBoxRescaleIntensity" mnemonicParsing="false" text="Rescale intensity (min/max)" />
+
 <!--                        <Label styleClass="subheader" text="Presets" />-->
 <!--                        <HBox spacing="7.0">-->
 <!--                            <children>-->
@@ -143,9 +159,9 @@
                     </children>
                 </GridPane>
             </children>
-            <padding>
-                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-            </padding>
+<!--            <padding>-->
+<!--                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />-->
+<!--            </padding>-->
         </GridPane>
-    </children>
-</AnchorPane>
+    </center>
+</BorderPane>

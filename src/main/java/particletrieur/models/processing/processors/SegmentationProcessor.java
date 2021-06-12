@@ -126,10 +126,10 @@ public class SegmentationProcessor {
         if (input.channels() == 3) Imgproc.cvtColor(input, input, Imgproc.COLOR_RGB2GRAY);
         mask.image.convertTo(input, CvType.CV_32F);
         //Adjust for background
-        if (imageType == ImageType.DARKONLIGHT) {
-            Core.multiply(input, Scalar.all(-1), input);
-            Core.add(input, Scalar.all(1), input);
-        }
+//        if (imageType == ImageType.DARKONLIGHT) {
+//            Core.multiply(input, Scalar.all(-1), input);
+//            Core.add(input, Scalar.all(1), input);
+//        }
         //Predict
         if (mask.binaryF != null) mask.binaryF.release();
         mask.binaryF = predictionService.predict(input);

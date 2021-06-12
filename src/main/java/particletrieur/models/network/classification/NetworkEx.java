@@ -93,7 +93,7 @@ public class NetworkEx {
             //Get the tensor dimensions directly from the graph
             graph.operations().forEachRemaining(operation -> {
                 String opName = operation.output(0).op().name();
-                System.out.println(opName);
+//                System.out.println(opName);
                 for (TensorInfo tensorInfo : networkInfo.inputs) {
                     if (opName.equals(tensorInfo.operation)) {
                         Shape shape = operation.output(0).shape();
