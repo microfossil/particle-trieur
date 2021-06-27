@@ -75,6 +75,11 @@ public class Mask {
         return this;
     }
 
+    public Mask segmentAdaptiveThreshold(double threshold) {
+        SegmentationProcessor.segmentAdaptiveThreshold(this, this.type, threshold);
+        return this;
+    }
+
     public Mask enhanceEdges() {
         SegmentationProcessor.enhanceEdges(this, this.type, 1);
         return this;

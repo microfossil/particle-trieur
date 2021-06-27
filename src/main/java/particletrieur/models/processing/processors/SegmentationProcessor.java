@@ -152,6 +152,64 @@ public class SegmentationProcessor {
         input.release();
     }
 
+    public static void segmentAdaptiveThreshold(Mask mask, ImageType imageType, double threshold){
+        //Get source image
+        Mat image = mask.image.clone();
+
+        // Convert to greyscale if necessary
+        if (image.channels() == 3) Imgproc.cvtColor(image, image, Imgproc.COLOR_RGB2GRAY);
+        Core.multiply(image, Scalar.all(255), image);
+        image.convertTo(image, CvType.CV_8UC1);
+
+        // Store input for other uses
+        Mat image3 = image.clone();
+
+        //Smoothing image
+        Imgproc.GaussianBlur(image, image, new Size(7, 7), 0.5, 0.5);
+        // Adaptive threshold
+        // Find block size
+        int intWidth = (int)image.size().width;
+        if(intWidth > image.size().height) intWidth = (int)image.size().height;
+
+        intWidth = (int)(intWidth*0.02);
+
+        if(intWidth%2==0) intWidth++;
+        if(intWidth < 3) intWidth = 5;
+
+        // Adaptive thresholding
+        Mat image2 = new Mat(image.size(), image.type());
+        Imgproc.adaptiveThreshold(image, image2, 255.0, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, (int)intWidth, (int)intWidth);
+
+        Core.bitwise_not(image2, image2);
+
+        morpholigcallyClose(image2, 3);
+
+        Core.convertScaleAbs(image2, image2);
+
+        // Global threshold
+        Imgproc.threshold(image3, image3, 0, 255, Imgproc.THRESH_BINARY+Imgproc.THRESH_TRIANGLE);
+
+        Core.bitwise_not(image3, image3);
+
+        morpholigcallyClose(image3,3);
+
+        Core.convertScaleAbs(image3, image3);
+
+        Core.bitwise_or(image2, image3, image2);
+
+        if (mask.binary != null) mask.binary.release();
+        mask.binary =image2.clone() ;
+
+        if (mask.binaryF != null) mask.binaryF.release();
+        mask.binaryF = new Mat();
+        mask.binary.convertTo(mask.binaryF, CvType.CV_32F);
+        Core.divide(mask.binaryF, Scalar.all(255), mask.binaryF);
+
+        image.release();
+        image2.release();
+        image3.release();
+    }
+
     public static void largestRegion(Mask mask) {
         //Get all contours
         ArrayList<MatOfPoint> contours = new ArrayList<>();

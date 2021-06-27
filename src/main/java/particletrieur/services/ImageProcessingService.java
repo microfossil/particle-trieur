@@ -67,6 +67,12 @@ public class ImageProcessingService {
                 break;
             case PLANKTON:
                 mask.segmentCNN(def.getSegmentationThreshold(), planktonSegmenterService);
+                break;
+            case ADAPTIVE:
+                if (def.isSegmentationEnhanceEdges()) mask.enhanceEdges();
+                if (def.isSegmentationRescale()) mask.rescale();
+                mask.segmentAdaptiveThreshold(def.getSegmentationThreshold());
+                break;
         }
         mask.largestRegion().calculateParameters();
         mask.forDisplay();

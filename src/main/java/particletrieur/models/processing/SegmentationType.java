@@ -13,7 +13,8 @@ public enum SegmentationType {
     INTENSITY("Intensity"),
     OTSU("Adaptive (Otsu)"),
     CNN("Foraminifera CNN"),
-    PLANKTON("Plankton CNN");
+    PLANKTON("Plankton CNN"),
+    ADAPTIVE("Adaptive (Gaussian + Triangle)");
 
     private final String value;
 
