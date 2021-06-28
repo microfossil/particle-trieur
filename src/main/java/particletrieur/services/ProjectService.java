@@ -36,48 +36,113 @@ public class ProjectService {
         }
     }
 
-    public static void createDirectoryTree(String filename, String[ ] parts, int idx, LinkedHashMap<String, Object> list) {
-        // Still at directory level
-        if (parts.length > idx + 1) {
-            if (list.containsKey(parts[idx])) {
-                createDirectoryTree(filename, parts, idx + 1, (LinkedHashMap<String, Object> ) list.get(parts[idx]));
-            } else {
-                LinkedHashMap<String, Object> newlist = new LinkedHashMap<>();
-                list.put(parts[idx], newlist);
-                createDirectoryTree(filename, parts, idx + 1, newlist);
-            }
-        }
-        else {
-            list.put(parts[idx], filename);
-            System.out.println(filename);
+    public static class Directory {
+        public String name;
+        public String path;
+        public ArrayList<File> files = new ArrayList<>();
+        public LinkedHashMap<String, Directory> directories = new LinkedHashMap<>();
+
+        public Directory(String name) {
+            this.name = name;
         }
     }
 
-    public static void createTreeView(LinkedHashMap<String, Object> list, CheckBoxTreeItem<DisplayPath> treeItem, boolean withFiles) {
-        for(Map.Entry<String, Object> entry : list.entrySet()) {
-            if (entry.getKey() == null) {
-                createTreeView((LinkedHashMap<String, Object>) entry.getValue(), treeItem, withFiles);
-            }
-            else if (entry.getValue() instanceof LinkedHashMap && list.size() == 1) {
-                treeItem.setValue(new DisplayPath("",treeItem.getValue().displayPath + "/" + entry.getKey()));
-                createTreeView((LinkedHashMap<String, Object>) entry.getValue(), treeItem, withFiles);
-            }
-            else if (entry.getValue() instanceof LinkedHashMap) {
-                CheckBoxTreeItem<DisplayPath> newTreeItem = new CheckBoxTreeItem<>(new DisplayPath("", entry.getKey()));
-                createTreeView((LinkedHashMap<String, Object>) entry.getValue(), newTreeItem, withFiles);
-                treeItem.getChildren().add(newTreeItem);
-            }
-            else {
-                if (withFiles) {
-                    CheckBoxTreeItem<DisplayPath> newTreeItem = new CheckBoxTreeItem<>(new DisplayPath((String) entry.getValue(), (String) entry.getKey()));
-                    treeItem.getChildren().add(newTreeItem);
+    public static Directory filesToTree(List<File> files) {
+        Directory root = new Directory("root");
+        for (File file : files) {
+            Directory currentDir = root;
+            System.out.println("");
+            String[] parts = file.getAbsolutePath().split(Matcher.quoteReplacement(System.getProperty("file.separator")));
+            for (int i = 0; i < parts.length - 1; i++) {
+                if (parts[i].equals("")) continue;
+                if (currentDir.directories.containsKey(parts[i])) {
+                    currentDir = currentDir.directories.get(parts[i]);
+                    System.out.print(parts[i]);
+                    System.out.print("/");
                 }
-                treeItem.getValue().path = (new File((String) entry.getValue())).getParent();
-//                System.out.println(treeItem.getValue().path);
-//                System.out.println((String) entry.getValue());
+                else {
+                    Directory newDirectory = new Directory(parts[i]);
+                    newDirectory.path = String.join(System.getProperty("file.separator"), Arrays.stream(parts).limit(i+1).collect(Collectors.toList()));
+                    currentDir.directories.put(parts[i], newDirectory);
+                    currentDir = newDirectory;
+                    System.out.print(parts[i]);
+                    System.out.print("*");
+                }
+            }
+            System.out.print(file.getAbsolutePath());
+            currentDir.files.add(file);
+//            ProjectService.createDirectoryTree(file.getAbsolutePath(), parts, 0, list);
+//            i++;
+        }
+        return root;
+    }
+
+    public static CheckBoxTreeItem<DisplayPath> createTreeView(Directory root, CheckBoxTreeItem<DisplayPath> treeItem, boolean withFiles) {
+        if (withFiles) {
+            for (File file : root.files) {
+                CheckBoxTreeItem<DisplayPath> fileTreeItem = new CheckBoxTreeItem<>(new DisplayPath(file.getAbsolutePath(), file.getName()));
+                treeItem.getChildren().add(fileTreeItem);
             }
         }
+        for (Map.Entry<String, Directory> entry : root.directories.entrySet()) {
+            String name = entry.getKey();
+            Directory dir = entry.getValue();
+            if (root.directories.size() == 1) {
+                treeItem.getValue().displayPath = dir.path;
+                return createTreeView(dir, treeItem, withFiles);
+            }
+            else {
+                CheckBoxTreeItem<DisplayPath> dirTreeItem = new CheckBoxTreeItem<>(new DisplayPath(dir.path, name));
+                treeItem.getChildren().add(createTreeView(dir, dirTreeItem, withFiles));
+            }
+        }
+        return treeItem;
     }
+
+//
+//
+//    public static void createDirectoryTree(String filename, String[] parts, int idx, LinkedHashMap<String, Object> list) {
+//        // Still at directory level
+//        if (parts.length > idx + 1) {
+//            if (list.containsKey(parts[idx])) {
+//                createDirectoryTree(filename, parts, idx + 1, (LinkedHashMap<String, Object> ) list.get(parts[idx]));
+//            } else {
+//                LinkedHashMap<String, Object> newlist = new LinkedHashMap<>();
+//                list.put(parts[idx], newlist);
+//                createDirectoryTree(filename, parts, idx + 1, newlist);
+//            }
+//        }
+//        else {
+//            list.put(parts[idx], filename);
+//            System.out.println(filename);
+//        }
+//    }
+//
+//    public static void createTreeView(LinkedHashMap<String, Object> list, CheckBoxTreeItem<DisplayPath> treeItem, boolean withFiles) {
+//        for(Map.Entry<String, Object> entry : list.entrySet()) {
+//            if (entry.getKey() == null) {
+//                createTreeView((LinkedHashMap<String, Object>) entry.getValue(), treeItem, withFiles);
+//            }
+//            else if (entry.getValue() instanceof LinkedHashMap && list.size() == 1) {
+//                treeItem.setValue(new DisplayPath("",treeItem.getValue().displayPath + "/" + entry.getKey()));
+//                createTreeView((LinkedHashMap<String, Object>) entry.getValue(), treeItem, withFiles);
+//            }
+//            else if (entry.getValue() instanceof LinkedHashMap) {
+//                CheckBoxTreeItem<DisplayPath> newTreeItem = new CheckBoxTreeItem<>(new DisplayPath("", entry.getKey()));
+//                createTreeView((LinkedHashMap<String, Object>) entry.getValue(), newTreeItem, withFiles);
+//                treeItem.getChildren().add(newTreeItem);
+//            }
+//            else {
+//                if (withFiles) {
+//                    CheckBoxTreeItem<DisplayPath> newTreeItem = new CheckBoxTreeItem<>(new DisplayPath((String) entry.getValue(), (String) entry.getKey()));
+//                    treeItem.getChildren().add(newTreeItem);
+//                }
+//                treeItem.getValue().path = (new File((String) entry.getValue())).getParent();
+////                System.out.println(treeItem.getValue().path);
+////                System.out.println((String) entry.getValue());
+//            }
+//        }
+//    }
 
     public static Service<ArrayList<Particle>> addImagesToProject(List<File> files, Project project, int selectionSize) {
         Service<ArrayList<Particle>> service = new Service<ArrayList<Particle>>() {

@@ -113,16 +113,10 @@ public class AddParticleViewController extends AbstractDialogController implemen
         });
 
         files.addListener((ListChangeListener<? super File>) listener -> {
-            LinkedHashMap<String, Object> list = new LinkedHashMap<>();
-            int i = 0;
-            for (File file : files) {
-                String [] parts = file.getAbsolutePath().split(Matcher.quoteReplacement(System.getProperty("file.separator")));
-                System.out.println(i);
-                ProjectService.createDirectoryTree(file.getAbsolutePath(), parts, 0, list);
-                i++;
-            }
-            CheckBoxTreeItem<ProjectService.DisplayPath> root = new CheckBoxTreeItem<>(new ProjectService.DisplayPath("" ,""));
-            ProjectService.createTreeView(list, root, withFiles);
+            ProjectService.Directory dir = ProjectService.filesToTree(files);
+            CheckBoxTreeItem<ProjectService.DisplayPath> root = new CheckBoxTreeItem<>(new ProjectService.DisplayPath("", ""));
+            root = ProjectService.createTreeView(dir, root, withFiles);
+//            if (root.getValue().displayPath.startsWith("//")) root.getValue().displayPath = root.getValue().displayPath.substring(1);
             root.setSelected(true);
             treeView.setRoot(root);
             treeView.getRoot().setExpanded(true);
@@ -155,7 +149,8 @@ public class AddParticleViewController extends AbstractDialogController implemen
             ArrayList<CheckBoxTreeItem<ProjectService.DisplayPath>> checkedItems = new ArrayList<>();
             findCheckedItems((CheckBoxTreeItem<ProjectService.DisplayPath>) treeView.getRoot(), checkedItems);
             Set<String> parents = checkedItems.stream().map(c -> c.getValue().path).collect(Collectors.toSet());
-            return files.stream().filter(f -> parents.contains(f.getParent())).collect(Collectors.toList());
+            List<File> filteredFiles = files.stream().filter(f -> parents.contains(f.getParent())).collect(Collectors.toList());
+            return filteredFiles;
         }
     }
 
