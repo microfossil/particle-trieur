@@ -22,6 +22,131 @@ import java.util.stream.Collectors;
 
 public class ExportMorphologyService {
 
+    public static Service exportToCSV(
+            List<Particle> particles,
+            Supervisor supervisor,
+            File file,
+            boolean exportParameters,
+            boolean exportMorpohology) {
+
+        ImageProcessingService imageProcessingService = new ImageProcessingService();
+        Project project = supervisor.project;
+        ProcessingInfo proDef = project.processingInfo;
+
+        Service<Void> service = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws InterruptedException, IOException {
+                        updateMessage("Exporting...");
+
+                        final AtomicInteger skippedBecauseOfErrors = new AtomicInteger(0);
+                        final AtomicInteger idx = new AtomicInteger(0);
+
+                        //Create headers
+                        String headerString = "id,filename,label,sample,index1,index2,resolution,GUID,labeled_by,validated_by";
+                        LinkedHashSet<String> parameterHeaders = new LinkedHashSet<>();
+                        if (exportParameters) {
+                            particles.forEach(particle -> {
+                                for (Map.Entry<String, String> entry : particle.parameters.entrySet()) {
+                                    parameterHeaders.add(entry.getKey());
+                                }
+                            });
+                            for (String header : parameterHeaders) {
+                                headerString += ",p_" + header;
+                            }
+                        }
+                        if (exportMorpohology) {
+                            headerString += "," + Morphology.getHeaderStringForCSV();
+                        }
+                        headerString += "\n";
+
+                        // Calculate morphology if needed
+                        LinkedHashMap<Particle, Morphology> morphologies = new LinkedHashMap<>();
+                        if (exportMorpohology) {
+//                            LinkedHashMap<Particle, Integer> indices = new LinkedHashMap<>();
+
+                            //Calculate missing
+                            particles.forEach(foram -> {
+                                if (!this.isCancelled()) {
+                                    ParticleImage image = null;
+                                    try {
+                                        Mat mat = foram.getMat();
+                                        if (mat != null) {
+                                            image = imageProcessingService.process(mat, proDef);
+                                            mat.release();
+                                            image.morphology = MorphologyProcessor.calculateMorphology(image);
+                                            morphologies.put(foram, image.morphology);
+//                                            indices.put(foram, idx.intValue() + 1);
+                                            image.release();
+                                        }
+                                    } catch (Exception ex) {
+                                        skippedBecauseOfErrors.getAndIncrement();
+                                    }
+                                    idx.getAndIncrement();
+                                    updateMessage(String.format("%d/%d morphology calculated\n%d skipped because of errors",
+                                            idx.get(), particles.size(), skippedBecauseOfErrors.get()));
+                                    updateProgress(idx.get(), particles.size());
+                                }
+                            });
+                        }
+
+                        // Write to CSV
+                        BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
+                        writer.write(headerString);
+
+                        int idx2 = 0;
+                        for (Particle particle : particles) {
+                            if (this.isCancelled()) return null;
+                            // Default
+                            writer.write(String.format("%d,%s,%s,%s,%f,%f,%f,%s,%s,%s",
+                                    idx2 + 1,
+                                    particle.getFile().getAbsolutePath(),
+                                    particle.getClassification(),
+                                    particle.getSampleID(),
+                                    particle.getIndex1(),
+                                    particle.getIndex2(),
+                                    particle.getResolution(),
+                                    particle.getGUID(),
+                                    particle.classifierIdProperty.get(),
+                                    particle.getValidator()));
+                            // Parameters
+                            if (exportParameters) {
+                                for (String header : parameterHeaders) {
+                                    String value = particle.parameters.getOrDefault(header, "");
+                                    writer.write("," + value);
+                                }
+                            }
+                            if (exportMorpohology) {
+                                Morphology morphology = null;
+                                String morphologyCSV;
+                                if (morphologies.containsKey(particle)) morphology = morphologies.get(particle);
+                                if (morphology == null) {
+                                    morphologyCSV = "error";
+                                } else {
+                                    morphologyCSV = morphology.toStringCSV(particle.getResolution());
+                                }
+                                writer.write("," + morphologyCSV);
+                            }
+                            writer.write("\n");
+                            idx2++;
+                            updateMessage(String.format("%d/%d records exported", idx2, particles.size()));
+                            updateProgress(idx2, particles.size());
+                        }
+                        writer.close();
+                        return null;
+                    }
+                };
+            }
+        };
+        return service;
+    }
+
+
+
+
+
     public static Service exportMorphologyToCSV(
             List<Particle> particles,
             Supervisor supervisor,

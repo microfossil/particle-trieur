@@ -14,6 +14,7 @@ import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.models.Supervisor;
 import particletrieur.services.export.ExportAbundanceService;
 import particletrieur.services.export.ExportMorphologyService;
+import particletrieur.viewcontrollers.export.ExportDataViewController;
 import particletrieur.viewcontrollers.export.ExportViewController;
 
 import java.io.File;
@@ -36,6 +37,50 @@ public class ExportViewModel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void exportProjectData() {
+        //Show export option
+        try {
+            ExportDataViewController controller = AbstractDialogController.create(ExportDataViewController.class);
+            controller.showEmbedded();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void exportDataToCSV(boolean exportParameters, boolean exportMorphology) {
+        //Export file
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Choose where to save exported file");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV file (*.csv)", "*.csv"));
+        fc.setInitialFileName("project_data.csv");
+        String path = App.getPrefs().getExportPath();
+        if(path != null && Files.exists(Paths.get(path))) {
+            fc.setInitialDirectory(new File(path));
+        }
+        File file = fc.showSaveDialog(AppController.getWindow());
+
+        if (file == null) return;
+
+        //Confimation dialog
+        AlertEx alert = new AlertEx(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Export project to CSV");
+        alert.setContentText("Exporting to "  + file.getAbsolutePath() + ".\n\n This may take a long time.");
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        alert.showEmbedded();
+        alert.setResultConverter(button -> {
+            if (button == ButtonType.OK) {
+                //TODO morphology should export everything as well and option for the same
+                App.getPrefs().setExportPath(file.getParent());
+                Service service = ExportMorphologyService.exportToCSV(supervisor.project.particles, supervisor, file, exportParameters, exportMorphology);
+                BasicDialogs.ProgressDialogWithCancel2(
+                        "Operation",
+                        "Exporting project to CSV",
+                        service).start();
+            }
+            return null;
+        });
     }
 
     public void exportMorphologyToCSV() {

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.GridView?>
+
+<?import org.controlsfx.control.CheckTreeView?>
+<?import javafx.scene.control.TreeView?>
+<VBox prefHeight="160.0" prefWidth="480.0" spacing="7" stylesheets="@../../styles/style.css"
+      xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="particletrieur.viewcontrollers.export.ExportDataViewController">
+    <children>
+        <Label text="Choose what to export to CSV"/>
+        <Label text="Classification information is always exported"/>
+        <CheckBox fx:id="checkBoxParameters" text="Parameters" />
+        <CheckBox fx:id="checkBoxMorphology" text="Morphology (requires calculation)" />
+    </children>
+</VBox>

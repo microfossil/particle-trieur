@@ -83,7 +83,10 @@
                                                 <Menu mnemonicParsing="false" text="Export">
                                                     <items>
                                                         <MenuItem mnemonicParsing="false" onAction="#handleExport"
-                                                                  text="Images..."/>
+                                                                  text="Images to folder..."/>
+                                                        <MenuItem mnemonicParsing="false"
+                                                                  onAction="#handleExportData"
+                                                                  text="Data to CSV..."/>
                                                         <MenuItem mnemonicParsing="false"
                                                                   onAction="#handleExportProjectToCSV"
                                                                   text="Project to CSV..."/>

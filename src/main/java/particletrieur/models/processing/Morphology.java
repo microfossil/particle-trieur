@@ -133,17 +133,17 @@ public class Morphology implements Serializable {
     }
 
     public static String getHeaderStringForCSV() {
-        return "area,areaMM2," +
-                "perimeter,perimeterMM," +
-                "convexArea,convexAreaMM2," +
-                "convexPerimeter,convexPerimeterMM," +
-                "meanDiameter,meanDiameterMM," +
-                "majorAxis,majorAxisMM," +
-                "minorAxis,minorAxisMM," +
-                "minEnclosingCircleArea,minEnclosingCircleAreaMM2," +
-                "minEnclosingCircleRadius,minEnclosingCircleRadiusMM," +
-                "eccentricity,solidity,roundness,circularity," +
-                "mean,stddev,stddevInvariant,"
-                + "skewness,kurtosis,5thmoment,6thmoment";
+        return "m_area,m_areaMM2," +
+                "m_perimeter,m_perimeterMM," +
+                "m_convexArea,m_convexAreaMM2," +
+                "m_convexPerimeter,m_convexPerimeterMM," +
+                "m_meanDiameter,m_meanDiameterMM," +
+                "m_majorAxis,m_majorAxisMM," +
+                "m_minorAxis,m_minorAxisMM," +
+                "m_minEnclosingCircleArea,m_minEnclosingCircleAreaMM2," +
+                "m_minEnclosingCircleRadius,m_minEnclosingCircleRadiusMM," +
+                "m_eccentricity,m_solidity,m_roundness,m_circularity," +
+                "m_mean,m_stddev,m_stddevInvariant,"
+                + "m_skewness,m_kurtosis,m_5thmoment,m_6thmoment";
     }
 }

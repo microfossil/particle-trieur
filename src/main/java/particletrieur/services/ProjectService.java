@@ -51,28 +51,21 @@ public class ProjectService {
         Directory root = new Directory("root");
         for (File file : files) {
             Directory currentDir = root;
-            System.out.println("");
             String[] parts = file.getAbsolutePath().split(Matcher.quoteReplacement(System.getProperty("file.separator")));
             for (int i = 0; i < parts.length - 1; i++) {
                 if (parts[i].equals("")) continue;
                 if (currentDir.directories.containsKey(parts[i])) {
                     currentDir = currentDir.directories.get(parts[i]);
-                    System.out.print(parts[i]);
-                    System.out.print("/");
                 }
                 else {
                     Directory newDirectory = new Directory(parts[i]);
                     newDirectory.path = String.join(System.getProperty("file.separator"), Arrays.stream(parts).limit(i+1).collect(Collectors.toList()));
                     currentDir.directories.put(parts[i], newDirectory);
                     currentDir = newDirectory;
-                    System.out.print(parts[i]);
-                    System.out.print("*");
                 }
             }
             System.out.print(file.getAbsolutePath());
             currentDir.files.add(file);
-//            ProjectService.createDirectoryTree(file.getAbsolutePath(), parts, 0, list);
-//            i++;
         }
         return root;
     }
