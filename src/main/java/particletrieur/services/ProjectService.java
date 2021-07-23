@@ -81,6 +81,7 @@ public class ProjectService {
             String name = entry.getKey();
             Directory dir = entry.getValue();
             if (root.directories.size() == 1) {
+                treeItem.getValue().path = dir.path;
                 treeItem.getValue().displayPath = dir.path;
                 return createTreeView(dir, treeItem, withFiles);
             }
