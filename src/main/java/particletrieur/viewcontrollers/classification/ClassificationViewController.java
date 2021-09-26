@@ -254,9 +254,11 @@ public class ClassificationViewController implements Initializable {
         treeView.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
             if (event.isSecondaryButtonDown()) {
                 Node text = (Node) event.getTarget();
-                TreeCell<String> treeCell = (TreeCell<String>) text.getParent();
-                treeCell.getContextMenu().show(treeCell, 0, 0);
-                event.consume();
+                if (text.getParent() instanceof TreeCell) {
+                    event.consume();
+//                    TreeCell treeCell = (TreeCell) text.getParent();
+//                    treeCell.getContextMenu().show(text, 0, 0);
+                }
             }
         });
 
