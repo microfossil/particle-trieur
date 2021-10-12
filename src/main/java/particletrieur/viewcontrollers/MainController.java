@@ -16,6 +16,7 @@ import particletrieur.viewcontrollers.classification.ClassificationViewControlle
 import particletrieur.viewcontrollers.classification.SimilarityViewController;
 import particletrieur.viewcontrollers.morphology.ProcessingViewController;
 import particletrieur.viewcontrollers.particle.ParticleListViewController;
+import particletrieur.viewcontrollers.particle.TaxonTreeViewController;
 import particletrieur.viewmanagers.UndoManager;
 import particletrieur.viewmanagers.commands.UndoableCommand;
 import particletrieur.viewmodels.*;
@@ -707,6 +708,16 @@ public class MainController extends AbstractController implements Initializable 
     private void handleAddLabel(ActionEvent event) {
         try {
             LabelListViewController controller = AbstractDialogController.create(LabelListViewController.class);
+            controller.showEmbedded();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleAddTaxonTree(ActionEvent event) {
+        try {
+            TaxonTreeViewController controller = AbstractDialogController.create(TaxonTreeViewController.class);
             controller.showEmbedded();
         } catch (IOException e) {
             e.printStackTrace();

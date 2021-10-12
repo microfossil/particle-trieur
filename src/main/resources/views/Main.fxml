@@ -135,6 +135,8 @@
                                                 <SeparatorMenuItem mnemonicParsing="false"/>
                                                 <MenuItem mnemonicParsing="false" onAction="#handleAddLabel"
                                                           text="Edit labels..."/>
+                                                <MenuItem mnemonicParsing="false" onAction="#handleAddTaxonTree"
+                                                          text="Add taxon tree..."/>
                                                 <MenuItem mnemonicParsing="false" onAction="#handleAddTag"
                                                           text="Edit tags..."/>
                                             </items>

@@ -2,6 +2,14 @@ package particletrieur.viewmodels.particles;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.concurrent.Service;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Region;
+import javafx.stage.FileChooser;
+import particletrieur.App;
+import particletrieur.AppController;
+import particletrieur.controls.dialogs.AlertEx;
 import particletrieur.models.network.classification.ClassificationSet;
 import particletrieur.models.project.Project;
 import particletrieur.models.Supervisor;
@@ -9,11 +17,18 @@ import particletrieur.models.project.Particle;
 import particletrieur.models.project.Taxon;
 import particletrieur.controls.dialogs.BasicDialogs;
 import com.google.inject.Inject;
+import particletrieur.models.project.TreeTaxon;
+import particletrieur.services.ExtractClassesFromXLSXService;
+import particletrieur.services.export.ExportMorphologyService;
 import particletrieur.viewmanagers.UndoManager;
 import particletrieur.viewmanagers.commands.SetLabelCommand;
 import particletrieur.viewmanagers.commands.SetLabelSetCommand;
 import particletrieur.viewmodels.SelectionViewModel;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -183,6 +198,42 @@ public class LabelsViewModel {
 
     public void initialiseLabels(List<Taxon> taxons) {
         supervisor.project.initialiseTaxons(taxons);
+    }
+
+    public TreeTaxon addTaxonTree() {
+        //Export file
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Choose XLSX file with taxonomy");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("XLSX file (*.xlsx)", "*.xlsx"));
+        fc.setInitialDirectory(new File("C:\\Users\\rossm\\OneDrive\\RAPP"));
+        File file = fc.showOpenDialog(AppController.getWindow());
+        if (file == null) return null;
+
+        try {
+            return ExtractClassesFromXLSXService.Parse(file.getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+
+//        //Confimation dialog
+//        AlertEx alert = new AlertEx(Alert.AlertType.CONFIRMATION);
+//        alert.setTitle("Export project to CSV");
+//        alert.setContentText("Exporting to "  + file.getAbsolutePath() + ".\n\n This may take a long time.");
+//        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+//        alert.showEmbedded();
+//        alert.setResultConverter(button -> {
+//            if (button == ButtonType.OK) {
+//                //TODO morphology should export everything as well and option for the same
+//                App.getPrefs().setExportPath(file.getParent());
+//                Service service = ExportMorphologyService.exportToCSV(supervisor.project.particles, supervisor, file, exportParameters, exportMorphology);
+//                BasicDialogs.ProgressDialogWithCancel2(
+//                        "Operation",
+//                        "Exporting project to CSV",
+//                        service).start();
+//            }
+//            return null;
+//        });
     }
 
 }
