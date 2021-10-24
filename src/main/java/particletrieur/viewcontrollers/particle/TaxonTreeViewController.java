@@ -6,58 +6,43 @@
 package particletrieur.viewcontrollers.particle;
 
 import com.google.inject.Inject;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
-import javafx.concurrent.Task;
-import javafx.concurrent.Worker;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTreeCell;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import org.apache.commons.io.FilenameUtils;
 import org.controlsfx.control.CheckTreeView;
-import org.controlsfx.control.GridCell;
-import org.controlsfx.control.GridView;
 import particletrieur.AbstractDialogController;
-import particletrieur.App;
 import particletrieur.FxmlLocation;
 import particletrieur.controls.dialogs.BasicDialogs;
-import particletrieur.controls.dialogs.ProgressDialog2;
 import particletrieur.models.Supervisor;
-import particletrieur.models.project.Particle;
+import particletrieur.models.ecotaxa.EcoTaxaSearchResult;
+import particletrieur.models.ecotaxa.EcoTaxaTaxon;
+import particletrieur.models.project.Taxon;
 import particletrieur.models.project.TreeTaxon;
-import particletrieur.services.ParametersFromCSVService;
-import particletrieur.services.ProjectService;
+import particletrieur.services.ecotaxa.EcoTaxaService;
 import particletrieur.viewmanagers.UndoManager;
-import particletrieur.viewmanagers.commands.AddParticlesCommand;
 import particletrieur.viewmodels.particles.LabelsViewModel;
 
-import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 /**
  * @author Ross Marchant <ross.g.marchant@gmail.com>
  */
 @FxmlLocation("/views/particle/TaxonTreeView.fxml")
 public class TaxonTreeViewController extends AbstractDialogController implements Initializable {
+
+    public Label statusLabel;
+    public ListView<EcoTaxaSearchResult> searchResultsListView;
+    @FXML
+    TextField taxonCodeTextField;
+    @FXML
+    TextField taxonSearchTextField;
 
     @FXML
     CheckTreeView<TreeTaxon> treeView;
@@ -68,6 +53,8 @@ public class TaxonTreeViewController extends AbstractDialogController implements
     UndoManager undoManager;
     @Inject
     LabelsViewModel labelsViewModel;
+
+    ObservableList<EcoTaxaSearchResult> searchResults = FXCollections.observableArrayList();
 
     public TaxonTreeViewController() {
 
@@ -89,6 +76,42 @@ public class TaxonTreeViewController extends AbstractDialogController implements
             };
             return cell ;
         });
+
+        searchResultsListView.setCellFactory(params -> {
+            return new ListCell<EcoTaxaSearchResult>() {
+                @Override
+                public void updateItem(EcoTaxaSearchResult item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (!empty) setText(item.text);
+                    else setText("");
+                }
+            };
+        });
+
+        searchResultsListView.setItems(searchResults);
+        searchResultsListView.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+            if (newValue == null) return;
+            Service<EcoTaxaTaxon> service = EcoTaxaService.getTaxonByIdService(newValue.id);
+            service.setOnFailed(ev -> {
+                BasicDialogs.ShowError(
+                        "Error",
+                        String.format("Error retreiving EcoTaxa taxon id %d\n\n%s",
+                                newValue.id,
+                                service.getException().getMessage())
+                );
+            });
+            service.setOnSucceeded(ev -> {
+                StringBuilder sb = new StringBuilder();
+                int i = 0;
+                for (String s : service.getValue().lineage) {
+                    if (i != 0) sb.insert(0, s + " -> ");
+                    else sb.insert(0, s);
+                    i++;
+                }
+                statusLabel.setText(sb.toString());
+            });
+            service.start();
+        }));
     }
 
     @FXML
@@ -97,6 +120,37 @@ public class TaxonTreeViewController extends AbstractDialogController implements
         if (t != null) {
             treeView.setRoot(convertToTreeItem(t));
         }
+    }
+
+    @FXML
+    public void handleSearchCode(ActionEvent event) {
+        try {
+            EcoTaxaTaxon taxon = EcoTaxaService.getTaxonById(Integer.parseInt(taxonCodeTextField.getText()));
+            System.out.println(taxon.display_name);
+            Arrays.stream(taxon.lineage).forEach(System.out::println);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void handleSearchText(ActionEvent event) {
+        Service<List<EcoTaxaSearchResult>> service = EcoTaxaService.searchTaxonsService(taxonSearchTextField.getText());
+        statusLabel.setText(String.format("Searching for %s...", taxonSearchTextField.getText()));
+        service.setOnFailed(ev -> {
+            Exception ex = new Exception(service.getException());
+            ex.printStackTrace();
+            statusLabel.setText("Error:  + ex.getMessage()");
+        });
+        service.setOnSucceeded(ev -> {
+            List<EcoTaxaSearchResult> results = service.getValue();
+            statusLabel.setText(String.format("Found %d results", results.size()));
+            searchResults.clear();
+            searchResults.addAll(results);
+        });
+        service.start();
     }
 
     public CheckBoxTreeItem<TreeTaxon> convertToTreeItem(TreeTaxon t) {

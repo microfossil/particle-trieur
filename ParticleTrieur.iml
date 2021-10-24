@@ -108,5 +108,8 @@
     <orderEntry type="library" name="Maven: de.rototor.pdfbox:graphics2d:0.30" level="project" />
     <orderEntry type="library" name="Maven: org.apache.pdfbox:pdfbox:2.0.22" level="project" />
     <orderEntry type="library" name="Maven: org.apache.pdfbox:fontbox:2.0.22" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.0" level="project" />
   </component>
 </module>

@@ -10,7 +10,16 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="particletrieur.viewcontrollers.particle.TaxonTreeViewController"
-      prefHeight="400.0" prefWidth="600.0">
+      prefHeight="400.0" prefWidth="600.0"
+      spacing="8">
     <Button onAction="#handleAddTree" text="Add tree..."/>
-    <CheckTreeView fx:id="treeView" />
+    <HBox>
+        <Button onAction="#handleSearchCode" text="Retreive by code"/>
+        <TextField fx:id="taxonCodeTextField"/>
+        <Button onAction="#handleSearchText" text="Search by text"/>
+        <TextField fx:id="taxonSearchTextField"/>
+    </HBox>
+    <Label fx:id="statusLabel"/>
+    <ListView fx:id="searchResultsListView" />
+    <CheckTreeView fx:id="treeView"/>
 </VBox>
