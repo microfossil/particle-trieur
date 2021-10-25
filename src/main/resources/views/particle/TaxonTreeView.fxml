@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import org.controlsfx.control.CheckTreeView?>
 
+<?import javafx.geometry.Insets?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="particletrieur.viewcontrollers.particle.TaxonTreeViewController"
@@ -20,6 +21,24 @@
         <TextField fx:id="taxonSearchTextField"/>
     </HBox>
     <Label fx:id="statusLabel"/>
-    <ListView fx:id="searchResultsListView" />
-    <CheckTreeView fx:id="treeView"/>
+    <GridPane hgap="12">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" />
+        </columnConstraints>
+        <ListView fx:id="searchResultsListView" GridPane.columnIndex="0"/>
+<!--        <CheckTreeView fx:id="treeView" GridPane.columnIndex="1"/>-->
+        <VBox GridPane.columnIndex="1" fx:id="taxonDetails" spacing="8" style="-fx-border-color: -fx-box-border;">
+            <padding>
+                <Insets topRightBottomLeft="8"/>
+            </padding>
+            <Label styleClass="subheader" fx:id="taxonName"/>
+            <Label fx:id="taxonId"/>
+<!--            <Label styleClass="subheader" text="Lineage:" />-->
+            <VBox fx:id="taxonLineage"/>
+            <Label fx:id="taxonNumberChildren" />
+        </VBox>
+    </GridPane>
+
+<!--    <CheckTreeView fx:id="treeView"/>-->
 </VBox>

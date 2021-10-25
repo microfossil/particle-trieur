@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTreeCell;
+import javafx.scene.layout.VBox;
 import org.controlsfx.control.CheckTreeView;
 import particletrieur.AbstractDialogController;
 import particletrieur.FxmlLocation;
@@ -39,6 +40,11 @@ public class TaxonTreeViewController extends AbstractDialogController implements
 
     public Label statusLabel;
     public ListView<EcoTaxaSearchResult> searchResultsListView;
+    public VBox taxonDetails;
+    public Label taxonName;
+    public VBox taxonLineage;
+    public Label taxonId;
+    public Label taxonNumberChildren;
     @FXML
     TextField taxonCodeTextField;
     @FXML
@@ -62,20 +68,20 @@ public class TaxonTreeViewController extends AbstractDialogController implements
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        treeView.setCellFactory(tv -> {
-            CheckBoxTreeCell<TreeTaxon> cell = new CheckBoxTreeCell<TreeTaxon>() {
-                @Override
-                public void updateItem(TreeTaxon item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (item == null || empty) {
-                        setText(null);
-                    } else {
-                        setText(item.name);
-                    }
-                }
-            };
-            return cell ;
-        });
+//        treeView.setCellFactory(tv -> {
+//            CheckBoxTreeCell<TreeTaxon> cell = new CheckBoxTreeCell<TreeTaxon>() {
+//                @Override
+//                public void updateItem(TreeTaxon item, boolean empty) {
+//                    super.updateItem(item, empty);
+//                    if (item == null || empty) {
+//                        setText(null);
+//                    } else {
+//                        setText(item.name);
+//                    }
+//                }
+//            };
+//            return cell ;
+//        });
 
         searchResultsListView.setCellFactory(params -> {
             return new ListCell<EcoTaxaSearchResult>() {
@@ -90,9 +96,19 @@ public class TaxonTreeViewController extends AbstractDialogController implements
 
         searchResultsListView.setItems(searchResults);
         searchResultsListView.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
-            if (newValue == null) return;
+            taxonLineage.getChildren().clear();
+            taxonId.setText("");
+            taxonName.setText("");
+            taxonNumberChildren.setText("");
+            if (newValue == null) {
+                return;
+            }
+
+            taxonName.setText("Loading...");
+
             Service<EcoTaxaTaxon> service = EcoTaxaService.getTaxonByIdService(newValue.id);
             service.setOnFailed(ev -> {
+                taxonName.setText("");
                 BasicDialogs.ShowError(
                         "Error",
                         String.format("Error retreiving EcoTaxa taxon id %d\n\n%s",
@@ -101,14 +117,26 @@ public class TaxonTreeViewController extends AbstractDialogController implements
                 );
             });
             service.setOnSucceeded(ev -> {
-                StringBuilder sb = new StringBuilder();
-                int i = 0;
-                for (String s : service.getValue().lineage) {
-                    if (i != 0) sb.insert(0, s + " -> ");
-                    else sb.insert(0, s);
-                    i++;
+                taxonId.setText(String.format("Taxon #%d", service.getValue().id));
+                taxonName.setText(service.getValue().display_name);
+                taxonNumberChildren.setText(String.format("%d children", service.getValue().nb_children_objects));
+                taxonLineage.getChildren().clear();
+//                StringBuilder sb = new StringBuilder();
+//                int i = 0;
+                String[] lineage = service.getValue().lineage;
+                int j = 0;
+                for (int i = lineage.length-1; i >=0; i--) {
+                    if (j == 0) taxonLineage.getChildren().add(new Label(lineage[i]));
+                    else taxonLineage.getChildren().add(new Label(String.format("%" + j + "s", "") + lineage[i]));
+                    j += 2;
                 }
-                statusLabel.setText(sb.toString());
+//                for (String s : ) {
+
+//                    if (i != 0) sb.insert(0, s + " -> ");
+//                    else sb.insert(0, s);
+//                    i++;
+//                }
+//                statusLabel.setText(sb.toString());
             });
             service.start();
         }));
