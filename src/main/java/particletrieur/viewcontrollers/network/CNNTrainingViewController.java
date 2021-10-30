@@ -377,11 +377,10 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
 //            return;
         }
         CNNTrainingService trainingService = new CNNTrainingService();
-        if (trainingService.getAnacondaInstallationLocation() == null) {
+        if (CNNTrainingService.getAnacondaInstallationLocation() == null) {
             BasicDialogs.ShowError("Python Missing", "Python could not be found at any of the default locations.\nPlease update its location");
         } else {
             App.getPrefs().setTrainingPath(textFieldOutputFolder.getText());
-
             if (radioButtonInputThisProject.isSelected() && supervisor.project.getFile() == null) {
                 BasicDialogs.ShowError("Error", "You must save the project first");
                 return;

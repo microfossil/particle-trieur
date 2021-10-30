@@ -62,6 +62,8 @@ public class CNNTrainingScript {
                         "\n" +
                         "from miso.training.parameters import MisoParameters\n" +
                         "from miso.training.trainer import train_image_classification_model\n" +
+                        "import pip\n" +
+                        "from subprocess import call\n" +
                         "\n" +
                         "tp = MisoParameters()\n" +
                         "\n" +
@@ -189,6 +191,9 @@ public class CNNTrainingScript {
                         "from miso.utils import singleton\n" +
                         "# Guard for windows\n" +
                         "if __name__ == \"__main__\":\n" +
+                        "    # Make sure using latest version\n" +
+                        "    call(\"pip install --upgrade miso2\")" +
+                        "    \n" +
                         "    # Only one script at a time\n" +
                         "    start = time.time()\n" +
                         "    done = False\n" +
