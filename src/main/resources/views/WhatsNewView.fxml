@@ -17,6 +17,8 @@
             prefHeight="360.0" prefWidth="640.0">
     <VBox spacing="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <children>
+            <Label text="2.4.11" styleClass="subheader"/>
+            <Label wrapText="true">Bug fix to remove duplicate labels; update miso2 on script run</Label>
             <Label text="2.4.10" styleClass="subheader"/>
             <Label wrapText="true">Bug fix for adding images</Label>
             <Label text="2.4.9" styleClass="subheader"/>
