@@ -51,12 +51,12 @@ public class CNNTrainingService {
             wrappedCommand = new String[]{"osascript",
                     "-e", "tell application \"Terminal\" to activate",
                     "-e", "tell application \"Terminal\" to do script \"" + command + ";exit\""};
-            StringBuilder sb = new StringBuilder();
-            for (String str : wrappedCommand) {
-                sb.append(str);
-                sb.append(" ");
-            }
-            System.out.println(sb);
+//            StringBuilder sb = new StringBuilder();
+//            for (String str : wrappedCommand) {
+//                sb.append(str);
+//                sb.append(" ");
+//            }
+//            System.out.println(sb);
 //            String script = "tell application \"Terminal\"\n" +
 //                    "activate\n" +
 //                    "do script \"" + command + ";exit\"\n" +
