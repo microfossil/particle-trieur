@@ -47,9 +47,16 @@ public class CNNTrainingService {
         if (SystemUtils.IS_OS_WINDOWS) {
             wrappedCommand = new String[]{"cmd", "/c", "start", "/wait", "cmd.exe", "/K", command};
         } else if (SystemUtils.IS_OS_MAC_OSX) {
+            command = command.replace("\"", "\\\"");
             wrappedCommand = new String[]{"osascript",
                     "-e", "tell application \"Terminal\" to activate",
                     "-e", "tell application \"Terminal\" to do script \"" + command + ";exit\""};
+            StringBuilder sb = new StringBuilder();
+            for (String str : wrappedCommand) {
+                sb.append(str);
+                sb.append(" ");
+            }
+            System.out.println(sb);
 //            String script = "tell application \"Terminal\"\n" +
 //                    "activate\n" +
 //                    "do script \"" + command + ";exit\"\n" +
@@ -69,17 +76,18 @@ public class CNNTrainingService {
             throw new RuntimeException("Unsupported OS");
         }
 //        System.out.println(command);
-        Process process = Runtime.getRuntime().exec(wrappedCommand);
+//        Process process = Runtime.getRuntime().exec(wrappedCommand);
 
-//        Process process = new ProcessBuilder(wrappedCommand)
-//                .redirectErrorStream(true)
-//                .start();
-//        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                System.out.println(line); // Your superior logging approach here
-//            }
-//        }
+        Process process = new ProcessBuilder(wrappedCommand)
+                .redirectErrorStream(true)
+                .start();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line); // Your superior logging approach here
+            }
+        }
+        process.waitFor();
 //        return process.waitFor();
     }
 
