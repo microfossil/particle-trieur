@@ -228,11 +228,46 @@ public class CNNTrainingService {
         } else if (SystemUtils.IS_OS_MAC_OSX) {
             terminalCommand = "conda activate " + ENV + " && cd \"" + basePath + "\" && python -u " + command;
         } else if (SystemUtils.IS_OS_LINUX) {
-            terminalCommand = pythonPath + " -u " + command;
+//            terminalCommand = pythonPath + " -u " + command;
+            terminalCommand = "conda activate " + ENV + " && cd \"" + basePath + "\" && python -u " + command;
         } else {
             throw new RuntimeException("Unsupported OS");
         }
         executeInTerminal(terminalCommand);
+    }
+
+    public void executePythonCommands(String[] commands) throws IOException, InterruptedException, RuntimeException, ScriptException {
+        String pythonPath = getAnacondaInstallationLocation();
+        if (pythonPath == null) {
+            showAnacondaNotFoundError();
+            return;
+        }
+        String basePath = (new File(pythonPath)).getParent();
+        String anacondaPath = (new File(pythonPath)).getParentFile().getParentFile().getParentFile().getPath();
+        StringBuilder terminalCommand;
+        if (SystemUtils.IS_OS_WINDOWS) {
+            terminalCommand = new StringBuilder("call \"" + anacondaPath + "\\Scripts\\activate.bat\" " + ENV + " && " + "cd /d \"" + basePath + "\"");
+            for (String command : commands) {
+                terminalCommand.append(" && python -W ignore -u ").append(command);
+            }
+        } else if (SystemUtils.IS_OS_MAC_OSX) {
+            terminalCommand = new StringBuilder("conda activate " + ENV + " && cd \"" + basePath + "\"");
+            for (String command : commands) {
+                terminalCommand.append(" && python -u ").append(command);
+            }
+        } else if (SystemUtils.IS_OS_LINUX) {
+//            terminalCommand = new StringBuilder("conda activate " + ENV);
+//            for (String command : commands) {
+//                terminalCommand.append(" && ").append(pythonPath).append(" -u ").append(command);
+//            }
+            terminalCommand = new StringBuilder("conda activate " + ENV + " && cd \"" + basePath + "\"");
+            for (String command : commands) {
+                terminalCommand.append(" && python -u ").append(command);
+            }
+        } else {
+            throw new RuntimeException("Unsupported OS");
+        }
+        executeInTerminal(terminalCommand.toString());
     }
 
     public void launchTraining(CNNTrainingScript info) {
@@ -242,7 +277,11 @@ public class CNNTrainingService {
             BufferedWriter writer = new BufferedWriter(new FileWriter(temp));
             writer.write(script);
             writer.close();
-            executePythonCommand("\"" + temp.getAbsolutePath() + "\"");
+//            executePythonCommand("\"" + temp.getAbsolutePath() + "\"");
+            executePythonCommands(new String[] {
+                    " -m pip install -U " + PACKAGE,
+                    "\"" + temp.getAbsolutePath() + "\""
+            });
         } catch (Exception ex) {
             BasicDialogs.ShowException("Error launching training", ex);
         }
