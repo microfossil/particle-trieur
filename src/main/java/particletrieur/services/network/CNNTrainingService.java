@@ -256,14 +256,14 @@ public class CNNTrainingService {
                 terminalCommand.append(" && python -u ").append(command);
             }
         } else if (SystemUtils.IS_OS_LINUX) {
-//            terminalCommand = new StringBuilder("conda activate " + ENV);
-//            for (String command : commands) {
-//                terminalCommand.append(" && ").append(pythonPath).append(" -u ").append(command);
-//            }
-            terminalCommand = new StringBuilder("conda activate " + ENV + " && cd \"" + basePath + "\"");
+            terminalCommand = new StringBuilder(":");
             for (String command : commands) {
-                terminalCommand.append(" && python -u ").append(command);
+                terminalCommand.append(" && ").append(pythonPath).append(" -u ").append(command);
             }
+//            terminalCommand = new StringBuilder("conda activate " + ENV + " && cd \"" + basePath + "\"");
+//            for (String command : commands) {
+//                terminalCommand.append(" && python -u ").append(command);
+//            }
         } else {
             throw new RuntimeException("Unsupported OS");
         }
