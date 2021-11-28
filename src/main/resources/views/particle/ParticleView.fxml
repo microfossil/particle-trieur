@@ -67,9 +67,15 @@
                                 <MenuItem mnemonicParsing="false" onAction="#handleFilterIndex1" text="Index 1" />
                                 <MenuItem mnemonicParsing="false" onAction="#handleFilterIndex2" text="Index 2" />
                                 <MenuItem mnemonicParsing="false" onAction="#handleFilterGuid" text="GUID" />
+                                <MenuItem mnemonicParsing="false" onAction="#handleFilterValid" text="Valid" />
                                 <MenuItem mnemonicParsing="false" onAction="#handleFilterAll" text="None" />
                             </items>
                         </MenuButton>
+                        <Button fx:id="buttonValid" onAction="#handleFilterValidButton" text="val?">
+                            <graphic>
+                                <SymbolLabel symbol="feathercheckcircle" symbolColor="grey"/>
+                            </graphic>
+                        </Button>
                         <CustomTextField fx:id="customTextFieldFilter" minHeight="0.0" minWidth="0.0" promptText="Filter list..." HBox.hgrow="ALWAYS">
                             <tooltip>
                                 <Tooltip text="Filter list by label code.&#10;Use the prefix &quot;tag:&quot; to filter by tag, or &quot;file:&quot; to filter by filename." wrapText="true" />

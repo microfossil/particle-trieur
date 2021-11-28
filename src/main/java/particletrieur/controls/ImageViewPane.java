@@ -47,7 +47,6 @@ public class ImageViewPane extends Region {
 
     public ImageViewPane(ImageView imageView) {
         imageViewProperty.addListener(new ChangeListener<ImageView>() {
-
             @Override
             public void changed(ObservableValue<? extends ImageView> arg0, ImageView oldIV, ImageView newIV) {
                 if (oldIV != null) {
