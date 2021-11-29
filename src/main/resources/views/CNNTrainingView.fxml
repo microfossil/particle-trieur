@@ -212,7 +212,11 @@
                                 </GridPane>
                                 <Label styleClass="caption"
                                        wrapText="true"
-                                       text="Training loss (accuracy) is monitored over the most recent this many epochs (complete runs through the training set). If it has not improved, the learning rate will be dropped by half. After four drops, training is ended. Recommended 10 epochs for large training sets. Increasing the number of epochs may increase accuracy but also training time."/>
+                                       text="Training loss (accuracy) is monitored over the most recent this many epochs (complete runs through the training set). If it has not improved, the learning rate will be dropped by half. After four drops, training is stopped. Recommended 10 epochs for large training sets. Increasing the number of epochs may increase accuracy but also training time."/>
+                                <CheckBox fx:id="checkBoxMonitorValidation" mnemonicParsing="false" text="Monitor validation loss instead of training loss"/>
+                                <Label styleClass="caption"
+                                       wrapText="true"
+                                       text="Monitor the validation loss instead of the training loss for controlling the learning rate and early stopping."/>
                                 <GridPane hgap="7" vgap="7">
                                     <columnConstraints>
                                         <ColumnConstraints minWidth="-Infinity"/>

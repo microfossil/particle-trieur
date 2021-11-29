@@ -46,6 +46,8 @@ import java.util.*;
 public class CNNTrainingViewController extends AbstractDialogController implements Initializable {
 
     @FXML
+    CheckBox checkBoxMonitorValidation;
+    @FXML
     Label labelGPUMemory;
     @FXML
     Label labelGPUUsage;
@@ -289,6 +291,7 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
         info.trainingUseClassWeights = checkBoxBalanceClassWeights.isSelected();
         info.trainingBatchSize = spinnerBatchSize.getValue();
         info.trainingAlrEpochs = spinnerAlrEpochs.getValue();
+        info.trainingMonitorValLoss = checkBoxMonitorValidation.isSelected();
 
         return info;
     }
