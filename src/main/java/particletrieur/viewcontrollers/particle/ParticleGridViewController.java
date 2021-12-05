@@ -177,7 +177,7 @@ public class ParticleGridViewController implements Initializable {
             }
             else {
                 updateSelection();
-                setGraphic(im);
+                setGraphic(null);
                 Task<Image> task = new Task<Image>() {
                     @Override
                     public Image call() throws Exception {
@@ -194,6 +194,7 @@ public class ParticleGridViewController implements Initializable {
                 loadingTask.set(task);
                 task.setOnSucceeded(event -> {
                     im.setData(item, selectionViewModel.getParticleIndex(item));
+                    setGraphic(im);
                 });
                 App.getExecutorService().submit(task);
             }
@@ -207,12 +208,12 @@ public class ParticleGridViewController implements Initializable {
 
         public void updateSelection() {
             if (selectionViewModel.getCurrentParticles().contains(this.getItem())) {
-                this.setStyle("-fx-border-color: #eeeeee; -fx-background-color: -fx-accent; -fx-text-fill: white;");
+                this.setStyle("-fx-border-color: derive(-fx-accent, -20%); -fx-background-color: -fx-accent; -fx-text-fill: white;");
                 im.getStyleClass().clear();
                 im.getStyleClass().add("selected-content");
             }
             else {
-                this.setStyle("-fx-border-color: #eeeeee; -fx-background-color: transparent; -fx-text-fill: -fx-text-base-color;");
+                this.setStyle("-fx-border-color: #dddddd; -fx-background-color: transparent; -fx-text-fill: -fx-text-base-color;");
                 im.getStyleClass().clear();
             }
         }

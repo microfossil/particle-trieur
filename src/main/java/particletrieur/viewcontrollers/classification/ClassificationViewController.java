@@ -313,18 +313,11 @@ public class ClassificationViewController implements Initializable {
     private void setupClassificationUI(Project project) {
         int mode = displayMode.get();
         if (mode == 0) {
-//            taxonCodes.clear();
             labelButtons.clear();
             labelTreeItems.clear();
             vboxClasses.getChildren().clear();
             List<Taxon> taxonList = sortedListOfTaxons(project, true);
             List<Taxon> nonTaxonList = sortedListOfTaxons(project, false);
-            for (Map.Entry<String, Taxon> entry : project.taxons.entrySet()) {
-                Taxon taxon = entry.getValue();
-                final String code = taxon.getCode();
-                if (taxon.getIsClass()) taxonList.add(taxon);
-                else nonTaxonList.add(taxon);
-            }
             addButtonGroup("Classes", taxonList);
             addButtonGroup("Non-classes", nonTaxonList);
         }

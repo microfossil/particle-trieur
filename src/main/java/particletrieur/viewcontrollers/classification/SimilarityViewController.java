@@ -263,7 +263,7 @@ public class SimilarityViewController extends AbstractController implements Init
                 setGraphic(null);
             }
             else {
-                setGraphic(im);
+                setGraphic(null);
                 Particle thisParticle = supervisor.project.particles.get(item.index);
                 Particle thatParticle = selectionViewModel.getCurrentParticle();
                 Task<Image> task = new Task<Image>() {
@@ -282,6 +282,7 @@ public class SimilarityViewController extends AbstractController implements Init
                 loadingTask.set(task);
                 task.setOnSucceeded(event -> {
                     im.setData(thisParticle, thatParticle, item.index + 1, item.value, task.getValue());
+                    setGraphic(im);
 //                    im.selected.set(selectedItems.contains(item));
                 });
                 App.getExecutorService().submit(task);
@@ -302,12 +303,12 @@ public class SimilarityViewController extends AbstractController implements Init
 //                this.setStyle("-fx-border-color: #eeeeee; -fx-background-color: #333333; -fx-text-fill: white;");
 //            }
             if (selectedItems.contains(this.getItem())) {
-                this.setStyle("-fx-border-color: #eeeeee; -fx-background-color: -fx-accent; -fx-text-fill: white;");
+                this.setStyle("-fx-border-color: derive(-fx-accent, -20%); -fx-background-color: -fx-accent; -fx-text-fill: white;");
                 im.getStyleClass().clear();
                 im.getStyleClass().add("selected-content");
             }
             else {
-                this.setStyle("-fx-border-color: #eeeeee; -fx-background-color: transparent; -fx-text-fill: -fx-text-base-color;");
+                this.setStyle("-fx-border-color: #dddddd; -fx-background-color: transparent; -fx-text-fill: -fx-text-base-color;");
                 im.getStyleClass().clear();
             }
         }

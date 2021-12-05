@@ -97,6 +97,7 @@
                                     </children>
                                 </GridPane>
                                 <Label styleClass="caption"
+                                       wrapText="true"
                                        text="Classes with very few examples may give poor classification accuracy. Select the minimum number of images for a class to be included. (At least 5 recommended)"/>
                                 <CheckBox fx:id="checkBoxUseOther" mnemonicParsing="false"
                                           text="Place images with less than this into 'other' class"/>
@@ -122,12 +123,14 @@
                                     </children>
                                 </GridPane>
                                 <Label styleClass="caption"
+                                       wrapText="true"
                                        text="Some images must be set aside from training to provide unseen images for evaluating the model accuracy. A fraction of 0.1 for large datasets, or 0.2 for smaller ones, is recommended."/>
                                 <!-- Memory -->
                                 <Label styleClass="subheader" text="Memory Management"/>
                                 <CheckBox fx:id="checkBoxUseMemoryMapping" mnemonicParsing="false"
                                           text="Create training set on disk instead of memory"/>
                                 <Label styleClass="caption"
+                                       wrapText="true"
                                        text="Large training datsets may not all fit into RAM memory. Select this option to use disk to store the training set instead of RAM. Best performance if the disk is an SSD."/>
                             </children>
                         </VBox>
@@ -212,7 +215,11 @@
                                 </GridPane>
                                 <Label styleClass="caption"
                                        wrapText="true"
-                                       text="Training loss (accuracy) is monitored over the most recent this many epochs (complete runs through the training set). If it has not improved, the learning rate will be dropped by half. After four drops, training is ended. Recommended 10 epochs for large training sets. Increasing the number of epochs may increase accuracy but also training time."/>
+                                       text="Training loss (accuracy) is monitored over the most recent this many epochs (complete runs through the training set). If it has not improved, the learning rate will be dropped by half. After four drops, training is stopped. Recommended 10 epochs for large training sets. Increasing the number of epochs may increase accuracy but also training time."/>
+                                <CheckBox fx:id="checkBoxMonitorValidation" mnemonicParsing="false" text="Monitor validation loss instead of training loss"/>
+                                <Label styleClass="caption"
+                                       wrapText="true"
+                                       text="Monitor the validation loss instead of the training loss for controlling the learning rate and early stopping."/>
                                 <GridPane hgap="7" vgap="7">
                                     <columnConstraints>
                                         <ColumnConstraints minWidth="-Infinity"/>
