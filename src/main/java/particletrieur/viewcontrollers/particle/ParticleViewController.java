@@ -20,6 +20,7 @@ import particletrieur.viewmodels.MainViewModel;
 import particletrieur.viewmodels.SelectionViewModel;
 import org.controlsfx.control.textfield.CustomTextField;
 import org.controlsfx.control.textfield.TextFields;
+import particletrieur.viewmodels.particles.LabelsViewModel;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -41,6 +42,8 @@ public class ParticleViewController implements Initializable {
     SymbolLabel fontIconExpander;
     @FXML
     CustomTextField customTextFieldFilter;
+    @FXML
+    Button buttonValid;
 
     @Inject
     private Supervisor supervisor;
@@ -48,6 +51,15 @@ public class ParticleViewController implements Initializable {
     private SelectionViewModel selectionViewModel;
     @Inject
     MainViewModel mainViewModel;
+
+    private enum FilterState
+    {
+        ALL,
+        TRUE,
+        FALSE
+    }
+
+    private FilterState validationMatchedState = FilterState.ALL;
 
     private final BooleanProperty expanded = new SimpleBooleanProperty();
     private TableColumn<Particle, File> colImage = new TableColumn<>();
@@ -94,99 +106,121 @@ public class ParticleViewController implements Initializable {
         selectionViewModel.filteredList.addListener(new ListChangeListener<Particle>() {
             @Override
             public void onChanged(Change<? extends Particle> c) {
-                labelImageCount.setText(String.format("%d images", selectionViewModel.filteredList.size()));
+                if (validationMatchedState == FilterState.ALL) labelImageCount.setText(String.format("%d images", selectionViewModel.filteredList.size()));
+                if (validationMatchedState == FilterState.FALSE) labelImageCount.setText(String.format("%d not val. images", selectionViewModel.filteredList.size()));
+                if (validationMatchedState == FilterState.TRUE) labelImageCount.setText(String.format("%d val. images", selectionViewModel.filteredList.size()));
             }
         });
+
+        // Update the filter when validation state changes
+//        supervisor.project.particleValidatedEvent.addListener(event -> {
+//            if (validationMatchedState != FilterState.ALL) {
+//                refreshFilter();
+//            }
+//        });
+    }
+
+    private void refreshFilter() {
+        selectionViewModel.filteredList.setPredicate(particle -> filterParticle(particle, customTextFieldFilter.getText()));
     }
 
     private boolean filterParticle(Particle particle, String filter) {
         if (filter == null || filter.length() < 1) {
-            return true;
+//            return true;
         }
-        String lowerCaseFilter = filter.toLowerCase().trim();
+        else {
+            String lowerCaseFilter = filter.toLowerCase().trim();
+            String[] parts = lowerCaseFilter.split("\\s+");
 
-        String[] parts = lowerCaseFilter.split("\\s+");
+            //        List<String> parts = new ArrayList<>();
+            //        Matcher m = Pattern.compile("\\S+\"[^\"]*\"|\\S+").matcher(lowerCaseFilter);
+            //        while (m.find()) {
+            //            parts.add(m.group(1).replace("\"", ""));
+            //        }
 
-//        List<String> parts = new ArrayList<>();
-//        Matcher m = Pattern.compile("\\S+\"[^\"]*\"|\\S+").matcher(lowerCaseFilter);
-//        while (m.find()) {
-//            parts.add(m.group(1).replace("\"", ""));
-//        }
-
-        for (String part : parts) {
-            String[] params = part.split("((?<====)|(?====)|(?<=:)|(?=:)|(?<===)|(?===)|(?=!=)|(?<=!=))");
-            if (params.length != 3) {
-                return false;
+            for (String part : parts) {
+                String[] params = part.split("((?<====)|(?====)|(?<=:)|(?=:)|(?<===)|(?===)|(?=!=)|(?<=!=))");
+                if (params.length != 3) {
+                    break;
+                }
+                // TODO add the match all
+                boolean matched = false;
+                boolean result = false;
+                boolean exact = false;
+                if (params[1].equals("===")) {
+                    exact = true;
+                }
+                // TODO add match everything / some
+                switch (params[0]) {
+                    case "#":
+                        matched = true;
+                        int index;
+                        try {
+                            index = Integer.parseInt(params[2]);
+                        } catch (NumberFormatException ex) {
+                            index = -1;
+                        }
+                        result = supervisor.project.particles.indexOf(particle) == index;
+                        break;
+                    case "file":
+                        matched = true;
+                        if (exact) result = particle.getShortFilename().toLowerCase().equals(params[2]);
+                        else result = particle.getShortFilename().toLowerCase().contains(params[2]);
+                        break;
+                    case "folder":
+                        matched = true;
+                        if (exact) result = particle.getFile().getParent().toLowerCase().equals(params[2]);
+                        else result = particle.getFile().getParent().toLowerCase().contains(params[2]);
+                        break;
+                    case "tag":
+                        matched = true;
+                        result = particle.tagsToString().toLowerCase().replace(" ", "_").contains(params[2]);
+                        break;
+                    case "label":
+                        matched = true;
+                        if (exact)
+                            result = particle.getClassification().toLowerCase().replace(" ", "_").equals(params[2]);
+                        else result = particle.getClassification().toLowerCase().replace(" ", "_").contains(params[2]);
+                        break;
+                    case "guid":
+                        matched = true;
+                        if (exact) result = particle.getGUID().toLowerCase().equals(params[2]);
+                        else result = particle.getGUID().toLowerCase().contains(params[2]);
+                        break;
+                    case "sample":
+                        matched = true;
+                        if (exact) result = particle.getSampleID().toLowerCase().equals(params[2]);
+                        else result = particle.getSampleID().toLowerCase().contains(params[2]);
+                        break;
+                    case "index1":
+                        matched = true;
+                        result = Double.toString(particle.getIndex1()).equals(params[2]);
+                        break;
+                    case "index2":
+                        matched = true;
+                        result = Double.toString(particle.getIndex2()).equals(params[2]);
+                        break;
+                    case "valid":
+                        matched = true;
+                        if (params[2].equals("true"))
+                            result = particle.getValidator() != null && !particle.getValidator().equals("");
+                        else result = particle.getValidator() == null || particle.getValidator().equals("");
+                        break;
+                }
+                if (params[1].equals("!=")) {
+                    result = !result;
+                }
+                if (!matched) result = false;
+                if (!result) return false;
             }
-            // TODO add the match all
-            boolean matched = false;
-            boolean result = false;
-            boolean exact = false;
-            if (params[1].equals("===")) {
-                exact = true;
-            }
-            // TODO add match everything / some
-            switch (params[0]) {
-                case "#":
-                    matched = true;
-                    int index;
-                    try {
-                        index = Integer.parseInt(params[2]);
-                    }
-                    catch (NumberFormatException ex) {
-                        index = -1;
-                    }
-                    result = supervisor.project.particles.indexOf(particle) == index;
-                    break;
-                case "file":
-                    matched = true;
-                    if (exact) result = particle.getShortFilename().toLowerCase().equals(params[2]);
-                    else result = particle.getShortFilename().toLowerCase().contains(params[2]);
-                    break;
-                case "folder":
-                    matched = true;
-                    if (exact) result = particle.getFile().getParent().toLowerCase().equals(params[2]);
-                    else result = particle.getFile().getParent().toLowerCase().contains(params[2]);
-                    break;
-                case "tag":
-                    matched = true;
-                    result = particle.tagsToString().toLowerCase().replace(" ", "_").contains(params[2]);
-                    break;
-                case "label":
-                    matched = true;
-                    if (exact) result = particle.getClassification().toLowerCase().replace(" ", "_").equals(params[2]);
-                    else result = particle.getClassification().toLowerCase().replace(" ", "_").contains(params[2]);
-                    break;
-                case "guid":
-                    matched = true;
-                    if (exact) result = particle.getGUID().toLowerCase().equals(params[2]);
-                    else result = particle.getGUID().toLowerCase().contains(params[2]);
-                    break;
-                case "sample":
-                    matched = true;
-                    if (exact) result = particle.getSampleID().toLowerCase().equals(params[2]);
-                    else result = particle.getSampleID().toLowerCase().contains(params[2]);
-                    break;
-                case "index1":
-                    matched = true;
-                    result = Double.toString(particle.getIndex1()).equals(params[2]);
-                    break;
-                case "index2":
-                    matched = true;
-                    result = Double.toString(particle.getIndex2()).equals(params[2]);
-                    break;
-                case "valid":
-                    matched = true;
-                    if (params[2].equals("true")) result = particle.getValidator() != null && !particle.getValidator().equals("");
-                    else result = particle.getValidator() == null || particle.getValidator().equals("");
-                    break;
-            }
-            if (params[1].equals("!=")) {
-                result = !result;
-            }
-            if (!matched) result = false;
-            if (!result) return false;
         }
+
+        // Validation state
+//        System.out.println(validationMatchedState);
+//        System.out.println(particle.getValidator());
+        if (validationMatchedState == FilterState.TRUE && (particle.getValidator() == null || particle.getValidator().equals(""))) return false;
+        if (validationMatchedState == FilterState.FALSE && (particle.getValidator() != null && !particle.getValidator().equals(""))) return false;
+
         return true;
     }
 
@@ -257,7 +291,31 @@ public class ParticleViewController implements Initializable {
 
     @FXML
     public void handleFilterValid(ActionEvent actionEvent) {
-        customTextFieldFilter.setText(customTextFieldFilter.getText() + " valid==");
+        customTextFieldFilter.setText(customTextFieldFilter.getText() + " valid==true");
+    }
+
+    @FXML
+    public void handleFilterValidButton(ActionEvent actionEvent) {
+        if (validationMatchedState == FilterState.ALL) {
+            validationMatchedState = FilterState.FALSE;
+            SymbolLabel symbolLabel = new SymbolLabel("featherxcircle", 12);
+            symbolLabel.setSymbolColor("red");
+            buttonValid.setGraphic(symbolLabel);
+        }
+        else if (validationMatchedState == FilterState.FALSE) {
+            validationMatchedState = FilterState.TRUE;
+            SymbolLabel symbolLabel = new SymbolLabel("feathercheckcircle", 12);
+            symbolLabel.setSymbolColor("green");
+            buttonValid.setGraphic(symbolLabel);
+        }
+        else if (validationMatchedState == FilterState.TRUE) {
+            validationMatchedState = FilterState.ALL;
+            SymbolLabel symbolLabel = new SymbolLabel("feathercheckcircle", 12);
+            symbolLabel.setSymbolColor("grey");
+            buttonValid.setGraphic(symbolLabel);
+        }
+        refreshFilter();
+//        customTextFieldFilter.setText(customTextFieldFilter.getText() + " valid==true");
     }
 
     @FXML
