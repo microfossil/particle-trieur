@@ -1,4 +1,4 @@
-package particletrieur.services;
+package particletrieur.services.taxonomy;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -22,14 +22,10 @@ public class ExtractClassesFromXLSXService {
         // we create an XSSF Workbook object for our XLSX Excel File
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
         // we get first sheet
-        XSSFSheet sheet = workbook.getSheetAt(0);
+        XSSFSheet sheet = workbook.getSheetAt(1);
 
-        // we iterate on rows
-        Iterator<Row> rowIt = sheet.iterator();
-
-        while(rowIt.hasNext()) {
-            Row row = rowIt.next();
-
+        // Parse each row
+        for (Row row : sheet) {
             // iterate on cells for the current row
             Iterator<Cell> cellIterator = row.cellIterator();
 
@@ -37,7 +33,6 @@ public class ExtractClassesFromXLSXService {
                 Cell cell = cellIterator.next();
                 System.out.print(cell.toString() + ";");
             }
-
             System.out.println();
         }
 
