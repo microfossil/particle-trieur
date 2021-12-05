@@ -27,17 +27,17 @@
             <ColumnConstraints hgrow="SOMETIMES" />
         </columnConstraints>
         <ListView fx:id="searchResultsListView" GridPane.columnIndex="0"/>
-<!--        <CheckTreeView fx:id="treeView" GridPane.columnIndex="1"/>-->
-        <VBox GridPane.columnIndex="1" fx:id="taxonDetails" spacing="8" style="-fx-border-color: -fx-box-border;">
-            <padding>
-                <Insets topRightBottomLeft="8"/>
-            </padding>
-            <Label styleClass="subheader" fx:id="taxonName"/>
-            <Label fx:id="taxonId"/>
-<!--            <Label styleClass="subheader" text="Lineage:" />-->
-            <VBox fx:id="taxonLineage"/>
-            <Label fx:id="taxonNumberChildren" />
-        </VBox>
+        <CheckTreeView fx:id="treeView" GridPane.columnIndex="1"/>
+<!--        <VBox GridPane.columnIndex="1" fx:id="taxonDetails" spacing="8" style="-fx-border-color: -fx-box-border;">-->
+<!--            <padding>-->
+<!--                <Insets topRightBottomLeft="8"/>-->
+<!--            </padding>-->
+<!--            <Label styleClass="subheader" fx:id="taxonName"/>-->
+<!--            <Label fx:id="taxonId"/>-->
+<!--&lt;!&ndash;            <Label styleClass="subheader" text="Lineage:" />&ndash;&gt;-->
+<!--            <VBox fx:id="taxonLineage"/>-->
+<!--            <Label fx:id="taxonNumberChildren" />-->
+<!--        </VBox>-->
     </GridPane>
 
 <!--    <CheckTreeView fx:id="treeView"/>-->

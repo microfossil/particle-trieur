@@ -2,14 +2,13 @@ package particletrieur.viewmodels.particles;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.concurrent.Service;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.layout.Region;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
 import particletrieur.App;
 import particletrieur.AppController;
-import particletrieur.controls.dialogs.AlertEx;
 import particletrieur.models.network.classification.ClassificationSet;
 import particletrieur.models.project.Project;
 import particletrieur.models.Supervisor;
@@ -18,8 +17,8 @@ import particletrieur.models.project.Taxon;
 import particletrieur.controls.dialogs.BasicDialogs;
 import com.google.inject.Inject;
 import particletrieur.models.project.TreeTaxon;
-import particletrieur.services.ExtractClassesFromXLSXService;
-import particletrieur.services.export.ExportMorphologyService;
+import particletrieur.models.taxonomy.RappTaxon;
+import particletrieur.services.taxonomy.RAPPTaxonService;
 import particletrieur.viewmanagers.UndoManager;
 import particletrieur.viewmanagers.commands.SetLabelCommand;
 import particletrieur.viewmanagers.commands.SetLabelSetCommand;
@@ -27,8 +26,6 @@ import particletrieur.viewmodels.SelectionViewModel;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,6 +61,19 @@ public class LabelsViewModel {
         this.autoAdvance.set(autoAdvance);
     }
 
+    private StringProperty rappXLXSPath = new SimpleStringProperty();
+    public String getRappXLXSPath() {
+        return rappXLXSPath.get();
+    }
+    public StringProperty rappXLXSPathProperty() {
+        return rappXLXSPath;
+    }
+    public void setRappXLXSPath(String rappXLXSPath) {
+        this.rappXLXSPath.set(rappXLXSPath);
+    }
+
+    public ObservableList<RappTaxon> rappTaxons = FXCollections.observableArrayList();
+
     public enum ValidationState {
         INVALID,
         INDETERMINATE,
@@ -74,6 +84,17 @@ public class LabelsViewModel {
     public LabelsViewModel(SelectionViewModel selectionViewModel, Supervisor supervisor) {
         this.selectionViewModel = selectionViewModel;
         this.supervisor = supervisor;
+
+        rappXLXSPath.addListener(((observable, oldValue, newValue) -> {
+            try {
+                updateRappTaxonomy(newValue);
+            }
+            catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }));
+
+        setRappXLXSPath(App.getPrefs().getRappPath());
     }
 
     private String getValidator() {
@@ -200,6 +221,28 @@ public class LabelsViewModel {
         supervisor.project.initialiseTaxons(taxons);
     }
 
+    public void loadRappTaxonomy() {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Choose XLSX file with taxonomy");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("XLSX file (*.xlsx)", "*.xlsx"));
+        fc.setInitialDirectory(new File("C:\\Users\\rossm\\OneDrive\\RAPP"));
+        File file = fc.showOpenDialog(AppController.getWindow());
+        if (file == null) return;
+        setRappXLXSPath(file.getAbsolutePath());
+    }
+
+    private void updateRappTaxonomy(String filename) throws IOException {
+        List<RappTaxon> taxons = RAPPTaxonService.parseCodes(filename);
+        if (taxons.size() > 0) {
+            rappTaxons.clear();
+            rappTaxons.addAll(taxons);
+            App.getPrefs().setRappPath(filename);
+        }
+        else {
+            BasicDialogs.ShowError("Error", "XLSX file did not contain a list of taxons in sheet 3\n\nFormat must be: id, type, group, name");
+        }
+    }
+
     public TreeTaxon addTaxonTree() {
         //Export file
         FileChooser fc = new FileChooser();
@@ -210,7 +253,7 @@ public class LabelsViewModel {
         if (file == null) return null;
 
         try {
-            return ExtractClassesFromXLSXService.Parse(file.getAbsolutePath());
+            return RAPPTaxonService.ParseTaxonomicTreeXLSX(file.getAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
         }

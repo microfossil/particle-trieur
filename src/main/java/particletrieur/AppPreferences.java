@@ -51,6 +51,9 @@ public class AppPreferences {
     public String getPythonPath() { return appPrefs.get("pythonPath", ""); }
     public void setPythonPath(String path) { appPrefs.put("pythonPath", path); }
 
+    public String getRappPath() { return appPrefs.get("rappPath", ""); }
+    public void setRappPath(String path) { appPrefs.put("rappPath", path); }
+
     public String getLastVersion() { return appPrefs.get("lastVersion", "0"); }
     public void setLastVersion(String version) { appPrefs.put("lastVersion", version); }
 

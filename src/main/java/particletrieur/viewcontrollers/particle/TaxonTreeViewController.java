@@ -20,11 +20,10 @@ import particletrieur.AbstractDialogController;
 import particletrieur.FxmlLocation;
 import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.models.Supervisor;
-import particletrieur.models.ecotaxa.EcoTaxaSearchResult;
-import particletrieur.models.ecotaxa.EcoTaxaTaxon;
-import particletrieur.models.project.Taxon;
+import particletrieur.models.taxonomy.EcoTaxaSearchResult;
+import particletrieur.models.taxonomy.EcoTaxaTaxon;
 import particletrieur.models.project.TreeTaxon;
-import particletrieur.services.ecotaxa.EcoTaxaService;
+import particletrieur.services.taxonomy.EcoTaxaService;
 import particletrieur.viewmanagers.UndoManager;
 import particletrieur.viewmodels.particles.LabelsViewModel;
 
@@ -68,20 +67,20 @@ public class TaxonTreeViewController extends AbstractDialogController implements
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        treeView.setCellFactory(tv -> {
-//            CheckBoxTreeCell<TreeTaxon> cell = new CheckBoxTreeCell<TreeTaxon>() {
-//                @Override
-//                public void updateItem(TreeTaxon item, boolean empty) {
-//                    super.updateItem(item, empty);
-//                    if (item == null || empty) {
-//                        setText(null);
-//                    } else {
-//                        setText(item.name);
-//                    }
-//                }
-//            };
-//            return cell ;
-//        });
+        treeView.setCellFactory(tv -> {
+            CheckBoxTreeCell<TreeTaxon> cell = new CheckBoxTreeCell<TreeTaxon>() {
+                @Override
+                public void updateItem(TreeTaxon item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || empty) {
+                        setText(null);
+                    } else {
+                        setText(item.name);
+                    }
+                }
+            };
+            return cell ;
+        });
 
         searchResultsListView.setCellFactory(params -> {
             return new ListCell<EcoTaxaSearchResult>() {

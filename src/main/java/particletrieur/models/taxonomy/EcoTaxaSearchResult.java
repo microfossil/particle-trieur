@@ -1,4 +1,4 @@
-package particletrieur.models.ecotaxa;
+package particletrieur.models.taxonomy;
 
 public class EcoTaxaSearchResult {
 

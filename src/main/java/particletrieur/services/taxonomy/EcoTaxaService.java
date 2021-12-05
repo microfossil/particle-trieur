@@ -1,4 +1,4 @@
-package particletrieur.services.ecotaxa;
+package particletrieur.services.taxonomy;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.concurrent.Service;
@@ -8,13 +8,10 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import particletrieur.models.ecotaxa.EcoTaxaSearchResult;
-import particletrieur.models.ecotaxa.EcoTaxaTaxon;
-import particletrieur.models.project.Particle;
+import particletrieur.models.taxonomy.EcoTaxaSearchResult;
+import particletrieur.models.taxonomy.EcoTaxaTaxon;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
