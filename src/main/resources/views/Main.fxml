@@ -353,6 +353,17 @@
                                                 <Tooltip text="Edit metadata of selected images"/>
                                             </tooltip>
                                         </Button>
+                                        <Separator orientation="VERTICAL"/>
+                                        <Button mnemonicParsing="false"
+                                                onAction="#handleAddLabel" styleClass="vertical-button"
+                                                text="Labels">
+                                            <graphic>
+                                                <SymbolLabel symbol="feathertag"/>
+                                            </graphic>
+                                            <tooltip>
+                                                <Tooltip text="Edit labels"/>
+                                            </tooltip>
+                                        </Button>
                                         <Separator/>
                                         <Button fx:id="buttonPredictKNN" mnemonicParsing="false"
                                                 onAction="#handlePredictUsingKNN" styleClass="vertical-button"

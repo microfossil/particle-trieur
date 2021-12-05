@@ -22,7 +22,7 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="particletrieur.viewcontrollers.label.EditLabelViewController">
     <center>
-        <TabPane tabClosingPolicy="UNAVAILABLE">
+        <TabPane tabClosingPolicy="UNAVAILABLE" >
             <Tab text="Manual">
                 <VBox spacing="7.0" BorderPane.alignment="CENTER">
                     <padding>
@@ -56,7 +56,7 @@
                                        GridPane.columnIndex="1"/>
                             <TextField fx:id="textFieldName" promptText="Full name (optional)" GridPane.columnIndex="1"
                                        GridPane.rowIndex="1"/>
-                            <TextArea fx:id="textAreaDescription" prefHeight="80.0" promptText="Description (optional)"
+                            <TextArea fx:id="textAreaDescription" prefHeight="200.0" promptText="Description (optional)"
                                       wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                 <GridPane.margin>
                                     <Insets top="3.0"/>
@@ -86,6 +86,42 @@
                         <ListView fx:id="listViewRappTaxons">
                         </ListView>
                     </center>
+                </BorderPane>
+            </Tab>
+            <Tab text="WORMS">
+                <BorderPane>
+                    <padding>
+                        <Insets left="7.0" right="7.0" top="7.0" bottom="7.0"/>
+                    </padding>
+                    <top>
+                        <HBox spacing="8">
+                            <padding>
+                                <Insets bottom="7.0"/>
+                            </padding>
+                            <TextField fx:id="textFieldWormsSearch" HBox.hgrow="ALWAYS"/>
+                            <Button fx:id="buttonWormsSearch" onAction="#handleWormsSearch" text="Search"/>
+                        </HBox>
+                    </top>
+                    <center>
+                        <GridPane hgap="12">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" />
+                            </columnConstraints>
+                            <ListView fx:id="listViewWormsTaxons" GridPane.columnIndex="0"/>
+                            <VBox GridPane.columnIndex="1"
+                                  spacing="8"
+                                  style="-fx-border-color: -fx-box-border;">
+                                <padding>
+                                    <Insets topRightBottomLeft="8"/>
+                                </padding>
+                                <Label fx:id="labelWormsTaxonInformation"/>
+                            </VBox>
+                        </GridPane>
+                    </center>
+                    <bottom>
+                        <Label fx:id="labelWormsStatus" />
+                    </bottom>
                 </BorderPane>
             </Tab>
         </TabPane>

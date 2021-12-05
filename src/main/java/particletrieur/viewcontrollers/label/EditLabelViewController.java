@@ -5,13 +5,19 @@
  */
 package particletrieur.viewcontrollers.label;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
+import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.models.project.Taxon;
 import particletrieur.AbstractDialogController;
 import particletrieur.FxmlLocation;
 import particletrieur.models.taxonomy.RappTaxon;
+import particletrieur.models.taxonomy.WormsTaxon;
+import particletrieur.services.taxonomy.WormsService;
 import particletrieur.viewmodels.particles.LabelsViewModel;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
@@ -19,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -42,9 +49,16 @@ public class EditLabelViewController extends AbstractDialogController implements
     public TextField textFieldRappXlsxPath;
     public Button buttonRAPPXLSXLoad;
     public ListView<RappTaxon> listViewRappTaxons;
+    public TextField textFieldWormsSearch;
+    public Button buttonWormsSearch;
+    public ListView<WormsTaxon> listViewWormsTaxons;
+    public Label labelWormsStatus;
+    public Label labelWormsTaxonInformation;
 
     private Taxon taxon;
     private LabelsViewModel labelsViewModel;
+
+    public ObservableList<WormsTaxon> wormsTaxons = FXCollections.observableArrayList();
 
     @Inject
     public EditLabelViewController(LabelsViewModel labelsViewModel) {
@@ -53,6 +67,7 @@ public class EditLabelViewController extends AbstractDialogController implements
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // RAPP taxon list
         listViewRappTaxons.setCellFactory(param -> {
             ListCell<RappTaxon> cell = new ListCell<RappTaxon>() {
                 @Override
@@ -71,6 +86,27 @@ public class EditLabelViewController extends AbstractDialogController implements
             textAreaDescription.setText(String.format("id: %d\ntype: %s\ngroup: %s\nname: %s", newValue.id, newValue.type, newValue.group, newValue.name));
         }));
         textFieldRappXlsxPath.textProperty().bind(labelsViewModel.rappXLXSPathProperty());
+
+        // Worms search results
+        listViewWormsTaxons.setCellFactory(param -> {
+            ListCell<WormsTaxon> cell = new ListCell<WormsTaxon>() {
+                @Override
+                public void updateItem(WormsTaxon item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (!empty) setText(item.scientificname);
+                    else setText("");
+                }
+            };
+            return cell;
+        });
+        listViewWormsTaxons.setItems(wormsTaxons);
+        listViewWormsTaxons.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+            textFieldCode.setText(newValue.scientificname.replace(' ', '_'));
+            textFieldName.setText(newValue.scientificname);
+            textAreaDescription.setText(newValue.toString());
+
+            labelWormsTaxonInformation.setText(newValue.toString());
+        }));
     }
 
     public void setup(Taxon taxon) {
@@ -128,5 +164,27 @@ public class EditLabelViewController extends AbstractDialogController implements
     @Override
     public ButtonType[] getButtonTypes() {
         return new ButtonType[]{ButtonType.OK, ButtonType.CANCEL};
+    }
+
+    public void handleWormsSearch(ActionEvent actionEvent) {
+        Service<List<WormsTaxon>> service = WormsService.searchTaxonsService(textFieldWormsSearch.getText());
+        wormsTaxons.clear();
+        labelWormsStatus.setText("Searching...");
+        labelWormsTaxonInformation.setText("");
+        service.setOnSucceeded(event -> {
+            if (service.getValue().size() == 0) {
+                BasicDialogs.ShowInfo("Search", "No records found");
+            }
+            else {
+                labelWormsStatus.setText(String.format("Found %d results", service.getValue().size()));
+                wormsTaxons.addAll(service.getValue());
+            }
+        });
+        service.setOnFailed(event -> {
+            labelWormsStatus.setText("Error searching for " + textFieldWormsSearch.getText());
+            service.getException().printStackTrace();
+            BasicDialogs.ShowError("Error", service.getException().getMessage());
+        });
+        service.start();
     }
 }
