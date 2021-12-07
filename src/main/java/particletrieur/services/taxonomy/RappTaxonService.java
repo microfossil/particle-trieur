@@ -14,7 +14,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
 
-public class RAPPTaxonService {
+public class RappTaxonService {
 
     public static TreeTaxon ParseTaxonomicTreeXLSX(String filename) throws IOException {
         File excelFile = new File(filename);
@@ -111,7 +111,7 @@ public class RAPPTaxonService {
                 String name = row.getCell(3, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue();
 
                 if (type.equals("")) type = "UnknownType";
-                if (group.equals("")) group = "Unknown";
+                if (group.equals("")) group = "UNKN";
 
                 RappTaxon taxon = new RappTaxon(code, type, group, name);
                 taxons.add(taxon);

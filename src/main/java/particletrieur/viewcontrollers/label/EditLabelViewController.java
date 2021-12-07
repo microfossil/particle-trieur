@@ -81,9 +81,15 @@ public class EditLabelViewController extends AbstractDialogController implements
         });
         listViewRappTaxons.setItems(labelsViewModel.rappTaxons);
         listViewRappTaxons.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
-            textFieldCode.setText(newValue.group + "_" + newValue.name);
-            textFieldName.setText(newValue.name);
-            textAreaDescription.setText(String.format("id: %d\ntype: %s\ngroup: %s\nname: %s", newValue.id, newValue.type, newValue.group, newValue.name));
+            if (newValue != null) {
+                textFieldCode.setText(newValue.group + "-" + newValue.name);
+                textFieldName.setText(newValue.name);
+                textAreaDescription.setText(String.format("id: %d\ntype: %s\ngroup: %s\nname: %s", newValue.id, newValue.type, newValue.group, newValue.name));
+                listViewWormsTaxons.getSelectionModel().clearSelection();
+            }
+            else {
+
+            }
         }));
         textFieldRappXlsxPath.textProperty().bind(labelsViewModel.rappXLXSPathProperty());
 
@@ -101,11 +107,20 @@ public class EditLabelViewController extends AbstractDialogController implements
         });
         listViewWormsTaxons.setItems(wormsTaxons);
         listViewWormsTaxons.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
-            textFieldCode.setText(newValue.scientificname.replace(' ', '_'));
-            textFieldName.setText(newValue.scientificname);
-            textAreaDescription.setText(newValue.toString());
+            if (newValue != null) {
+                textFieldCode.setText(newValue.scientificname.replace(' ', '_'));
+                textFieldName.setText(newValue.scientificname);
+                textAreaDescription.setText(newValue.toString());
+                labelWormsTaxonInformation.setText(newValue.toString());
+                listViewRappTaxons.getSelectionModel().clearSelection();
+            }
+            else {
+                labelWormsTaxonInformation.setText("");
+            }
+        }));
 
-            labelWormsTaxonInformation.setText(newValue.toString());
+        textFieldWormsSearch.focusedProperty().addListener(((observable, oldValue, newValue) -> {
+            buttonWormsSearch.setDefaultButton(newValue);
         }));
     }
 
@@ -115,6 +130,7 @@ public class EditLabelViewController extends AbstractDialogController implements
         textFieldName.setText(taxon.getName());
         textAreaDescription.setText(taxon.getDescription());
         checkBoxIsClass.setSelected(taxon.getIsClass());
+        textFieldWormsSearch.setText(taxon.getCode());
     }
 
     private Taxon create() {
@@ -174,6 +190,7 @@ public class EditLabelViewController extends AbstractDialogController implements
         service.setOnSucceeded(event -> {
             if (service.getValue().size() == 0) {
                 BasicDialogs.ShowInfo("Search", "No records found");
+                labelWormsStatus.setText("Found 0 results");
             }
             else {
                 labelWormsStatus.setText(String.format("Found %d results", service.getValue().size()));

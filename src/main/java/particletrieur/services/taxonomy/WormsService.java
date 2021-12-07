@@ -13,6 +13,8 @@ import particletrieur.models.taxonomy.EcoTaxaTaxon;
 import particletrieur.models.taxonomy.WormsTaxon;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,8 +45,15 @@ public class WormsService {
 //        return taxon;
 //    }
 
-    public static List<WormsTaxon> searchTaxons(String searchText) throws IOException {
-        HttpGet httpReq = new HttpGet(String.format("https://www.marinespecies.org/rest/AphiaRecordsByName/%s?like=true&marine_only=false&offset=1", searchText));
+    public static List<WormsTaxon> searchTaxons(String searchText) throws IOException, URISyntaxException {
+        URI uri = new URI(
+                "https",
+                "www.marinespecies.org",
+                String.format("/rest/AphiaRecordsByName/%s", searchText),
+                "like=true&marine_only=false&offset=1",
+                null
+        );
+        HttpGet httpReq = new HttpGet(uri.toASCIIString());
         System.out.println("\nRequested URI is :\n"+httpReq.getURI());
         HttpClient httpClient = HttpClients.createDefault();
         HttpResponse response = httpClient.execute(httpReq);
@@ -65,7 +74,7 @@ public class WormsService {
             protected Task<List<WormsTaxon>> createTask() {
                 return new Task<List<WormsTaxon>>() {
                     @Override
-                    protected List<WormsTaxon> call() throws IOException {
+                    protected List<WormsTaxon> call() throws IOException, URISyntaxException {
                         return searchTaxons(searchText);
                     };
                 };

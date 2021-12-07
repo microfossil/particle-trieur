@@ -17,114 +17,96 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="600.0"
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0"
             stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="particletrieur.viewcontrollers.label.EditLabelViewController">
     <center>
-        <TabPane tabClosingPolicy="UNAVAILABLE" >
-            <Tab text="Manual">
-                <VBox spacing="7.0" BorderPane.alignment="CENTER">
-                    <padding>
-                        <Insets topRightBottomLeft="7.0"/>
-                    </padding>
-                    <Label text="Enter the code (button text), name and description of the label / class / species / etc:"
-                           wrapText="true"/>
-                    <GridPane hgap="14.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-                              vgap="7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                              AnchorPane.topAnchor="0.0">
-                        <columnConstraints>
-                            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" percentWidth="0.0"/>
-                            <ColumnConstraints hgrow="SOMETIMES" prefWidth="80.0"/>
-                        </columnConstraints>
-                        <rowConstraints>
-                            <RowConstraints vgrow="SOMETIMES"/>
-                            <RowConstraints vgrow="SOMETIMES"/>
-                            <RowConstraints vgrow="SOMETIMES"/>
-                            <RowConstraints vgrow="SOMETIMES"/>
-                        </rowConstraints>
-                        <children>
-                            <Label text="Code:"/>
-                            <Label text="Name:" GridPane.rowIndex="1"/>
-                            <Label text="Description:" GridPane.rowIndex="2" GridPane.valignment="TOP">
-                                <GridPane.margin>
-                                    <Insets top="3.0"/>
-                                </GridPane.margin>
-                            </Label>
-                            <Label text="Is class?" GridPane.rowIndex="3"/>
-                            <TextField fx:id="textFieldCode" promptText="Classification code (group_class)"
-                                       GridPane.columnIndex="1"/>
-                            <TextField fx:id="textFieldName" promptText="Full name (optional)" GridPane.columnIndex="1"
-                                       GridPane.rowIndex="1"/>
-                            <TextArea fx:id="textAreaDescription" prefHeight="200.0" promptText="Description (optional)"
-                                      wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                <GridPane.margin>
-                                    <Insets top="3.0"/>
-                                </GridPane.margin>
-                            </TextArea>
-                            <CheckBox fx:id="checkBoxIsClass" text="Label is a class used in CNN training"
-                                      selected="true" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                        </children>
-                    </GridPane>
-                </VBox>
-            </Tab>
-            <Tab text="RAPP">
-                <BorderPane>
-                    <padding>
-                        <Insets left="7.0" right="7.0" top="7.0" bottom="7.0"/>
-                    </padding>
-                    <top>
-                        <HBox spacing="8">
-                            <padding>
-                                <Insets bottom="7.0"/>
-                            </padding>
-                            <TextField fx:id="textFieldRappXlsxPath" HBox.hgrow="ALWAYS"/>
-                            <Button fx:id="buttonRAPPXLSXLoad" onAction="#handleLoadRAPPXLSX" text="Select..."/>
-                        </HBox>
-                    </top>
-                    <center>
-                        <ListView fx:id="listViewRappTaxons">
-                        </ListView>
-                    </center>
-                </BorderPane>
-            </Tab>
-            <Tab text="WORMS">
-                <BorderPane>
-                    <padding>
-                        <Insets left="7.0" right="7.0" top="7.0" bottom="7.0"/>
-                    </padding>
-                    <top>
-                        <HBox spacing="8">
-                            <padding>
-                                <Insets bottom="7.0"/>
-                            </padding>
-                            <TextField fx:id="textFieldWormsSearch" HBox.hgrow="ALWAYS"/>
-                            <Button fx:id="buttonWormsSearch" onAction="#handleWormsSearch" text="Search"/>
-                        </HBox>
-                    </top>
-                    <center>
-                        <GridPane hgap="12">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0"/>
-                                <ColumnConstraints hgrow="SOMETIMES" />
-                            </columnConstraints>
-                            <ListView fx:id="listViewWormsTaxons" GridPane.columnIndex="0"/>
-                            <VBox GridPane.columnIndex="1"
-                                  spacing="8"
-                                  style="-fx-border-color: -fx-box-border;">
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="40"/>
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+            <VBox spacing="7.0" BorderPane.alignment="CENTER">
+                <padding>
+                    <Insets topRightBottomLeft="7.0"/>
+                </padding>
+                <Label text="Enter the code (button text), name and description of the label / class / species / etc:"
+                       wrapText="true"/>
+                <Label text="Code"/>
+                <TextField fx:id="textFieldCode" promptText="Classification code (group_class)" />
+                <Label text="Name" />
+                <TextField fx:id="textFieldName" promptText="Full name (optional)" />
+                <Label text="Description" />
+                <TextArea fx:id="textAreaDescription"
+                          prefHeight="200.0"
+                          promptText="Description (optional)"
+                          wrapText="true" >
+                </TextArea>
+                <CheckBox fx:id="checkBoxIsClass"
+                          text="Label is a class used in CNN training?"
+                          selected="true"/>
+            </VBox>
+            <TabPane tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" >
+                <Tab text="RAPP">
+                    <BorderPane>
+                        <padding>
+                            <Insets left="7.0" right="7.0" top="7.0" bottom="7.0"/>
+                        </padding>
+                        <top>
+                            <HBox spacing="8">
                                 <padding>
-                                    <Insets topRightBottomLeft="8"/>
+                                    <Insets bottom="7.0"/>
                                 </padding>
-                                <Label fx:id="labelWormsTaxonInformation"/>
-                            </VBox>
-                        </GridPane>
-                    </center>
-                    <bottom>
-                        <Label fx:id="labelWormsStatus" />
-                    </bottom>
-                </BorderPane>
-            </Tab>
-        </TabPane>
+                                <TextField fx:id="textFieldRappXlsxPath" HBox.hgrow="ALWAYS"/>
+                                <Button fx:id="buttonRAPPXLSXLoad" onAction="#handleLoadRAPPXLSX" text="Select..."/>
+                            </HBox>
+                        </top>
+                        <center>
+                            <ListView fx:id="listViewRappTaxons">
+                            </ListView>
+                        </center>
+                    </BorderPane>
+                </Tab>
+                <Tab text="WORMS">
+                    <BorderPane>
+                        <padding>
+                            <Insets left="7.0" right="7.0" top="7.0" bottom="7.0"/>
+                        </padding>
+                        <top>
+                            <HBox spacing="8">
+                                <padding>
+                                    <Insets bottom="7.0"/>
+                                </padding>
+                                <TextField fx:id="textFieldWormsSearch" HBox.hgrow="ALWAYS"/>
+                                <Button fx:id="buttonWormsSearch" onAction="#handleWormsSearch" text="Search"/>
+                            </HBox>
+                        </top>
+                        <center>
+                            <GridPane hgap="12">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0"/>
+                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                </columnConstraints>
+                                <ListView fx:id="listViewWormsTaxons" GridPane.columnIndex="0"/>
+                                <VBox GridPane.columnIndex="1"
+                                      spacing="8"
+                                      style="-fx-border-color: -fx-box-border;">
+                                    <padding>
+                                        <Insets topRightBottomLeft="8"/>
+                                    </padding>
+                                    <Label fx:id="labelWormsTaxonInformation"/>
+                                </VBox>
+                            </GridPane>
+                        </center>
+                        <bottom>
+                            <Label fx:id="labelWormsStatus" />
+                        </bottom>
+                    </BorderPane>
+                </Tab>
+            </TabPane>
+        </GridPane>
+
         <!--      <AnchorPane prefHeight="169.0" prefWidth="351.0">-->
         <!--         <BorderPane.margin>-->
         <!--            <Insets />-->

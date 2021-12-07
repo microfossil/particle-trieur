@@ -323,27 +323,33 @@ public class ClassificationViewController implements Initializable {
         }
         if (mode == 1) {
             //Group the taxons by the start of their code
-            LinkedHashMap<String, ArrayList<Taxon>> taxonMap = new LinkedHashMap<>();
+            LinkedHashMap<String, ArrayList<Taxon>> groupedTaxonMap = new LinkedHashMap<>();
+            ArrayList<Taxon> otherList = new ArrayList<>();
             List<Taxon> taxonList = sortedListOfTaxons(project, true);
             List<Taxon> nonTaxonList = sortedListOfTaxons(project, false);
             for (Taxon taxon : taxonList) {
                 final String code = taxon.getCode();
                 String[] parts = code.split("[-_ ]+");
-                ArrayList<Taxon> list = taxonMap.getOrDefault(parts[0], new ArrayList<>());
-                list.add(taxon);
-                taxonMap.putIfAbsent(parts[0], list);
+                if (parts.length > 1) {
+                    ArrayList<Taxon> list = groupedTaxonMap.getOrDefault(parts[0], new ArrayList<>());
+                    list.add(taxon);
+                    groupedTaxonMap.putIfAbsent(parts[0], list);
+                }
+                else {
+                    otherList.add(taxon);
+                }
             }
             //Add
 //            taxonCodes.clear();
             labelButtons.clear();
             labelTreeItems.clear();
             vboxClasses.getChildren().clear();
-            ArrayList<Taxon> otherList = new ArrayList<>();
-            for (Map.Entry<String, ArrayList<Taxon>> group : taxonMap.entrySet()) {
-                if (group.getValue().size() == 1) {
-                    otherList.add(group.getValue().get(0));
-                    continue;
-                }
+//            ArrayList<Taxon> otherList = new ArrayList<>();
+            for (Map.Entry<String, ArrayList<Taxon>> group : groupedTaxonMap.entrySet()) {
+//                if (group.getValue().size() == 1) {
+//                    otherList.add(group.getValue().get(0));
+//                    continue;
+//                }
                 addButtonGroup(group.getKey(), group.getValue());
             }
             addButtonGroup("Other", otherList);

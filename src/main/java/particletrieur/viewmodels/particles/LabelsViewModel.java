@@ -18,7 +18,7 @@ import particletrieur.controls.dialogs.BasicDialogs;
 import com.google.inject.Inject;
 import particletrieur.models.project.TreeTaxon;
 import particletrieur.models.taxonomy.RappTaxon;
-import particletrieur.services.taxonomy.RAPPTaxonService;
+import particletrieur.services.taxonomy.RappTaxonService;
 import particletrieur.viewmanagers.UndoManager;
 import particletrieur.viewmanagers.commands.SetLabelCommand;
 import particletrieur.viewmanagers.commands.SetLabelSetCommand;
@@ -232,7 +232,7 @@ public class LabelsViewModel {
     }
 
     private void updateRappTaxonomy(String filename) throws IOException {
-        List<RappTaxon> taxons = RAPPTaxonService.parseCodes(filename);
+        List<RappTaxon> taxons = RappTaxonService.parseCodes(filename);
         if (taxons.size() > 0) {
             rappTaxons.clear();
             rappTaxons.addAll(taxons);
@@ -253,7 +253,7 @@ public class LabelsViewModel {
         if (file == null) return null;
 
         try {
-            return RAPPTaxonService.ParseTaxonomicTreeXLSX(file.getAbsolutePath());
+            return RappTaxonService.ParseTaxonomicTreeXLSX(file.getAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
         }

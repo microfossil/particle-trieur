@@ -12,7 +12,7 @@
             xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="particletrieur.viewcontrollers.classification.ClassificationViewController">
     <children>
-        <GridPane fx:id="gridPaneContainer" hgap="14.0" vgap="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+        <GridPane fx:id="gridPaneContainer" hgap="0.0" vgap="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <!--                <ColumnConstraints hgrow="SOMETIMES" />-->
