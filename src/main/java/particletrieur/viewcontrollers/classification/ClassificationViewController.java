@@ -318,8 +318,8 @@ public class ClassificationViewController implements Initializable {
             vboxClasses.getChildren().clear();
             List<Taxon> taxonList = sortedListOfTaxons(project, true);
             List<Taxon> nonTaxonList = sortedListOfTaxons(project, false);
-            addButtonGroup("Classes", taxonList);
-            addButtonGroup("Non-classes", nonTaxonList);
+            addButtonGroup("Classes", taxonList, false);
+            addButtonGroup("Non-classes", nonTaxonList, false);
         }
         if (mode == 1) {
             //Group the taxons by the start of their code
@@ -350,10 +350,10 @@ public class ClassificationViewController implements Initializable {
 //                    otherList.add(group.getValue().get(0));
 //                    continue;
 //                }
-                addButtonGroup(group.getKey(), group.getValue());
+                addButtonGroup(group.getKey(), group.getValue(), true);
             }
-            addButtonGroup("Other", otherList);
-            addButtonGroup("Non-classes", nonTaxonList);
+            addButtonGroup("Other", otherList, false);
+            addButtonGroup("Non-classes", nonTaxonList, false);
         }
         if (mode == 2) {
             labelButtons.clear();
@@ -400,20 +400,28 @@ public class ClassificationViewController implements Initializable {
             }
             treeView.setPrefHeight(treeView.getFixedCellSize() * treeView.getExpandedItemCount() + 8);
             vboxClasses.getChildren().add(treeView);
-            addButtonGroup("Non-classes", nonTaxonList);
+            addButtonGroup("Non-classes", nonTaxonList, false);
         }
         updateClassificationUI(selectionViewModel.getCurrentParticle());
     }
 
-    private void addButtonGroup(String name, List<Taxon> list) {
+    private void addButtonGroup(String name, List<Taxon> list, boolean isGrouped) {
         Label label = new Label(name);
+        label.setStyle("-fx-font-size: 12px");
         FlowPane flowPane = new FlowPane();
         flowPane.setHgap(7);
         flowPane.setVgap(7);
         for (Taxon taxon : list) {
             final String code = taxon.getCode();
+            String buttonCode = code;
             //Create a button
-            ClassificationButton button = new ClassificationButton(code);
+            if (isGrouped) {
+                String[] parts = code.split("[-_ ]+");
+                if (parts.length > 1) {
+                    buttonCode = code.substring(parts[0].length()+1);
+                }
+            }
+            ClassificationButton button = new ClassificationButton(buttonCode);
             button.getButton().setMinWidth(80);
             //Change the particle label when the button is clicked
             button.getButton().addEventHandler(MouseEvent.MOUSE_CLICKED, (event -> {
@@ -443,6 +451,7 @@ public class ClassificationViewController implements Initializable {
         });
         flowPane.getChildren().add(buttonAddNewLabel);
         vboxClasses.getChildren().addAll(label, flowPane);
+        vboxClasses.getChildren().add(new Separator());
     }
 
     private void setupTagUI(Project project) {
