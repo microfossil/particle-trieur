@@ -26,6 +26,8 @@ import particletrieur.viewmodels.SelectionViewModel;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -225,7 +227,11 @@ public class LabelsViewModel {
         FileChooser fc = new FileChooser();
         fc.setTitle("Choose XLSX file with taxonomy");
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("XLSX file (*.xlsx)", "*.xlsx"));
-        fc.setInitialDirectory(new File("C:\\Users\\rossm\\OneDrive\\RAPP"));
+        String path = App.getPrefs().getRappPath();
+        if (path != null && Files.exists(Paths.get(path))) {
+            File f = new File(path);
+            fc.setInitialDirectory(f.getParentFile());
+        }
         File file = fc.showOpenDialog(AppController.getWindow());
         if (file == null) return;
         setRappXLXSPath(file.getAbsolutePath());

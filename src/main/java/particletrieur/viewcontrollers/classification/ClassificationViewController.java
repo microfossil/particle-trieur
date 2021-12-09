@@ -407,7 +407,7 @@ public class ClassificationViewController implements Initializable {
 
     private void addButtonGroup(String name, List<Taxon> list, boolean isGrouped) {
         Label label = new Label(name);
-        label.setStyle("-fx-font-size: 12px");
+        label.setStyle("-fx-font-size: 14px");
         FlowPane flowPane = new FlowPane();
         flowPane.setHgap(7);
         flowPane.setVgap(7);
