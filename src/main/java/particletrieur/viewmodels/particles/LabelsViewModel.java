@@ -89,7 +89,9 @@ public class LabelsViewModel {
 
         rappXLXSPath.addListener(((observable, oldValue, newValue) -> {
             try {
-                updateRappTaxonomy(newValue);
+                if ((new File(newValue)).exists()) {
+                    updateRappTaxonomy(newValue);
+                }
             }
             catch (Exception ex) {
                 ex.printStackTrace();
@@ -128,7 +130,7 @@ public class LabelsViewModel {
         }
         selectionViewModel.currentParticleUpdatedEvent.broadcast();
         if (isAutoAdvance()) {
-            selectionViewModel.nextImageRequested.broadcast(true);
+            selectionViewModel.requestNextImage();
         }
     }
 
@@ -151,7 +153,7 @@ public class LabelsViewModel {
             undoManager.add(command);
             selectionViewModel.checkIfCurrentWasUpdated(particles);
             if (isAutoAdvance()) {
-                selectionViewModel.nextImageRequested.broadcast(true);
+                selectionViewModel.requestNextImage();
             }
         } catch (Project.TaxonDoesntExistException ex) {
             BasicDialogs.ShowError("Label doesn't exist",
