@@ -45,12 +45,12 @@ public class WormsService {
 //        return taxon;
 //    }
 
-    public static List<WormsTaxon> searchTaxons(String searchText) throws IOException, URISyntaxException {
+    public static List<WormsTaxon> searchTaxons(String searchText, int pageNo) throws IOException, URISyntaxException {
         URI uri = new URI(
                 "https",
                 "www.marinespecies.org",
                 String.format("/rest/AphiaRecordsByName/%s", searchText),
-                "like=true&marine_only=false&offset=1",
+                String.format("like=true&marine_only=false&offset=%d", pageNo),
                 null
         );
         HttpGet httpReq = new HttpGet(uri.toASCIIString());
@@ -65,17 +65,18 @@ public class WormsService {
         }
         String jsonMsg = EntityUtils.toString(response.getEntity());
         WormsTaxon[] results = new ObjectMapper().readerFor(WormsTaxon[].class).readValue(jsonMsg);
-        return Arrays.stream(results).filter(w -> w.url != null).collect(Collectors.toList());
+        return Arrays.asList(results);
+//        return Arrays.stream(results).filter(w -> w.url != null).collect(Collectors.toList());
     }
 
-    public static Service<List<WormsTaxon>> searchTaxonsService(String searchText) {
+    public static Service<List<WormsTaxon>> searchTaxonsService(String searchText, int pageNo) {
         Service<List<WormsTaxon>> service = new Service<List<WormsTaxon>>() {
             @Override
             protected Task<List<WormsTaxon>> createTask() {
                 return new Task<List<WormsTaxon>>() {
                     @Override
                     protected List<WormsTaxon> call() throws IOException, URISyntaxException {
-                        return searchTaxons(searchText);
+                        return searchTaxons(searchText, pageNo);
                     };
                 };
             }
