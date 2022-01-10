@@ -6,6 +6,7 @@
 package particletrieur.viewcontrollers.particle;
 
 import com.google.inject.Inject;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -202,5 +203,13 @@ public class ParticleImageViewController extends AbstractController implements I
 
         labelGUID.setText(particle.getGUID());
 
+    }
+
+    public void handlePrevious(ActionEvent actionEvent) {
+        selectionViewModel.requestPreviousImage();
+    }
+
+    public void handleNext(ActionEvent actionEvent) {
+        selectionViewModel.requestNextImage();
     }
 }
