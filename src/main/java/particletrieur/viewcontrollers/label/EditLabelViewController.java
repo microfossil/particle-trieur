@@ -27,6 +27,7 @@ import javafx.scene.control.*;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  * FXML Controller class
@@ -54,9 +55,14 @@ public class EditLabelViewController extends AbstractDialogController implements
     public ListView<WormsTaxon> listViewWormsTaxons;
     public Label labelWormsStatus;
     public Label labelWormsTaxonInformation;
+    public Button buttonWormsLoadNext;
+    public Button buttonWormsLoadPrevious;
+    public Label textFieldMajorClass;
+    public Label textFieldMinorClass;
 
     private Taxon taxon;
     private LabelsViewModel labelsViewModel;
+    private int currentSearchResultsPageNo = 1;
 
     public ObservableList<WormsTaxon> wormsTaxons = FXCollections.observableArrayList();
 
@@ -122,6 +128,18 @@ public class EditLabelViewController extends AbstractDialogController implements
         textFieldWormsSearch.focusedProperty().addListener(((observable, oldValue, newValue) -> {
             buttonWormsSearch.setDefaultButton(newValue);
         }));
+
+        textFieldCode.textProperty().addListener(((observable, oldValue, newValue) -> {
+            String[] parts = newValue.split("[-_ ]+");
+            if (parts.length > 1) {
+                textFieldMajorClass.setText("Group: " + parts[0]);
+                textFieldMinorClass.setText("Class: " + newValue.substring(parts[0].length()+1));
+            }
+            else {
+                textFieldMajorClass.setText("Class: " + newValue);
+                textFieldMinorClass.setText("");
+            }
+        }));
     }
 
     public void setup(Taxon taxon) {
@@ -183,18 +201,53 @@ public class EditLabelViewController extends AbstractDialogController implements
     }
 
     public void handleWormsSearch(ActionEvent actionEvent) {
-        Service<List<WormsTaxon>> service = WormsService.searchTaxonsService(textFieldWormsSearch.getText());
+        currentSearchResultsPageNo = 1;
+        performWormsSearch();
+    }
+
+    public void handleWormsLoadPrevious(ActionEvent actionEvent) {
+        currentSearchResultsPageNo -= 50;
+        if (currentSearchResultsPageNo < 1) currentSearchResultsPageNo = 1;
+        performWormsSearch();
+    }
+
+    public void handleWormsLoadNext(ActionEvent actionEvent) {
+        currentSearchResultsPageNo += 50;
+        performWormsSearch();
+    }
+
+    private void performWormsSearch() {
+        Service<List<WormsTaxon>> service = WormsService.searchTaxonsService(textFieldWormsSearch.getText(), currentSearchResultsPageNo);
         wormsTaxons.clear();
         labelWormsStatus.setText("Searching...");
         labelWormsTaxonInformation.setText("");
+
         service.setOnSucceeded(event -> {
-            if (service.getValue().size() == 0) {
-                BasicDialogs.ShowInfo("Search", "No records found");
-                labelWormsStatus.setText("Found 0 results");
+            List<WormsTaxon> results = service.getValue();
+            if (results.size() == 0) {
+                if (currentSearchResultsPageNo == 1) {
+                    BasicDialogs.ShowInfo("Search", "No records found");
+
+                }
+                else {
+                    labelWormsStatus.setText("No more records");
+                }
             }
             else {
-                labelWormsStatus.setText(String.format("Found %d results", service.getValue().size()));
-                wormsTaxons.addAll(service.getValue());
+                labelWormsStatus.setText(String.format("Results %d - %d", currentSearchResultsPageNo, currentSearchResultsPageNo + results.size() - 1));
+                if (results.size() == 50) {
+                    buttonWormsLoadNext.setDisable(false);
+                }
+                else {
+                    buttonWormsLoadNext.setDisable(true);
+                }
+                if (currentSearchResultsPageNo <= 50) {
+                    buttonWormsLoadPrevious.setDisable(true);
+                }
+                else {
+                    buttonWormsLoadPrevious.setDisable(false);
+                }
+                wormsTaxons.addAll(results.stream().filter(t -> t.url != null).collect(Collectors.toList()));
             }
         });
         service.setOnFailed(event -> {

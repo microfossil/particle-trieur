@@ -35,6 +35,8 @@
                        wrapText="true"/>
                 <Label text="Code"/>
                 <TextField fx:id="textFieldCode" promptText="Classification code (group_class)" />
+                <Label fx:id="textFieldMajorClass" text="Major class:"/>
+                <Label fx:id="textFieldMinorClass" text="Minor class:"/>
                 <Label text="Name" />
                 <TextField fx:id="textFieldName" promptText="Full name (optional)" />
                 <Label text="Description" />
@@ -100,7 +102,14 @@
                             </GridPane>
                         </center>
                         <bottom>
-                            <Label fx:id="labelWormsStatus" />
+                            <HBox spacing="4">
+                                <BorderPane.margin>
+                                    <Insets top="3"/>
+                                </BorderPane.margin>
+                                <Button fx:id="buttonWormsLoadPrevious" styleClass="small-button" text="Previous" onAction="#handleWormsLoadPrevious" disable="true"/>
+                                <Button fx:id="buttonWormsLoadNext" styleClass="small-button" text="Next" onAction="#handleWormsLoadNext" disable="true"/>
+                                <Label fx:id="labelWormsStatus" />
+                            </HBox>
                         </bottom>
                     </BorderPane>
                 </Tab>
