@@ -120,17 +120,17 @@
                                 <fx:include source="ParticleInformationProgressView.fxml"/>
                             </children>
                         </HBox>
-                        <GridPane fx:id="gridPaneKNN" hgap="7" vgap="3">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" prefWidth="60.0"/>
-                                <ColumnConstraints hgrow="ALWAYS" prefWidth="100.0"/>
-                                <ColumnConstraints hgrow="SOMETIMES"/>
-                            </columnConstraints>
-                        </GridPane>
+                        <VBox fx:id="gridPaneKNN" spacing="3">
+<!--                            <columnConstraints>-->
+<!--                                <ColumnConstraints hgrow="SOMETIMES" prefWidth="60.0"/>-->
+<!--                                <ColumnConstraints hgrow="ALWAYS" prefWidth="100.0"/>-->
+<!--                                <ColumnConstraints hgrow="SOMETIMES"/>-->
+<!--                            </columnConstraints>-->
+                        </VBox>
                         <HBox alignment="CENTER_LEFT" spacing="7.0">
                             <children>
                                 <Label minWidth="-Infinity" text="Threshold:"/>
-                                <Spinner fx:id="spinnerKNNThreshold" editable="true" prefWidth="80">
+                                <Spinner fx:id="spinnerKNNThreshold" editable="true">
                                     <valueFactory>
                                         <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.05"
                                                                                        initialValue="0.8" max="1.0"
@@ -144,7 +144,7 @@
                                 <Insets top="14.0"/>
                             </VBox.margin>
                         </Separator>
-                        <VBox fx:id="gridPaneCnn" spacing="7.0">
+                        <VBox spacing="7.0">
                             <HBox fx:id="hboxCNN" alignment="CENTER_LEFT" spacing="7.0">
                                 <VBox.margin>
                                     <Insets/>
@@ -157,17 +157,12 @@
                                                  symbolSize="16.0" visible="false"/>
                                 </children>
                             </HBox>
-                            <GridPane fx:id="gridPaneCNN" hgap="7" vgap="3">
-                                <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" prefWidth="60.0"/>
-                                    <ColumnConstraints hgrow="ALWAYS" prefWidth="100.0"/>
-                                    <ColumnConstraints hgrow="SOMETIMES"/>
-                                </columnConstraints>
-                            </GridPane>
+                            <VBox fx:id="gridPaneCNN" spacing="3">
+                            </VBox>
                             <HBox alignment="CENTER_LEFT" spacing="7.0">
                                 <children>
                                     <Label minWidth="-Infinity" text="Threshold:"/>
-                                    <Spinner fx:id="spinnerCNNThreshold" editable="true" prefWidth="80">
+                                    <Spinner fx:id="spinnerCNNThreshold" editable="true" >
                                         <valueFactory>
                                             <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.05"
                                                                                            initialValue="0.8" max="1.0"

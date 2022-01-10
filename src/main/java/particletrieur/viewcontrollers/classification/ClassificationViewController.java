@@ -7,6 +7,7 @@ package particletrieur.viewcontrollers.classification;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import particletrieur.AbstractDialogController;
@@ -84,9 +85,9 @@ public class ClassificationViewController implements Initializable {
     @FXML
     Button buttonValidate;
     @FXML
-    GridPane gridPaneCNN;
+    VBox gridPaneCNN;
     @FXML
-    GridPane gridPaneKNN;
+    VBox gridPaneKNN;
     @FXML
     HBox hboxCNN;
     @FXML
@@ -216,11 +217,11 @@ public class ClassificationViewController implements Initializable {
             }
         });
         gridPaneCNN.getChildren().clear();
-        gridPaneCNN.addRow(0, new Label("N/A"));
+        gridPaneCNN.getChildren().add(new Label("N/A"));
         supervisor.network.enabledProperty().addListener((observable, oldValue, newValue) -> {
             gridPaneCNN.getChildren().clear();
-            if (newValue) gridPaneCNN.addRow(0, new Label("Ready"));
-            else gridPaneCNN.addRow(0, new Label("N/A"));
+            if (newValue) gridPaneCNN.getChildren().add(new Label("Ready"));
+            else gridPaneCNN.getChildren().add(new Label("N/A"));
         });
 
         //Spinner hack
@@ -708,7 +709,7 @@ public class ClassificationViewController implements Initializable {
         }
     }
 
-    private void addClassificationRow(GridPane pane, ClassificationSet cls) {
+    private void addClassificationRow(VBox pane, ClassificationSet cls) {
         Comparator<Map.Entry<String, Classification>> compare = (e1, e2) -> Double.compare(e2.getValue().getValue(), e1.getValue().getValue());
         LinkedHashMap<String, Classification> sorted = cls.classifications.entrySet().stream().sorted(compare).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (x, y) -> y, LinkedHashMap::new));
         pane.getChildren().clear();
@@ -717,7 +718,10 @@ public class ClassificationViewController implements Initializable {
             String code = c.getValue().getCode();
             double score = c.getValue().getValue();
             Label label = new Label(code);
-            ProgressBar progressBar = new ProgressBar(score);
+            BorderPane.setMargin(label, new Insets(0, 3, 0, 3));
+            BorderPane.setAlignment(label, Pos.CENTER_LEFT);
+//            ProgressBar progressBar = new ProgressBar(score);
+//            progressBar.setPrefWidth(300);
             Button button = new Button();
             button.setGraphic(new SymbolLabel("featherarrowleft", 8));
             button.setStyle("-fx-font-size: 10;");
@@ -725,10 +729,17 @@ public class ClassificationViewController implements Initializable {
             button.setOnAction(event -> {
                 handleSetClassFromPrediction(c.getValue());
             });
-            pane.addRow(current_row, label, progressBar, button);
+            Label labelScore = new Label(String.format("%.0f%%", score * 100));
+            labelScore.setPrefWidth(30);
+            BorderPane.setAlignment(labelScore, Pos.CENTER_LEFT);
+            BorderPane borderPane = new BorderPane();
+            borderPane.setRight(button);
+            borderPane.setCenter(label);
+            borderPane.setLeft(labelScore);
+            pane.getChildren().add(borderPane);
             current_row++;
         }
-        pane.getColumnConstraints().get(0).setHgrow(Priority.ALWAYS);
+//        pane.getColumnConstraints().get(0).setHgrow(Priority.ALWAYS);
     }
 
     private void updateKNNUI(ClassificationSet cls) {
@@ -764,7 +775,7 @@ public class ClassificationViewController implements Initializable {
             treeView.refresh();
         } else {
             gridPaneKNN.getChildren().clear();
-            gridPaneKNN.addRow(0, new Label("N/A"));
+            gridPaneKNN.getChildren().add(new Label("N/A"));
             for (Map.Entry<String, ClassificationButton> b : labelButtons.entrySet()) {
                 ClassificationButton button = b.getValue();
                 button.setIsKNN(false);
@@ -806,7 +817,7 @@ public class ClassificationViewController implements Initializable {
             treeView.refresh();
         } else {
             gridPaneCNN.getChildren().clear();
-            gridPaneCNN.addRow(0, new Label("N/A"));
+            gridPaneCNN.getChildren().add(new Label("N/A"));
             for (Map.Entry<String, ClassificationButton> b : labelButtons.entrySet()) {
                 ClassificationButton button = b.getValue();
                 button.setIsCNN(false);
