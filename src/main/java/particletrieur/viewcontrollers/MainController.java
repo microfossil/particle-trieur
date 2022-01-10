@@ -454,10 +454,10 @@ public class MainController extends AbstractController implements Initializable 
             //if (ke.getCode() == KeyCode.LEFT) { previousForam(); ke.consume(); }
             // if (ke.getCode() == KeyCode.RIGHT) { nextForam(); ke.consume(); }
             if (ke.getCode() == KeyCode.UP) {
-                selectionViewModel.previousImageRequested.broadcast();
+                selectionViewModel.requestPreviousImage();
                 ke.consume();
             } else if (ke.getCode() == KeyCode.DOWN) {
-                selectionViewModel.nextImageRequested.broadcast();
+                selectionViewModel.requestNextImage();
                 ke.consume();
             }
             else if (ke.getCode() == KeyCode.DIGIT1 || ke.getCode() == KeyCode.NUMPAD1) {
