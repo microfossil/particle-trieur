@@ -33,15 +33,26 @@
                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                     AnchorPane.topAnchor="0.0">
             <top>
-                <VBox spacing="7.0">
-                    <HBox spacing="4" alignment="CENTER_LEFT">
-                        <Label fx:id="labelImageNumber" styleClass="header" text="Image #"/>
-                        <Pane HBox.hgrow="ALWAYS"/>
-                        <SymbolLabel fx:id="symbolValidated" symbol="feathercheckcircle" symbolColor="green"
-                                     symbolSize="24"/>
-                    </HBox>
-                    <Label fx:id="labelImageLabel" styleClass="subheader" text="Label"/>
-                </VBox>
+                <BorderPane>
+                    <center>
+                        <VBox spacing="7.0">
+                            <HBox spacing="4" alignment="CENTER_LEFT">
+                                <Label fx:id="labelImageNumber" styleClass="header" text="Image #"/>
+                                <Pane HBox.hgrow="ALWAYS"/>
+                                <SymbolLabel fx:id="symbolValidated" symbol="feathercheckcircle" symbolColor="green"
+                                             symbolSize="24"/>
+                            </HBox>
+                            <Label fx:id="labelImageLabel" styleClass="subheader" text="Label"/>
+                        </VBox>
+                    </center>
+                    <right>
+                        <HBox spacing="7">
+                            <Button onAction="#handlePrevious" text="Previous"/>
+                            <Button onAction="#handleNext" text="Next"/>
+                        </HBox>
+                    </right>
+                </BorderPane>
+
             </top>
             <center>
                 <!--styleClass="control-shadow-0p5"-->
