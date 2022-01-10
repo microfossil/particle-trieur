@@ -60,6 +60,9 @@ public class ProjectRepository {
         //BufferedOutputStream fos = new BufferedOutputStream(new FileOutputStream(temporaryNewFile));
         boolean isZip = FilenameUtils.getExtension(file.getAbsolutePath()).equals("miso");
 
+        //Update root
+        project.setRoot(file);
+
         //Save to memory
         ByteArrayOutputStream memoryOutputStream = new ByteArrayOutputStream();
         if (isZip) {

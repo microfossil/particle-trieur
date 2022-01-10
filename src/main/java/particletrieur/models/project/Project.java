@@ -52,12 +52,7 @@ public class Project implements Serializable {
     }
     public void setFile(File value) {
         file.set(value);
-        if (value != null) {
-            root = value.getParent();
-        }
-        else {
-            root = null;
-        }
+        setRoot(value);
     }
     public ObjectProperty<File> fileProperty() {
         return file;
@@ -65,6 +60,14 @@ public class Project implements Serializable {
 
     @XmlAttribute(name = "root")
     public String root = null;
+    public void setRoot(File value) {
+        if (value != null) {
+            root = value.getParent();
+        }
+        else {
+            root = null;
+        }
+    }
 
     //Taxons
     @XmlElement(name = "taxons")
