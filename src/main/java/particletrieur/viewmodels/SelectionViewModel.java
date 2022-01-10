@@ -137,6 +137,14 @@ public class SelectionViewModel {
         }
     }
 
+    public void requestNextImage() {
+        nextImageRequested.broadcast(true);
+    }
+
+    public void requestPreviousImage() {
+        previousImageRequested.broadcast(true);
+    }
+
     public void checkIfCurrentWasUpdated(Particle particle) {
         if (particle == getCurrentParticle()) currentParticleUpdatedEvent.broadcast();
     }
