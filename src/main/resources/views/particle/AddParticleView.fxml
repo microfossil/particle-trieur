@@ -14,36 +14,66 @@
 
 <?import org.controlsfx.control.CheckTreeView?>
 <?import javafx.scene.control.TreeView?>
-<VBox prefHeight="428.0" prefWidth="600.0" spacing="7" stylesheets="@../../styles/style.css"
-      xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="particletrieur.viewcontrollers.particle.AddParticleViewController">
-    <children>
-        <RadioButton fx:id="radioButtonFolder" selected="true" text="Add images from folder">
-            <toggleGroup>
-                <ToggleGroup fx:id="addType"/>
-            </toggleGroup>
-        </RadioButton>
-        <RadioButton fx:id="radioButtonFiles" text="Add images from files" toggleGroup="$addType"/>
-        <RadioButton fx:id="radioButtonCSV" text="Add images from CSV" toggleGroup="$addType"/>
-        <HBox alignment="CENTER_LEFT" spacing="7.0">
-            <children>
-                <Button fx:id="buttonChooseFolder" onAction="#handleChooseFiles" text="Choose..."/>
-                <CheckBox fx:id="checkBoxRandom" mnemonicParsing="false" text="Randomly select images:">
-                    <HBox.margin>
-                        <Insets left="21.0"/>
-                    </HBox.margin>
-                </CheckBox>
-                <TextField fx:id="textFieldRandom" prefWidth="100.0" text="5000"/>
-            </children>
-            <VBox.margin>
-                <Insets/>
-            </VBox.margin>
-        </HBox>
-        <Label fx:id="labelFileCount" text="0 files found"/>
-        <Separator prefWidth="200.0"/>
-        <Label styleClass="subheader" text="Folders to Add"/>
-<!--        <GridView fx:id="gridViewImages" horizontalCellSpacing="3.0" style="-fx-border-color: lightgrey;"-->
-<!--                  verticalCellSpacing="3.0" VBox.vgrow="ALWAYS"/>-->
-        <CheckTreeView fx:id="treeView" />
-    </children>
-</VBox>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane prefHeight="428.0" prefWidth="800.0" stylesheets="@../../styles/style.css"
+            xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="particletrieur.viewcontrollers.particle.AddParticleViewController">
+    <left>
+        <VBox spacing="7">
+            <Label styleClass="subheader" text="Source"/>
+            <RadioButton fx:id="radioButtonFolder" selected="true" text="Add images from folder">
+                <toggleGroup>
+                    <ToggleGroup fx:id="addType"/>
+                </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="radioButtonFiles" text="Add images from files" toggleGroup="$addType"/>
+            <RadioButton fx:id="radioButtonCSV" text="Add images from CSV" toggleGroup="$addType"/>
+            <Button fx:id="buttonChooseFolder" onAction="#handleChooseFiles" text="Choose..."/>
+            <Separator/>
+            <Label styleClass="subheader" text="Selection"/>
+            <RadioButton text="Add all images" selected="true">
+                <toggleGroup>
+                    <ToggleGroup fx:id="randomType"/>
+                </toggleGroup>
+            </RadioButton>
+            <HBox alignment="CENTER_LEFT" spacing="7.0">
+                <RadioButton fx:id="radioButtonRandom" mnemonicParsing="false" toggleGroup="$randomType">
+
+                </RadioButton>
+                <TextField fx:id="textFieldRandom" prefWidth="60.0" text="5000"/>
+
+                <Label text="random images"/>
+
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="7.0">
+                <RadioButton fx:id="radioButtonRandomSubfolder" mnemonicParsing="false" toggleGroup="$randomType">
+
+                </RadioButton>
+                <TextField fx:id="textFieldRandomSubfolder" prefWidth="60.0" text="100"/>
+
+                <Label text="random images per folder"/>
+            </HBox>
+            <Separator />
+            <Label fx:id="labelFileCount" text="0 files found"/>
+        </VBox>
+    </left>
+    <center>
+        <BorderPane>
+            <padding>
+                <Insets left="7"/>
+            </padding>
+            <top>
+                <Label styleClass="subheader" text="Folders to Add"/>
+            </top>
+            <center>
+                <CheckTreeView fx:id="treeView">
+                    <BorderPane.margin>
+                        <Insets top="7"/>
+                    </BorderPane.margin>
+                </CheckTreeView>
+            </center>
+        </BorderPane>
+        <!--        <GridView fx:id="gridViewImages" horizontalCellSpacing="3.0" style="-fx-border-color: lightgrey;"-->
+        <!--                  verticalCellSpacing="3.0" VBox.vgrow="ALWAYS"/>-->
+    </center>
+</BorderPane>

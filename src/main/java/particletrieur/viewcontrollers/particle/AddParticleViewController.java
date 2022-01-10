@@ -58,14 +58,15 @@ import java.util.stream.Collectors;
 @FxmlLocation("/views/particle/AddParticleView.fxml")
 public class AddParticleViewController extends AbstractDialogController implements Initializable {
 
+    public RadioButton radioButtonRandom;
+    public RadioButton radioButtonRandomSubfolder;
+    public TextField textFieldRandomSubfolder;
     @FXML
     CheckTreeView<ProjectService.DisplayPath> treeView;
     @FXML
     RadioButton radioButtonFiles;
     @FXML
     RadioButton radioButtonCSV;
-    @FXML
-    CheckBox checkBoxRandom;
     @FXML
     TextField textFieldRandom;
     @FXML
@@ -323,19 +324,26 @@ public class AddParticleViewController extends AbstractDialogController implemen
             twice = false;
             if (files == null || files.size() == 0) return;
             int selectionSize = -1;
-            if (checkBoxRandom.isSelected()) {
+            if (radioButtonRandom.isSelected()) {
                 try {
                     selectionSize = Integer.parseInt(textFieldRandom.getText());
                 } catch (NumberFormatException ex) {
 
                 }
             }
+            else if (radioButtonRandomSubfolder.isSelected()) {
+                try {
+                    selectionSize = Integer.parseInt(textFieldRandomSubfolder.getText());
+                } catch (NumberFormatException ex) {
+
+                }
+            }
             Service<ArrayList<Particle>> service;
             if (radioButtonCSV.isSelected()) {
-                service = ProjectService.addImagesToProject(getSelectedFiles(), csvData, supervisor.project, selectionSize, true, true);
+                service = ProjectService.addImagesToProject(getSelectedFiles(), csvData, supervisor.project, selectionSize, radioButtonRandomSubfolder.isSelected(), true);
             }
             else {
-                service = ProjectService.addImagesToProject(getSelectedFiles(), supervisor.project, selectionSize, true);
+                service = ProjectService.addImagesToProject(getSelectedFiles(), supervisor.project, selectionSize, radioButtonRandomSubfolder.isSelected());
             }
             service.setOnSucceeded(succeeded -> {
                 AddParticlesCommand command = new AddParticlesCommand(supervisor.project, service.getValue());
