@@ -332,10 +332,10 @@ public class AddParticleViewController extends AbstractDialogController implemen
             }
             Service<ArrayList<Particle>> service;
             if (radioButtonCSV.isSelected()) {
-                service = ProjectService.addImagesToProject(getSelectedFiles(), csvData, supervisor.project, selectionSize, true);
+                service = ProjectService.addImagesToProject(getSelectedFiles(), csvData, supervisor.project, selectionSize, true, true);
             }
             else {
-                service = ProjectService.addImagesToProject(getSelectedFiles(), supervisor.project, selectionSize);
+                service = ProjectService.addImagesToProject(getSelectedFiles(), supervisor.project, selectionSize, true);
             }
             service.setOnSucceeded(succeeded -> {
                 AddParticlesCommand command = new AddParticlesCommand(supervisor.project, service.getValue());

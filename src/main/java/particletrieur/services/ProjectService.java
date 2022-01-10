@@ -138,7 +138,7 @@ public class ProjectService {
 //        }
 //    }
 
-    public static Service<ArrayList<Particle>> addImagesToProject(List<File> files, Project project, int selectionSize) {
+    public static Service<ArrayList<Particle>> addImagesToProject(List<File> files, Project project, int selectionSize, boolean randomSelectionFromSubfolders) {
         Service<ArrayList<Particle>> service = new Service<ArrayList<Particle>>() {
             @Override
             protected Task<ArrayList<Particle>> createTask() {
@@ -150,10 +150,24 @@ public class ProjectService {
                         selection.addAll(files);
                         updateMessage("Adding images...");
                         if (size > 0) {
-                            updateMessage("Randomly selecting images...");
-                            if (size > selection.size()) size = selection.size();
-                            Collections.shuffle(selection);
-                            selection = selection.subList(0, size);
+                            if (!randomSelectionFromSubfolders) {
+                                updateMessage("Randomly selecting images...");
+                                if (size > selection.size()) size = selection.size();
+                                Collections.shuffle(selection);
+                                selection = selection.subList(0, size);
+                            }
+                            else {
+                                ArrayList<File> randomSelection = new ArrayList<>();
+                                Map<String, List<File>> selectionInSubfolders = selection.stream().collect(Collectors.groupingBy(File::getParent));
+                                for (Map.Entry<String, List<File>> entry : selectionInSubfolders.entrySet()) {
+                                    List<File> subselection = entry.getValue();
+                                    if (size > subselection.size()) size = subselection.size();
+                                    Collections.shuffle(subselection);
+                                    subselection = subselection.subList(0, size);
+                                    randomSelection.addAll(subselection);
+                                }
+                                selection = randomSelection;
+                            }
                         }
                         ArrayList<Particle> toAdd = new ArrayList<>();
                         //Parse files
@@ -182,6 +196,7 @@ public class ProjectService {
                                                                   LinkedHashMap<String, LinkedHashMap<String, String>> files,
                                                                   Project project,
                                                                   int selectionSize,
+                                                                  boolean randomSelectionFromSubfolders,
                                                                   boolean overwriteExisting) {
         Service<ArrayList<Particle>> service = new Service<ArrayList<Particle>>() {
             @Override
@@ -193,13 +208,30 @@ public class ProjectService {
                         Set<String> validFileKeys = validFiles.stream().map(File::getAbsolutePath).collect(Collectors.toSet());
                         List<String> selection = files.keySet().stream().filter(validFileKeys::contains).collect(Collectors.toList());
                         updateMessage("Adding images...");
+
+                        // Random selection
                         if (size > 0) {
-                            updateMessage("Randomly selecting images...");
-                            if (size > selection.size()) size = selection.size();
-                            Collections.shuffle(selection);
-                            selection = selection.subList(0, size);
+                            if (!randomSelectionFromSubfolders) {
+                                updateMessage("Randomly selecting images...");
+                                if (size > selection.size()) size = selection.size();
+                                Collections.shuffle(selection);
+                                selection = selection.subList(0, size);
+                            }
+                            else {
+                                ArrayList<String> randomSelection = new ArrayList<>();
+                                Map<String, List<String>> selectionInSubfolders = selection.stream().collect(Collectors.groupingBy(v -> (new File(v)).getParent()));
+                                for (Map.Entry<String, List<String>> entry : selectionInSubfolders.entrySet()) {
+                                    List<String> subselection = entry.getValue();
+                                    if (size > subselection.size()) size = subselection.size();
+                                    Collections.shuffle(subselection);
+                                    subselection = subselection.subList(0, size);
+                                    randomSelection.addAll(subselection);
+                                }
+                                selection = randomSelection;
+                            }
                         }
                         ArrayList<Particle> toAdd = new ArrayList<>();
+
                         //Parse files
                         int idx = 0;
                         int total = selection.size();
