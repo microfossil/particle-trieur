@@ -161,9 +161,9 @@ public class ProjectService {
                                 Map<String, List<File>> selectionInSubfolders = selection.stream().collect(Collectors.groupingBy(File::getParent));
                                 for (Map.Entry<String, List<File>> entry : selectionInSubfolders.entrySet()) {
                                     List<File> subselection = entry.getValue();
-                                    if (size > subselection.size()) size = subselection.size();
+                                    int subSelectionSize = Math.min(subselection.size(), size);
                                     Collections.shuffle(subselection);
-                                    subselection = subselection.subList(0, size);
+                                    subselection = subselection.subList(0, subSelectionSize);
                                     randomSelection.addAll(subselection);
                                 }
                                 selection = randomSelection;
