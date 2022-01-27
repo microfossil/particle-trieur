@@ -60,6 +60,7 @@
     <orderEntry type="library" name="Maven: org.apache.poi:poi-ooxml:5.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.poi:poi-ooxml-lite:5.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.xmlbeans:xmlbeans:4.0.0" level="project" />
+    <orderEntry type="library" name="Maven: xml-apis:xml-apis:1.4.01" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-compress:1.20" level="project" />
     <orderEntry type="library" name="Maven: com.github.virtuald:curvesapi:1.06" level="project" />
     <orderEntry type="library" name="Maven: org.bouncycastle:bcpkix-jdk15on:1.68" level="project" />
@@ -67,8 +68,6 @@
     <orderEntry type="library" name="Maven: org.apache.santuario:xmlsec:2.2.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.fasterxml.woodstox:woodstox-core:5.2.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.codehaus.woodstox:stax2-api:4.2" level="project" />
-    <orderEntry type="library" name="Maven: jakarta.xml.bind:jakarta.xml.bind-api:2.3.2" level="project" />
-    <orderEntry type="library" name="Maven: jakarta.activation:jakarta.activation-api:1.2.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.xmlgraphics:batik-all:1.13" level="project" />
     <orderEntry type="library" name="Maven: org.apache.xmlgraphics:batik-anim:1.13" level="project" />
     <orderEntry type="library" name="Maven: org.apache.xmlgraphics:batik-shared-resources:1.13" level="project" />
@@ -82,7 +81,6 @@
     <orderEntry type="library" name="Maven: org.apache.xmlgraphics:batik-dom:1.13" level="project" />
     <orderEntry type="library" name="Maven: xalan:xalan:2.7.2" level="project" />
     <orderEntry type="library" name="Maven: xalan:serializer:2.7.2" level="project" />
-    <orderEntry type="library" name="Maven: xml-apis:xml-apis:1.4.01" level="project" />
     <orderEntry type="library" name="Maven: org.apache.xmlgraphics:batik-ext:1.13" level="project" />
     <orderEntry type="library" name="Maven: org.apache.xmlgraphics:batik-extension:1.13" level="project" />
     <orderEntry type="library" name="Maven: org.apache.xmlgraphics:batik-gui-util:1.13" level="project" />

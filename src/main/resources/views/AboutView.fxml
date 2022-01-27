@@ -27,6 +27,7 @@
                         <RowConstraints minHeight="-Infinity" valignment="CENTER" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
                   <StackPane>
@@ -59,6 +60,16 @@
                               </ImageView>
                      </children>
                   </StackPane>
+                        <StackPane GridPane.rowIndex="3">
+                            <children>
+                                <Circle fill="#ffff00b2" radius="34.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                                <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/cristelebw.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </StackPane>
                         <VBox GridPane.columnIndex="1">
                             <children>
                                 <Label styleClass="subheader" text="Ross Marchant" />
@@ -75,6 +86,12 @@
                             <children>
                                 <Label styleClass="subheader" text="Martin Tetard" />
                                 <Label text="Design, testing, more testing, and direction." />
+                            </children>
+                        </VBox>
+                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="3">
+                            <children>
+                                <Label styleClass="subheader" text="Cristèle Chevalier" />
+                                <Label text="Direction and improvements for the RAPP project." />
                             </children>
                         </VBox>
                     </children>

@@ -201,7 +201,7 @@ public class LabelListViewController extends AbstractDialogController implements
                     }
                     added++;
                 }
-                if (added >= 15) break;
+                if (added >= 30) break;
             }
         }
     }

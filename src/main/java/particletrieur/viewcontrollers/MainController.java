@@ -220,6 +220,7 @@ public class MainController extends AbstractController implements Initializable 
         for(String recent : recents) {
             if (!recent.equals("")) {
                 MenuItem item = new MenuItem(recent);
+                item.setMnemonicParsing(false);
                 item.setOnAction(event -> {
                     projectRepositoryViewModel.openProject(recent);
                 });

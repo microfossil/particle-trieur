@@ -24,6 +24,7 @@
             </rowConstraints>
             <BorderPane>
                 <top>
+                    <VBox spacing="7" >
                     <HBox spacing="4">
                         <padding>
                             <Insets topRightBottomLeft="8.0"/>
@@ -68,36 +69,69 @@
                             </graphic>
                         </Button>
                     </HBox>
+                        <Label styleClass="subheader" text="Labels">
+                        <padding>
+                            <Insets left="7" bottom="7"/>
+                        </padding>
+                            <graphic>
+                                <SymbolLabel symbol="feathertag" />
+                            </graphic>
+                    </Label>
+                    </VBox>
                 </top>
                 <center>
-                    <ScrollPane fx:id="scrollPaneClassButtons" fitToWidth="true" hbarPolicy="NEVER"
-                                style="-fx-background-color: transparent;"
-                                VBox.vgrow="ALWAYS">
-                        <content>
-                            <VBox fx:id="vboxClassButtons" spacing="7.0">
-                                <children>
-                                    <Label styleClass="subheader" text="Labels"/>
-                                    <VBox fx:id="vboxClasses" minHeight="20.0" spacing="7.0"/>
-                                    <Separator>
-                                        <VBox.margin>
-                                            <Insets top="14.0"/>
-                                        </VBox.margin>
-                                    </Separator>
-                                    <Label styleClass="subheader" text="Tags">
-                                        <VBox.margin>
-                                            <Insets/>
-                                        </VBox.margin>
-                                    </Label>
-                                    <FlowPane fx:id="flowPaneTags" hgap="7.0" prefHeight="19.0" prefWidth="311.0"
-                                              vgap="7.0"/>
-                                </children>
-                                <padding>
-                                    <Insets bottom="7.0" left="7.0" right="14.0" top="7.0"/>
-                                </padding>
-                            </VBox>
-                        </content>
-                    </ScrollPane>
+<!--                    <BorderPane -->
+<!--                        <top>-->
+
+<!--                        </top>-->
+<!--                        <center>-->
+                            <ScrollPane fx:id="scrollPaneClassButtons" fitToWidth="true" hbarPolicy="NEVER"
+                                        style="-fx-background-color: transparent; -fx-border-width: 1 0 0 0; -fx-border-color: #cccccc;"
+                                        VBox.vgrow="ALWAYS">
+<!--                                <content>-->
+<!--                                    <VBox fx:id="vboxClassButtons" spacing="7.0">-->
+<!--                                        <children>-->
+                                            <VBox fx:id="vboxClasses" minHeight="20.0" spacing="7.0">
+                                                <padding>
+                                                    <Insets bottom="7.0" left="7.0" right="14.0" top="7.0"/>
+                                                </padding>
+                                            </VBox>
+<!--                                            <Separator>-->
+<!--                                                <VBox.margin>-->
+<!--                                                    <Insets top="14.0"/>-->
+<!--                                                </VBox.margin>-->
+<!--                                            </Separator>-->
+<!--                                            <Label styleClass="subheader" text="Tags">-->
+<!--                                                <VBox.margin>-->
+<!--                                                    <Insets/>-->
+<!--                                                </VBox.margin>-->
+<!--                                            </Label>-->
+<!--                                            <FlowPane fx:id="flowPaneTags" hgap="7.0" prefHeight="19.0" prefWidth="311.0"-->
+<!--                                                      vgap="7.0"/>-->
+<!--                                        </children>-->
+<!--                                        -->
+<!--                                    </VBox>-->
+<!--                                </content>-->
+                            </ScrollPane>
+<!--                        </center>-->
+<!--                    </BorderPane>-->
                 </center>
+                <bottom>
+                    <VBox spacing="7.0" style="-fx-border-width: 1 0 0 0; -fx-border-color: #cccccc;">
+                        <children>
+                            <Label styleClass="subheader" text="Tags">
+                                <graphic>
+                                    <SymbolLabel symbol="featherbookmark" />
+                                </graphic>
+                            </Label>
+                            <FlowPane fx:id="flowPaneTags" hgap="7.0" prefHeight="19.0" prefWidth="311.0"
+                                      vgap="7.0"/>
+                        </children>
+                        <padding>
+                            <Insets bottom="7.0" left="7.0" right="14.0" top="7.0"/>
+                        </padding>
+                    </VBox>
+                </bottom>
             </BorderPane>
             <BorderPane fx:id="borderPanePredictions" prefHeight="200.0" prefWidth="120.0" GridPane.columnIndex="1" styleClass="side-panel">
                 <padding>
