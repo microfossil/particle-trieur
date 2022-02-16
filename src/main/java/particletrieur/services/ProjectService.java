@@ -64,7 +64,7 @@ public class ProjectService {
                     currentDir = newDirectory;
                 }
             }
-            System.out.print(file.getAbsolutePath());
+//            System.out.print(file.getAbsolutePath());
             currentDir.files.add(file);
         }
         return root;
