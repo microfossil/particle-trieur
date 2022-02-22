@@ -270,7 +270,7 @@
                                        wrapText="true"
                                        text="Save the model in frozen format so it can be used for inference."/>
                                 <CheckBox fx:id="checkBoxOutputSaveMislabeled" mnemonicParsing="false"
-                                          selected="true" text="Estimate mislabeled images"/>
+                                          selected="false" text="Estimate mislabeled images"/>
                                 <Label styleClass="caption"
                                        wrapText="true"
                                        text="Compare the results of k-NN classification with that of the model to identify images that may have been mislabeled. This will increase running time."/>

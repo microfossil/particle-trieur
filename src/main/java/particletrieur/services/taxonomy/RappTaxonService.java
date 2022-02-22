@@ -72,7 +72,7 @@ public class RappTaxonService {
 //                }
                 treeTaxon.addList(taxonList);
             }
-            System.out.println();
+//            System.out.println();
         }
         workbook.close();
         fis.close();
@@ -118,7 +118,7 @@ public class RappTaxonService {
                 taxons.add(taxon);
             }
             firstRow = false;
-            System.out.println();
+//            System.out.println();
         }
         workbook.close();
         fis.close();

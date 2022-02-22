@@ -184,7 +184,7 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
 
         spinnerAlrEpochs.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, info.trainingAlrEpochs, 5));
         spinnerBatchSize.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(16, 256, info.trainingBatchSize, 16));
-        spinnerMinImagesPerClass.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(10, 100000, info.datasetMinCount, 5));
+        spinnerMinImagesPerClass.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100000, info.datasetMinCount, 5));
         spinnerTestSplitFraction.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 0.9, info.datasetValSplit, 0.05));
 
         hboxInputFolder.disableProperty().bind(Bindings.not(radioButtonInputFolder.selectedProperty()));

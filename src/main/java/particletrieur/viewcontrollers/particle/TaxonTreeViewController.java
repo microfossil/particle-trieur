@@ -153,7 +153,7 @@ public class TaxonTreeViewController extends AbstractDialogController implements
     public void handleSearchCode(ActionEvent event) {
         try {
             EcoTaxaTaxon taxon = EcoTaxaService.getTaxonById(Integer.parseInt(taxonCodeTextField.getText()));
-            System.out.println(taxon.display_name);
+//            System.out.println(taxon.display_name);
             Arrays.stream(taxon.lineage).forEach(System.out::println);
         } catch (IOException e) {
             e.printStackTrace();
