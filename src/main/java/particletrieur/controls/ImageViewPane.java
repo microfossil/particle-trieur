@@ -1,13 +1,13 @@
 package particletrieur.controls;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Bounds;
 import javafx.geometry.HPos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Region;
@@ -21,45 +21,44 @@ import org.apache.regexp.RE;
 public class ImageViewPane extends Region {
 
     private ObjectProperty<ImageView> imageViewProperty = new SimpleObjectProperty<ImageView>();
-
     public ObjectProperty<ImageView> imageViewProperty() {
         return imageViewProperty;
     }
-
     public ImageView getImageView() {
         return imageViewProperty.get();
     }
-
     public void setImageView(ImageView imageView) {
         this.imageViewProperty.set(imageView);
     }
+
+    private BooleanProperty lockScale = new SimpleBooleanProperty(false);
+    public boolean isLockScale() {
+        return lockScale.get();
+    }
+    public BooleanProperty lockScaleProperty() {
+        return lockScale;
+    }
+    public void setLockScale(boolean lockScale) {
+        this.lockScale.set(lockScale);
+    }
+
+    private double currentScale = 1;
+    private double mouseX;
+    private double mouseY;
+    private Rectangle2D viewPort = null;
 
     public ImageViewPane() {
         this(new ImageView());
     }
 
-    private double originalWidth = 0;
-    private double originalHeight = 0;
-    private double scale = 1;
-    private double mouseX;
-    private double mouseY;
-
-    private Rectangle2D viewPort = null;
-
     @Override
     protected void layoutChildren() {
         ImageView imageView = imageViewProperty.get();
-//        originalWidth = getWidth();
-//        originalHeight = getHeight();
 
         if (imageView != null) {
-//            double imageViewWidth = imageView.getFitWidth();
-//            double imageViewHeight = imageView.getFitWidth();
-//            if (imageViewWidth != originalWidth * scale || imageViewHeight != originalHeight * scale) {
                 imageView.setFitWidth(getWidth());
                 imageView.setFitHeight(getHeight());
                 layoutInArea(imageView, 0, 0, getWidth(), getHeight(), 0, HPos.CENTER, VPos.CENTER);
-//            }
         }
         super.layoutChildren();
     }
@@ -75,7 +74,6 @@ public class ImageViewPane extends Region {
                 if (newIV != null) {
                     getChildren().add(newIV);
                     viewPort = null;
-//                    addZoomEvents(newIV);
                 }
             }
         });
@@ -110,14 +108,11 @@ public class ImageViewPane extends Region {
         imageView.setViewport(null);
         double iw = imageView.getImage().getWidth();
         double ih = imageView.getImage().getHeight();
-
         Bounds bounds = imageView.getBoundsInLocal();
         double imw = bounds.getWidth();
         double imh = bounds.getHeight();
-
         double pw = getWidth();
         double ph = getHeight();
-
         double exw = (pw / imw - 1) / 2;
         double exh = (ph / imh - 1) / 2;
         Rectangle2D rect = new Rectangle2D(-iw * exw, -ih * exh, iw * (1 + 2 * exw), ih * (1 + 2 * exh));
@@ -125,22 +120,21 @@ public class ImageViewPane extends Region {
     }
 
     public void zoom(double x, double y, double delta) {
-        scale = (1.0 + delta / 200);
-        ImageView imageView = imageViewProperty.get();
+        double scale = (1.0 + delta / 200);
+        zoomScale(x, y, scale);
+    }
 
+    private void zoomScale(double x, double y, double scale) {
+        currentScale *= scale;
+        ImageView imageView = imageViewProperty.get();
         if (viewPort == null) {
             viewPort = getDefaultViewPort();
         }
-
         Bounds bounds = imageView.getBoundsInLocal();
         double imw = bounds.getWidth();
         double imh = bounds.getHeight();
-
         double px = x * viewPort.getWidth() / imw + viewPort.getMinX();
         double py = y * viewPort.getHeight() / imh + viewPort.getMinY();
-
-//        System.out.printf("x: %.2f, y: %.2f, minX: %.2f, maxX: %.2f, miny: %.2f, maxX: %.2f%n", px, py, viewPort.getMinX(), viewPort.getMaxX(), viewPort.getMinY(), viewPort.getMaxY());
-
         double minX = (viewPort.getMinX() - px) * scale + px;
         double maxX = (viewPort.getMaxX() - px) * scale + px;
         double minY = (viewPort.getMinY() - py) * scale + py;
@@ -158,7 +152,6 @@ public class ImageViewPane extends Region {
         }
         viewPort = newViewPort;
         imageView.setViewport(viewPort);
-//        System.out.printf("x: %.2f, y: %.2f, minX: %.2f, maxX: %.2f, miny: %.2f, maxX: %.2f%n", px, py, minX, minY, maxX, maxY);
     }
 
     public void reset() {
@@ -179,5 +172,10 @@ public class ImageViewPane extends Region {
         double dy = y * viewPort.getHeight() / imh;
         viewPort = new Rectangle2D(viewPort.getMinX() + dx, viewPort.getMinY() + dy, viewPort.getWidth(), viewPort.getHeight());
         imageView.setViewport(viewPort);
+    }
+
+    public void setImage(Image im) {
+        imageViewProperty().get().setImage(im);
+        if (!isLockScale()) reset();
     }
 }

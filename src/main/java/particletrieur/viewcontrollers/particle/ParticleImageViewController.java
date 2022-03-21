@@ -9,6 +9,7 @@ import com.google.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -38,6 +39,8 @@ import java.util.ResourceBundle;
 @FxmlLocation("/views/particle/ImageDetailView.fxml")
 public class ParticleImageViewController extends AbstractController implements Initializable {
 
+    @FXML
+    Button buttonLock;
     @FXML
     ImageViewPane imageViewPane;
     @FXML
@@ -119,11 +122,18 @@ public class ParticleImageViewController extends AbstractController implements I
         selectionViewModel.increaseSizeRequested.addListener(v -> {
             handleZoomIn(null);
         });
-
+        imageViewPane.lockScaleProperty().addListener(((observable, oldValue, newValue) -> {
+            if (newValue) {
+                buttonLock.setStyle("-fx-background-color: lightgreen");
+            }
+            else {
+                buttonLock.setStyle("");
+            }
+        }));
     }    
     
     public void setImage(Image image) {
-        imageView.setImage(image);
+        imageViewPane.setImage(image);
     }
 
     //TODO on error write error image
@@ -233,10 +243,13 @@ public class ParticleImageViewController extends AbstractController implements I
     }
 
     public void handleZoomOut(ActionEvent actionEvent) {
-        imageViewPane.zoom(imageViewPane.getWidth() / 2, imageViewPane.getHeight() / 2, 52);
-    }
+        imageViewPane.zoom(imageViewPane.getWidth() / 2, imageViewPane.getHeight() / 2, 52);    }
 
     public void handleResetZoom(ActionEvent actionEvent) {
         imageViewPane.reset();
+    }
+
+    public void handleLock(ActionEvent actionEvent) {
+        imageViewPane.setLockScale(!imageViewPane.isLockScale());
     }
 }

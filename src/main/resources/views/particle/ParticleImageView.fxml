@@ -104,6 +104,15 @@
                                     </SymbolLabel>
                                 </graphic>
                             </Button>
+                            <Button styleClass="flat-button" onAction="#handleLock" fx:id="buttonLock">
+                                <graphic>
+                                    <SymbolLabel symbol="featherlock">
+                                        <padding>
+                                            <Insets bottom="1.0"/>
+                                        </padding>
+                                    </SymbolLabel>
+                                </graphic>
+                            </Button>
                             <Button styleClass="flat-button" onAction="#handleResetZoom">
                                 <graphic>
                                     <SymbolLabel symbol="featherrefreshccw">
