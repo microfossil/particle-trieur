@@ -55,30 +55,69 @@
 
             </top>
             <center>
-                <!--styleClass="control-shadow-0p5"-->
-                <StackPane fx:id="stackPaneImage" >
+                <BorderPane>
                     <padding>
-                        <Insets topRightBottomLeft="14"/>
+                        <Insets top="14" bottom="14" left="0" right="0"/>
                     </padding>
-                    <children>
-                        <ImageViewPane fx:id="imageViewPane">
-                            <imageView>
-                                <ImageView fx:id="imageView"
-                                           pickOnBounds="true"
-                                           preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../icons/icon-thin.png"/>
-                                    </image>
-                                </ImageView>
-                            </imageView>
-                        </ImageViewPane>
-                        <Label fx:id="labelError"
-                               style="-fx-text-fill: red;"
-                               styleClass="subheader"
-                               text="File Not Found"
-                               visible="false"/>
-                    </children>
-                </StackPane>
+                    <center>
+                        <StackPane fx:id="stackPaneImage" >
+                            <children>
+                                <ImageViewPane fx:id="imageViewPane">
+                                    <imageView>
+                                        <ImageView fx:id="imageView"
+                                                   pickOnBounds="false"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../icons/icon-thin.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </imageView>
+                                </ImageViewPane>
+                                <Label fx:id="labelError"
+                                       style="-fx-text-fill: red;"
+                                       styleClass="subheader"
+                                       text="File Not Found"
+                                       visible="false"/>
+                            </children>
+                        </StackPane>
+                    </center>
+                    <right>
+                        <VBox spacing="3">
+                            <padding>
+                                <Insets left="3"/>
+                            </padding>
+                            <Button styleClass="flat-button" onAction="#handleZoomOut">
+                                <graphic>
+                                    <SymbolLabel symbol="featherminimize">
+                                        <padding>
+                                            <Insets bottom="1.0"/>
+                                        </padding>
+                                    </SymbolLabel>
+                                </graphic>
+                            </Button>
+                            <Button styleClass="flat-button" onAction="#handleZoomIn">
+                                <graphic>
+                                    <SymbolLabel symbol="feathermaximize">
+                                        <padding>
+                                            <Insets bottom="1.0"/>
+                                        </padding>
+                                    </SymbolLabel>
+                                </graphic>
+                            </Button>
+                            <Button styleClass="flat-button" onAction="#handleResetZoom">
+                                <graphic>
+                                    <SymbolLabel symbol="featherrefreshccw">
+                                        <padding>
+                                            <Insets bottom="1.0"/>
+                                        </padding>
+                                    </SymbolLabel>
+                                </graphic>
+                            </Button>
+                        </VBox>
+                    </right>
+                </BorderPane>
+                <!--styleClass="control-shadow-0p5"-->
+
             </center>
             <bottom>
                 <GridPane fx:id="gridPane" hgap="7.0" maxWidth="-Infinity" vgap="7.0">

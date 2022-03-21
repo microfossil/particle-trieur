@@ -13,12 +13,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import particletrieur.AbstractController;
 import particletrieur.App;
 import particletrieur.FxmlLocation;
+import particletrieur.controls.ImageViewPane;
 import particletrieur.controls.SymbolLabel;
 import particletrieur.models.Supervisor;
 import particletrieur.models.project.Particle;
@@ -36,6 +38,8 @@ import java.util.ResourceBundle;
 @FxmlLocation("/views/particle/ImageDetailView.fxml")
 public class ParticleImageViewController extends AbstractController implements Initializable {
 
+    @FXML
+    ImageViewPane imageViewPane;
     @FXML
     BorderPane borderPane;
     @FXML
@@ -105,6 +109,17 @@ public class ParticleImageViewController extends AbstractController implements I
             if (newValue.equals("")) symbolValidated.setVisible(false);
             else symbolValidated.setVisible(true);
         }));
+
+        imageViewPane.addZoomEvents();
+
+        selectionViewModel.decreaseSizeRequested.addListener(v -> {
+            handleZoomOut(null);
+        });
+
+        selectionViewModel.increaseSizeRequested.addListener(v -> {
+            handleZoomIn(null);
+        });
+
     }    
     
     public void setImage(Image image) {
@@ -211,5 +226,17 @@ public class ParticleImageViewController extends AbstractController implements I
 
     public void handleNext(ActionEvent actionEvent) {
         selectionViewModel.requestNextImage();
+    }
+
+    public void handleZoomIn(ActionEvent actionEvent) {
+        imageViewPane.zoom(imageViewPane.getWidth() / 2, imageViewPane.getHeight() / 2, -52);
+    }
+
+    public void handleZoomOut(ActionEvent actionEvent) {
+        imageViewPane.zoom(imageViewPane.getWidth() / 2, imageViewPane.getHeight() / 2, 52);
+    }
+
+    public void handleResetZoom(ActionEvent actionEvent) {
+        imageViewPane.reset();
     }
 }
