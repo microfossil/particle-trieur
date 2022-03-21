@@ -493,7 +493,7 @@ public class Particle {
         StringBuilder sb = new StringBuilder();
         tags.forEach(tag -> {
             sb.append(tag);
-            sb.append(";");
+            sb.append("|");
         });
         if (sb.length() > 1) {
             return sb.substring(0, sb.length() - 1);
