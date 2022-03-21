@@ -408,10 +408,12 @@ public class ClassificationViewController implements Initializable {
 
     private void addButtonGroup(String name, List<Taxon> list, boolean isGrouped) {
         Label label = new Label(name);
-        label.setStyle("-fx-font-size: 14px");
+        label.setStyle("-fx-font-size: 14px;");
+//        label.setPadding(new Insets(7,0,0,0));
         FlowPane flowPane = new FlowPane();
         flowPane.setHgap(7);
         flowPane.setVgap(7);
+        flowPane.setPadding(new Insets(0,0,7,0));
         for (Taxon taxon : list) {
             final String code = taxon.getCode();
             String buttonCode = code;
@@ -452,7 +454,7 @@ public class ClassificationViewController implements Initializable {
         });
         flowPane.getChildren().add(buttonAddNewLabel);
         vboxClasses.getChildren().addAll(label, flowPane);
-        vboxClasses.getChildren().add(new Separator());
+//        vboxClasses.getChildren().add(new Separator());
     }
 
     private void setupTagUI(Project project) {
