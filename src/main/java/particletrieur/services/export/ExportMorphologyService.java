@@ -40,12 +40,10 @@ public class ExportMorphologyService {
                     @Override
                     protected Void call() throws InterruptedException, IOException {
                         updateMessage("Exporting...");
-
                         final AtomicInteger skippedBecauseOfErrors = new AtomicInteger(0);
                         final AtomicInteger idx = new AtomicInteger(0);
-
                         //Create headers
-                        String headerString = "id,filename,label,sample,index1,index2,resolution,GUID,labeled_by,validated_by";
+                        String headerString = "id,filename,label,tags,sample,index1,index2,resolution,GUID,labeled_by,validated_by";
                         LinkedHashSet<String> parameterHeaders = new LinkedHashSet<>();
                         if (exportParameters) {
                             particles.forEach(particle -> {
@@ -100,10 +98,11 @@ public class ExportMorphologyService {
                         for (Particle particle : particles) {
                             if (this.isCancelled()) return null;
                             // Default
-                            writer.write(String.format("%d,%s,%s,%s,%f,%f,%f,%s,%s,%s",
+                            writer.write(String.format("%d,%s,%s,%s,%s,%f,%f,%f,%s,%s,%s",
                                     idx2 + 1,
                                     particle.getFile().getAbsolutePath(),
                                     particle.getClassification(),
+                                    particle.tagsToString(),
                                     particle.getSampleID(),
                                     particle.getIndex1(),
                                     particle.getIndex2(),
@@ -195,7 +194,7 @@ public class ExportMorphologyService {
                         });
 
                         //Output to file
-                        String headerString = "id,image,label,sample,index1,index2,GUID,heightPX,widthPX," +
+                        String headerString = "id,image,label,tags,sample,index1,index2,GUID,heightPX,widthPX," +
                                 Morphology.getHeaderStringForCSV() + "\n";
                         BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
                         writer.write(headerString);
@@ -211,10 +210,11 @@ public class ExportMorphologyService {
                             else {
                                 morphologyCSV = morphology.toStringCSV(particle.getResolution());
                             }
-                            writer.write(String.format("%d,%s,%s,%s,%f,%f,%s,%d,%d,",
+                            writer.write(String.format("%d,%s,%s,%s,%s,%f,%f,%s,%d,%d,",
                                     indices.get(particle),
                                     particle.getFile().getAbsolutePath(),
                                     particle.classification.get(),
+                                    particle.tagsToString(),
                                     particle.getSampleID(),
                                     particle.getIndex1(),
                                     particle.getIndex2(),
@@ -265,7 +265,7 @@ public class ExportMorphologyService {
                         });
 
                         //Output to file
-                        String headerString = "id,filename,label,sample,index1,index2,resolution,GUID,labeled_by,validated_by";
+                        String headerString = "id,filename,label,tags,sample,index1,index2,resolution,GUID,labeled_by,validated_by";
                         for (String header : headers) {
                             headerString += ",p_" + header;
                         }
@@ -275,10 +275,11 @@ public class ExportMorphologyService {
                         int idx2 = 0;
                         for (Particle particle : particles) {
                             if (this.isCancelled()) return null;
-                            writer.write(String.format("%d,%s,%s,%s,%f,%f,%f,%s,%s,%s",
+                            writer.write(String.format("%d,%s,%s,%s,%s,%f,%f,%f,%s,%s,%s",
                                     idx2 + 1,
                                     particle.getFile().getAbsolutePath(),
                                     particle.getClassification(),
+                                    particle.tagsToString(),
                                     particle.getSampleID(),
                                     particle.getIndex1(),
                                     particle.getIndex2(),
