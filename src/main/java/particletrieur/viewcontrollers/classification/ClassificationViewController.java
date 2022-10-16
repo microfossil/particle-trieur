@@ -218,11 +218,13 @@ public class ClassificationViewController implements Initializable {
         });
         gridPaneCNN.getChildren().clear();
         gridPaneCNN.getChildren().add(new Label("N/A"));
-        supervisor.network.enabledProperty().addListener((observable, oldValue, newValue) -> {
-            gridPaneCNN.getChildren().clear();
-            if (newValue) gridPaneCNN.getChildren().add(new Label("Ready"));
-            else gridPaneCNN.getChildren().add(new Label("N/A"));
-        });
+
+        //TODO change to a property on the supervisor
+//        supervisor.network.enabledProperty().addListener((observable, oldValue, newValue) -> {
+//            gridPaneCNN.getChildren().clear();
+//            if (newValue) gridPaneCNN.getChildren().add(new Label("Ready"));
+//            else gridPaneCNN.getChildren().add(new Label("N/A"));
+//        });
 
         //Spinner hack
         for (Field field : getClass().getDeclaredFields()) {

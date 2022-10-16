@@ -368,14 +368,14 @@ public class MainController extends AbstractController implements Initializable 
         labelServer.setVisible(false);
 
         //Network?
-        supervisor.network.enabledProperty().addListener((obs, oldv, newv) -> {
-            if (newv == true) {
-
-            }
-            else {
-
-            }
-        });
+//        supervisor.network.enabledProperty().addListener((obs, oldv, newv) -> {
+//            if (newv == true) {
+//
+//            }
+//            else {
+//
+//            }
+//        });
 
         //Folder watch?
         supervisor.folderWatch.enabledProperty().addListener((obs, oldv, newv) -> {

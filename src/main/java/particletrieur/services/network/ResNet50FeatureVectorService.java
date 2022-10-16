@@ -1,7 +1,7 @@
 package particletrieur.services.network;
 
 import particletrieur.controls.dialogs.BasicDialogs;
-import particletrieur.models.network.classification.NetworkEx;
+import particletrieur.models.network.classification.TensorflowNetwork;
 import particletrieur.models.network.classification.NetworkInfo;
 import particletrieur.models.network.classification.TensorInfo;
 import particletrieur.models.processing.ImageType;
@@ -22,7 +22,7 @@ import java.nio.file.Files;
 
 public class ResNet50FeatureVectorService {
 
-    public NetworkEx networkEx;
+    public TensorflowNetwork tensorflowNetwork;
     public boolean isRecalculate = false;
 
     public ResNet50FeatureVectorService() {
@@ -45,23 +45,23 @@ public class ResNet50FeatureVectorService {
         info.outputs.add(output);
         info.isResource = true;
 
-        networkEx = new NetworkEx();
-        networkEx.setNetworkInfo(info);
-        if (!networkEx.setup()) {
+        tensorflowNetwork = new TensorflowNetwork();
+        tensorflowNetwork.setNetworkInfo(info);
+        if (!tensorflowNetwork.setup()) {
             BasicDialogs.ShowError("Network error",
                     "Cannot start ResNet50 feature vector network.\nThe tensorflow graph file does not exist, or the network XML file was an old version.");
         }
     }
 
     public float[] predict(Mat mat) {
-        TensorInfo info = networkEx.getNetworkInfo().inputs.get(0);
+        TensorInfo info = tensorflowNetwork.getNetworkInfo().inputs.get(0);
         ParticleImage image = ParticleImage.create(mat, ImageType.LIGHTONDARK, false);
         image.normaliseMinMax(0, 255);
         image.makeSquare();
         Mat input = Preprocessor.resize(image.workingImage, info.height, info.width, info.channels);
 //        input.convertTo(input, CvType.CV_32F);
 //        Core.divide(input, Scalar.all(255), input);
-        float[][] vector = networkEx.predictLabel(input, "image", "vector");
+        float[][] vector = tensorflowNetwork.predictLabel(input, "image", "vector");
         input.release();
         image.release();
         return vector[0];
