@@ -73,6 +73,7 @@
                                 <Spinner fx:id="spinnerBackgroundRemovalMargin" prefWidth="80.0" />
                             </children>
                         </HBox>
+                        <CheckBox fx:id="checkBoxEllipseFitting" mnemonicParsing="false" text="Show Ellipse Fitting" />
 <!--                        <Separator prefWidth="200.0">-->
 <!--                            <VBox.margin>-->
 <!--                                <Insets />-->
@@ -101,6 +102,7 @@
                         <ChoiceBox fx:id="choiceBoxImageType" maxWidth="1.7976931348623157E308" />
                         <CheckBox fx:id="checkBoxEnhanceEdges" mnemonicParsing="false" text="Enhance edges" />
                         <CheckBox fx:id="checkBoxRescaleIntensity" mnemonicParsing="false" text="Rescale intensity (min/max)" />
+
 
 <!--                        <Label styleClass="subheader" text="Presets" />-->
 <!--                        <HBox spacing="7.0">-->

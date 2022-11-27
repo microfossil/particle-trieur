@@ -83,6 +83,8 @@ public class ProcessingViewController extends AbstractController implements Init
     CheckBox checkBoxRemoveBackground;
     @FXML
     Spinner spinnerBackgroundRemovalMargin;
+    @FXML
+    CheckBox checkBoxEllipseFitting;
 
 
     @FXML
@@ -173,10 +175,12 @@ public class ProcessingViewController extends AbstractController implements Init
         checkBoxEnhanceEdges.selectedProperty().bindBidirectional(def.segmentationEnhanceEdgesProperty());
         checkBoxRescaleIntensity.selectedProperty().bindBidirectional(def.segmentationRescaleProperty());
 
+
         //Segmentation-based adjustments
         checkBoxCentreImage.selectedProperty().bindBidirectional(def.centreProperty());
         checkBoxRotateImage.selectedProperty().bindBidirectional(def.rotateToMajorAxisProperty());
         checkBoxRemoveBackground.selectedProperty().bindBidirectional(def.removeBackgroundProperty());
+        checkBoxEllipseFitting.selectedProperty().bindBidirectional(def.showEllipseFittingProperty());
         spinnerBackgroundRemovalMargin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 64, 16, 4));
         spinnerBackgroundRemovalMargin.getValueFactory().valueProperty().bindBidirectional(def.backgroundRemovalMarginProperty());
         checkBoxRotateImage.disableProperty().bind(Bindings.not(checkBoxCentreImage.selectedProperty()));

@@ -75,7 +75,7 @@ public class ImageProcessingService {
                 break;
         }
         mask.largestRegion().calculateParameters();
-        mask.forDisplay();
+        mask.forDisplay(def.isShowEllipseFitting());
 
         image.setMask(mask);
 

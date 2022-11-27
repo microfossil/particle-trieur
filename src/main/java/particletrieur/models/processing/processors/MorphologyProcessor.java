@@ -5,6 +5,7 @@ import particletrieur.models.processing.Morphology;
 import particletrieur.models.processing.ParticleImage;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.imgproc.Moments;
 
 import java.util.ArrayList;
 
@@ -143,14 +144,83 @@ public class MorphologyProcessor {
             m.eccentricity = Math.sqrt(1 - Math.pow(m.minorAxisLength, 2) / Math.pow(m.majorAxisLength, 2));
             m.angle = ellipseRect.angle;
             m.roundness = 4.0 * m.area / Math.PI / Math.pow(m.majorAxisLength,2);
+            m.elongation = m.majorAxisLength / m.minorAxisLength;
         }
 
         //
         // COMMON MEASUREMENTS
         //
         m.solidity = m.area / m.convexArea;
-        m.circularity = 4.0 * Math.PI * m.area / Math.pow(m.perimeter,2);
+        m.circularity = 4.0 * Math.PI * m.area / Math.pow(m.perimeter, 2);
+        m.perimeterToAreaRatio = m.perimeter / m.area;
+        m.equivalentDiameter = Math.sqrt(4.0 * m.area / Math.PI);
+        m.equivalentSphericalDiameter = 2.0 * Math.sqrt(m.area / Math.PI);
+
+        Rect boundingRectangle = Imgproc.boundingRect(contour);
+        m.aspectRatio = (double)boundingRectangle.width / boundingRectangle.height;
+        m.areaToBoundingRectangleArea = m.area / (boundingRectangle.width * boundingRectangle.height);
+
+        double[] dHuInvariants = computeHuInvariants(contour);
+        m.Husmoment1 = dHuInvariants[0];
+        m.Husmoment2 = dHuInvariants[1];
+        m.Husmoment3 = dHuInvariants[2];
+        m.Husmoment4 = dHuInvariants[3];
+        m.Husmoment5 = dHuInvariants[4];
+        m.Husmoment6 = dHuInvariants[5];
+        m.Husmoment7 = dHuInvariants[6];
 
         return m;
     }
+
+    private static double[] computeHuInvariants(MatOfPoint contour){
+        Moments p = Imgproc.moments(contour);
+        double
+                n20 = p.get_nu20(),
+                n02 = p.get_nu02(),
+                n30 = p.get_nu30(),
+                n12 = p.get_nu12(),
+                n21 = p.get_nu21(),
+                n03 = p.get_nu03(),
+                n11 = p.get_nu11();
+
+        double[] dHuInvariants = new double[8];
+
+        //First moment
+        dHuInvariants[0] = n20 + n02;
+
+        //Second moment
+        dHuInvariants[1] = Math.pow((n20 - n02), 2) + Math.pow(2 * n11, 2);
+
+        //Third moment
+        dHuInvariants[2] = Math.pow(n30 - (3 * (n12)), 2)
+                + Math.pow((3 * n21 - n03), 2);
+
+        //Fourth moment
+        dHuInvariants[3] = Math.pow((n30 + n12), 2) + Math.pow((n12 + n03), 2);
+
+        //Fifth moment
+        dHuInvariants[4] = (n30 - 3 * n12) * (n30 + n12)
+                * (Math.pow((n30 + n12), 2) - 3 * Math.pow((n21 + n03), 2))
+                + (3 * n21 - n03) * (n21 + n03)
+                * (3 * Math.pow((n30 + n12), 2) - Math.pow((n21 + n03), 2));
+
+        //Sixth moment
+        dHuInvariants[5] = (n20 - n02)
+                * (Math.pow((n30 + n12), 2) - Math.pow((n21 + n03), 2))
+                + 4 * n11 * (n30 + n12) * (n21 + n03);
+
+        //Seventh moment
+        dHuInvariants[6] = (3 * n21 - n03) * (n30 + n12)
+                * (Math.pow((n30 + n12), 2) - 3 * Math.pow((n21 + n03), 2))
+                + (n30 - 3 * n12) * (n21 + n03)
+                * (3 * Math.pow((n30 + n12), 2) - Math.pow((n21 + n03), 2));
+
+        //Eighth moment
+        dHuInvariants[7] = n11 * (Math.pow((n30 + n12), 2) - Math.pow((n03 + n21), 2))
+                - (n20 - n02) * (n30 + n12) * (n03 + n21);
+
+        return dHuInvariants;
+
+    }
+
 }

@@ -10,6 +10,7 @@ import org.opencv.imgproc.Imgproc;
 import particletrieur.services.network.ISegmenterService;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class SegmentationProcessor {
 
@@ -203,6 +204,9 @@ public class SegmentationProcessor {
         if (mask.binaryF != null) mask.binaryF.release();
         mask.binaryF = new Mat();
         mask.binary.convertTo(mask.binaryF, CvType.CV_32F);
+
+
+
         Core.divide(mask.binaryF, Scalar.all(255), mask.binaryF);
 
         image.release();

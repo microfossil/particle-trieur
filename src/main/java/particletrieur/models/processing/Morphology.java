@@ -70,6 +70,39 @@ public class Morphology implements Serializable {
     @XmlJavaTypeAdapter(MorphologyDoubleMapAdapter.class)
     public double moment6 = 0;
 
+    //More morphologies
+    @XmlJavaTypeAdapter(MorphologyDoubleMapAdapter.class)
+    public double aspectRatio = 0;
+    @XmlJavaTypeAdapter(MorphologyDoubleMapAdapter.class)
+    public double equivalentDiameter = 0;
+    @XmlJavaTypeAdapter(MorphologyDoubleMapAdapter.class)
+    public double perimeterToAreaRatio = 0;
+    @XmlJavaTypeAdapter(MorphologyDoubleMapAdapter.class)
+    public double areaToBoundingRectangleArea = 0;
+    @XmlJavaTypeAdapter(MorphologyDoubleMapAdapter.class)
+    public double equivalentSphericalDiameter = 0;
+
+    @XmlJavaTypeAdapter(MorphologyDoubleMapAdapter.class)
+    public double elongation = 0;
+
+    @XmlJavaTypeAdapter(MorphologyDoubleMapAdapter.class)
+    public double Husmoment1 = 0;
+    @XmlJavaTypeAdapter(MorphologyDoubleMapAdapter.class)
+    public double Husmoment2 = 0;
+    @XmlJavaTypeAdapter(MorphologyDoubleMapAdapter.class)
+    public double Husmoment3 = 0;
+    @XmlJavaTypeAdapter(MorphologyDoubleMapAdapter.class)
+    public double Husmoment4 = 0;
+    @XmlJavaTypeAdapter(MorphologyDoubleMapAdapter.class)
+    public double Husmoment5 = 0;
+    @XmlJavaTypeAdapter(MorphologyDoubleMapAdapter.class)
+    public double Husmoment6 = 0;
+    @XmlJavaTypeAdapter(MorphologyDoubleMapAdapter.class)
+    public double Husmoment7 = 0;
+
+
+
+
 
     public Morphology convertToMM(double pixelsPerMM) {
 
@@ -88,6 +121,8 @@ public class Morphology implements Serializable {
         converted.circleRadius = this.circleRadius / pixelsPerMM;
         converted.majorAxisLength = this.majorAxisLength / pixelsPerMM;
         converted.minorAxisLength = this.minorAxisLength / pixelsPerMM;
+
+
 
         return converted;
     }
@@ -128,6 +163,20 @@ public class Morphology implements Serializable {
         sb.append(String.format("%f,", (float) kurtosis));
         sb.append(String.format("%f,", (float) moment5));
         sb.append(String.format("%f", (float) moment6));
+
+        sb.append(String.format("%f", (float) aspectRatio));
+        sb.append(String.format("%f", (float) equivalentDiameter));
+        sb.append(String.format("%f", (float) perimeterToAreaRatio));
+        sb.append(String.format("%f", (float) areaToBoundingRectangleArea));
+        sb.append(String.format("%f", (float) equivalentSphericalDiameter));
+        sb.append(String.format("%f", (float) elongation));
+        sb.append(String.format("%f", (float) Husmoment1));
+        sb.append(String.format("%f", (float) Husmoment2));
+        sb.append(String.format("%f", (float) Husmoment3));
+        sb.append(String.format("%f", (float) Husmoment4));
+        sb.append(String.format("%f", (float) Husmoment5));
+        sb.append(String.format("%f", (float) Husmoment6));
+        sb.append(String.format("%f", (float) Husmoment7));
 
         return sb.toString();
     }

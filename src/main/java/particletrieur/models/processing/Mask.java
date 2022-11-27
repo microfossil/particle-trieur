@@ -119,8 +119,8 @@ public class Mask {
         return this;
     }
 
-    public Mask forDisplay() {
-        DisplayProcessor.forDisplay(this);
+    public Mask forDisplay(boolean isShowEllipseFitting) {
+        DisplayProcessor.forDisplay(this, isShowEllipseFitting);
         return this;
     }
 }

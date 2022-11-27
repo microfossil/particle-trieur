@@ -179,7 +179,6 @@ public class ProcessingInfo {
     public DoubleProperty segmentationThresholdProperty() {
         return segmentationThreshold;
     }
-
     //
     //
     // Segmentation adjustments
@@ -233,7 +232,18 @@ public class ProcessingInfo {
     public IntegerProperty backgroundRemovalMarginProperty() {
         return backgroundRemovalMargin;
     }
-
+    //Show Ellipse Fitting
+    private final BooleanProperty showEllipseFitting = new SimpleBooleanProperty(false);
+    @XmlElement(name = "segmentationEllipseFitting")
+    public boolean isShowEllipseFitting() {
+        return showEllipseFitting.get();
+    }
+    public BooleanProperty showEllipseFittingProperty() {
+        return showEllipseFitting;
+    }
+    public void setShowEllipseFitting(boolean showEllipseFitting) {
+        this.showEllipseFitting.set(showEllipseFitting);
+    }
     //
     //
     // Classification
@@ -300,6 +310,7 @@ public class ProcessingInfo {
         setRotateToMajorAxis(false);
         setRemoveBackground(false);
         setBackgroundRemovalMargin(16);
+        setShowEllipseFitting(false);
         //Classification settings
         setProcessBeforeClassification(false);
         setCnnThreshold(0.8);
