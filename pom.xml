@@ -6,7 +6,7 @@
 
     <groupId>ordervschaos</groupId>
     <artifactId>ParticleTrieur</artifactId>
-    <version>2.4.15</version>
+    <version>2.4.16</version>
 
     <build>
         <finalName>${project.artifactId}</finalName>
