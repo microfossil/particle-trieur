@@ -67,9 +67,9 @@ public class OnnxNetwork extends NetworkBase {
         input.put(inputName, inputTensor);
         OrtSession.Result result = ortSession.run(input);
 
-        float[] output = (float[]) result.get(0).getValue();
+        float[][] output = (float[][])result.get(0).getValue();
 
-        return output;
+        return output[0];
     }
 
     @Override
