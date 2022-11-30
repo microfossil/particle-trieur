@@ -5,17 +5,18 @@
  */
 package particletrieur.models;
 
+import javafx.beans.property.ObjectProperty;
 import particletrieur.App;
 import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.helpers.ExceptionMonitor;
-import particletrieur.models.network.classification.NetworkEx;
-import particletrieur.services.network.ForaminiferaSegmenterService;
+import particletrieur.models.network.classification.NetworkBase;
+import particletrieur.models.network.classification.OnnxNetwork;
+import particletrieur.models.network.classification.TensorflowNetwork;
 import particletrieur.models.project.Project;
 import particletrieur.models.tools.ClassificationServer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import particletrieur.models.tools.FolderWatch;
-import particletrieur.services.network.PlanktonSegmenterService;
 
 /**
  *
@@ -25,7 +26,7 @@ public class Supervisor {
 
     //Model objects
     public final Project project = new Project();
-    public final NetworkEx network = new NetworkEx();
+    public NetworkBase network;
     public final ClassificationServer classificationServer;
     public final FolderWatch folderWatch;
     public final ProjectRepository projectRepository = new ProjectRepository(project);
@@ -60,10 +61,12 @@ public class Supervisor {
 
         //Connect project and network
         project.networkDefinitionProperty().addListener((objv,oldv,newv) -> {
+            if (newv.protobuf.endsWith("pb")) network = new TensorflowNetwork();
+            else if (newv.protobuf.endsWith("onnx")) network = new OnnxNetwork();
             network.setNetworkInfo(newv);
             if (!network.setup()) {
                 BasicDialogs.ShowError("Network error",
-                        "Cannot start project network at " + newv.protobuf + "\nThe tensorflow graph file does not exist, or the network XML file was an old version.");
+                        "Cannot start project network at " + newv.protobuf + "\nThe model does not exist, or the network XML file was an old version.");
             }
             if (!network.isEnabled() && newv != null) project.setNetworkDefinition(null);
         });

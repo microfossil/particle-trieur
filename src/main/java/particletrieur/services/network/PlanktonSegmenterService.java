@@ -1,18 +1,15 @@
 package particletrieur.services.network;
 
-import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.core.Scalar;
-import org.opencv.imgcodecs.Imgcodecs;
 import particletrieur.controls.dialogs.BasicDialogs;
-import particletrieur.models.network.classification.NetworkEx;
+import particletrieur.models.network.classification.TensorflowNetwork;
 import particletrieur.models.network.classification.NetworkInfo;
 import particletrieur.models.network.classification.TensorInfo;
 import particletrieur.models.processing.processors.Preprocessor;
 
 public class PlanktonSegmenterService implements ISegmenterService {
 
-    public NetworkEx networkEx;
+    public TensorflowNetwork tensorflowNetwork;
     private NetworkInfo info;
 
     public PlanktonSegmenterService() {
@@ -34,11 +31,11 @@ public class PlanktonSegmenterService implements ISegmenterService {
     }
 
     public Mat predict(Mat mat) {
-        if (networkEx == null) {
+        if (tensorflowNetwork == null) {
             System.out.println("Loading plankton segmentation network");
-            networkEx = new NetworkEx();
-            networkEx.setNetworkInfo(info);
-            if (!networkEx.setup()) {
+            tensorflowNetwork = new TensorflowNetwork();
+            tensorflowNetwork.setNetworkInfo(info);
+            if (!tensorflowNetwork.setup()) {
                 BasicDialogs.ShowError("Network error",
                         "Cannot start plankton segmentation network.\nThe tensorflow graph file does not exist, or the network XML file was an old version.");
             }
@@ -46,7 +43,7 @@ public class PlanktonSegmenterService implements ISegmenterService {
 //        TensorInfo inputInfo = networkEx.getNetworkInfo().inputs.get(0);
 //        TensorInfo outputInfo = networkEx.getNetworkInfo().outputs.get(0);
         Mat input = Preprocessor.resize(mat, 224, 224, 1);
-        Mat output = networkEx.predictMat(input, "image", "pred");
+        Mat output = tensorflowNetwork.predictSegmentation(input, "image", "pred");
 //        Core.multiply(input,new Scalar(255),input);
 //        Imgcodecs.imwrite("D:\\test.png", input);
 

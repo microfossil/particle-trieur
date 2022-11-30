@@ -17,8 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.io.ByteStreams;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
@@ -28,35 +26,13 @@ import org.tensorflow.*;
 /**
  * @author Ross Marchant <ross.g.marchant@gmail.com>
  */
-public class NetworkEx {
+public class TensorflowNetwork extends NetworkBase {
 
     //Tensorflow
     Graph graph;
     Session sess;
 
-    //Is the network running?
-    private BooleanProperty enabled = new SimpleBooleanProperty(false);
-    public BooleanProperty enabledProperty() {
-        return enabled;
-    }
-    public void setEnabled(boolean value) {
-        enabled.set(value);
-    }
-    public boolean isEnabled() {
-        return enabled.get();
-    }
-
-    //The network definition / information
-    private NetworkInfo networkInfo;
-    public void setNetworkInfo(NetworkInfo networkInfo) {
-        this.networkInfo = networkInfo;
-    }
-    public NetworkInfo getNetworkInfo() {
-        return networkInfo;
-    }
-
-
-    public NetworkEx() {
+    public TensorflowNetwork() {
 
     }
 
@@ -93,27 +69,15 @@ public class NetworkEx {
             //Get the tensor dimensions directly from the graph
             graph.operations().forEachRemaining(operation -> {
                 String opName = operation.output(0).op().name();
-//                System.out.println(opName);
                 for (TensorInfo tensorInfo : networkInfo.inputs) {
                     if (opName.equals(tensorInfo.operation)) {
                         Shape shape = operation.output(0).shape();
                         tensorInfo.height = shape.numDimensions() > 1 ? (int)shape.size(1) : 0;
                         tensorInfo.width = shape.numDimensions() > 2 ? (int)shape.size(2) : 0;
                         tensorInfo.channels = shape.numDimensions() > 3 ? (int)shape.size(3) : 0;
-//                        System.out.println(operation.output(0).op().name());
-//                        System.out.println(operation.output(0).shape());
                     }
                 }
             });
-
-            //See if there is metadata
-//            Tensor metadataTensor = sess.runner()
-//                    .fetch("metadata:0")
-//                    .run()
-//                    .get(0);
-//            byte[] metadataString = new byte[metadataTensor.numBytes()];
-//            metadataTensor.copyTo(metadataString);
-//            metadataTensor.close();
             setEnabled(true);
         } catch (Exception ex) {
             BasicDialogs.ShowException("Error opening tensorflow graph", ex);
@@ -122,13 +86,14 @@ public class NetworkEx {
         return true;
     }
 
-    private Tensor predict(float[] patch, int[] shape, String input, String output) {
-        //Create input
+    private Tensor predictFromFloatArray(float[] patch, int[] shape, String input, String output) {
+        // Create input
         FloatBuffer buffer = FloatBuffer.wrap(patch);
         TensorInfo inputInfo = getTensorInfoByName(networkInfo.inputs, input);
         Tensor inputTensor = createTensorFromInfo(inputInfo, shape, buffer);
         TensorInfo outputInfo = getTensorInfoByName(networkInfo.outputs, output);
-        //Calculate output
+
+        // Calculate output
         Tensor outputTensor = sess.runner()
                 .feed(inputInfo.operation, inputTensor)
                 .fetch(outputInfo.operation)
@@ -143,21 +108,13 @@ public class NetworkEx {
     private Tensor predict(Mat mat, String input, String output) {
         //Create input
         float[] patch = matToFloatArray(mat);
-        return predict(patch, new int[] {1, mat.rows(), mat.cols(), mat.channels()}, input, output);
+        return predictFromFloatArray(patch, new int[] {1, mat.rows(), mat.cols(), mat.channels()}, input, output);
     }
 
     private Tensor predict(List<Mat> mats, String input, String output) {
         //Create input
-        float[] patch = matToFloatArray(mats);
-        return predict(patch, new int[] {mats.size(), mats.get(0).rows(), mats.get(0).cols(), mats.get(0).channels()}, input, output);
-    }
-
-    public float[][] tensorToFloat(Tensor outputTensor) {
-        long[] shape = outputTensor.shape();
-        float[][] result = new float[(int)shape[0]][(int)(outputTensor.numElements() / shape[0])];
-        outputTensor.copyTo(result);
-        outputTensor.close();
-        return result;
+        float[] patch = listOfMatsToFloatArray(mats);
+        return predictFromFloatArray(patch, new int[] {mats.size(), mats.get(0).rows(), mats.get(0).cols(), mats.get(0).channels()}, input, output);
     }
 
     public float[][] predictLabel(Mat mat, String input, String output) {
@@ -170,7 +127,45 @@ public class NetworkEx {
         return tensorToFloat(outputTensor);
     }
 
-    public Mat predictMat(Mat mat, String input, String output) {
+    public ClassificationSet classify(Mat mat) {
+        float[] probs = predictLabel(mat, networkInfo.inputs.get(0).name, networkInfo.outputs.get(0).name)[0];
+        ClassificationSet classificationSet = new ClassificationSet();
+        for (int i = 0; i < probs.length; i++) {
+            classificationSet.add(networkInfo.labels.get(i).code, probs[i], networkInfo.name);
+        }
+        return classificationSet;
+    }
+
+    public List<ClassificationSet> classify(List<Mat> mats) {
+        float[][] probs = predictLabel(mats, networkInfo.inputs.get(0).name, networkInfo.outputs.get(0).name);
+        ArrayList<ClassificationSet> classificationSets = new ArrayList<>();
+        for (int i = 0; i < probs.length; i++) {
+            ClassificationSet classificationSet = new ClassificationSet();
+            float[] prob = probs[i];
+            for (int j = 0; j < prob.length; j++) {
+                classificationSet.add(networkInfo.labels.get(j).code, prob[j], networkInfo.name);
+            }
+            classificationSets.add(classificationSet);
+        }
+        return classificationSets;
+    }
+
+    public <T extends Object> HashMap<T,ClassificationSet> classify(HashMap<T, Mat> matHashMap) {
+        ArrayList<T> keys = new ArrayList<>();
+        ArrayList<Mat> mats = new ArrayList<>();
+        for(Map.Entry<T,Mat> entry : matHashMap.entrySet()) {
+            keys.add(entry.getKey());
+            mats.add(entry.getValue());
+        }
+        List<ClassificationSet> classificationSets = classify(mats);
+        HashMap<T,ClassificationSet> classificationSetHashMap = new HashMap<>();
+        for (int i = 0; i < mats.size(); i++) {
+            classificationSetHashMap.put(keys.get(i), classificationSets.get(i));
+        }
+        return classificationSetHashMap;
+    }
+
+    public Mat predictSegmentation(Mat mat, String input, String output) {
         Tensor outputTensor = predict(mat, input, output);
         long[] shape = outputTensor.shape();
         float[][][][] result = new float[1][(int)shape[1]][(int)shape[2]][(int)shape[3]];
@@ -192,87 +187,19 @@ public class NetworkEx {
         return outputMat;
     }
 
-    public Mat predictMat(Mat mat) {
-        return predictMat(mat, networkInfo.inputs.get(0).name, networkInfo.outputs.get(0).name);
+    public Mat predictSegmentation(Mat mat) {
+        return predictSegmentation(mat, networkInfo.inputs.get(0).name, networkInfo.outputs.get(0).name);
     }
 
-    public ClassificationSet predictLabel(Mat mat) {
-        float[] probs = predictLabel(mat, networkInfo.inputs.get(0).name, networkInfo.outputs.get(0).name)[0];
-        ClassificationSet classificationSet = new ClassificationSet();
-        for (int i = 0; i < probs.length; i++) {
-            classificationSet.add(networkInfo.labels.get(i).code, probs[i], networkInfo.name);
-        }
-        return classificationSet;
+    public float[][] tensorToFloat(Tensor outputTensor) {
+        long[] shape = outputTensor.shape();
+        float[][] result = new float[(int)shape[0]][(int)(outputTensor.numElements() / shape[0])];
+        outputTensor.copyTo(result);
+        outputTensor.close();
+        return result;
     }
 
-    public List<ClassificationSet> predictLabel(List<Mat> mats) {
-        float[][] probs = predictLabel(mats, networkInfo.inputs.get(0).name, networkInfo.outputs.get(0).name);
-        ArrayList<ClassificationSet> classificationSets = new ArrayList<>();
-        for (int i = 0; i < probs.length; i++) {
-            ClassificationSet classificationSet = new ClassificationSet();
-            float[] prob = probs[i];
-            for (int j = 0; j < prob.length; j++) {
-                classificationSet.add(networkInfo.labels.get(j).code, prob[j], networkInfo.name);
-            }
-            classificationSets.add(classificationSet);
-        }
-        return classificationSets;
-    }
 
-    public <T extends Object> HashMap<T,ClassificationSet> predictLabel(HashMap<T, Mat> matHashMap) {
-        ArrayList<T> keys = new ArrayList<>();
-        ArrayList<Mat> mats = new ArrayList<>();
-        for(Map.Entry<T,Mat> entry : matHashMap.entrySet()) {
-            keys.add(entry.getKey());
-            mats.add(entry.getValue());
-        }
-        List<ClassificationSet> classificationSets = predictLabel(mats);
-        HashMap<T,ClassificationSet> classificationSetHashMap = new HashMap<>();
-        for (int i = 0; i < mats.size(); i++) {
-            classificationSetHashMap.put(keys.get(i), classificationSets.get(i));
-        }
-        return classificationSetHashMap;
-    }
-
-    private float[] matToFloatArray(Mat mat) {
-        //Convert to RGB (OpenCV is BGR)
-        Mat rgb = new Mat();
-        if (mat.channels() == 3) Imgproc.cvtColor(mat, rgb, Imgproc.COLOR_BGR2RGB);
-        else rgb = mat.clone();
-        //Copy to mat data to float array for feeding into the network
-        int size = rgb.rows() * rgb.cols() * rgb.channels();
-        float[] patch = new float[size];
-        rgb.get(0, 0, patch);
-        rgb.release();
-        return patch;
-    }
-
-    private float[] matToFloatArray(List<Mat> mats) {
-        //Check we actually have mats
-        if (mats.size() == 0) return null;
-        //Initialise the float array
-        Mat firstMat = mats.get(0);
-        int size = firstMat.rows() * firstMat.cols() * firstMat.channels();
-        float[] patch = new float[size*mats.size()];
-        float[] temp = new float[size];
-
-        int idx = 0;
-        for (Mat mat : mats) {
-            if (mat.rows() != firstMat.rows() ||
-                    mat.cols() != firstMat.cols() ||
-                    mat.channels() != firstMat.channels()) {
-                throw new IllegalArgumentException("All Mats must have the same dimensions.");
-            }
-            Mat rgb = new Mat();
-            if (mat.channels() == 3) Imgproc.cvtColor(mat, rgb, Imgproc.COLOR_BGR2RGB);
-            else rgb = mat.clone();
-            rgb.get(0, 0, temp);
-            rgb.release();
-            System.arraycopy(temp, 0, patch, idx, size);
-            idx += size;
-        }
-        return patch;
-    }
 
     private TensorInfo getTensorInfoByName(ArrayList<TensorInfo> tensorInfos, String name) {
         for (TensorInfo tensorInfo : tensorInfos) {

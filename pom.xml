@@ -203,6 +203,14 @@
         <!--            <systemPath>${project.basedir}/lib/libtensorflow-1.15.0.jar</systemPath>-->
         <!--        </dependency>-->
 
+        <!-- https://mvnrepository.com/artifact/com.microsoft.onnxruntime/onnxruntime -->
+        <dependency>
+            <groupId>com.microsoft.onnxruntime</groupId>
+            <artifactId>onnxruntime</artifactId>
+            <version>1.12.1</version>
+        </dependency>
+
+
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>

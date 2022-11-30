@@ -104,7 +104,7 @@ public class CNNPredictionService {
                                         updateProgress(idx.get(), total);
                                         //Cleanup
                                         if (mats.size() > 0) {
-                                            HashMap<Particle, ClassificationSet> results = supervisor.network.predictLabel(new HashMap<>(mats));
+                                            HashMap<Particle, ClassificationSet> results = supervisor.network.classify(new HashMap<>(mats));
                                             for (Mat mat : mats.values()) {
                                                 mat.release();
                                             }
@@ -134,7 +134,7 @@ public class CNNPredictionService {
                     image = imageProcessingService.processForNetwork(mat, supervisor.network.getNetworkInfo());
                     mat.release();
                 }
-                ClassificationSet classificationSet = supervisor.network.predictLabel(image.workingImage);
+                ClassificationSet classificationSet = supervisor.network.classify(image.workingImage);
                 image.release();
                 return classificationSet;
             }

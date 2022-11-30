@@ -73,7 +73,7 @@ public class CNNPredictionViewModel {
     }
 
     public void onCurrentParticleUpdated(Particle particle) {
-        if (particle == null || !supervisor.network.isEnabled()) {
+        if (particle == null || supervisor.network == null || !supervisor.network.isEnabled()) {
             setCnnPredictedClassification(null);
             return;
         }
