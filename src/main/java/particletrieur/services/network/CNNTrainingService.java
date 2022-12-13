@@ -228,8 +228,8 @@ public class CNNTrainingService {
         } else if (SystemUtils.IS_OS_MAC_OSX) {
             terminalCommand = "conda activate " + ENV + " && cd \"" + basePath + "\" && python -u " + command;
         } else if (SystemUtils.IS_OS_LINUX) {
-//            terminalCommand = pythonPath + " -u " + command;
-            terminalCommand = "conda activate " + ENV + " && cd \"" + basePath + "\" && python -u " + command;
+            terminalCommand = pythonPath + " -u " + command;
+//            terminalCommand = "conda activate " + ENV + " && cd \"" + basePath + "\" && python -u " + command;
         } else {
             throw new RuntimeException("Unsupported OS");
         }
