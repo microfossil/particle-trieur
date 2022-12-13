@@ -17,6 +17,8 @@
             prefHeight="360.0" prefWidth="640.0">
     <VBox spacing="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <children>
+            <Label text="2.4.17" styleClass="subheader"/>
+            <Label wrapText="true">Fix flowcam segmention script error</Label>
             <Label text="2.4.16" styleClass="subheader"/>
             <Label wrapText="true">Option to display ellipse</Label>
             <Label text="2.4.15" styleClass="subheader"/>
@@ -27,8 +29,6 @@
             <Label wrapText="true">Update miso library at start of training</Label>
             <Label text="2.4.12" styleClass="subheader"/>
             <Label wrapText="true">Fix launch training in macOS</Label>
-            <Label text="2.4.11" styleClass="subheader"/>
-            <Label wrapText="true">Bug fix to remove duplicate labels; update miso2 on script run</Label>
             <Separator/>
             <Label>Raise an issue (bugs / enhancements) here:</Label>
             <Hyperlink onAction="#handleClickLink">https://github.com/microfossil/particle-trieur/issues</Hyperlink>
