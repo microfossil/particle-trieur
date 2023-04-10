@@ -2,6 +2,7 @@ package particletrieur.models.network.classification;
 
 import ai.onnxruntime.*;
 import com.google.common.io.ByteStreams;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import particletrieur.App;
 import particletrieur.controls.dialogs.BasicDialogs;
@@ -59,7 +60,7 @@ public class OnnxNetwork extends NetworkBase {
         return true;
     }
 
-    private float[] predictFromFloatArray(float[] patch, long[] shape) throws OrtException {
+    public float[] predictVectorFromFloatArray(float[] patch, long[] shape) throws OrtException {
         // Create input
         FloatBuffer buffer = FloatBuffer.wrap(patch);
         OnnxTensor inputTensor = OnnxTensor.createTensor(ortEnvironment, buffer, shape);
@@ -72,11 +73,55 @@ public class OnnxNetwork extends NetworkBase {
         return output[0];
     }
 
+    public float[][][] predictImageFromFloatArray(float[] patch, long[] shape) throws OrtException {
+        // Create input
+        FloatBuffer buffer = FloatBuffer.wrap(patch);
+        OnnxTensor inputTensor = OnnxTensor.createTensor(ortEnvironment, buffer, shape);
+        Map<String, OnnxTensor> input = new HashMap<>();
+        input.put(inputName, inputTensor);
+        OrtSession.Result result = ortSession.run(input);
+        float[][][][] output = (float[][][][])result.get(0).getValue();
+        return output[0];
+    }
+
+    public float[] predictVectorFromMat(Mat mat) throws OrtException {
+        float[] patch = matToFloatArray(mat);
+        return predictVectorFromFloatArray(patch, new long[]{1, mat.rows(), mat.cols(), mat.channels()});
+    }
+
+    public float[][][] predictImageFromMat(Mat mat) throws OrtException {
+        float[] patch = matToFloatArray(mat);
+        return predictImageFromFloatArray(patch, new long[]{1, mat.rows(), mat.cols(), mat.channels()});
+    }
+
+    public Mat predictFromMatSegmentation(Mat mat) throws OrtException {
+        float[][][] result = predictImageFromMat(mat);
+//        Tensor outputTensor = predict(mat, input, output);
+//        long[] shape = outputTensor.shape();
+//        float[][][][] result = new float[1][(int)shape[1]][(int)shape[2]][(int)shape[3]];
+//        outputTensor.copyTo(result);
+        Mat outputMat = new Mat(mat.size(), CvType.CV_32FC1);
+        float[] flattened = new float[mat.rows() * mat.cols()];
+        int idx = 0;
+        for (int i = 0; i < mat.rows(); i++) {
+            for (int j = 0; j < mat.cols(); j++) {
+                for (int k = 0; k < mat.channels(); k++) {
+                    flattened[idx] = result[i][j][k];
+                    idx++;
+                }
+            }
+        }
+        outputMat.put(0,0, flattened);
+//        if (outputMat.channels() == 3) Imgproc.cvtColor(outputMat, outputMat, Imgproc.COLOR_RGB2BGR);
+//        outputTensor.close();
+        return outputMat;
+    }
+
     @Override
     public ClassificationSet classify(Mat mat) {
         float[] patch = matToFloatArray(mat);
         try {
-            float[] probs = predictFromFloatArray(patch, new long[]{1, mat.rows(), mat.cols(), mat.channels()});
+            float[] probs = predictVectorFromFloatArray(patch, new long[]{1, mat.rows(), mat.cols(), mat.channels()});
             ClassificationSet classificationSet = new ClassificationSet();
             for (int i = 0; i < probs.length; i++) {
                 classificationSet.add(networkInfo.labels.get(i).code, probs[i], networkInfo.name);
@@ -93,7 +138,7 @@ public class OnnxNetwork extends NetworkBase {
     public List<ClassificationSet> classify(List<Mat> mats) {
         float[] patch = listOfMatsToFloatArray(mats);
         try {
-            float[] probs = predictFromFloatArray(patch, new long[] {mats.size(), mats.get(0).rows(), mats.get(0).cols(), mats.get(0).channels()});
+            float[] probs = predictVectorFromFloatArray(patch, new long[] {mats.size(), mats.get(0).rows(), mats.get(0).cols(), mats.get(0).channels()});
             ArrayList<ClassificationSet> classificationSets = new ArrayList<>();
             int numOutputs = probs.length / mats.size();
             for (int i = 0; i < probs.length; i+= numOutputs) {

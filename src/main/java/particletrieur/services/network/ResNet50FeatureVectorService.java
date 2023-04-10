@@ -1,6 +1,8 @@
 package particletrieur.services.network;
 
+import ai.onnxruntime.OrtException;
 import particletrieur.controls.dialogs.BasicDialogs;
+import particletrieur.models.network.classification.OnnxNetwork;
 import particletrieur.models.network.classification.TensorflowNetwork;
 import particletrieur.models.network.classification.NetworkInfo;
 import particletrieur.models.network.classification.TensorInfo;
@@ -23,6 +25,8 @@ import java.nio.file.Files;
 public class ResNet50FeatureVectorService {
 
     public TensorflowNetwork tensorflowNetwork;
+
+    public OnnxNetwork onnxNetwork;
     public boolean isRecalculate = false;
 
     public ResNet50FeatureVectorService() {
@@ -30,7 +34,8 @@ public class ResNet50FeatureVectorService {
         NetworkInfo info = new NetworkInfo();
         info.name = "feature_vector";
         info.description = "Creates a feature vector from the image";
-        info.protobuf =  "/trained_networks/feature_vector/frozen_model.pb";
+//        info.protobuf =  "/trained_networks/feature_vector/frozen_model.pb";
+        info.protobuf =  "/trained_networks/feature_vector/model.onnx";
         info.type = "vector";
         TensorInfo input = new TensorInfo();
         input.name = "image";
@@ -45,26 +50,41 @@ public class ResNet50FeatureVectorService {
         info.outputs.add(output);
         info.isResource = true;
 
-        tensorflowNetwork = new TensorflowNetwork();
-        tensorflowNetwork.setNetworkInfo(info);
-        if (!tensorflowNetwork.setup()) {
+//        tensorflowNetwork = new TensorflowNetwork();
+//        tensorflowNetwork.setNetworkInfo(info);
+//        if (!tensorflowNetwork.setup()) {
+//            BasicDialogs.ShowError("Network error",
+//                    "Cannot start ResNet50 feature vector network.\nThe tensorflow graph file does not exist, or the network XML file was an old version.");
+//        }
+
+        onnxNetwork = new OnnxNetwork();
+        onnxNetwork.setNetworkInfo(info);
+        if (!onnxNetwork.setup()) {
             BasicDialogs.ShowError("Network error",
-                    "Cannot start ResNet50 feature vector network.\nThe tensorflow graph file does not exist, or the network XML file was an old version.");
+                    "Cannot start ResNet50 feature vector network.\nThe onnx model does not exist, or the network XML file was an old version.");
         }
     }
 
     public float[] predict(Mat mat) {
-        TensorInfo info = tensorflowNetwork.getNetworkInfo().inputs.get(0);
+//        TensorInfo info = tensorflowNetwork.getNetworkInfo().inputs.get(0);
+//        ParticleImage image = ParticleImage.create(mat, ImageType.LIGHTONDARK, false);
+//        image.normaliseMinMax(0, 255);
+//        image.makeSquare();
+//        Mat input = Preprocessor.resize(image.workingImage, info.height, info.width, info.channels);
+//        float[][] vector = tensorflowNetwork.predictLabel(input, "image", "vector");
+//        input.release();
+//        image.release();
+//        return vector[0];
+        TensorInfo info = onnxNetwork.getNetworkInfo().inputs.get(0);
         ParticleImage image = ParticleImage.create(mat, ImageType.LIGHTONDARK, false);
         image.normaliseMinMax(0, 255);
         image.makeSquare();
         Mat input = Preprocessor.resize(image.workingImage, info.height, info.width, info.channels);
-//        input.convertTo(input, CvType.CV_32F);
-//        Core.divide(input, Scalar.all(255), input);
-        float[][] vector = tensorflowNetwork.predictLabel(input, "image", "vector");
-        input.release();
-        image.release();
-        return vector[0];
+        try {
+            return onnxNetwork.predictVectorFromMat(input);
+        } catch (OrtException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //TODO move to service

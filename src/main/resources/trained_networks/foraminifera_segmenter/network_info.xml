@@ -15,7 +15,7 @@
   </inputs>
   <outputs>
     <output0>
-      <operation>data</operation>
+      <operation>sigmoid/Sigmoid</operation>
       <height>256</height>
       <width>256</width>
       <channels>1</channels>

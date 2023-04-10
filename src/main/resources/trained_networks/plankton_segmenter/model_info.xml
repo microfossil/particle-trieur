@@ -16,7 +16,7 @@
   <inputs>
     <input>
       <name>image</name>
-      <operation>data</operation>
+      <operation>image</operation>
       <height>224</height>
       <width>224</width>
       <channels>3</channels>
@@ -25,7 +25,7 @@
   <outputs>
     <output>
       <name>pred</name>
-      <operation>sigmoid/Sigmoid</operation>
+      <operation>pred/Sigmoid</operation>
       <height>224</height>
       <width>224</width>
       <channels>1</channels>
