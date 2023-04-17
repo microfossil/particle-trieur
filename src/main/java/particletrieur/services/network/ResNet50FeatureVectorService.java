@@ -81,7 +81,7 @@ public class ResNet50FeatureVectorService {
         image.makeSquare();
         Mat input = Preprocessor.resize(image.workingImage, info.height, info.width, info.channels);
         try {
-            return onnxNetwork.predictVectorFromMat(input);
+            return onnxNetwork.predictVectorFromMat(input)[0];
         } catch (OrtException e) {
             throw new RuntimeException(e);
         }

@@ -60,7 +60,7 @@ public class OnnxNetwork extends NetworkBase {
         return true;
     }
 
-    public float[] predictVectorFromFloatArray(float[] patch, long[] shape) throws OrtException {
+    public float[][] predictVectorFromFloatArray(float[] patch, long[] shape) throws OrtException {
         // Create input
         FloatBuffer buffer = FloatBuffer.wrap(patch);
         OnnxTensor inputTensor = OnnxTensor.createTensor(ortEnvironment, buffer, shape);
@@ -70,10 +70,10 @@ public class OnnxNetwork extends NetworkBase {
 
         float[][] output = (float[][])result.get(0).getValue();
 
-        return output[0];
+        return output;
     }
 
-    public float[][][] predictImageFromFloatArray(float[] patch, long[] shape) throws OrtException {
+    public float[][][][] predictImageFromFloatArray(float[] patch, long[] shape) throws OrtException {
         // Create input
         FloatBuffer buffer = FloatBuffer.wrap(patch);
         OnnxTensor inputTensor = OnnxTensor.createTensor(ortEnvironment, buffer, shape);
@@ -81,21 +81,21 @@ public class OnnxNetwork extends NetworkBase {
         input.put(inputName, inputTensor);
         OrtSession.Result result = ortSession.run(input);
         float[][][][] output = (float[][][][])result.get(0).getValue();
-        return output[0];
+        return output;
     }
 
-    public float[] predictVectorFromMat(Mat mat) throws OrtException {
+    public float[][] predictVectorFromMat(Mat mat) throws OrtException {
         float[] patch = matToFloatArray(mat);
         return predictVectorFromFloatArray(patch, new long[]{1, mat.rows(), mat.cols(), mat.channels()});
     }
 
-    public float[][][] predictImageFromMat(Mat mat) throws OrtException {
+    public float[][][][] predictImageFromMat(Mat mat) throws OrtException {
         float[] patch = matToFloatArray(mat);
         return predictImageFromFloatArray(patch, new long[]{1, mat.rows(), mat.cols(), mat.channels()});
     }
 
     public Mat predictFromMatSegmentation(Mat mat) throws OrtException {
-        float[][][] result = predictImageFromMat(mat);
+        float[][][] result = predictImageFromMat(mat)[0];
 //        Tensor outputTensor = predict(mat, input, output);
 //        long[] shape = outputTensor.shape();
 //        float[][][][] result = new float[1][(int)shape[1]][(int)shape[2]][(int)shape[3]];
@@ -121,7 +121,7 @@ public class OnnxNetwork extends NetworkBase {
     public ClassificationSet classify(Mat mat) {
         float[] patch = matToFloatArray(mat);
         try {
-            float[] probs = predictVectorFromFloatArray(patch, new long[]{1, mat.rows(), mat.cols(), mat.channels()});
+            float[] probs = predictVectorFromFloatArray(patch, new long[]{1, mat.rows(), mat.cols(), mat.channels()})[0];
             ClassificationSet classificationSet = new ClassificationSet();
             for (int i = 0; i < probs.length; i++) {
                 classificationSet.add(networkInfo.labels.get(i).code, probs[i], networkInfo.name);
@@ -138,13 +138,12 @@ public class OnnxNetwork extends NetworkBase {
     public List<ClassificationSet> classify(List<Mat> mats) {
         float[] patch = listOfMatsToFloatArray(mats);
         try {
-            float[] probs = predictVectorFromFloatArray(patch, new long[] {mats.size(), mats.get(0).rows(), mats.get(0).cols(), mats.get(0).channels()});
+            float[][] probs = predictVectorFromFloatArray(patch, new long[] {mats.size(), mats.get(0).rows(), mats.get(0).cols(), mats.get(0).channels()});
             ArrayList<ClassificationSet> classificationSets = new ArrayList<>();
-            int numOutputs = probs.length / mats.size();
-            for (int i = 0; i < probs.length; i+= numOutputs) {
+            for (int i = 0; i < mats.size(); i ++) {
                 ClassificationSet classificationSet = new ClassificationSet();
-                for (int j = 0; j < numOutputs; j++) {
-                    classificationSet.add(networkInfo.labels.get(j).code, probs[i + j], networkInfo.name);
+                for (int j = 0; j < probs[i].length; j++) {
+                    classificationSet.add(networkInfo.labels.get(j).code, probs[i][j], networkInfo.name);
                 }
                 classificationSets.add(classificationSet);
             }

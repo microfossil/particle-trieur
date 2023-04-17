@@ -6,7 +6,7 @@
 
     <groupId>ordervschaos</groupId>
     <artifactId>ParticleTrieur</artifactId>
-    <version>2.4.17</version>
+    <version>3.0.0</version>
 
     <build>
         <finalName>${project.artifactId}</finalName>
@@ -178,31 +178,17 @@
             <version>2.7.4</version>
         </dependency>
         <!-- Tensorflow -->
-        <dependency>
-            <groupId>org.tensorflow</groupId>
-            <artifactId>libtensorflow</artifactId>
-            <version>1.15.0</version>
-        </dependency>
-        <!-- Tensorflow JNI with the lib names changed correctly -->
-        <dependency>
-            <groupId>org.tensorflow</groupId>
-            <artifactId>libtensorflow_jni</artifactId>
-            <version>1.15.0</version>
-        </dependency>
-        <!-- Tensorflow gpu -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.tensorflow</groupId>-->
-        <!--            <artifactId>libtensorflow_jni_gpu</artifactId>-->
-        <!--            <version>1.14.0</version>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.tensorflow</groupId>-->
-        <!--            <artifactId>libtensorflow</artifactId>-->
-        <!--            <version>1.15.0</version>-->
-        <!--            <scope>system</scope>-->
-        <!--            <systemPath>${project.basedir}/lib/libtensorflow-1.15.0.jar</systemPath>-->
-        <!--        </dependency>-->
-
+<!--        <dependency>-->
+<!--            <groupId>org.tensorflow</groupId>-->
+<!--            <artifactId>libtensorflow</artifactId>-->
+<!--            <version>1.15.0</version>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash; Tensorflow JNI with the lib names changed correctly &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.tensorflow</groupId>-->
+<!--            <artifactId>libtensorflow_jni</artifactId>-->
+<!--            <version>1.15.0</version>-->
+<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/com.microsoft.onnxruntime/onnxruntime -->
         <dependency>
             <groupId>com.microsoft.onnxruntime</groupId>
