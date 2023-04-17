@@ -60,7 +60,7 @@ import particletrieur.viewmodels.network.NetworkViewModel;
 import particletrieur.viewmodels.project.ProjectRepositoryViewModel;
 import particletrieur.viewmodels.stats.StatisticsChartsViewModel;
 import particletrieur.viewmodels.tools.ToolsViewModel;
-import org.tensorflow.TensorFlow;
+//import org.tensorflow.TensorFlow;
 
 import java.util.stream.Collectors;
 
@@ -203,7 +203,7 @@ public class MainController extends AbstractController implements Initializable 
 //        System.loadLibrary(org.opencv.core.Core.NATIVE_LIBRARY_NAME);
 
         //Tensorflow is already initialised
-        System.out.println(String.format("Tensorflow version: %s", TensorFlow.version()));
+//        System.out.println(String.format("Tensorflow version: %s", TensorFlow.version()));
         setupBindings();
 
 
