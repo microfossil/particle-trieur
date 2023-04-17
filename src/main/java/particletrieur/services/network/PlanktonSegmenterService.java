@@ -4,14 +4,14 @@ import ai.onnxruntime.OrtException;
 import org.opencv.core.Mat;
 import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.models.network.classification.OnnxNetwork;
-import particletrieur.models.network.classification.TensorflowNetwork;
+//import particletrieur.models.network.classification.TensorflowNetwork;
 import particletrieur.models.network.classification.NetworkInfo;
 import particletrieur.models.network.classification.TensorInfo;
 import particletrieur.models.processing.processors.Preprocessor;
 
 public class PlanktonSegmenterService implements ISegmenterService {
 
-    public TensorflowNetwork tensorflowNetwork;
+//    public TensorflowNetwork tensorflowNetwork;
 
     public OnnxNetwork onnxNetwork;
     private NetworkInfo info;

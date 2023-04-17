@@ -11,7 +11,7 @@ import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.helpers.ExceptionMonitor;
 import particletrieur.models.network.classification.NetworkBase;
 import particletrieur.models.network.classification.OnnxNetwork;
-import particletrieur.models.network.classification.TensorflowNetwork;
+//import particletrieur.models.network.classification.TensorflowNetwork;
 import particletrieur.models.project.Project;
 import particletrieur.models.tools.ClassificationServer;
 import javafx.beans.property.SimpleStringProperty;
@@ -61,8 +61,8 @@ public class Supervisor {
 
         //Connect project and network
         project.networkDefinitionProperty().addListener((objv,oldv,newv) -> {
-            if (newv.protobuf.endsWith("pb")) network = new TensorflowNetwork();
-            else if (newv.protobuf.endsWith("onnx")) network = new OnnxNetwork();
+//            if (newv.protobuf.endsWith("pb")) network = new TensorflowNetwork();
+            if (newv.protobuf.endsWith("onnx")) network = new OnnxNetwork();
             network.setNetworkInfo(newv);
             if (!network.setup()) {
                 BasicDialogs.ShowError("Network error",

@@ -3,7 +3,7 @@ package particletrieur.services.network;
 import ai.onnxruntime.OrtException;
 import particletrieur.controls.dialogs.BasicDialogs;
 import particletrieur.models.network.classification.OnnxNetwork;
-import particletrieur.models.network.classification.TensorflowNetwork;
+//import particletrieur.models.network.classification.TensorflowNetwork;
 import particletrieur.models.network.classification.NetworkInfo;
 import particletrieur.models.network.classification.TensorInfo;
 import particletrieur.models.processing.ImageType;
@@ -24,7 +24,7 @@ import java.nio.file.Files;
 
 public class ResNet50FeatureVectorService {
 
-    public TensorflowNetwork tensorflowNetwork;
+//    public TensorflowNetwork tensorflowNetwork;
 
     public OnnxNetwork onnxNetwork;
     public boolean isRecalculate = false;
