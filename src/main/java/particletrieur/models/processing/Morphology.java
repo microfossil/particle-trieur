@@ -164,19 +164,24 @@ public class Morphology implements Serializable {
         sb.append(String.format("%f,", (float) moment5));
         sb.append(String.format("%f", (float) moment6));
 
-        sb.append(String.format("%f", (float) aspectRatio));
-        sb.append(String.format("%f", (float) equivalentDiameter));
-        sb.append(String.format("%f", (float) perimeterToAreaRatio));
-        sb.append(String.format("%f", (float) areaToBoundingRectangleArea));
-        sb.append(String.format("%f", (float) equivalentSphericalDiameter));
-        sb.append(String.format("%f", (float) elongation));
-        sb.append(String.format("%f", (float) Husmoment1));
-        sb.append(String.format("%f", (float) Husmoment2));
-        sb.append(String.format("%f", (float) Husmoment3));
-        sb.append(String.format("%f", (float) Husmoment4));
-        sb.append(String.format("%f", (float) Husmoment5));
-        sb.append(String.format("%f", (float) Husmoment6));
+        sb.append(String.format("%f,", (float) aspectRatio));
+        sb.append(String.format("%f,", (float) equivalentDiameter));
+        sb.append(String.format("%f,", (float) perimeterToAreaRatio));
+        sb.append(String.format("%f,", (float) areaToBoundingRectangleArea));
+        sb.append(String.format("%f,", (float) equivalentSphericalDiameter));
+        sb.append(String.format("%f,", (float) elongation));
+        sb.append(String.format("%f,", (float) Husmoment1));
+        sb.append(String.format("%f,", (float) Husmoment2));
+        sb.append(String.format("%f,", (float) Husmoment3));
+        sb.append(String.format("%f,", (float) Husmoment4));
+        sb.append(String.format("%f,", (float) Husmoment5));
+        sb.append(String.format("%f,", (float) Husmoment6));
         sb.append(String.format("%f", (float) Husmoment7));
+
+        // If you are adding more fields:
+        // - change the previous last field format string from "%f" to "%f,"
+        // - make sure the next field format strings are "%f,"
+        // - make sure the last field format string is "%f"
 
         return sb.toString();
     }
@@ -192,7 +197,10 @@ public class Morphology implements Serializable {
                 "m_minEnclosingCircleArea,m_minEnclosingCircleAreaMM2," +
                 "m_minEnclosingCircleRadius,m_minEnclosingCircleRadiusMM," +
                 "m_eccentricity,m_solidity,m_roundness,m_circularity," +
-                "m_mean,m_stddev,m_stddevInvariant,"
-                + "m_skewness,m_kurtosis,m_5thmoment,m_6thmoment";
+                "m_mean,m_stddev,m_stddevInvariant," +
+                "m_skewness,m_kurtosis,m_5thmoment,m_6thmoment," +
+                "m_aspectRatio,m_equivalentDiameter,m_perimeterToAreaRatio," +
+                "m_areaToBoundingRectangleArea,m_equivalentSphericalDiameter,m_elongation," +
+                "m_Husmoment1,m_Husmoment2,m_Husmoment3,m_Husmoment4,m_Husmoment5,m_Husmoment6,m_Husmoment7";
     }
 }

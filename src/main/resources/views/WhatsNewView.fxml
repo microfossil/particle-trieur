@@ -17,7 +17,7 @@
             prefHeight="360.0" prefWidth="640.0">
     <VBox spacing="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <children>
-            <Label text="3.0.0" styleClass="subheader"/>
+            <Label text="3.0.1" styleClass="subheader"/>
             <Label wrapText="true">Change from tensorflow to ONNX</Label>
             <Label text="2.4.17" styleClass="subheader"/>
             <Label wrapText="true">Fix flowcam segmention script error</Label>

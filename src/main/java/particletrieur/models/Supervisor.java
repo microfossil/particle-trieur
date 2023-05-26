@@ -62,13 +62,16 @@ public class Supervisor {
         //Connect project and network
         project.networkDefinitionProperty().addListener((objv,oldv,newv) -> {
 //            if (newv.protobuf.endsWith("pb")) network = new TensorflowNetwork();
-            if (newv.protobuf.endsWith("onnx")) network = new OnnxNetwork();
-            network.setNetworkInfo(newv);
-            if (!network.setup()) {
-                BasicDialogs.ShowError("Network error",
-                        "Cannot start project network at " + newv.protobuf + "\nThe model does not exist, or the network XML file was an old version.");
+            if (newv == null) project.setNetworkDefinition(null);
+            else {
+                if (newv.protobuf.endsWith("onnx")) network = new OnnxNetwork();
+                network.setNetworkInfo(newv);
+                if (!network.setup()) {
+                    BasicDialogs.ShowError("Network error",
+                            "Cannot start project network at " + newv.protobuf + "\nThe model does not exist, or the network XML file was an old version.");
+                }
+                if (!network.isEnabled()) project.setNetworkDefinition(null);
             }
-            if (!network.isEnabled() && newv != null) project.setNetworkDefinition(null);
         });
 
         //Load preferences

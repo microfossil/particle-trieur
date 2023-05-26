@@ -24,8 +24,6 @@
     <orderEntry type="library" name="Maven: org.eclipse.persistence:org.eclipse.persistence.moxy:2.7.4" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.persistence:org.eclipse.persistence.core:2.7.4" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.persistence:org.eclipse.persistence.asm:2.7.4" level="project" />
-    <orderEntry type="library" name="Maven: org.tensorflow:libtensorflow:1.15.0" level="project" />
-    <orderEntry type="library" name="Maven: org.tensorflow:libtensorflow_jni:1.15.0" level="project" />
     <orderEntry type="library" name="Maven: com.microsoft.onnxruntime:onnxruntime:1.12.1" level="project" />
     <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.4" level="project" />
     <orderEntry type="library" name="Maven: org.controlsfx:controlsfx:8.40.18" level="project" />
