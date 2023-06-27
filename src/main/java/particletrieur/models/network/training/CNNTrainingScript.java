@@ -45,7 +45,7 @@ public class CNNTrainingScript {
     public double[] augmentationGamma = new double[]{0.5, 1.0, 2.0};
     public double[] augmentationBias = new double[]{};
     public double[] augmentationZoom = new double[]{0.9, 1, 1.1};
-    public double[] augmentationGaussianNoise = new double[]{};
+    public double[] augmentationGaussianNoise = new double[]{0.01, 0.1};
     public int[] augmentationRandomCrop = new int[]{};
     public int[] augmentationOrigImgShape = new int[]{224, 224, 3};
 
