@@ -80,6 +80,8 @@ public class ExportMorphologyService {
                                             image.release();
                                         }
                                     } catch (Exception ex) {
+                                        System.out.println("Error calculating morphology for image " + foram.getFilename());
+                                        ex.printStackTrace();
                                         skippedBecauseOfErrors.getAndIncrement();
                                     }
                                     idx.getAndIncrement();
@@ -184,6 +186,8 @@ public class ExportMorphologyService {
                                         image.release();
                                     }
                                 } catch (Exception ex) {
+                                    System.out.println("Error calculating morphology for image " + foram.getFilename());
+                                    ex.printStackTrace();
                                     skippedBecauseOfErrors.getAndIncrement();
                                 }
                                 idx.getAndIncrement();

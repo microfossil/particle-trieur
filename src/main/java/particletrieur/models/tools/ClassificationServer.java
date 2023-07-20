@@ -406,7 +406,14 @@ public class ClassificationServer {
         Mat mat = particle.getMat();
         if (mat != null) {
             ParticleImage image = imageProcessingService.process(mat, supervisor.project.processingInfo);
-            Morphology m = MorphologyProcessor.calculateMorphology(image);
+            Morphology m = new Morphology();
+            try {
+                m = MorphologyProcessor.calculateMorphology(image);
+            }
+            catch (Exception ex) {
+                System.out.println("Error calculating morphology for image " + particle.getFilename());
+                ex.printStackTrace();
+            }
             mat.release();
             return m;
         }
