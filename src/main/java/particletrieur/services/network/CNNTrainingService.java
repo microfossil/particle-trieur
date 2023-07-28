@@ -15,7 +15,7 @@ public class CNNTrainingService {
     private static AppPreferences appPrefs = new AppPreferences();
 
     public static String ENV = "miso2";
-    public static String PACKAGE = "miso2==3.0.4";
+    public static String PACKAGE = "miso2==3.0.5";
 
     public CNNTrainingService() {
 
