@@ -17,7 +17,7 @@
             prefHeight="360.0" prefWidth="640.0">
     <VBox spacing="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <children>
-            <Label text="3.0.3" styleClass="subheader"/>
+            <Label text="3.0.3/4" styleClass="subheader"/>
             <Label wrapText="true">Update miso version</Label>
             <Label text="3.0.2" styleClass="subheader"/>
             <Label wrapText="true">Add small amount of Gaussian noise to training</Label>
