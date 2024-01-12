@@ -313,11 +313,11 @@
                     </graphic>
                 </Button>
                 <Pane HBox.hgrow="ALWAYS"/>
-                <Button mnemonicParsing="false" onAction="#handleUpdateMISO" text="Update library">
-                    <graphic>
-                        <SymbolLabel symbol="featherdownloadcloud"/>
-                    </graphic>
-                </Button>
+<!--                <Button mnemonicParsing="false" onAction="#handleUpdateMISO" text="Update library">-->
+<!--                    <graphic>-->
+<!--                        <SymbolLabel symbol="featherdownloadcloud"/>-->
+<!--                    </graphic>-->
+<!--                </Button>-->
                 <Button mnemonicParsing="false" onAction="#handleUpdatePythonLocation" text="Python location">
                     <graphic>
                         <SymbolLabel symbol="feathertarget"/>
