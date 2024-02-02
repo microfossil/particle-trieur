@@ -6,7 +6,7 @@
 
     <groupId>ordervschaos</groupId>
     <artifactId>ParticleTrieur</artifactId>
-    <version>3.0.4</version>
+    <version>3.0.5</version>
 
     <build>
         <finalName>${project.artifactId}</finalName>
@@ -178,6 +178,11 @@
             <version>2.7.4</version>
         </dependency>
         <!-- Tensorflow -->
+        <dependency>
+            <groupId>org.tensorflow</groupId>
+            <artifactId>tensorflow-core-platform</artifactId>
+            <version>0.3.3</version>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.tensorflow</groupId>-->
 <!--            <artifactId>libtensorflow</artifactId>-->
