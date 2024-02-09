@@ -21,7 +21,9 @@ public class AppPreferences {
     public static Preferences appPrefs =  Preferences.userRoot().node("particleTrieur2");
 
     //Needs checking in here for valid path
-    public String getProjectPath() { return appPrefs.get("projectPath", System.getProperty("user.home")); }
+    public String getProjectPath() {
+        return appPrefs.get("projectPath", System.getProperty("user.home"));
+    }
     public void setProjectPath(String path) { appPrefs.put("projectPath", path); }
     
     public String getExportPath() { return appPrefs.get("exportPath", System.getProperty("user.home")); }
@@ -48,7 +50,11 @@ public class AppPreferences {
     public String getUsername() { return appPrefs.get("username", System.getProperty("user.name")); }
     public void setUsername(String path) { appPrefs.put("username", path); }
 
-    public String getPythonPath() { return appPrefs.get("pythonPath", ""); }
+    public String getPythonPath() { String path = appPrefs.get("pythonPath", "");
+        path = path.replace("/miso2/", "/miso/");
+        path = path.replace("\\miso2\\", "\\miso\\");
+        return path;
+    }
     public void setPythonPath(String path) { appPrefs.put("pythonPath", path); }
 
     public String getRappPath() { return appPrefs.get("rappPath", ""); }

@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * FXML Controller class
@@ -101,6 +102,8 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
     Label labelNetworkDescription;
     @FXML
     CheckBox checkBoxUseMemoryMapping;
+    @FXML
+    CheckBox checkBoxUseTransferLearning;
 
     @Inject
     Supervisor supervisor;
@@ -110,7 +113,7 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        comboBoxCNNType.getItems().addAll(TrainingNetworkDescriptionService.getDescriptions());
+
         comboBoxCNNType.setCellFactory(param -> {
             HBox hBox = new HBox();
             Pane pane = new Pane();
@@ -132,11 +135,14 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
                     } else {
                         if (item.networkType.startsWith("base_cyclic") || item.networkType.startsWith("resnet_cyclic")) {
                             pane.setStyle("-fx-background-color: darkorange;");
-                        } else if (item.networkType.endsWith("tl")) {
-                            pane.setStyle("-fx-background-color: darkgreen;");
                         } else {
-                            pane.setStyle("-fx-background-color: darkred;");
+                            pane.setStyle("-fx-background-color: transparent;");
                         }
+//                        else if (item.networkType.endsWith("tl")) {
+//                            pane.setStyle("-fx-background-color: darkgreen;");
+//                        } else {
+//                            pane.setStyle("-fx-background-color: darkred;");
+//                        }
                         name.setText(item.name);
                         description.setText(item.description);
                         setGraphic(hBox);
@@ -190,7 +196,23 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
         hboxInputFolder.disableProperty().bind(Bindings.not(radioButtonInputFolder.selectedProperty()));
         textFieldCloudZipFile.disableProperty().bind(Bindings.not(radioButtonInputCloudZipFile.selectedProperty()));
 
+        checkBoxUseTransferLearning.selectedProperty().addListener(((observable, oldValue, newValue) -> {
+            ModelDefaults networkInfo = comboBoxCNNType.getSelectionModel().getSelectedItem();
+            comboBoxCNNType.getItems().clear();
+            if (!newValue) {
+                comboBoxCNNType.getItems().addAll(TrainingNetworkDescriptionService.getCustomNetworks());
+            }
+            comboBoxCNNType.getItems().addAll(TrainingNetworkDescriptionService.getDescriptions());
+
+            java.util.List<String> types = comboBoxCNNType.getItems().stream().map(x -> x.networkType).collect(Collectors.toList());
+
+            if (!types.contains(networkInfo.networkType)) comboBoxCNNType.getSelectionModel().select(0);
+            else comboBoxCNNType.getSelectionModel().select(types.indexOf(networkInfo.networkType));
+        }));
+        comboBoxCNNType.getItems().addAll(TrainingNetworkDescriptionService.getDescriptions());
+
         comboBoxCNNType.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) return;
             labelNetworkDescription.setText(newValue.description);
             comboBoxInputSize.setValue(newValue.imageWidth);
             if (newValue.imageChannels == 1) comboBoxColourMode.getSelectionModel().selectFirst();
@@ -202,7 +224,7 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
                 //comboBoxColourMode.setDisable(false);
                 checkBoxApplyAugmentation.setDisable(false);
             }
-            if (textFieldName.getText().equals("") || textFieldName.getText().equals(oldValue.name)) {
+            if (textFieldName.getText().equals("") || (oldValue != null && textFieldName.getText().equals(oldValue.name))) {
                 textFieldName.setText(newValue.name);
             }
         });
@@ -233,8 +255,7 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
         File savedOutput = new File(App.getPrefs().getTrainingPath());
         if (savedOutput.exists()) {
             textFieldOutputFolder.setText(savedOutput.getAbsolutePath());
-        }
-        else {
+        } else {
             if (supervisor.project.getFile() != null) {
                 textFieldOutputFolder.setText(supervisor.project.getFile().getParent() + File.separator + "training");
             } else {
@@ -269,6 +290,9 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
 
         //Network
         info.cnnId = networkInfo.networkType;
+        if (checkBoxUseTransferLearning.isSelected()) {
+            info.cnnId += "_tl";
+        }
         info.name = textFieldName.getText();
         info.description = "";
         info.cnnFilters = networkInfo.numFilters;
@@ -346,8 +370,7 @@ public class CNNTrainingViewController extends AbstractDialogController implemen
             } catch (IOException e) {
                 BasicDialogs.ShowException("Error opening folder", e);
             }
-        }
-        else {
+        } else {
             BasicDialogs.ShowError("Error", "Output folder has not been created yet");
         }
     }

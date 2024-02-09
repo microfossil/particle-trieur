@@ -147,12 +147,17 @@
                                 <CustomTextField fx:id="textFieldName" promptText="Name to identify the network"/>
                                 <Label styleClass="caption"
                                        text="Enter a custom name for this network (default is name of model)."/>
+                                <Label styleClass="subheader" text="Transfer Learning"/>
+                                <CheckBox fx:id="checkBoxUseTransferLearning" mnemonicParsing="false" selected="true" text="Use transfer learning"/>
+                                <Label styleClass="caption"
+                                       wrapText="true"
+                                       text="Transfer learning only trains the last layers of the CNN and is very quick to train but sacrifices some accuracy. Uncheck this box to enable full network training."/>
                                 <Label styleClass="subheader" text="Type"/>
                                 <ComboBox fx:id="comboBoxCNNType" maxWidth="1.7976931348623157E308"/>
                                 <Label fx:id="labelNetworkDescription" wrapText="true"/>
                                 <Label styleClass="caption"
                                        wrapText="true"
-                                       text="Select the type of model to train. Transfer learning networks (green) are faster to train, but lower accuracy. Custom networks (orange) have been designed for particle classification and require a GPU to train. Standard networks (red) are those available as part of the Tensorflow library and require a GPU to train."/>
+                                       text="Select the type of model to train. Orange networks are small networks designed for foraminifera and plankton classification (not avaible with transfer learning)."/>
                                 <Label styleClass="subheader" text="Image Size"/>
 <!--                                <GridPane hgap="14.0" vgap="7">-->
                                     <Label text="Image size:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
