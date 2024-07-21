@@ -17,6 +17,8 @@
             prefHeight="360.0" prefWidth="640.0">
     <VBox spacing="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <children>
+            <Label text="3.0.5b" styleClass="subheader"/>
+            <Label wrapText="true">Fix exception in nvidia-smi</Label>
             <Label text="3.0.5" styleClass="subheader"/>
             <Label wrapText="true">Add back in Tensorflow model support</Label>
             <Label text="3.0.3/4" styleClass="subheader"/>
